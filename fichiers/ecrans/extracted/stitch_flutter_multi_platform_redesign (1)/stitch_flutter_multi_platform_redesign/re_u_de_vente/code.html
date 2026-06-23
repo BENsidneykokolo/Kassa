@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reçu de Vente - Yabisso Kassa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "text-secondary": "#555555",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "surface-info": "#E6F1FB",
+                        "secondary-fixed-dim": "#a1c9ff",
+                        "on-background": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "on-surface-variant": "#3d4943",
+                        "surface": "#fcf9f8",
+                        "on-primary-fixed": "#002115",
+                        "primary-container": "#008560",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-dim": "#dcd9d9",
+                        "primary-fixed": "#86f8c9",
+                        "on-error-container": "#93000a",
+                        "surface-muted": "#F7F8FA",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001c38",
+                        "surface-tint": "#006c4e",
+                        "surface-warning": "#FAEEDA",
+                        "text-muted": "#999999",
+                        "surface-container-high": "#ebe7e7",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-secondary-container": "#003d6d",
+                        "outline": "#6d7a73",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0edec",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "tertiary": "#805200",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1c1b1b",
+                        "coral-red": "#E24B4A",
+                        "border-default": "#E0E0E0",
+                        "surface-error": "#FCEBEB",
+                        "tertiary-fixed": "#ffddb4",
+                        "on-tertiary-container": "#fffbff",
+                        "on-secondary": "#ffffff",
+                        "surface-success": "#E1F5EE",
+                        "primary": "#00694c",
+                        "inverse-primary": "#68dbae",
+                        "tertiary-container": "#a16900",
+                        "secondary": "#0060a8",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bccac1",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-fixed-variant": "#00513a",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#f5fff7",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#004880",
+                        "secondary-fixed": "#d2e4ff",
+                        "primary-fixed-dim": "#68dbae",
+                        "secondary-container": "#5da9fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-page": "16px",
+                        "stack-gap-sm": "8px",
+                        "stack-gap-md": "16px",
+                        "unit": "4px",
+                        "stack-gap-lg": "24px",
+                        "gutter-mobile": "12px",
+                        "gutter-desktop": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "caption": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf9f8; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .success-check-anim { animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+        @keyframes scaleIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .receipt-card { position: relative; overflow: hidden; }
+        .receipt-card::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 16px; background-image: linear-gradient(-45deg, transparent 33.33%, #ffffff 33.33%, #ffffff 66.66%, transparent 66.66%), linear-gradient(45deg, transparent 33.33%, #ffffff 33.33%, #ffffff 66.66%, transparent 66.66%); background-size: 16px 32px; background-position: 0 -16px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm flex justify-between items-center px-4 h-14">
+<div class="flex items-center gap-stack-gap-md">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container rounded-full transition-colors active:scale-95">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-on-surface-variant">battery_charging_full</span>
+</div>
+</header>
+<main class="pt-20 pb-32 px-margin-page max-w-2xl mx-auto">
+<!-- Success Banner -->
+<div class="flex flex-col items-center text-center mb-stack-gap-lg">
+<div class="w-20 h-20 bg-surface-success rounded-full flex items-center justify-center mb-stack-gap-md success-check-anim">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-unit">Vente Réussie</h2>
+<p class="font-body-md text-text-secondary">Transaction #88291-TXN effectuée avec succès</p>
+</div>
+<!-- Receipt Content -->
+<section class="bg-white rounded-xl shadow-sm border border-border-default receipt-card p-stack-gap-lg mb-stack-gap-lg">
+<!-- Merchant Header -->
+<div class="flex justify-between items-start mb-stack-gap-lg">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Kassa Store</h3>
+<p class="font-label-sm text-text-muted">Avenue de l'Indépendance, Kinshasa</p>
+<p class="font-label-sm text-text-muted">+243 812 345 678</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-on-surface">12 Oct 2023</p>
+<p class="font-label-md text-on-surface">14:45</p>
+</div>
+</div>
+<div class="border-t border-dashed border-border-default my-stack-gap-md"></div>
+<!-- Items Purchased -->
+<div class="space-y-stack-gap-md mb-stack-gap-lg">
+<!-- Item 1 -->
+<div class="flex justify-between items-start">
+<div class="flex-1">
+<p class="font-body-lg text-on-surface font-semibold">Huile Végétale 5L</p>
+<p class="font-body-md text-text-secondary">2 x 12,500 FC</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-surface-success text-primary text-[10px] px-1.5 py-0.5 rounded-full font-bold">REMISE -5%</span>
+</div>
+</div>
+<div class="text-right">
+<p class="font-body-lg text-on-surface">23,750 FC</p>
+<p class="font-label-sm text-text-muted line-through">25,000 FC</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex justify-between items-start">
+<div class="flex-1">
+<p class="font-body-lg text-on-surface font-semibold">Sac de Riz 25kg</p>
+<p class="font-body-md text-text-secondary">1 x 45,000 FC</p>
+</div>
+<div class="text-right">
+<p class="font-body-lg text-on-surface">45,000 FC</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex justify-between items-start">
+<div class="flex-1">
+<p class="font-body-lg text-on-surface font-semibold">Sucre Blanc 1kg</p>
+<p class="font-body-md text-text-secondary">4 x 2,000 FC</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-surface-info text-secondary text-[10px] px-1.5 py-0.5 rounded-full font-bold">PROMO</span>
+</div>
+</div>
+<div class="text-right">
+<p class="font-body-lg text-on-surface">8,000 FC</p>
+</div>
+</div>
+</div>
+<div class="border-t border-dashed border-border-default my-stack-gap-md"></div>
+<!-- Financial Summary -->
+<div class="space-y-2">
+<div class="flex justify-between font-body-md text-text-secondary">
+<span>Sous-total</span>
+<span>78,000 FC</span>
+</div>
+<div class="flex justify-between font-body-md text-coral-red">
+<span>Remise totale</span>
+<span>-1,250 FC</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="font-headline-md text-headline-md text-on-surface">Total à payer</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-extrabold">76,750 FC</span>
+</div>
+</div>
+<div class="bg-surface-muted rounded-lg p-stack-gap-md mt-stack-gap-md space-y-1">
+<div class="flex justify-between font-label-md text-text-secondary">
+<span>Montant Reçu (Cash)</span>
+<span class="text-on-surface">80,000 FC</span>
+</div>
+<div class="flex justify-between font-headline-md text-primary">
+<span>Monnaie à rendre</span>
+<span class="font-bold">3,250 FC</span>
+</div>
+</div>
+<div class="mt-stack-gap-lg text-center">
+<p class="font-label-sm text-text-muted italic">Merci de votre confiance. À bientôt chez Kassa Store!</p>
+</div>
+</section>
+<!-- Secondary Visualization / QR -->
+<div class="flex justify-center mb-stack-gap-lg">
+<div class="bg-white p-4 rounded-xl border border-border-default shadow-sm text-center">
+<div class="w-24 h-24 bg-surface-container rounded-lg mx-auto mb-2 flex items-center justify-center border border-outline-variant overflow-hidden">
+<img alt="Transaction QR Code" class="w-20 h-20 grayscale" data-alt="A clean, high-contrast QR code generated for a retail transaction receipt. The QR code is perfectly centered in a minimalist white square, surrounded by a subtle grey border. The aesthetic is professional and corporate, reflecting a secure financial environment in a modern African tech hub." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS8rZxz__Uq9hQzzvmZGFoU6gwqpzbv3CDK_b7NRw_S_1OjIC_Djgqxsgq5un7if5fcotQ1F8qWBImLfsRpEIj-KD01kyzpNKME2xBhTjTkCzf2dhwDyF5K5E150wINBSA3_51tRV60LURsNRkDcC_aEz1KtHV31dxzVZW7vutbK325lyw_9BAPNtGV3GPjBYqBwCPefLLvMUhnpNAjrN9lV_zRkkt12iQGwmCww9z8zxB7gPFlNA5HX4M8Bmp9mPBBmh3zlXuxJI"/>
+</div>
+<p class="font-label-sm text-text-muted uppercase tracking-widest">Scanner pour valider</p>
+</div>
+</div>
+</main>
+<!-- Action Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-4 py-4 z-50 flex gap-stack-gap-md">
+<button class="flex-1 h-14 bg-surface-container border border-border-default text-on-surface rounded-xl font-headline-md flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors active:scale-95" onclick="window.print()">
+<span class="material-symbols-outlined">print</span>
+            Imprimer
+        </button>
+<button class="flex-1 h-14 bg-on-background text-white rounded-xl font-headline-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+            Nouvelle vente
+        </button>
+</div>
+<!-- Bottom Nav Shell (Filtered for transactional focus, but kept structure for context) -->
+<!-- Hidden here as per "Task-Focused" suppression rule in instructions -->
+<script>
+        // Micro-interaction for feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body></html>

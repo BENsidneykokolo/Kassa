@@ -1,0 +1,338 @@
+<!DOCTYPE html><html class="light" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Yabisso Kassa - Connexion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-error": "#FCEBEB",
+                    "border-default": "#E0E0E0",
+                    "coral-red": "#E24B4A",
+                    "tertiary-fixed": "#ffddb4",
+                    "on-tertiary-container": "#fffbff",
+                    "primary": "#00694c",
+                    "inverse-primary": "#68dbae",
+                    "surface-success": "#E1F5EE",
+                    "on-secondary": "#ffffff",
+                    "background": "#fcf9f8",
+                    "secondary": "#0060a8",
+                    "tertiary-container": "#a16900",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bccac1",
+                    "on-primary-fixed-variant": "#00513a",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "on-secondary-fixed-variant": "#004880",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#f5fff7",
+                    "secondary-fixed": "#d2e4ff",
+                    "secondary-container": "#5da9fe",
+                    "primary-fixed-dim": "#68dbae",
+                    "on-tertiary-fixed-variant": "#633f00",
+                    "text-secondary": "#555555",
+                    "surface-info": "#E6F1FB",
+                    "on-background": "#1c1b1b",
+                    "secondary-fixed-dim": "#a1c9ff",
+                    "surface": "#fcf9f8",
+                    "on-surface-variant": "#3d4943",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-surface": "#313030",
+                    "surface-variant": "#e5e2e1",
+                    "on-primary-fixed": "#002115",
+                    "surface-muted": "#F7F8FA",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#86f8c9",
+                    "on-tertiary-fixed": "#291800",
+                    "primary-container": "#008560",
+                    "on-secondary-fixed": "#001c38",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#006c4e",
+                    "inverse-on-surface": "#f3f0ef",
+                    "text-muted": "#999999",
+                    "surface-container-high": "#ebe7e7",
+                    "surface-warning": "#FAEEDA",
+                    "on-secondary-container": "#003d6d",
+                    "outline": "#6d7a73",
+                    "tertiary-fixed-dim": "#ffb955",
+                    "tertiary": "#805200",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#f0edec",
+                    "on-surface": "#1c1b1b",
+                    "surface-container-highest": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-desktop": "24px",
+                    "gutter-mobile": "12px",
+                    "stack-gap-md": "16px",
+                    "unit": "4px",
+                    "stack-gap-lg": "24px",
+                    "stack-gap-sm": "8px",
+                    "margin-page": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "caption": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 224, 224, 0.5);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top AppBar (Identity Anchor) -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm flex justify-between items-center px-gutter-mobile h-14 w-full">
+<div class="flex items-center gap-stack-gap-sm">
+<span class="material-symbols-outlined text-primary font-headline-md text-headline-md">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-stack-gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">signal_cellular_alt</span>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-margin-page relative">
+<!-- Atmospheric Background Element -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden">
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary opacity-[0.03] rounded-full blur-3xl"></div>
+<div class="absolute bottom-48 -left-24 w-80 h-80 bg-secondary opacity-[0.03] rounded-full blur-3xl"></div>
+</div>
+<div class="w-full max-w-md space-y-stack-gap-lg z-10">
+<!-- Brand Welcome Section -->
+<div class="text-center space-y-stack-gap-sm mb-stack-gap-lg">
+<div class="inline-flex items-center justify-center p-unit bg-primary-container rounded-xl shadow-lg mb-stack-gap-sm animate-float">
+<div class="w-16 h-16 rounded-lg bg-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[40px]" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Bienvenue sur Yabisso</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Gérez votre commerce avec précision et simplicité.</p>
+</div>
+<!-- Main Interactive Card -->
+<div class="glass-card rounded-[2rem] p-8 shadow-sm space-y-stack-gap-lg">
+<!-- Tab Selector -->
+<div class="flex bg-surface-muted p-1 rounded-full border border-border-default">
+<button class="flex-1 py-2 text-center font-label-md text-label-md rounded-full bg-surface text-on-surface shadow-sm transition-all duration-200">Connexion</button>
+<button class="flex-1 py-2 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">S'inscrire</button>
+</div>
+<!-- Login Form -->
+<form class="space-y-stack-gap-md" onsubmit="return false">
+<div class="space-y-stack-gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Email ou Téléphone</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">person</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-muted border-none rounded-xl font-body-md focus:ring-2 focus:ring-primary focus:bg-surface transition-all" placeholder="votre@email.com" type="text">
+</div>
+</div>
+<div class="space-y-stack-gap-sm">
+<div class="flex justify-between items-center px-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Mot de passe</label>
+<a class="font-label-md text-label-md text-primary" href="#">Oublié ?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">lock</span>
+<input class="w-full h-14 pl-12 pr-12 bg-surface-muted border-none rounded-xl font-body-md focus:ring-2 focus:ring-primary focus:bg-surface transition-all" placeholder="••••••••" type="password">
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<button class="w-full h-14 bg-on-surface text-surface rounded-xl font-label-md text-label-md hover:bg-opacity-90 transition-all active:scale-[0.98] shadow-md mt-stack-gap-sm">
+                        Se connecter
+                    </button>
+</form>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-border-default"></div>
+<span class="flex-shrink mx-4 font-label-md text-label-md text-on-surface-variant">OU</span>
+<div class="flex-grow border-t border-border-default"></div>
+</div>
+<!-- Social Sign In -->
+<button class="w-full h-14 bg-surface-container-lowest border border-border-default text-on-surface rounded-xl font-label-md text-label-md flex items-center justify-center gap-stack-gap-sm hover:bg-surface-container-low transition-all active:scale-[0.98]">
+<svg class="w-5 h-5" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                    Continuer avec Google
+                </button>
+</div>
+<!-- Subscription Status Card (Bottom Anchor) -->
+<div class="bg-surface-error border border-coral-red/20 rounded-2xl p-6 flex items-start justify-between gap-stack-gap-md shadow-sm cursor-pointer">
+<div class="flex items-start gap-stack-gap-md">
+<div class="w-10 h-10 rounded-full bg-coral-red flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-surface text-[20px]" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-md text-[16px] text-coral-red">Abonnement expiré</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Votre accès est restreint. Renouvelez pour continuer à gérer votre boutique.</p>
+</div>
+</div>
+<div class="bg-coral-red text-white text-label-md px-4 py-2 rounded-xl font-bold flex-shrink-0 self-center">
+    Payer →
+  </div>
+</div>
+<p class="text-center font-caption text-caption text-on-surface-variant px-stack-gap-lg">
+                En continuant, vous acceptez nos <a class="underline" href="#">Conditions d'Utilisation</a> et notre <a class="underline" href="#">Politique de Confidentialité</a>.
+            </p>
+</div>
+<div class="fixed inset-0 z-50 flex items-end justify-center bg-on-background/50 backdrop-blur-sm">
+<div class="bg-surface w-full max-w-md rounded-t-[2rem] p-6 shadow-2xl animate-float">
+<div class="w-12 h-1.5 bg-surface-variant rounded-full mx-auto mb-6"></div>
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Renouveler l'abonnement</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Choisis ton plan et paie par Mobile Money</p>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center justify-between p-4 rounded-2xl border-2 border-primary bg-surface-success">
+<div>
+<div class="font-label-md text-on-surface">1 mois</div>
+<div class="font-body-md text-primary font-semibold">5 000 FCFA</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[16px]">check</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 rounded-2xl border border-border-default bg-surface-muted">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface">3 mois</span>
+<span class="bg-surface-warning text-[10px] px-2 py-0.5 rounded-full font-bold text-tertiary">-10%</span>
+</div>
+<div class="font-body-md text-on-surface-variant">13 500 FCFA</div>
+</div>
+<div class="w-6 h-6 rounded-full border border-border-default"></div>
+</div>
+</div>
+<div class="mb-4">
+<label class="font-label-md text-label-md text-on-surface-variant mb-3 block">Payer via Mobile Money</label>
+<div class="grid grid-cols-2 gap-3"><button class="flex flex-col items-center gap-1 p-3 rounded-xl border-2 border-primary bg-surface-success">
+<span class="text-2xl">🟡</span>
+<span class="font-label-md text-[11px]">MTN Money</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-3 rounded-xl border border-border-default bg-surface-muted">
+<span class="text-2xl">🔴</span>
+<span class="font-label-md text-[11px]">Airtel Money</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-3 rounded-xl border border-border-default bg-surface-muted">
+<span class="material-symbols-outlined text-primary text-2xl">chat</span>
+<span class="font-label-md text-[11px]">Payez via WhatsApp</span>
+</button></div>
+</div>
+<button class="w-full h-14 bg-primary text-white rounded-xl font-label-md text-label-md shadow-lg mb-3">Payer 5 000 FCFA — MTN Money</button>
+<button class="w-full py-2 text-center font-label-md text-on-surface-variant hover:text-on-surface">
+      Annuler
+    </button>
+</div>
+</div></main>
+<!-- Visual Polish: Decorative Illustration in background for desktop -->
+<div class="hidden lg:block fixed right-0 top-0 w-1/3 h-full bg-surface-container-low -z-10">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-96 h-[600px] bg-white rounded-[3rem] shadow-2xl relative overflow-hidden p-8 space-y-6">
+<!-- Mockup of Dashboard -->
+<div class="h-8 w-1/2 bg-surface-muted rounded-full"></div>
+<div class="grid grid-cols-2 gap-4">
+<div class="h-24 bg-surface-info rounded-2xl animate-pulse"></div>
+<div class="h-24 bg-surface-warning rounded-2xl animate-pulse"></div>
+</div>
+<div class="h-48 bg-surface-muted rounded-2xl flex items-end p-4 gap-2">
+<div class="flex-1 bg-primary rounded-t-lg h-2/3"></div>
+<div class="flex-1 bg-secondary rounded-t-lg h-full"></div>
+<div class="flex-1 bg-primary rounded-t-lg h-1/2"></div>
+<div class="flex-1 bg-secondary rounded-t-lg h-3/4"></div>
+</div>
+<div class="space-y-3">
+<div class="h-12 bg-surface-muted rounded-xl flex items-center px-4 justify-between">
+<div class="w-24 h-4 bg-border-default rounded"></div>
+<div class="w-12 h-4 bg-primary/20 rounded"></div>
+</div>
+<div class="h-12 bg-surface-muted rounded-xl flex items-center px-4 justify-between">
+<div class="w-32 h-4 bg-border-default rounded"></div>
+<div class="w-12 h-4 bg-primary/20 rounded"></div>
+</div>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+</div>
+</div>
+</div>
+<!-- Minimal Scripts for interaction -->
+<script>
+        // Simple input focus effects or validation can go here
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Tab switching logic (Visual only for this demo)
+        const tabs = document.querySelectorAll('button.flex-1');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('bg-surface', 'text-on-surface', 'shadow-sm');
+                    t.classList.add('text-on-surface-variant');
+                });
+                tab.classList.add('bg-surface', 'text-on-surface', 'shadow-sm');
+                tab.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+
+
+</body></html>

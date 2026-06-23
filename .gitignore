@@ -1,0 +1,11 @@
+*.log
+*.ps1
+*.bat
+build_output.log
+apk_info.ps1
+nul
+.DS_Store
+*/build/
+*.exe
+*.apk
+fichiers/doc google/

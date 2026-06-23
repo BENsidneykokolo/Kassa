@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Liste des Fournisseurs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-error": "#FCEBEB",
+                        "inverse-primary": "#68dbae",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary-fixed": "#001c38",
+                        "on-primary-fixed-variant": "#00513a",
+                        "surface-success": "#E1F5EE",
+                        "secondary-fixed-dim": "#a1c9ff",
+                        "on-primary": "#ffffff",
+                        "primary": "#00694c",
+                        "text-secondary": "#555555",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-container": "#5da9fe",
+                        "error-container": "#ffdad6",
+                        "surface-muted": "#F7F8FA",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#6d7a73",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#003d6d",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-high": "#ebe7e7",
+                        "secondary": "#0060a8",
+                        "tertiary-fixed": "#ffddb4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container": "#f0edec",
+                        "tertiary-container": "#a16900",
+                        "on-primary-fixed": "#002115",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#805200",
+                        "on-tertiary-container": "#fffbff",
+                        "inverse-surface": "#313030",
+                        "on-surface-variant": "#3d4943",
+                        "primary-fixed-dim": "#68dbae",
+                        "border-default": "#E0E0E0",
+                        "surface-info": "#E6F1FB",
+                        "text-muted": "#999999",
+                        "on-secondary-fixed-variant": "#004880",
+                        "on-primary-container": "#f5fff7",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-tint": "#006c4e",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "background": "#fcf9f8",
+                        "primary-fixed": "#86f8c9",
+                        "primary-container": "#008560",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "secondary-fixed": "#d2e4ff",
+                        "surface-warning": "#FAEEDA",
+                        "outline-variant": "#bccac1",
+                        "coral-red": "#E24B4A"
+                    },
+                    "spacing": {
+                        "stack-gap-md": "16px",
+                        "unit": "4px",
+                        "stack-gap-sm": "8px",
+                        "margin-page": "16px",
+                        "gutter-desktop": "24px",
+                        "stack-gap-lg": "24px",
+                        "gutter-mobile": "12px"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .supplier-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-gutter-mobile h-14 w-full">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 transition-transform duration-100">
+                menu
+            </button>
+<h1 class="font-bold text-on-surface dark:text-inverse-on-surface font-headline-md text-headline-md" style="font-size: 20px; line-height: 28px;">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-on-surface-variant">signal_cellular_alt</span>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">
+                KS
+            </div>
+</div>
+</header>
+<main class="pt-20 px-4 md:px-gutter-desktop max-w-7xl mx-auto"><section class="mb-stack-gap-lg"><div class="flex flex-col md:flex-row md:items-end justify-between gap-4"><div><h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-2" style="font-size: 32px; line-height: 40px; font-weight: 700;">Achat stock</h2><p class="text-on-surface-variant font-body-md text-body-md" style="font-size: 14px; line-height: 20px;">Appelle pour commander tes produits.</p></div><div class="flex gap-stack-gap-sm"><div class="relative flex-grow md:flex-grow-0"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl bg-surface-muted border-none focus:ring-2 focus:ring-primary focus:bg-white transition-all font-body-md text-body-md" placeholder="Rechercher un produit..." type="text"/></div></div></div></section><div class="flex flex-col gap-4"><div class="bg-surface-container-lowest border border-border-default rounded-[24px] p-4 flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-surface-muted flex items-center justify-center text-3xl">🥤</div><div class="flex-1"><div class="font-headline-md text-on-surface" style="font-size: 16px; font-weight: 600;">Coca-Cola</div><div class="text-on-surface-variant text-body-md">Commander : <b>50 unités</b></div><div class="mt-1"><span class="px-2 py-0.5 rounded-full bg-surface-success text-primary font-label-md" style="font-size: 10px;">👥 2 fournisseurs</span></div></div><button class="bg-surface-success text-primary border border-primary px-4 py-2 rounded-full font-label-md flex items-center gap-2 active:scale-95 transition-transform" onclick="openSupplierPopup()"><span class="material-symbols-outlined text-[18px]">call</span>Appeler</button></div><div class="bg-surface-container-lowest border border-border-default rounded-[24px] p-4 flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-surface-muted flex items-center justify-center text-3xl">🧴</div><div class="flex-1"><div class="font-headline-md text-on-surface" style="font-size: 16px; font-weight: 600;">Savon Lux</div><div class="text-on-surface-variant text-body-md">Commander : <b>30 unités</b></div><div class="mt-1"><span class="px-2 py-0.5 rounded-full bg-surface-info text-secondary font-label-md" style="font-size: 10px;">Dist. Brazza</span></div></div><button class="bg-surface-success text-primary border border-primary px-4 py-2 rounded-full font-label-md flex items-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">call</span>Appeler</button></div><div class="bg-surface-container-lowest border border-border-default rounded-[24px] p-4 flex items-center gap-4 opacity-60"><div class="w-14 h-14 rounded-2xl bg-surface-muted flex items-center justify-center text-3xl">🍪</div><div class="flex-1"><div class="font-headline-md text-on-surface" style="font-size: 16px; font-weight: 600;">Biscuits</div><div class="text-on-surface-variant text-body-md">Commander : <b>20 unités</b></div><div class="mt-1"><span class="px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-md" style="font-size: 10px;">Non défini</span></div></div><button class="bg-surface-muted text-text-muted border border-border-default px-4 py-2 rounded-full font-label-md flex items-center gap-2 cursor-not-allowed"><span class="material-symbols-outlined text-[18px]">call</span>Appeler</button></div><div class="bg-surface-container-lowest border border-border-default rounded-[24px] p-4 flex items-center gap-4"><div class="w-14 h-14 rounded-2xl bg-surface-muted flex items-center justify-center text-3xl">🥖</div><div class="flex-1"><div class="font-headline-md text-on-surface" style="font-size: 16px; font-weight: 600;">Pain</div><div class="text-on-surface-variant text-body-md">Commander : <b>100 unités</b></div><div class="mt-1"><span class="px-2 py-0.5 rounded-full bg-surface-success text-primary font-label-md" style="font-size: 10px;">👥 2 fournisseurs</span></div></div><button class="bg-surface-success text-primary border border-primary px-4 py-2 rounded-full font-label-md flex items-center gap-2 active:scale-95 transition-transform" onclick="openSupplierPopup()"><span class="material-symbols-outlined text-[18px]">call</span>Appeler</button></div></div></main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-20 bg-surface dark:bg-surface-container-low shadow-[0_-4px_12px_rgba(0,0,0,0.05)] flex justify-around items-center px-4 pb-2 z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-md text-label-md-mobile" style="font-size: 12px;">Sales</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md-mobile" style="font-size: 12px;">Inventory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md-mobile" style="font-size: 12px;">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md-mobile" style="font-size: 12px;">Settings</span>
+</a>
+</nav>
+<!-- Success Modal Overlay (Hidden by default) -->
+<div class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4" id="callModal">
+<div class="bg-surface rounded-3xl p-8 max-w-sm w-full shadow-2xl scale-90 transition-transform">
+<div class="w-20 h-20 bg-surface-success text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-[40px]">phone_in_talk</span>
+</div>
+<h3 class="text-center font-headline-md text-headline-md mb-2">Appel en cours...</h3>
+<p class="text-center text-on-surface-variant mb-8" id="modalSupplier">Brasserie du Congo</p>
+<button class="w-full bg-error text-on-error py-4 rounded-2xl font-bold active:scale-95 transition-transform" onclick="closeModal()">
+                Raccrocher
+            </button>
+</div>
+</div>
+<script>
+        function openModal(name) {
+            const modal = document.getElementById('callModal');
+            document.getElementById('modalSupplier').innerText = name;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('div').classList.remove('scale-90');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('callModal');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-90');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        // Add event listeners to all 'Appeler' buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Appeler')) {
+                btn.addEventListener('click', function() {
+                    const supplierName = this.closest('.supplier-card-hover').querySelector('h3').innerText;
+                    openModal(supplierName);
+                });
+            }
+        });
+    </script>
+<div class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm hidden flex items-end justify-center" id="supplierPopup"><div class="bg-surface w-full max-w-md rounded-t-[32px] p-6 shadow-2xl transform translate-y-full transition-transform duration-300"><div class="w-12 h-1.5 bg-surface-variant rounded-full mx-auto mb-6"></div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 rounded-xl bg-surface-muted flex items-center justify-center text-2xl">🥤</div><div><h3 class="font-headline-md text-on-surface">Coca-Cola — 50 unités</h3><p class="text-on-surface-variant text-body-md">Choisis le fournisseur à appeler</p></div></div><div class="flex flex-col gap-3 mb-6"><div class="bg-surface-muted p-4 rounded-2xl flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-surface-info flex items-center justify-center text-xl">🥤</div><div><div class="font-bold text-on-surface">Brasserie du Congo</div><div class="text-xs text-on-surface-variant">06 812 34 56</div></div></div><button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span>Appeler</button></div><div class="bg-surface-muted p-4 rounded-2xl flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-surface-warning flex items-center justify-center text-xl">🏪</div><div><div class="font-bold text-on-surface">Grossiste Poto-Poto</div><div class="text-xs text-on-surface-variant">05 234 11 22</div></div></div><button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span>Appeler</button></div></div><button class="w-full py-3 text-on-surface-variant font-label-md" onclick="closeSupplierPopup()">Annuler</button></div></div></body></html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Paiement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "text-secondary": "#555555",
+                      "on-tertiary-fixed-variant": "#633f00",
+                      "surface-info": "#E6F1FB",
+                      "secondary-fixed-dim": "#a1c9ff",
+                      "on-background": "#1c1b1b",
+                      "surface-variant": "#e5e2e1",
+                      "surface-bright": "#fcf9f8",
+                      "inverse-surface": "#313030",
+                      "on-surface-variant": "#3d4943",
+                      "surface": "#fcf9f8",
+                      "on-primary-fixed": "#002115",
+                      "primary-container": "#008560",
+                      "on-tertiary-fixed": "#291800",
+                      "surface-dim": "#dcd9d9",
+                      "primary-fixed": "#86f8c9",
+                      "on-error-container": "#93000a",
+                      "surface-muted": "#F7F8FA",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#001c38",
+                      "surface-tint": "#006c4e",
+                      "surface-warning": "#FAEEDA",
+                      "text-muted": "#999999",
+                      "surface-container-high": "#ebe7e7",
+                      "inverse-on-surface": "#f3f0ef",
+                      "on-secondary-container": "#003d6d",
+                      "outline": "#6d7a73",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#f0edec",
+                      "tertiary-fixed-dim": "#ffb955",
+                      "tertiary": "#805200",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-surface": "#1c1b1b",
+                      "coral-red": "#E24B4A",
+                      "border-default": "#E0E0E0",
+                      "surface-error": "#FCEBEB",
+                      "tertiary-fixed": "#ffddb4",
+                      "on-tertiary-container": "#fffbff",
+                      "on-secondary": "#ffffff",
+                      "surface-success": "#E1F5EE",
+                      "primary": "#00694c",
+                      "inverse-primary": "#68dbae",
+                      "tertiary-container": "#a16900",
+                      "secondary": "#0060a8",
+                      "background": "#fcf9f8",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#bccac1",
+                      "surface-container-low": "#f6f3f2",
+                      "on-primary-fixed-variant": "#00513a",
+                      "on-error": "#ffffff",
+                      "on-primary-container": "#f5fff7",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed-variant": "#004880",
+                      "secondary-fixed": "#d2e4ff",
+                      "primary-fixed-dim": "#68dbae",
+                      "secondary-container": "#5da9fe"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-page": "16px",
+                      "stack-gap-sm": "8px",
+                      "stack-gap-md": "16px",
+                      "unit": "4px",
+                      "stack-gap-lg": "24px",
+                      "gutter-mobile": "12px",
+                      "gutter-desktop": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "caption": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pressed-state {
+            transform: scale(0.96);
+            transition: transform 0.1s ease;
+        }
+        .active-chip {
+            background-color: #00694c;
+            color: white;
+        }
+        .numpad-btn:active {
+            background-color: #f0edec;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-gutter-mobile h-14">
+<div class="flex items-center gap-stack-gap-md">
+<button class="material-symbols-outlined text-on-surface active:scale-95 transition-transform" data-icon="close">close</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Paiement</h1>
+</div>
+<div class="flex items-center gap-stack-gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<div class="bg-surface-success px-3 py-1 rounded-full text-primary font-label-md text-label-md">En ligne</div>
+</div>
+</nav>
+<main class="pt-16 pb-24 px-4 md:px-gutter-desktop max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-stack-gap-lg">
+<!-- Left Column: Cart & Products (Bento Style) -->
+<div class="md:col-span-7 flex flex-col gap-stack-gap-md">
+<!-- Summary Card -->
+<div class="bg-surface-container-lowest rounded-xl p-stack-gap-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-border-default">
+<div class="flex justify-between items-start mb-stack-gap-sm">
+<div>
+<span class="font-label-md text-label-md text-text-secondary">TOTAL À PAYER</span>
+<div class="flex items-baseline gap-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">11 550 FCFA</h2>
+<span class="text-coral-red line-through font-body-md text-body-md">14 000 FCFA</span>
+</div>
+</div>
+<div class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm">
+                        Remise -11%
+                    </div>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-stack-gap-sm">
+<!-- Product Card 1 -->
+<div class="bg-surface-container rounded-xl p-3 border border-border-default flex flex-col justify-between hover:border-primary transition-all cursor-pointer group" onclick="document.getElementById('price-edit-modal').classList.remove('hidden')">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-lg bg-surface-muted flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="local_cafe">local_cafe</span>
+</div>
+<span class="bg-on-background text-white rounded-full px-2 py-0.5 text-[10px] font-bold">x3</span>
+</div>
+<div><div class="flex flex-col">
+<p class="font-label-md text-label-md truncate">Café Arabica</p>
+<div class="flex items-center gap-1">
+<span class="text-[10px] text-text-muted line-through">4 500</span>
+<p class="font-bold text-coral-red">3 600 FCFA</p>
+</div>
+<span class="text-[9px] font-bold text-coral-red flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">edit</span> modifié
+  </span>
+</div></div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container rounded-xl p-3 border border-border-default flex flex-col justify-between hover:border-primary transition-all cursor-pointer" onclick="document.getElementById('price-edit-modal').classList.remove('hidden')">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-lg bg-surface-muted flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="bakery_dining">bakery_dining</span>
+</div>
+<span class="bg-on-background text-white rounded-full px-2 py-0.5 text-[10px] font-bold">x2</span>
+</div>
+<div>
+<p class="font-label-md text-label-md truncate">Croissant Beurre</p>
+<p class="font-bold text-primary">1 200 FCFA</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container rounded-xl p-3 border border-border-default flex flex-col justify-between hover:border-primary transition-all cursor-pointer" onclick="document.getElementById('price-edit-modal').classList.remove('hidden')">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-lg bg-surface-muted flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="restaurant_menu">restaurant_menu</span>
+</div>
+<span class="bg-on-background text-white rounded-full px-2 py-0.5 text-[10px] font-bold">x1</span>
+</div>
+<div>
+<p class="font-label-md text-label-md truncate">Plat du Jour</p>
+<p class="font-bold text-primary">6 750 FCFA</p>
+</div>
+</div>
+<!-- Add Discount Action Card -->
+<div class="bg-surface-warning/20 border-2 border-dashed border-tertiary-container rounded-xl p-3 flex flex-col items-center justify-center text-tertiary gap-1 cursor-pointer hover:bg-surface-warning/40 transition-colors">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-md text-label-md">Ajouter Remise</span>
+</div>
+</div>
+<!-- Discount Management Section -->
+<div class="bg-white rounded-xl p-stack-gap-md border border-border-default">
+<h3 class="font-label-md text-label-md text-text-secondary uppercase tracking-wider mb-stack-gap-sm">Gestion des Remises</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-muted transition-colors">-5%</button>
+<button class="px-4 py-2 rounded-full bg-primary text-white font-label-md text-label-md transition-colors">-10%</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-muted transition-colors">-15%</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-muted transition-colors">Perso.</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Numpad & Total Received -->
+<div class="md:col-span-5 flex flex-col gap-stack-gap-md">
+<!-- Amount Received Input -->
+<div class="bg-surface-container-lowest rounded-xl p-stack-gap-md shadow-sm border border-border-default">
+<label class="font-label-sm text-label-sm text-text-muted mb-1 block">MONTANT REÇU</label>
+<div class="flex items-center justify-between">
+<div class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface" id="received-display">15 000</div>
+<span class="font-headline-md text-text-muted">FCFA</span>
+</div>
+</div>
+<!-- Numpad -->
+<div class="grid grid-cols-3 gap-2 bg-surface-container p-2 rounded-2xl">
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">1</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">2</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">3</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">4</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">5</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">6</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">7</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">8</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">9</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">.</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-container-lowest font-headline-md flex items-center justify-center transition-all active:scale-95 shadow-sm">0</button>
+<button class="numpad-btn h-16 rounded-xl bg-surface-error text-error flex items-center justify-center transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined" data-icon="backspace">backspace</span>
+</button>
+</div>
+<!-- Change to Return (Monnaie à rendre) -->
+<div class="bg-surface-success border border-primary/20 rounded-xl p-stack-gap-md flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-primary uppercase font-bold">Monnaie à rendre</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">2 550 FCFA</h2>
+</div>
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="payments">payments</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Sticky Payment Bar -->
+<div class="fixed bottom-0 w-full h-24 bg-surface dark:bg-surface-container-low shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-4 flex items-center justify-center z-40">
+<div class="max-w-7xl w-full flex gap-4">
+<button class="flex-1 h-14 bg-on-background text-white rounded-xl font-headline-md flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="print">print</span>
+                Ticket
+            </button>
+<button class="flex-[2] h-14 bg-primary text-white rounded-xl font-headline-md flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                Valider le Paiement
+            </button>
+</div>
+</div>
+<!-- Hidden Drawer / Sidebar for Desktop -->
+<aside class="hidden lg:flex flex-col h-full w-80 fixed left-0 top-0 z-[60] bg-surface border-r border-border-default py-stack-gap-lg transition-transform -translate-x-full">
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="storefront">storefront</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md leading-tight">Kassa Store</h4>
+<p class="text-caption text-text-muted">ID: 88291</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-6 py-3 text-primary bg-primary-container/10 font-label-md border-r-4 border-primary" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+                Ventes
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-muted transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                Inventaire
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-muted transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Rapports
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-muted transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Réglages
+            </a>
+</nav>
+<div class="px-6 pt-4 border-t border-border-default">
+<button class="flex items-center gap-4 text-error font-label-md w-full py-2">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Déconnexion
+            </button>
+</div>
+</aside>
+<!-- Overlay (for mobile drawer logic) -->
+<div class="fixed inset-0 bg-black/50 z-50 hidden backdrop-blur-sm" id="drawer-overlay"></div>
+<script>
+        // Simple Interaction logic
+        const numButtons = document.querySelectorAll('.numpad-btn');
+        const display = document.getElementById('received-display');
+        let currentAmount = "15000";
+
+        numButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const val = btn.innerText.trim();
+                const icon = btn.querySelector('.material-symbols-outlined');
+                
+                if (icon && icon.getAttribute('data-icon') === 'backspace') {
+                    currentAmount = currentAmount.slice(0, -1);
+                } else if (val && val !== '.') {
+                    currentAmount += val;
+                } else if (val === '.' && !currentAmount.includes('.')) {
+                    currentAmount += val;
+                }
+
+                display.innerText = currentAmount === "" ? "0" : currentAmount;
+                
+                // Add a little pop effect
+                display.classList.add('scale-105');
+                setTimeout(() => display.classList.remove('scale-105'), 100);
+            });
+        });
+
+        // Toggle Drawer logic (for demo purposes)
+        const menuBtn = document.querySelector('[data-icon="menu"]');
+        // Since we didn't include the menu icon in the top bar specifically to match the payment screen focus, 
+        // this is a placeholder for actual app navigation logic.
+    </script>
+<div class="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" id="price-edit-modal">
+<div class="bg-surface w-full max-w-md mx-4 rounded-2xl shadow-lg overflow-hidden">
+<div class="p-stack-gap-md border-b border-border-default flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-lg bg-surface-muted flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">local_cafe</span>
+</div>
+<div>
+<h3 class="font-headline-md">Café Arabica</h3>
+<p class="text-label-sm text-text-muted">Quantité: 3</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-text-secondary" onclick="document.getElementById('price-edit-modal').classList.add('hidden')">close</button>
+</div>
+<div class="p-stack-gap-md space-y-4">
+<div>
+<label class="text-label-sm text-text-muted uppercase">Nouveau prix / unité</label>
+<div class="flex items-baseline justify-between mt-1">
+<div class="text-3xl font-bold text-on-surface">1 200</div>
+<div class="text-headline-md text-text-muted">FCFA</div>
+</div>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-label-sm text-text-muted">Prix original: 1 500 FCFA</span>
+<span class="bg-surface-error text-error px-2 py-0.5 rounded-full text-[10px] font-bold">-20%</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 bg-surface-container p-2 rounded-xl">
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">1</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">2</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">3</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">4</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">5</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">6</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">7</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">8</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">9</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">0</button>
+<button class="h-12 rounded-lg bg-surface-container-lowest font-bold active:bg-surface-muted">00</button>
+<button class="h-12 rounded-lg bg-surface-error text-error flex items-center justify-center active:opacity-80">
+<span class="material-symbols-outlined">backspace</span>
+</button>
+</div>
+<div class="bg-surface-muted p-3 rounded-xl flex justify-between items-center">
+<span class="text-label-md">Total pour 3 unités</span>
+<div class="text-right">
+<div class="text-text-muted line-through text-label-sm">4 500 FCFA</div>
+<div class="text-headline-md text-coral-red">3 600 FCFA</div>
+</div>
+</div>
+</div>
+<div class="p-4 flex gap-3">
+<button class="flex-1 py-3 border border-outline-variant rounded-xl font-bold" onclick="document.getElementById('price-edit-modal').classList.add('hidden')">Annuler</button>
+<button class="flex-1 py-3 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/20">Confirmer</button>
+</div>
+</div>
+</div></body></html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Modern POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-error": "#FCEBEB",
+                    "border-default": "#E0E0E0",
+                    "coral-red": "#E24B4A",
+                    "tertiary-fixed": "#ffddb4",
+                    "on-tertiary-container": "#fffbff",
+                    "primary": "#00694c",
+                    "inverse-primary": "#68dbae",
+                    "surface-success": "#E1F5EE",
+                    "on-secondary": "#ffffff",
+                    "background": "#fcf9f8",
+                    "secondary": "#0060a8",
+                    "tertiary-container": "#a16900",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bccac1",
+                    "on-primary-fixed-variant": "#00513a",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "on-secondary-fixed-variant": "#004880",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#f5fff7",
+                    "secondary-fixed": "#d2e4ff",
+                    "secondary-container": "#5da9fe",
+                    "primary-fixed-dim": "#68dbae",
+                    "on-tertiary-fixed-variant": "#633f00",
+                    "text-secondary": "#555555",
+                    "surface-info": "#E6F1FB",
+                    "on-background": "#1c1b1b",
+                    "secondary-fixed-dim": "#a1c9ff",
+                    "surface": "#fcf9f8",
+                    "on-surface-variant": "#3d4943",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-surface": "#313030",
+                    "surface-variant": "#e5e2e1",
+                    "on-primary-fixed": "#002115",
+                    "surface-muted": "#F7F8FA",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#86f8c9",
+                    "on-tertiary-fixed": "#291800",
+                    "primary-container": "#008560",
+                    "on-secondary-fixed": "#001c38",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#006c4e",
+                    "inverse-on-surface": "#f3f0ef",
+                    "text-muted": "#999999",
+                    "surface-container-high": "#ebe7e7",
+                    "surface-warning": "#FAEEDA",
+                    "on-secondary-container": "#003d6d",
+                    "outline": "#6d7a73",
+                    "tertiary-fixed-dim": "#ffb955",
+                    "tertiary": "#805200",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#f0edec",
+                    "on-surface": "#1c1b1b",
+                    "surface-container-highest": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-desktop": "24px",
+                    "gutter-mobile": "12px",
+                    "stack-gap-md": "16px",
+                    "unit": "4px",
+                    "stack-gap-lg": "24px",
+                    "stack-gap-sm": "8px",
+                    "margin-page": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "caption": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-gutter-mobile h-14 w-full">
+<div class="flex items-center gap-stack-gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-100">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-stack-gap-md">
+<!-- Online Status Indicator -->
+<div class="flex items-center gap-2 bg-surface-success px-3 py-1 rounded-full border border-primary/10">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-md text-label-md text-primary">Online</span>
+</div>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">signal_cellular_alt</span>
+</div>
+</header>
+<main class="pt-20 pb-32 px-gutter-mobile md:px-gutter-desktop min-h-screen">
+<!-- Modern Search Bar & Categories -->
+<section class="mb-stack-gap-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-muted border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all shadow-sm font-body-lg text-body-lg" placeholder="Search products, SKUs, or categories..." type="text"/>
+</div>
+<div class="flex gap-stack-gap-sm mt-stack-gap-md overflow-x-auto hide-scrollbar pb-2">
+<button class="whitespace-nowrap px-4 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md shadow-md active:scale-95 transition-transform">All Items</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container hover:bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md transition-colors">Groceries</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container hover:bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md transition-colors">Beverages</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container hover:bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md transition-colors">Electronics</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container hover:bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md transition-colors">Health &amp; Beauty</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container hover:bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-label-md transition-colors">Stationery</button>
+</div>
+</section>
+<!-- Product Grid -->
+<section class="bento-grid">
+<!-- Product Card 1 -->
+<div class="group bg-surface-container-lowest border border-border-default rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="relative aspect-square bg-surface-muted overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality, professional product photograph of fresh organic oranges with vibrant citrus colors. The fruit is arranged on a clean, light surface with soft directional lighting that highlights the textures of the orange peel. The background is a soft, minimalist white that creates a high-trust, modern retail aesthetic, punctuated by the natural warm orange tones of the fruit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3LtNPWuN7lY7MSQdPmNYkyXdLDDjo0FdThRqFGPFPcSffsBbZs1Y72xexP8nCDYiJ2Vezu6Zswqjvcm8KjizZyH9N0rqQ85C_355_PKcxz_CbmdN0IinI7l84JHMpvXmZWFAHD5fPuqe2z_ca9rBH90P7f-IqzclRXnnPXts_-RQYPEkPZZzsI1g-j1ApFk2Xo9vZ1tvHUa4SvpWs2dPfQTsvUZ2XwPeZxpJJ3JFORPjIduaHwfNF7Tz9sXGwVVChXmZYz3Z-Y4Q"/>
+<div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg shadow-sm">
+<span class="font-label-md text-label-md text-on-surface">ETB 145.00</span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Organic Oranges</h3>
+<p class="font-label-sm text-label-sm text-text-muted">In stock: 42kg</p>
+</div>
+<div class="mt-4 flex items-center justify-between bg-surface-container rounded-xl p-1">
+<button class="p-2 bg-surface-container-highest hover:bg-border-default text-on-surface rounded-lg active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-headline-md text-headline-md px-2">0</span>
+<button class="p-2 bg-primary text-on-primary rounded-lg shadow-sm active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface-container-lowest border border-border-default rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="relative aspect-square bg-surface-muted overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A professional studio product shot of a sleek glass bottle of premium mineral water. The lighting is crisp and clean, reflecting brilliantly off the glass surfaces to convey purity and freshness. Set against a soft, airy blue-and-white background, the image maintains a sophisticated corporate look with cool tones and high contrast, perfect for a high-end POS interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZgpYgJ6KVcAGfWCw7YxHTjADIgcMbR3WtC-N4w_3thinge0mnbfxd-TMxX6MEC-SOS_Gwaj35M5_7-qTNS2k-IZwdjJyKuBNd2yU5yVs9T5Lb5eJPLsXG7kgEBxykUgXasl4L6Iu9Eye6f1RO-8kJjW6de41EAex2SMM7Rz6tIPSQhwASOszHmWBnuMBZMPqqa4aB1isAOKS87oR6ep-RLWfWDf59WwYOY0DoAwmgEAL-Tp2sM-q8zvzWqM_N4J15LmVDiyvQJxE"/>
+<div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg shadow-sm">
+<span class="font-label-md text-label-md text-on-surface">ETB 25.00</span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Mineral Water 500ml</h3>
+<p class="font-label-sm text-label-sm text-text-muted">In stock: 124 units</p>
+</div>
+<div class="mt-4 flex items-center justify-between bg-surface-container rounded-xl p-1">
+<button class="p-2 bg-surface-container-highest hover:bg-border-default text-on-surface rounded-lg active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-headline-md text-headline-md px-2">2</span>
+<button class="p-2 bg-primary text-on-primary rounded-lg shadow-sm active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface-container-lowest border border-border-default rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="relative aspect-square bg-surface-muted overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-end product presentation of artisan sourdough bread on a dark, rustic wooden table. The lighting is moody and warm, emphasizing the crust's golden texture and scattered flour. This rich, tactile visual style aligns with the African tech aesthetic, combining traditional craftsmanship with modern photographic techniques, using earthy tones and sharp focal clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpOBBoPKPtGbfsy7A4zw64UiAvvSyfIxipQONg5sFIYj-FQ3JQTJLmRyrfPTrITV-sEqqFBNN7Kak8LiOXIpBgx8vlIeGt5Xu-7OQJyCvrr3jK591eDMobzn9JURIW4_zR3YvqHmNJyldmqo2EKlUjqRqRa4JdKpR8gTRjA1PtasamC5Y7joQ6YD1_l8JF2LEB2rXPaDnuY0My_PzkddFxxHpLjaseJSbOHAAs2LjUM2EdQT92xBegodz7iMRGWg-Q5nv3RcBWpHw"/>
+<div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg shadow-sm">
+<span class="font-label-md text-label-md text-on-surface">ETB 60.00</span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Fresh Artisan Bread</h3>
+<p class="font-label-sm text-label-sm text-text-muted">In stock: 12 units</p>
+</div>
+<div class="mt-4 flex items-center justify-between bg-surface-container rounded-xl p-1">
+<button class="p-2 bg-surface-container-highest hover:bg-border-default text-on-surface rounded-lg active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-headline-md text-headline-md px-2">0</span>
+<button class="p-2 bg-primary text-on-primary rounded-lg shadow-sm active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group bg-surface-container-lowest border border-border-default rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="relative aspect-square bg-surface-muted overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up commercial photography of organic coffee beans pouring into a modern ceramic cup. The scene is lit with warm, inviting natural light that catches the glossy surface of the dark roasted beans. The palette is rich with deep browns and creamy whites, reflecting a professional and high-quality retail environment. The mood is energetic and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO0hJmRdYw2WlAGAeYSH3Vu1SNQMCjUdzN3ZPmJaxljcCmDdGzKucODwQe2FoRUy4P5EZ7qjtK1bN49sKYk2XGDj9STXbJ5VHVcC492SgO8fV922ySBEuGNf3PQlxDXdXX7Rd-lWm_5kxPs3C2jj4G5ZlI0aui06kw9mdpMDzn4xCSOxOOf6Zy3cSnmB3wYpAFgkIQ_KvTDWQOazt7MvanHDRe3I_YwKEQjdsbf6SBOBWx5Ni0EJompRTrglvXn8fOW_r596TMXBM"/>
+<div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg shadow-sm">
+<span class="font-label-md text-label-md text-on-surface">ETB 380.00</span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Guji Highland Coffee</h3>
+<p class="font-label-sm text-label-sm text-text-muted">In stock: 15 bags</p>
+</div>
+<div class="mt-4 flex items-center justify-between bg-surface-container rounded-xl p-1">
+<button class="p-2 bg-surface-container-highest hover:bg-border-default text-on-surface rounded-lg active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-headline-md text-headline-md px-2">1</span>
+<button class="p-2 bg-primary text-on-primary rounded-lg shadow-sm active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group bg-surface-container-lowest border border-border-default rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="relative aspect-square bg-surface-muted overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern high-tech product photograph of a sleek minimalist wristwatch with a clean white face and brushed metal finish. The lighting is diffused and uniform, creating a bright and airy atmosphere. The image uses a cool gray and pure white palette, emphasizing precision and reliability, fitting for an advanced digital marketplace or POS system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjFTA7ds9DYqYrrUee0h2IgTjHZKQ-IVHyIHAXdUszivhUJXkSs8TbwgZyvig9ZonLf7AWxdw_z8Y6bwAMbCO6hYpqZsQmkQ4t6F0cK4PzCfOaSLDUYreGzcfdMDKDuhzSKBg3oSO7av_YJz6bHghLQVj2BAq7GjHtsq932_hNJbi_P-fDi2VFlqq1-mwAFOuvHjX_u_20Ucf_Vw9VfqPu4XaO69TNPQQSV-OH0SIlIxORF2VL1VcfnKAaQA7NttfBr8aYkRCfmp8"/>
+<div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg shadow-sm">
+<span class="font-label-md text-label-md text-on-surface">ETB 1,200.00</span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Classic Smart Watch</h3>
+<p class="font-label-sm text-label-sm text-text-muted">In stock: 8 units</p>
+</div>
+<div class="mt-4 flex items-center justify-between bg-surface-container rounded-xl p-1">
+<button class="p-2 bg-surface-container-highest hover:bg-border-default text-on-surface rounded-lg active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-headline-md text-headline-md px-2">0</span>
+<button class="p-2 bg-primary text-on-primary rounded-lg shadow-sm active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Payment Bar (Floating/Fixed) -->
+<div class="fixed bottom-20 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-4xl z-40">
+<div class="bg-inverse-surface text-inverse-on-surface rounded-2xl shadow-2xl p-4 flex items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-inverse-on-surface/60">3 Items in Cart</span>
+<span class="font-headline-md text-headline-md font-bold">ETB 430.00</span>
+</div>
+<div class="h-10 w-[1px] bg-inverse-on-surface/20 hidden sm:block"></div>
+<button class="hidden sm:flex items-center gap-2 hover:bg-white/10 px-3 py-2 rounded-xl transition-colors">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span class="font-label-md text-label-md">Add Customer</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-xl font-headline-md text-headline-md flex items-center gap-3 active:scale-95 transition-all shadow-lg">
+<span>Pay Now</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-2 bg-surface dark:bg-surface-container-low shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50">
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-md text-label-md-mobile">Sales</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors rounded-2xl">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md-mobile">Inventory</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors rounded-2xl">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md-mobile">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors rounded-2xl">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md-mobile">Settings</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions for the product cards and cart logic
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+
+        // Sticky Bar Animation on Scroll
+        let lastScrollY = window.scrollY;
+        const payBar = document.querySelector('.fixed.bottom-20');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                // Scrolling down - hide pay bar slightly or dim
+                payBar.style.opacity = '0.9';
+            } else {
+                // Scrolling up - show fully
+                payBar.style.opacity = '1';
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
+</body></html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Inventory Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-error": "#FCEBEB",
+                    "border-default": "#E0E0E0",
+                    "coral-red": "#E24B4A",
+                    "tertiary-fixed": "#ffddb4",
+                    "on-tertiary-container": "#fffbff",
+                    "primary": "#00694c",
+                    "inverse-primary": "#68dbae",
+                    "surface-success": "#E1F5EE",
+                    "on-secondary": "#ffffff",
+                    "background": "#fcf9f8",
+                    "secondary": "#0060a8",
+                    "tertiary-container": "#a16900",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bccac1",
+                    "on-primary-fixed-variant": "#00513a",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "on-secondary-fixed-variant": "#004880",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#f5fff7",
+                    "secondary-fixed": "#d2e4ff",
+                    "secondary-container": "#5da9fe",
+                    "primary-fixed-dim": "#68dbae",
+                    "on-tertiary-fixed-variant": "#633f00",
+                    "text-secondary": "#555555",
+                    "surface-info": "#E6F1FB",
+                    "on-background": "#1c1b1b",
+                    "secondary-fixed-dim": "#a1c9ff",
+                    "surface": "#fcf9f8",
+                    "on-surface-variant": "#3d4943",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-surface": "#313030",
+                    "surface-variant": "#e5e2e1",
+                    "on-primary-fixed": "#002115",
+                    "surface-muted": "#F7F8FA",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#86f8c9",
+                    "on-tertiary-fixed": "#291800",
+                    "primary-container": "#008560",
+                    "on-secondary-fixed": "#001c38",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#006c4e",
+                    "inverse-on-surface": "#f3f0ef",
+                    "text-muted": "#999999",
+                    "surface-container-high": "#ebe7e7",
+                    "surface-warning": "#FAEEDA",
+                    "on-secondary-container": "#003d6d",
+                    "outline": "#6d7a73",
+                    "tertiary-fixed-dim": "#ffb955",
+                    "tertiary": "#805200",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#f0edec",
+                    "on-surface": "#1c1b1b",
+                    "surface-container-highest": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-desktop": "24px",
+                    "gutter-mobile": "12px",
+                    "stack-gap-md": "16px",
+                    "unit": "4px",
+                    "stack-gap-lg": "24px",
+                    "stack-gap-sm": "8px",
+                    "margin-page": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "caption": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stock-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm flex justify-between items-center px-gutter-mobile h-14 w-full">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-on-surface p-2 hover:bg-surface-container transition-colors rounded-full active:scale-95 transition-transform duration-100">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container transition-colors rounded-full active:scale-95 transition-transform duration-100">search</button>
+<button class="material-symbols-outlined text-on-surface p-2 hover:bg-surface-container transition-colors rounded-full active:scale-95 transition-transform duration-100">signal_cellular_alt</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow pt-20 pb-32 px-gutter-mobile md:px-gutter-desktop max-w-4xl mx-auto w-full">
+<!-- Header & Stats -->
+<div class="mb-stack-gap-lg flex justify-between items-end">
+<div>
+<p class="font-label-md text-label-md text-primary tracking-wider uppercase mb-1">Stock Overview</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Inventory Management</h2>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 bg-surface-error text-error font-label-sm text-label-sm px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">warning</span> 4 Low
+                </span>
+</div>
+</div>
+<!-- Inventory List Canvas -->
+<div class="space-y-stack-gap-md">
+<!-- Product Card: Low Stock -->
+<div class="bg-surface-container-lowest p-stack-gap-md rounded-xl border border-border-default shadow-sm fade-in">
+<div class="flex items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-grow">
+<div class="w-12 h-12 rounded-lg bg-surface-muted flex items-center justify-center text-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-quality product photograph of a sleek red running shoe placed against a clean, minimalist off-white background. The lighting is soft and professional, highlighting the texture and modern design of the sneaker. The overall aesthetic is bright and high-contrast, fitting a premium digital retail storefront with a clean, corporate tech feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7AR_2dJUwKA4rpIl1sab8nhcLL8L00gosDAIWN0mTAnPjwJTdY32I3MA4shhnLiVFHZUcrYX7OVoa7F7VSauALQRzwS3UchKNDEqwpdest3_JnAf0mxUfW6bltajj8vODDA26t2WQL-EM1PWFqryD2bkeKz60Q4L88-EGoMOzS505LfQHELfYktiDseaHfpEieVFrPUnJVS0L-N7MQIZixFHsmArpphWueqN6myAkAPJ23E6ZT8VhWqKOOUpzfm1TsLA97at53ZU"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Pro Run V2</h3>
+<div class="flex items-center gap-2 mt-1">
+<div class="stock-indicator bg-coral-red"></div>
+<span class="font-label-md text-label-md text-coral-red">Critical Stock: 2 left</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2"><div class="flex gap-2 mb-1"><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Achat</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Vente</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div></div>
+<div class="flex items-center border border-border-default rounded-xl overflow-hidden bg-surface-muted">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold text-on-surface" readonly="" type="number" value="2"/>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<span class="modified-tag hidden font-label-sm text-label-sm text-secondary italic">Modified</span>
+</div>
+</div>
+</div>
+<!-- Product Card: Mid Stock -->
+<div class="bg-surface-container-lowest p-stack-gap-md rounded-xl border border-border-default shadow-sm fade-in" style="animation-delay: 0.05s">
+<div class="flex items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-grow">
+<div class="w-12 h-12 rounded-lg bg-surface-muted flex items-center justify-center text-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A premium, sleek silver wristwatch displayed on a dark velvet cushion in a bright, modern studio setting. The lighting is crisp and detailed, emphasizing the metallic reflections and the sophisticated craftsman ship of the watch. The scene captures a professional and high-trust luxury brand atmosphere with high-contrast, clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk-gZV9dtD2_VY9sbhylO-m0wJ63aifAzarN1jLcXJMjAN8g38ArmniJJLhd3dvH4z_w0TeG6sANGBHNssvoieI4v_ygCLGP93JIFw31nZ-v9pdm-5v6s1gbeon1Em_EyXsoVmSbob5CZgOocvQoK67eEfrWay0tOQwdwjTUwwm-oHq0cjUa2dOG35oYQEsARHqyOrd6Oon7_IMX7b_DXw38GYcCCPHpvGTzLSIRSzLwvE87Nxqw8LZ5-lNn-upYcEoMF79VEgMVo"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Classic Chrono</h3>
+<div class="flex items-center gap-2 mt-1">
+<div class="stock-indicator bg-tertiary-container"></div>
+<span class="font-label-md text-label-md text-tertiary">Moderate Stock: 14 left</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2"><div class="flex gap-2 mb-1"><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Achat</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Vente</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div></div>
+<div class="flex items-center border border-border-default rounded-xl overflow-hidden bg-surface-muted">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold text-on-surface" readonly="" type="number" value="14"/>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<span class="modified-tag hidden font-label-sm text-label-sm text-secondary italic">Modified</span>
+</div>
+</div>
+</div>
+<!-- Product Card: OK Stock -->
+<div class="bg-surface-container-lowest p-stack-gap-md rounded-xl border border-border-default shadow-sm fade-in" style="animation-delay: 0.1s">
+<div class="flex items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-grow">
+<div class="w-12 h-12 rounded-lg bg-surface-muted flex items-center justify-center text-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Modern high-fidelity wireless headphones in matte black, positioned on a smooth wooden surface. The background is a soft-focus minimalist office environment with warm, natural sunlight filtering through a window. The style is clean, corporate-modern, and tactile, conveying a sense of high quality and reliable technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACFFJ28rGGjOQPQjLumIbyM_JLKLD3XDP-jGBXvvVdg1yzCrlbQIRO0Hb1lpHR7vW0F6_WUmfyN7Bd02caUuc1ACexQ2pYLZdOAIeBcnWE5zQntzBFaiZwSfHscSuV3gqburiNpQ6RpYAk2u4qJFl6i77dCipm1z9G5Lz1g-DOpHcB4nWQIEvYMLkJ74_24sjKGzrhjK_Rh5IOMvpAq9_ZmxpUj8zVf8Ez7Ru6EKTf9REuJlcTXnhlvP6awu93gVun1eBMOvWkRrk"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">SoundMax Headphones</h3>
+<div class="flex items-center gap-2 mt-1">
+<div class="stock-indicator bg-primary"></div>
+<span class="font-label-md text-label-md text-primary">In Stock: 45 left</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2"><div class="flex gap-2 mb-1"><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Achat</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Vente</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div></div>
+<div class="flex items-center border border-border-default rounded-xl overflow-hidden bg-surface-muted">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold text-on-surface" readonly="" type="number" value="45"/>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<span class="modified-tag hidden font-label-sm text-label-sm text-secondary italic">Modified</span>
+</div>
+</div>
+</div>
+<!-- Product Card: Low Stock (Again) -->
+<div class="bg-surface-container-lowest p-stack-gap-md rounded-xl border border-border-default shadow-sm fade-in" style="animation-delay: 0.15s">
+<div class="flex items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-grow">
+<div class="w-12 h-12 rounded-lg bg-surface-muted flex items-center justify-center text-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Designer wooden sunglasses with brown tinted lenses laying on a white sand surface with subtle palm leaf shadows. The lighting is bright and tropical, but maintained within a professional, high-trust luxury photography style. The colors are earthy yet vibrant, fitting a modern and sophisticated lifestyle brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxBxWUwvEGR0tqgbhwWZfB5_swHn7xrF7_B5NgaCnAZjltRYyLqRUTQIH-qQ0Y4YQLsjuoaKXffRz_oI-Cc-AD6aY_ygiKrZKIDC8ZuTjaWcrXhyq3qMHM2gDgeTwry4y7pokzvzaOTtl0Dq7ANmzts0XWTFkG8kz9ZZcGRpa8JLjo9x6oBfScPXo8FTpNxXXNT_WC7K2gjMNGqXyaCBuXUKHItBeYGqkR2nZKoWdDaqvZlkCk_Mz7nsahSqcwV_GU6ciXY5KfQCc"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Eco Shades</h3>
+<div class="flex items-center gap-2 mt-1">
+<div class="stock-indicator bg-coral-red"></div>
+<span class="font-label-md text-label-md text-coral-red">Critical Stock: 1 left</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2"><div class="flex gap-2 mb-1"><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Achat</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div><div class="flex flex-col"><label class="text-label-sm text-text-secondary">Vente</label><input class="w-16 text-right bg-surface-muted border border-border-default rounded-lg p-1 text-label-sm focus:ring-primary" type="text" value="$0.00"/></div></div>
+<div class="flex items-center border border-border-default rounded-xl overflow-hidden bg-surface-muted">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, -1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold text-on-surface" readonly="" type="number" value="1"/>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant" onclick="adjust(this, 1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<span class="modified-tag hidden font-label-sm text-label-sm text-secondary italic">Modified</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Save Button Container -->
+<div class="fixed bottom-24 left-0 w-full px-gutter-mobile z-40 translate-y-20 transition-transform duration-300" id="save-container">
+<button class="w-full max-w-4xl mx-auto flex items-center justify-center gap-2 bg-on-background text-surface rounded-xl py-4 font-headline-md text-headline-md shadow-lg active:scale-95 transition-all" onclick="document.getElementById('success-modal').classList.remove('hidden')"><span class="material-symbols-outlined">save</span> Enregistrer tout</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-2 bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 active:scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        let changesCount = 0;
+
+        function adjust(btn, amount) {
+            const input = btn.parentElement.querySelector('input');
+            const card = btn.closest('.bg-surface-container-lowest');
+            const tag = card.querySelector('.modified-tag');
+            
+            let currentVal = parseInt(input.value);
+            let newVal = Math.max(0, currentVal + amount);
+            
+            if (newVal !== currentVal) {
+                input.value = newVal;
+                if (tag.classList.contains('hidden')) {
+                    tag.classList.remove('hidden');
+                    changesCount++;
+                    updateSaveVisibility();
+                }
+                
+                // Visual feedback
+                input.classList.add('text-primary');
+                setTimeout(() => input.classList.remove('text-primary'), 200);
+            }
+        }
+
+        function updateSaveVisibility() {
+            const container = document.getElementById('save-container');
+            if (changesCount > 0) {
+                container.classList.remove('translate-y-20');
+                container.classList.add('translate-y-0');
+            } else {
+                container.classList.add('translate-y-20');
+                container.classList.remove('translate-y-0');
+            }
+        }
+
+        function saveAll() {
+            const saveBtn = document.querySelector('#save-container button');
+            const originalContent = saveBtn.innerHTML;
+            
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Saving...';
+            saveBtn.disabled = true;
+
+            setTimeout(() => {
+                saveBtn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Changes Saved';
+                saveBtn.classList.replace('bg-on-background', 'bg-primary');
+                
+                setTimeout(() => {
+                    document.querySelectorAll('.modified-tag').forEach(tag => tag.classList.add('hidden'));
+                    changesCount = 0;
+                    updateSaveVisibility();
+                    
+                    // Reset button state for next time
+                    setTimeout(() => {
+                        saveBtn.innerHTML = originalContent;
+                        saveBtn.classList.replace('bg-primary', 'bg-on-background');
+                        saveBtn.disabled = false;
+                    }, 500);
+                }, 1000);
+            }, 1500);
+        }
+    </script>
+<div class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 hidden px-gutter-mobile" id="success-modal"><div class="bg-surface w-full max-w-md rounded-2xl p-stack-gap-md shadow-lg fade-in"><div class="flex flex-col items-center text-center gap-4"><div class="w-16 h-16 bg-surface-success text-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-4xl">check_circle</span></div><h3 class="font-headline-md text-on-surface">Stock mis à jour !</h3><p class="text-body-md text-on-surface-variant">L'inventaire a été mis à jour avec succès.</p><div class="w-full flex flex-col gap-2 mt-2"><button class="w-full py-3 bg-primary text-on-primary rounded-xl font-label-md flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined">photo_camera</span> Exporter en image (JPEG)</button><button class="w-full py-3 border border-primary text-primary rounded-xl font-label-md flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined">call</span> Appeler les fournisseurs</button><button class="w-full py-3 text-on-surface-variant font-label-md active:scale-95 transition-transform" onclick="document.getElementById('success-modal').classList.add('hidden')">Fermer</button></div></div></div></div></body></html>

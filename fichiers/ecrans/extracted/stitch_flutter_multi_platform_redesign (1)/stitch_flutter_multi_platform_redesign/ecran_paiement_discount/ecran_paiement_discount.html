@@ -1,0 +1,179 @@
+
+<h2 class="sr-only">Écran paiement avec photos cliquables et popup modification prix</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.phone{width:270px;background:#fff;border-radius:28px;border:1.5px solid #e0e0e0;overflow:hidden;font-family:var(--font-sans);position:relative;}
+.status-bar{padding:10px 16px 6px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#999;}
+.pill-online{background:#E1F5EE;color:#0F6E56;font-size:9px;padding:2px 8px;border-radius:20px;}
+.topbar{padding:6px 16px 12px;border-bottom:0.5px solid #f0f0f0;display:flex;align-items:center;gap:10px;}
+.back-btn{width:32px;height:32px;background:#f7f8fa;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.body{padding:12px 12px 14px;}
+.commande-block{background:#f7f8fa;border-radius:14px;padding:12px 14px;margin-bottom:12px;}
+.commande-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.commande-label{font-size:11px;color:#999;}
+.commande-montant{font-size:24px;font-weight:500;color:#111;}
+.articles-photos{display:flex;gap:8px;flex-wrap:wrap;}
+.article-photo-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:#fff;border:1.5px solid #e0e0e0;border-radius:12px;padding:6px 8px;cursor:pointer;position:relative;}
+.article-photo-btn.discounted{border-color:#E24B4A;background:#fff5f5;}
+.article-photo-img{font-size:26px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#f7f8fa;border-radius:8px;}
+.article-qty-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#111;color:#fff;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;}
+.article-price-orig{font-size:10px;color:#999;text-decoration:line-through;}
+.article-price-new{font-size:11px;font-weight:500;color:#E24B4A;}
+.article-price-normal{font-size:11px;font-weight:500;color:#111;}
+.edit-hint{font-size:9px;color:#bbb;margin-top:1px;}
+.discount-total{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:0.5px solid #e8e8e8;}
+.discount-badge{background:#FCEBEB;color:#A32D2D;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;}
+.display-box{background:#111;border-radius:14px;padding:12px 16px;margin-bottom:10px;}
+.display-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.display-label{font-size:10px;color:#666;}
+.billets-btn{background:#333;color:#fff;border:none;border-radius:20px;padding:4px 10px;font-size:10px;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.display-val{font-size:30px;font-weight:500;color:#fff;display:flex;align-items:center;gap:6px;}
+.display-cursor{color:#1D9E75;}
+.numpad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.nb{background:#f7f8fa;border:none;border-radius:10px;padding:12px;font-size:18px;font-weight:500;color:#111;cursor:pointer;text-align:center;}
+.nb.del{color:#E24B4A;background:#FCEBEB;font-size:14px;}
+.nb.zero{grid-column:span 2;}
+.monnaie-block{background:#1D9E75;border-radius:12px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;}
+.monnaie-label{font-size:12px;color:rgba(255,255,255,0.8);}
+.monnaie-amount{font-size:22px;font-weight:500;color:#fff;}
+.overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;border-radius:28px;overflow:hidden;padding:16px;}
+.popup{background:#fff;width:100%;border-radius:20px;padding:16px 14px 16px;}
+.popup-handle{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:0 auto 14px;}
+.popup-product{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.popup-img{width:48px;height:48px;background:#f7f8fa;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.popup-product-name{font-size:14px;font-weight:500;color:#111;}
+.popup-original{font-size:11px;color:#999;margin-top:2px;}
+.prix-display{background:#111;border-radius:12px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.px-label{font-size:10px;color:#666;margin-bottom:2px;}
+.px-val{font-size:26px;font-weight:500;color:#fff;display:flex;align-items:baseline;gap:5px;}
+.px-unit{font-size:12px;color:#555;}
+.px-cursor{color:#1D9E75;}
+.px-chip{background:#E24B4A;border-radius:8px;padding:6px 10px;text-align:center;}
+.px-chip-label{font-size:9px;color:rgba(255,255,255,0.75);}
+.px-chip-val{font-size:13px;font-weight:500;color:#fff;}
+.popup-numpad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:10px;}
+.pnb{background:#f7f8fa;border:none;border-radius:9px;padding:11px;font-size:17px;font-weight:500;color:#111;cursor:pointer;text-align:center;}
+.pnb.del{color:#E24B4A;background:#FCEBEB;font-size:13px;}
+.pnb.zero{grid-column:span 2;}
+.btn-confirmer{background:#1D9E75;color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:500;width:100%;cursor:pointer;margin-bottom:6px;}
+.btn-annuler{background:none;border:none;color:#bbb;font-size:11px;width:100%;padding:4px;cursor:pointer;}
+</style>
+
+<div style="display:flex;gap:16px;justify-content:center;align-items:flex-start;padding:20px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);flex-wrap:wrap;">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <div style="font-size:10px;color:var(--color-text-secondary);font-weight:500;letter-spacing:0.5px;">PAIEMENT — AVEC DISCOUNT</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span class="pill-online">● En ligne</span></div>
+      <div class="topbar">
+        <div class="back-btn"><i class="ti ti-arrow-left" style="font-size:16px;color:#555;" aria-hidden="true"></i></div>
+        <div>
+          <div style="font-size:16px;font-weight:500;color:#111;">Paiement</div>
+          <div style="font-size:11px;color:#999;">Entre le montant reçu</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="commande-block">
+          <div class="commande-top">
+            <div class="commande-label">À payer</div>
+            <div>
+              <div style="font-size:11px;color:#999;text-align:right;text-decoration:line-through;">1 300 FCFA</div>
+              <div class="commande-montant" style="color:#E24B4A;">1 250 <span style="font-size:13px;color:#E24B4A;">FCFA</span></div>
+            </div>
+          </div>
+          <div class="articles-photos">
+            <div class="article-photo-btn discounted">
+              <div class="article-qty-badge">2</div>
+              <div class="article-photo-img">🥤</div>
+              <div class="article-price-orig">500 F</div>
+              <div class="article-price-new">450 F</div>
+              <div class="edit-hint">✏ modifié</div>
+            </div>
+            <div class="article-photo-btn">
+              <div class="article-qty-badge">1</div>
+              <div class="article-photo-img">💧</div>
+              <div class="article-price-normal">300 F</div>
+              <div style="font-size:9px;color:#bbb;">Appuie pour modifier</div>
+            </div>
+          </div>
+          <div class="discount-total">
+            <div class="discount-badge">Discount − 100 FCFA</div>
+            <div style="font-size:10px;color:#999;">sur 2× Coca-Cola</div>
+          </div>
+        </div>
+        <div class="display-box">
+          <div class="display-top">
+            <div class="display-label">Montant reçu</div>
+            <button class="billets-btn">
+              <i class="ti ti-wallet" style="font-size:10px;" aria-hidden="true"></i>
+              Billets rapides
+            </button>
+          </div>
+          <div class="display-val">1 500<span class="display-cursor">|</span></div>
+        </div>
+        <div class="numpad">
+          <button class="nb">1</button><button class="nb">2</button><button class="nb">3</button>
+          <button class="nb">4</button><button class="nb">5</button><button class="nb">6</button>
+          <button class="nb">7</button><button class="nb">8</button><button class="nb">9</button>
+          <button class="nb zero">0</button><button class="nb del">⌫</button>
+        </div>
+        <div class="monnaie-block">
+          <div class="monnaie-label">Monnaie à rendre</div>
+          <div class="monnaie-amount">250 FCFA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <div style="font-size:10px;color:var(--color-text-secondary);font-weight:500;letter-spacing:0.5px;">POPUP — MODIFIER LE PRIX</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span class="pill-online">● En ligne</span></div>
+      <div class="topbar">
+        <div class="back-btn"><i class="ti ti-arrow-left" style="font-size:16px;color:#555;" aria-hidden="true"></i></div>
+        <div>
+          <div style="font-size:16px;font-weight:500;color:#111;">Paiement</div>
+          <div style="font-size:11px;color:#999;">Entre le montant reçu</div>
+        </div>
+      </div>
+      <div class="body" style="filter:blur(1px);opacity:0.3;">
+        <div style="height:160px;background:#f7f8fa;border-radius:14px;"></div>
+      </div>
+      <div class="overlay">
+        <div class="popup">
+          <div class="popup-handle"></div>
+          <div class="popup-product">
+            <div class="popup-img">🥤</div>
+            <div>
+              <div class="popup-product-name">Coca-Cola × 2</div>
+              <div class="popup-original">Prix normal : 500 FCFA / unité</div>
+            </div>
+          </div>
+          <div class="prix-display">
+            <div>
+              <div class="px-label">Nouveau prix / unité</div>
+              <div class="px-val">450 <span class="px-unit">FCFA</span><span class="px-cursor">|</span></div>
+            </div>
+            <div class="px-chip">
+              <div class="px-chip-label">Discount</div>
+              <div class="px-chip-val">− 50 F</div>
+            </div>
+          </div>
+          <div style="background:#f7f8fa;border-radius:10px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-size:11px;color:#999;">Total pour 2 unités</div>
+            <div style="font-size:13px;font-weight:500;color:#E24B4A;">900 FCFA <span style="text-decoration:line-through;color:#bbb;font-size:11px;">1 000</span></div>
+          </div>
+          <div class="popup-numpad">
+            <button class="pnb">1</button><button class="pnb">2</button><button class="pnb">3</button>
+            <button class="pnb">4</button><button class="pnb">5</button><button class="pnb">6</button>
+            <button class="pnb">7</button><button class="pnb">8</button><button class="pnb">9</button>
+            <button class="pnb zero">0</button><button class="pnb del">⌫</button>
+          </div>
+          <button class="btn-confirmer">✓ Appliquer le nouveau prix</button>
+          <button class="btn-annuler">Annuler — garder 500 FCFA</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,17 @@
+Target install_code_assets failed: PathExistsException: Cannot copy file to 'C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\native_assets\android\jniLibs\lib\arm64-v8a\libsqlite3.so', path = 'C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\.dart_tool\hooks_runner\shared\sqlite3\build\download-67399c0\libsqlite3.so' (OS Error: Impossible de créer un fichier déjà existant, errno = 183)
+
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileFlutterBuildRelease'.
+> Process 'command 'C:\Users\Utilisateur\Downloads\flutter\bin\flutter.bat'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 11m 28s
+Gradle task assembleRelease failed with exit code 1

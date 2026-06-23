@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Choix du Vendeur</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pin-dot.active {
+            background-color: #00694c;
+            transform: scale(1.2);
+        }
+        .numpad-btn:active {
+            transform: scale(0.95);
+            background-color: #e5e2e1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "text-secondary": "#555555",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "surface-info": "#E6F1FB",
+                        "secondary-fixed-dim": "#a1c9ff",
+                        "on-background": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "on-surface-variant": "#3d4943",
+                        "surface": "#fcf9f8",
+                        "on-primary-fixed": "#002115",
+                        "primary-container": "#008560",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-dim": "#dcd9d9",
+                        "primary-fixed": "#86f8c9",
+                        "on-error-container": "#93000a",
+                        "surface-muted": "#F7F8FA",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001c38",
+                        "surface-tint": "#006c4e",
+                        "surface-warning": "#FAEEDA",
+                        "text-muted": "#999999",
+                        "surface-container-high": "#ebe7e7",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-secondary-container": "#003d6d",
+                        "outline": "#6d7a73",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0edec",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "tertiary": "#805200",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1c1b1b",
+                        "coral-red": "#E24B4A",
+                        "border-default": "#E0E0E0",
+                        "surface-error": "#FCEBEB",
+                        "tertiary-fixed": "#ffddb4",
+                        "on-tertiary-container": "#fffbff",
+                        "on-secondary": "#ffffff",
+                        "surface-success": "#E1F5EE",
+                        "primary": "#00694c",
+                        "inverse-primary": "#68dbae",
+                        "tertiary-container": "#a16900",
+                        "secondary": "#0060a8",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bccac1",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-fixed-variant": "#00513a",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#f5fff7",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#004880",
+                        "secondary-fixed": "#d2e4ff",
+                        "primary-fixed-dim": "#68dbae",
+                        "secondary-container": "#5da9fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-page": "16px",
+                        "stack-gap-sm": "8px",
+                        "stack-gap-md": "16px",
+                        "unit": "4px",
+                        "stack-gap-lg": "24px",
+                        "gutter-mobile": "12px",
+                        "gutter-desktop": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "caption": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md overflow-hidden">
+<!-- Top App Bar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-gutter-mobile h-14 w-full">
+<div class="flex items-center gap-stack-gap-sm">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="menu">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-stack-gap-md">
+<span class="font-label-md text-label-md text-on-surface-variant">Kassa Store</span>
+<span class="material-symbols-outlined text-primary" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+</div>
+</header>
+<main class="relative h-screen pt-14 pb-20 md:pb-0 overflow-y-auto">
+<!-- View 1: Staff Selection -->
+<section class="px-margin-page py-stack-gap-lg max-w-4xl mx-auto block" id="view-selection">
+<header class="mb-stack-gap-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">Qui êtes-vous ?</h2>
+<p class="text-text-secondary font-body-md">Sélectionnez votre profil pour accéder à la caisse.</p>
+</header>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-stack-gap-md">
+<!-- Staff Card 1 -->
+<div class="bg-surface-container-lowest border border-border-default rounded-xl p-stack-gap-md flex items-center gap-stack-gap-md cursor-pointer hover:border-primary hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-all group" onclick="selectStaff('Jean-Marc', 'Administrateur', '{{DATA:IMAGE:IMG_1}}')">
+<div class="relative">
+<img alt="Jean-Marc" class="w-16 h-16 rounded-full object-cover bg-surface-muted" data-alt="A professional headshot of a middle-aged African male store manager with a warm, confident smile. The lighting is soft and studio-quality, emphasizing a modern corporate aesthetic. He is wearing a clean white shirt. The background is a minimalist, out-of-focus retail environment with subtle teal and white brand colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMJpEQM8gXePBhWXpjEGwKKmWG2uGYABDHoDBo0pu1T5dPpC1MsSHW8vPKex_SWuWiRJiunH4radU8TkbxFB6mdLlsJUfysvTD2hDioq6bzcLzzAKnwx8cbwQw01UBwhI0uqcKVhKWhdUV45bD-rFxhJ3dAIqJwJ9EeYDLsctpN41UREJMVYMYk8y8icokNkuX4tyYP5y3UtzTrFZpTQ3_j9_Jemlo97mRgstgrGhxpIZK1TK5xFV56E2b-6vc4q4ak7J215NGdTU"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Jean-Marc</h3>
+<p class="font-label-md text-label-md text-text-muted">Administrateur</p>
+<div class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-surface-success text-primary text-caption font-label-sm">
+                            En ligne
+                        </div>
+</div>
+</div>
+<!-- Staff Card 2 -->
+<div class="bg-surface-container-lowest border border-border-default rounded-xl p-stack-gap-md flex items-center gap-stack-gap-md cursor-pointer hover:border-primary hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-all group" onclick="selectStaff('Awa Diallo', 'Vendeuse Senior', '{{DATA:IMAGE:IMG_2}}')">
+<div class="relative">
+<img alt="Awa Diallo" class="w-16 h-16 rounded-full object-cover bg-surface-muted" data-alt="A portrait of a young West African woman who is a professional retail clerk. She has a welcoming and focused expression, reflecting reliability and modern enterprise spirit. The lighting is bright and even, consistent with a professional light-mode UI design. The color palette features soft whites and professional tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlEdW2Ubl67EBHv4jip28HGUUFobeaiclIkH1cVWFMX0yrjG1_yef9FVDyJBnsnFXr45DMf9zxSgoGJFiXAsaQx0IMew3EKi2Ro8oxgqzmjTbo9icL7o8Tjxt2bVh34RoVnXdmRmg357Vj7oHaBeKNM5QlpcofGmSqn9PqFwRmVPzYMM0HmOhnHCE5Emp7WT2hARvDk2e50nElUTPZdia2O5P9k1yKd1EIuMfBsjBGM0aj8IQztId5BCzmUwsUZGb37fDbwgLjykQ"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Awa Diallo</h3>
+<p class="font-label-md text-label-md text-text-muted">Vendeuse Senior</p>
+<div class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-surface-success text-primary text-caption font-label-sm">
+                            En ligne
+                        </div>
+</div>
+</div>
+<!-- Staff Card 3 -->
+<div class="bg-surface-container-lowest border border-border-default rounded-xl p-stack-gap-md flex items-center gap-stack-gap-md cursor-pointer hover:border-primary hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-all group" onclick="selectStaff('Moussa S.', 'Vendeur', '{{DATA:IMAGE:IMG_3}}')">
+<div class="relative opacity-60">
+<img alt="Moussa S." class="w-16 h-16 rounded-full object-cover bg-surface-muted" data-alt="A sharp, high-contrast portrait of a young African businessman. He is looking directly at the camera with a serious but helpful expression. The image has a modern, corporate feel with high-key lighting that fits perfectly into a clean tech app interface. Background is neutral and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8ig-9V5LgXFERITXvidmZ7kaMoffYGVWm9JW6IArNr6Qlz5eYDucNE2UBoDdVnIsI8P1vnvUNez-yII8cnae48poxLU84gAho2s2DZSKyqTH3doJ_UZw4mQ65-8CHj25CtOfeikJ19JeKaiHnIExUMlh8zDjtrG6cyo9L_m3Ht_Nc7uFBfEqj4OywLEI85tXCqwya1jbdkiqsh4gycEzM43H96hLc7C1bqTHVRQWjY-EuIpTOkTFjfBFMejhKAQKq-MRPKzvqv1o"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-text-muted border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Moussa S.</h3>
+<p class="font-label-md text-label-md text-text-muted">Vendeur</p>
+<div class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-caption font-label-sm">
+                            Hors ligne
+                        </div>
+</div>
+</div>
+</div>
+<!-- Bento Styled Extra Info -->
+<div class="mt-stack-gap-lg grid grid-cols-1 md:grid-cols-2 gap-stack-gap-md">
+<div class="bg-surface-info/30 p-stack-gap-md rounded-2xl border border-secondary/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="info">info</span>
+<h4 class="font-label-md text-label-md text-secondary uppercase">Information Session</h4>
+</div>
+<p class="text-body-md text-on-secondary-container">Votre session expirera automatiquement après 15 minutes d'inactivité pour garantir la sécurité de la caisse.</p>
+</div>
+<div class="bg-surface-warning/30 p-stack-gap-md rounded-2xl border border-tertiary/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="lock">lock</span>
+<h4 class="font-label-md text-label-md text-tertiary uppercase">Sécurité Renforcée</h4>
+</div>
+<p class="text-body-md text-on-tertiary-fixed-variant">Ne partagez jamais votre code PIN. Contactez l'administrateur en cas d'oubli ou de blocage.</p>
+</div>
+</div>
+</section>
+<!-- View 2: PIN Entry (Hidden by default) -->
+<section class="hidden fixed inset-0 z-[70] bg-surface flex flex-col items-center justify-center animate-fade-in px-margin-page" id="view-pin">
+<button class="absolute top-6 left-6 flex items-center gap-2 text-primary font-label-md hover:opacity-80 transition-opacity" onclick="backToSelection()">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                RETOUR
+            </button>
+<div class="text-center mb-stack-gap-lg">
+<img alt="Selected Staff" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4 border-primary-container/20 shadow-lg" id="pin-avatar" src=""/>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface" id="pin-name">Jean-Marc</h2>
+<p class="text-text-secondary font-body-md" id="pin-role">Veuillez saisir votre code PIN</p>
+</div>
+<!-- PIN Display -->
+<div class="flex gap-4 mb-10">
+<div class="pin-dot w-5 h-5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="pin-dot w-5 h-5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="pin-dot w-5 h-5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="pin-dot w-5 h-5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+</div>
+<!-- Numpad -->
+<div class="grid grid-cols-3 gap-x-8 gap-y-4 max-w-[320px] w-full">
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('1')">1</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('2')">2</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('3')">3</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('4')">4</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('5')">5</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('6')">6</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('7')">7</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('8')">8</button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('9')">9</button>
+<button class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-coral-red font-label-md active:scale-90 transition-transform" onclick="clearPin()">
+                    ANNULER
+                </button>
+<button class="numpad-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-headline-lg text-headline-lg bg-surface-container text-on-surface transition-all" onclick="pressKey('0')">0</button>
+<button class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-primary active:scale-90 transition-transform" onclick="deleteKey()">
+<span class="material-symbols-outlined text-4xl" data-icon="backspace">backspace</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Nav (Shared Component) - Visible only on selection screen -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-20 bg-surface dark:bg-surface-container-low flex justify-around items-center px-4 pb-2 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl" id="bottom-nav">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-label-md text-label-md-mobile">Sales</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md-mobile">Inventory</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md-mobile">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md-mobile">Settings</span>
+</div>
+</nav>
+<script>
+        let currentPin = "";
+        const maxPinLength = 4;
+
+        function selectStaff(name, role, avatar) {
+            document.getElementById('pin-name').textContent = name;
+            document.getElementById('pin-role').textContent = role;
+            
+            // For demo, since we don't have the real image assets, we use a placeholder or the unsplash fallback
+            const avatarImg = document.getElementById('pin-avatar');
+            const clickedCardImg = event.currentTarget.querySelector('img').src;
+            avatarImg.src = clickedCardImg;
+
+            document.getElementById('view-selection').classList.add('hidden');
+            document.getElementById('bottom-nav').classList.add('hidden');
+            document.getElementById('view-pin').classList.remove('hidden');
+        }
+
+        function backToSelection() {
+            clearPin();
+            document.getElementById('view-selection').classList.remove('hidden');
+            document.getElementById('bottom-nav').classList.remove('hidden');
+            document.getElementById('view-pin').classList.add('hidden');
+        }
+
+        function pressKey(num) {
+            if (currentPin.length < maxPinLength) {
+                currentPin += num;
+                updatePinDisplay();
+                if (currentPin.length === maxPinLength) {
+                    validatePin();
+                }
+            }
+        }
+
+        function deleteKey() {
+            currentPin = currentPin.slice(0, -1);
+            updatePinDisplay();
+        }
+
+        function clearPin() {
+            currentPin = "";
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            const dots = document.querySelectorAll('.pin-dot');
+            dots.forEach((dot, index) => {
+                if (index < currentPin.length) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function validatePin() {
+            // Success mock-up
+            const pinDots = document.querySelectorAll('.pin-dot');
+            pinDots.forEach(dot => {
+                dot.style.backgroundColor = '#00694c';
+            });
+            
+            setTimeout(() => {
+                alert('Accès autorisé pour ' + document.getElementById('pin-name').textContent);
+                backToSelection();
+            }, 500);
+        }
+    </script>
+</body></html>

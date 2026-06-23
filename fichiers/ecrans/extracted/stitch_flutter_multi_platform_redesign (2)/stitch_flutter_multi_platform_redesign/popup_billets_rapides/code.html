@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Quick Bills - Paiement</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Lucide Icons (Placeholder for Ti icons) -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="global-typography">
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+<style data-purpose="custom-layout">
+    /* Bottom sheet animation-like positioning */
+    .bottom-sheet {
+      border-radius: 24px 24px 0 0;
+    }
+    /* Blur effect for the background content */
+    .bg-blur {
+      filter: blur(4px);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<!-- BEGIN: MobileDeviceContainer -->
+<div class="relative w-full max-w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-[8px] border-gray-900">
+<!-- BEGIN: StatusBar -->
+<div class="flex justify-between items-center px-8 pt-4 pb-2 text-sm font-semibold text-gray-900">
+<span class="">9:41</span>
+<div class="flex gap-1.5 items-center">
+<div class="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+</div>
+<span class="text-[10px] text-green-700 uppercase tracking-wider">En ligne</span>
+</div>
+</div>
+<!-- END: StatusBar -->
+<!-- BEGIN: BackgroundContent -->
+<!-- This section is blurred to simulate being behind the popup -->
+<div aria-hidden="true" class="px-5 pt-2 bg-blur opacity-40 pointer-events-none">
+<header class="flex items-center gap-4 mb-8">
+<div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" aria-hidden="true" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+</div>
+<div>
+<h1 class="text-xl font-bold text-gray-900">Paiement</h1>
+<p class="text-sm text-gray-500">Entre le montant reçu</p>
+</div>
+</header>
+<div class="space-y-6">
+<div class="h-32 bg-gray-900 rounded-2xl p-6 flex flex-col justify-between">
+<p class="text-gray-400 text-xs uppercase font-medium">Total à payer</p>
+<p class="text-white text-3xl font-bold">1 300 FCFA</p>
+</div>
+<div class="space-y-4">
+<div class="h-14 bg-gray-50 border border-gray-200 rounded-xl"></div>
+<div class="h-14 bg-gray-50 border border-gray-200 rounded-xl"></div>
+</div>
+</div>
+</div>
+<!-- END: BackgroundContent -->
+<!-- BEGIN: Overlay -->
+<div class="absolute inset-0 bg-black/40 z-10 flex flex-col justify-end">
+<!-- BEGIN: BottomSheet -->
+<div class="bottom-sheet bg-white w-full px-5 pt-3 pb-8 shadow-2xl" data-purpose="quick-bills-popup">
+<!-- Handle for visual drag affordance -->
+<div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-6"></div>
+<!-- Header -->
+<div class="mb-6">
+<h2 class="text-[17px] font-semibold text-gray-900">Sélectionne le billet reçu</h2>
+<p class="text-sm text-gray-500">Le client t'a donné combien ?</p>
+</div>
+<!-- BEGIN: BillsGrid -->
+<div class="grid grid-cols-4 gap-2.5 mb-8" data-purpose="currency-grid">
+<!-- Billet 25 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">25</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 50 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">50</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 100 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">100</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 200 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">200</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 500 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">500</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 1000 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">1 000</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 2000 (Active/Selected) -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-blue-500 bg-blue-50 rounded-xl ring-2 ring-blue-50">
+<span class="text-[15px] font-bold text-blue-800">2 000</span>
+<span class="text-[9px] text-blue-500 font-medium">FCFA</span>
+</button>
+<!-- Billet 5000 -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors">
+<span class="text-[15px] font-bold text-gray-900">5 000</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 10000 (Wide) -->
+<button class="flex flex-col items-center justify-center py-3 px-1 border-2 border-gray-100 bg-gray-50 rounded-xl hover:border-blue-500 transition-colors col-span-4">
+<span class="text-[15px] font-bold text-gray-900">10 000</span>
+<span class="text-[9px] text-gray-400 font-medium">FCFA</span>
+</button>
+<!-- Billet 25000 (Wide) -->
+
+</div>
+<!-- END: BillsGrid -->
+<!-- BEGIN: ActionButtons -->
+<div class="space-y-3">
+<!-- Primary Action: Color #1d9e75 -->
+<button class="w-full bg-[#1d9e75] text-white py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-4 h-4"><path d="M20 6 9 17l-5-5"></path></svg>
+            Confirmer — Rendre 700 FCFA
+          </button>
+<!-- Secondary Action -->
+<button class="w-full bg-transparent text-gray-400 py-2 text-xs font-medium uppercase tracking-widest hover:text-gray-600 transition-colors">
+            Annuler — saisir manuellement
+          </button>
+</div>
+<!-- END: ActionButtons -->
+</div>
+<!-- END: BottomSheet -->
+</div>
+<!-- END: Overlay -->
+<!-- BEGIN: HomeIndicator (iOS style) -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-200 rounded-full z-20"></div>
+<!-- END: HomeIndicator -->
+</div>
+<!-- END: MobileDeviceContainer -->
+<script data-purpose="icon-initialization">
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+
+
+</body></html>

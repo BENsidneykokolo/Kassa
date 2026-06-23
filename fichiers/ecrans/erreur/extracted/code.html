@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scanner de Produits - Luminous Retail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-tint": "#0054d6",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-background": "#0b1c30",
+                    "on-primary-container": "#f8f7ff",
+                    "inverse-surface": "#213145",
+                    "on-secondary-fixed": "#002113",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "outline-variant": "#c2c6d8",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#a06500",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-surface-variant": "#424656",
+                    "surface-container-high": "#dce9ff",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-container": "#00714d",
+                    "surface-bright": "#f8f9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#727687",
+                    "primary": "#0050cb",
+                    "on-primary-fixed": "#001849",
+                    "on-tertiary-container": "#fff7f1",
+                    "secondary-fixed-dim": "#4edea3",
+                    "background": "#f8f9ff",
+                    "secondary-container": "#6cf8bb",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ffddb8",
+                    "secondary": "#006c49",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-variant": "#d3e4fe",
+                    "primary-fixed": "#dae1ff",
+                    "surface-dim": "#cbdbf5",
+                    "primary-container": "#0066ff",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary": "#7f4f00",
+                    "inverse-primary": "#b3c5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "gutter-md": "12px",
+                    "stack-lg": "24px",
+                    "container-margin": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "price-display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-bold": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "price-display": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+      .scanner-viewport {
+        position: relative;
+        background: #000;
+        height: 45vh;
+        overflow: hidden;
+      }
+      .scanner-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+      }
+      .scanner-cutout {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 260px;
+        height: 180px;
+        background: transparent;
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+        border: 2px solid white;
+        border-radius: 12px;
+      }
+      .scan-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #0066ff;
+        box-shadow: 0 0 8px #0066ff;
+        animation: scan 2.5s ease-in-out infinite;
+      }
+      @keyframes scan {
+        0%, 100% { top: 0; }
+        50% { top: 100%; }
+      }
+      .bottom-sheet {
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full flex justify-between items-center px-container-margin h-16 z-50 bg-transparent">
+<button class="transition-transform duration-200 active:scale-95 hover:bg-surface-variant/20 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[28px]">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-white">Scan Product</h1>
+<button class="transition-transform duration-200 active:scale-95 hover:bg-surface-variant/20 p-2 rounded-full flex items-center justify-center" id="flash-toggle">
+<span class="material-symbols-outlined text-white text-[28px]">flash_on</span>
+</button>
+</header>
+<!-- Camera Viewport Area -->
+<section class="scanner-viewport">
+<!-- Background Placeholder for Camera Feed -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center opacity-80" data-alt="A POV perspective of a high-end mobile phone camera scanning a barcode on a sleek, premium product bottle in a brightly lit, modern retail environment. The background is softly blurred showing a contemporary supermarket aisle with clean shelving and cool blue accents. The lighting is crisp and cinematic, emphasizing a professional shopping experience." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDNcVaFvwBep0UN9gu-CiY5TCx_r0xSncnyhglKda-49d7iIBJVP2zcyxcIkMTVx8WDMNiA_u0Oh4iHIyAeJ177S2b61Ghhtr9lFKXZHqWl0-4ebFhtYQb21C5dNnSkxEFYktLjxlTLUMLbzuSkenHKKS4oYNwaIOh4kH2KfNSaswS9-lw6S0GQIkPih_-mBDE1lvF2T2M8EcqR3MiMiC0a4leGSBqCrsydilWobiwYBSbjCa9hU6NPUgfmlcAaXYumUk7YjDv')"></div>
+<!-- Scanning Overlay Logic -->
+<div class="scanner-overlay"></div>
+<div class="scanner-cutout">
+<div class="scan-line"></div>
+<!-- Corner Brackets -->
+<div class="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-primary rounded-tl-md"></div>
+<div class="absolute top-0 right-0 w-6 h-6 border-t-4 border-r-4 border-primary rounded-tr-md"></div>
+<div class="absolute bottom-0 left-0 w-6 h-6 border-b-4 border-l-4 border-primary rounded-bl-md"></div>
+<div class="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-primary rounded-br-md"></div>
+</div>
+<!-- Instructional Toast -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-2 rounded-full border border-white/20">
+<p class="text-white font-label-bold text-label-bold">Alignez le code-barres dans le cadre</p>
+</div>
+</section>
+<!-- Content / Bottom Sheet -->
+<main class="relative -mt-6 bg-surface dark:bg-surface-dim bottom-sheet min-h-[530px] pb-32 shadow-lg">
+<!-- Handle for visual cue -->
+<div class="w-12 h-1.5 bg-outline-variant/30 rounded-full mx-auto my-4"></div>
+<div class="px-container-margin">
+<div class="flex items-center justify-between mb-stack-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Articles Récents</h2>
+<span class="text-on-surface-variant font-label-bold text-label-bold">4 articles</span>
+</div>
+<!-- Scanned Items List -->
+<div class="space-y-stack-md" id="scanned-list">
+<!-- Item 1 -->
+<div class="flex items-center gap-gutter-md p-4 bg-surface-container-low rounded-xl transition-all duration-300 hover:bg-surface-container shadow-sm border border-outline-variant/10">
+<div class="w-16 h-16 rounded-lg bg-white overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A minimalist professional product shot of a premium glass bottle of apple juice with a clean white label, studio lighting against a soft pastel blue background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQwQXDMb9KO_HnOV0Jgy_SmyyKe6efd7Vnw8bfvlDsTMVcFsVEX2cg4UivnYbmd5cKdxpX9MN9KZrm3eRnz8L1IdnUu3vC0Wuzz1l0kASSCLjAnz20n42dpE8ev1UlbwFpYW2uxcyWT6iTyV1stkPpNZL9poWa0uyYifqbKoAzvVcUn-FdAcvy1QPEVSFkAa8lfGasaYnXe7Vs_vs6vNk6GGTefReqK1LJebPWFcQX1TZfgSbXstq_SmPnEkdWO-zQq8FFU_lY"/>
+</div>
+<div class="flex-grow">
+<p class="font-headline-md text-[16px] leading-tight text-on-surface">Jus de Pomme Artisanal</p>
+<p class="text-on-surface-variant text-body-md font-body-md">750ml • Bio</p>
+</div>
+<div class="text-right">
+<p class="font-price-display text-price-display text-primary">2 500 FCFA</p>
+<button class="text-error mt-1 hover:bg-error-container/20 p-1 rounded-md transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-gutter-md p-4 bg-surface-container-low rounded-xl transition-all duration-300 hover:bg-surface-container shadow-sm border border-outline-variant/10">
+<div class="w-16 h-16 rounded-lg bg-white overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A high-quality image of a loaf of fresh organic sourdough bread wrapped in simple brown paper, warm golden crust, rustic aesthetic, white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCutxX13tQSlqjne3HY95JoNMwFpDUMTdUoJDvwn9La0FxpVGHeBolXt7d53SL2E_2A68dU5P-th1Haxzv77935nuty9AU_-doMeFPyP7L4IqtT9XGo4kjaFmT5RlJHIs_oQz-kpkpCfJQjvEL-9LrjEnhtGd7mYPJx8absNj7sPvPLJ-NFcogdrh4QRKcVLhP2mWCWCuLCGsnFL5wwd5WUlIAvWt6y5K9Wq5QjsyQD0tEY28DbwVuSxPsUqdcEjSTxSr167bzR"/>
+</div>
+<div class="flex-grow">
+<p class="font-headline-md text-[16px] leading-tight text-on-surface">Pain Bio de Campagne</p>
+<p class="text-on-surface-variant text-body-md font-body-md">400g • Complet</p>
+</div>
+<div class="text-right">
+<p class="font-price-display text-price-display text-primary">1 800 FCFA</p>
+<button class="text-error mt-1 hover:bg-error-container/20 p-1 rounded-md transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-gutter-md p-4 bg-surface-container-low rounded-xl transition-all duration-300 hover:bg-surface-container shadow-sm border border-outline-variant/10">
+<div class="w-16 h-16 rounded-lg bg-white overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A pack of fresh dark chocolate biscuits with minimalist modern packaging, elegant typography, premium food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQmVb4xKXcDY-gay6baONhMVoXaY29v6BVcDX3VB81TjQsV9I9fobPsnSYll10LO3VvCC_P7J77ZcG6haDdG7jSSOBESqUYmmD-o1w0aY1dOb9V4veuF-a7srV8FMq7JAb3r0ERoeDP64ujoYAy84KJSmKCYQc44-b3igzYu5MEQPF6ZvlRANdvBzYdFT_ZrIqtxKIGQ5gVJMsnPW9st_ddhfAMEQU4RAtLhtXZuL5sQm-yF79DHuw1FqTBMsGtDT9fiknE-Og"/>
+</div>
+<div class="flex-grow">
+<p class="font-headline-md text-[16px] leading-tight text-on-surface">Biscuits Chocolat Noir</p>
+<p class="text-on-surface-variant text-body-md font-body-md">200g • 70% Cacao</p>
+</div>
+<div class="text-right">
+<p class="font-price-display text-price-display text-primary">3 200 FCFA</p>
+<button class="text-error mt-1 hover:bg-error-container/20 p-1 rounded-md transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Suggestion/Upsell Area -->
+<div class="mt-stack-lg p-container-margin bg-primary-container/10 border-2 border-dashed border-primary-container rounded-2xl flex items-center justify-between">
+<div>
+<p class="font-label-bold text-primary font-bold">Promotion Membre</p>
+<p class="text-body-md text-on-surface-variant">Scanner un 5ème article pour -10%</p>
+</div>
+<div class="w-10 h-10 bg-primary-container text-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">add</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Payment Button -->
+<div class="fixed bottom-0 w-full bg-surface dark:bg-surface-dim p-container-margin shadow-[0_-8px_24px_rgba(0,0,0,0.08)] z-[60]">
+<button class="w-full bg-primary text-on-primary font-headline-md text-headline-md py-4 rounded-xl flex items-center justify-between px-6 transition-all duration-200 active:scale-[0.98] shadow-lg shadow-primary/20">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined">shopping_cart_checkout</span>
+                Payer
+            </span>
+<span class="font-bold text-white">7 500 FCFA</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar (Contextual Check: Suppressed for Transactional Scan Page) -->
+<!-- Not rendering BottomNavBar here as it's a task-focused "Search/Scan" screen which acts as a sub-page with a "Close" action -->
+<script>
+        // Micro-interactions and scanner behavior
+        document.addEventListener('DOMContentLoaded', () => {
+            const flashBtn = document.getElementById('flash-toggle');
+            let flashOn = false;
+
+            flashBtn.addEventListener('click', () => {
+                flashOn = !flashOn;
+                const icon = flashBtn.querySelector('.material-symbols-outlined');
+                if (flashOn) {
+                    icon.innerText = 'flash_off';
+                    flashBtn.classList.add('bg-primary/20');
+                    // Simulate flash activation with a quick screen overlay pulse
+                    const pulse = document.createElement('div');
+                    pulse.className = 'fixed inset-0 bg-white pointer-events-none z-[100] transition-opacity duration-300';
+                    document.body.appendChild(pulse);
+                    setTimeout(() => pulse.classList.add('opacity-0'), 10);
+                    setTimeout(() => pulse.remove(), 310);
+                } else {
+                    icon.innerText = 'flash_on';
+                    flashBtn.classList.remove('bg-primary/20');
+                }
+            });
+
+            // Simulate scanning sound or haptic feedback
+            const scannerFrame = document.querySelector('.scanner-cutout');
+            setInterval(() => {
+                // Random subtle movement to indicate "activity"
+                scannerFrame.style.transition = 'all 2s ease-in-out';
+                const offsetX = (Math.random() - 0.5) * 4;
+                const offsetY = (Math.random() - 0.5) * 4;
+                scannerFrame.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+            }, 3000);
+
+            // Delete item animation
+            const deleteButtons = document.querySelectorAll('.text-error');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const item = this.closest('.flex');
+                    item.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    item.style.transform = 'translateX(100px)';
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.remove();
+                    }, 400);
+                });
+            });
+        });
+    </script>
+</body></html>

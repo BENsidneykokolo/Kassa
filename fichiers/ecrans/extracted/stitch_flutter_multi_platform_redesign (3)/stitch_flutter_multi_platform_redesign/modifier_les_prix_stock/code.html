@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Gestion d'Inventaire</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-error": "#FCEBEB",
+                        "inverse-primary": "#68dbae",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary-fixed": "#001c38",
+                        "on-primary-fixed-variant": "#00513a",
+                        "surface-success": "#E1F5EE",
+                        "secondary-fixed-dim": "#a1c9ff",
+                        "on-primary": "#ffffff",
+                        "primary": "#00694c",
+                        "text-secondary": "#555555",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-container": "#5da9fe",
+                        "error-container": "#ffdad6",
+                        "surface-muted": "#F7F8FA",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#6d7a73",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#003d6d",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-high": "#ebe7e7",
+                        "secondary": "#0060a8",
+                        "tertiary-fixed": "#ffddb4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container": "#f0edec",
+                        "tertiary-container": "#a16900",
+                        "on-primary-fixed": "#002115",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#805200",
+                        "on-tertiary-container": "#fffbff",
+                        "inverse-surface": "#313030",
+                        "on-surface-variant": "#3d4943",
+                        "primary-fixed-dim": "#68dbae",
+                        "border-default": "#E0E0E0",
+                        "surface-info": "#E6F1FB",
+                        "text-muted": "#999999",
+                        "on-secondary-fixed-variant": "#004880",
+                        "on-primary-container": "#f5fff7",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-tint": "#006c4e",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "background": "#fcf9f8",
+                        "primary-fixed": "#86f8c9",
+                        "primary-container": "#008560",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "secondary-fixed": "#d2e4ff",
+                        "surface-warning": "#FAEEDA",
+                        "outline-variant": "#bccac1",
+                        "coral-red": "#E24B4A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap-md": "16px",
+                        "unit": "4px",
+                        "stack-gap-sm": "8px",
+                        "margin-page": "16px",
+                        "gutter-desktop": "24px",
+                        "stack-gap-lg": "24px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .blur-backdrop {
+            backdrop-filter: blur(8px);
+            background-color: rgba(28, 27, 27, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-gutter-mobile h-14">
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary">signal_cellular_alt</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas (Inventory List) -->
+<main class="pt-20 px-margin-page space-y-stack-gap-lg">
+<header class="flex justify-between items-end">
+<div>
+<p class="font-label-md text-label-md text-primary uppercase tracking-wider">Catalogue</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Inventaire</h2>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl flex items-center gap-2 font-label-md text-label-md shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Produit
+            </button>
+</header>
+<!-- Search & Filter -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-muted border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-white transition-all outline-none" placeholder="Rechercher un article..." type="text"/>
+</div>
+<!-- Inventory Grid -->
+<div class="grid grid-cols-2 gap-stack-gap-md">
+<!-- Product Card 1 -->
+<div class="bg-surface border border-border-default rounded-xl p-3 shadow-sm flex flex-col gap-2">
+<div class="aspect-square bg-surface-muted rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A premium red athletic sneaker displayed on a minimalist light gray pedestal. The lighting is soft and professional, highlighting the textile textures and the vibrant red color against a clean, modern African tech store aesthetic with high contrast and sharp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzmk1mLh6zS9Ucxwukm8VGN1VDj4qRrhl1BsZlDvhn8s0SvyDelIsr2727fherMOewHR6VUyZDqOJ6zmzs2tcRNg4iZWG0cu-jjIUWY_ptDIIHq--ft3A44RsiK97bTo-_Qqx4GKfpS61kOY0uECBWgIhSXrShdBTIdR2MSUqtD2pB0Qp1D0sjbLwi6aaTHY6_pdqXI2NSGi-sxOs_pXbmuGQJWoDm6LO_erdfd3SjkenauuiZJG2_ybmc_uySp6PPoTB1LIN3FJY"/>
+<span class="absolute top-2 right-2 bg-surface-success text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">24 En stock</span>
+</div>
+<div class="mt-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Sneaker Rouge Pro</h3>
+<p class="font-body-md text-body-md font-bold text-primary">45.000 FCFA</p>
+</div>
+</div>
+<!-- Product Card 2 (Active Item Being Edited) -->
+<div class="bg-surface border-2 border-primary rounded-xl p-3 shadow-md flex flex-col gap-2 ring-4 ring-primary/5">
+<div class="aspect-square bg-surface-muted rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A sleek minimalist designer watch with a white face and tan leather strap. Set against a soft, clean architectural background with warm natural light. The photograph captures a premium retail experience with clear focus on the product's elegant materials and craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3plSoPVwepeSsG_9ydNt_OBsMP5ZGhLsuhLR_tU6UixlQg28TdXIvJUBsIBPQ8B94DIv2SL2MYSanjbcpI5dt8_jfCEPstSK8p26z53sDvbfReomV1Ytx7c6M9H7ubaTtMdDmg3-0yeYXigcTduEJNOx_xoQmulxazFucfda8lzlU2-SKmlXuWJkOvNzW8Zpz2qkCzjMKH2YAnZ3SS6gXDRiJW542JaMOmi6jZrDLwmMPxeOIWPFbQYUXXAY0TRpZk2IMBOUTeEM"/>
+<span class="absolute top-2 right-2 bg-surface-error text-error text-[10px] font-bold px-2 py-0.5 rounded-full">3 Restants</span>
+</div>
+<div class="mt-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Montre Classique</h3>
+<p class="font-body-md text-body-md font-bold text-primary">120.000 FCFA</p>
+</div>
+</div>
+<!-- More Cards... -->
+<div class="bg-surface border border-border-default rounded-xl p-3 shadow-sm flex flex-col gap-2 opacity-60">
+<div class="aspect-square bg-surface-muted rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">image</span>
+</div>
+<div class="mt-1">
+<h3 class="font-label-md text-label-md text-on-surface">Sac à dos Tech</h3>
+<p class="font-body-md text-body-md font-bold text-primary">15.000 FCFA</p>
+</div>
+</div>
+<div class="bg-surface border border-border-default rounded-xl p-3 shadow-sm flex flex-col gap-2 opacity-60">
+<div class="aspect-square bg-surface-muted rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">image</span>
+</div>
+<div class="mt-1">
+<h3 class="font-label-md text-label-md text-on-surface">Casque Audio Pro</h3>
+<p class="font-body-md text-body-md font-bold text-primary">85.000 FCFA</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Popup / Bottom Sheet (Edit Prices) -->
+<div class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
+<!-- Backdrop -->
+<div class="absolute inset-0 blur-backdrop"></div>
+<!-- Modal Content -->
+<div class="relative w-full max-w-md bg-surface rounded-t-[2rem] sm:rounded-3xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
+<!-- Drag Handle for Mobile -->
+<div class="w-12 h-1.5 bg-surface-variant rounded-full mx-auto mt-4 mb-2 sm:hidden"></div>
+<div class="p-6 space-y-6">
+<!-- Header -->
+<div class="flex justify-between items-start">
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-2xl bg-surface-muted overflow-hidden border border-border-default">
+<img class="w-full h-full object-cover" data-alt="Close up detail of a minimalist designer watch with leather strap. The focus is on the textures and the clean dial, reflecting a luxury tech-driven commerce brand. Soft warm tones and sharp shadows create a professional commercial feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCktcwH6KRKA4K2nIdz7S0gri1znRTleErajcQNz5a6SMkdOHEULXFO3x_ihFal1zZ__RGHfdnihhPw1VNnFaNUkgi5P5rDkP-JoGRiltiZmKHL_wf_ETfQDwVYrxJ293DeB5KTeyRy8Yj4pLA95MeH5Vu4Y8bVqNGxxJHepDtRrf1XAFKUv9l0L5EszFTkwykeRdmNnCSgv3E1UwABtccpukdLViYtzGubPoZjpGTgreTSk7GzmhGl-0tMCDGDmjSv9MtFtUcLYb0"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Modifier les Prix</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter">Stock Faible: 03 unités</p>
+</div>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant/50 hover:bg-surface-variant transition-colors" onclick="this.closest('.fixed').style.display='none'">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Input Fields -->
+<div class="space-y-4">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Prix d'Achat (FCFA)</label>
+<div class="relative group">
+<input class="w-full bg-surface-muted border-2 border-transparent rounded-2xl px-5 py-4 font-body-lg text-body-lg text-on-surface focus:bg-white focus:border-primary outline-none transition-all" id="purchase_price" placeholder="0" type="number" value="85000"/>
+<span class="absolute right-5 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">XOF</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Prix de Vente (FCFA)</label>
+<div class="relative group">
+<input class="w-full bg-surface-muted border-2 border-transparent rounded-2xl px-5 py-4 font-body-lg text-body-lg text-on-surface focus:bg-white focus:border-primary outline-none transition-all" id="selling_price" placeholder="0" type="number" value="120000"/>
+<span class="absolute right-5 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">XOF</span>
+</div>
+</div>
+</div>
+<!-- Margin Display Card -->
+<div class="bg-primary-container dark:bg-primary-fixed-dim rounded-2xl p-4 flex justify-between items-center">
+<div class="space-y-1">
+<p class="font-label-sm text-label-sm text-on-primary-container opacity-80 uppercase">Marge par unité</p>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-on-primary-container font-extrabold" id="margin_display">+35.000 FCFA</span>
+<span class="bg-on-primary-container/20 text-on-primary-container text-[10px] px-2 py-0.5 rounded-full font-bold" id="margin_percent">41%</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-full bg-on-primary-container/10 flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[32px]">trending_up</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex gap-3 pt-2">
+<button class="flex-1 bg-surface-variant text-on-surface-variant py-4 rounded-2xl font-label-md text-label-md active:scale-95 transition-all">Annuler</button>
+<button class="flex-[2] bg-primary text-on-primary py-4 rounded-2xl font-label-md text-label-md shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                        Enregistrer
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-20 bg-surface dark:bg-surface-container-low shadow-[0_-4px_12px_rgba(0,0,0,0.05)] flex justify-around items-center px-4 pb-2 z-50 rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-md text-[10px] mt-1">Sales</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-[10px] mt-1">Inventory</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-[10px] mt-1">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-[10px] mt-1">Settings</span>
+</button>
+</nav>
+<script>
+        const purchaseInput = document.getElementById('purchase_price');
+        const sellingInput = document.getElementById('selling_price');
+        const marginDisplay = document.getElementById('margin_display');
+        const marginPercent = document.getElementById('margin_percent');
+
+        function calculateMargin() {
+            const p = parseFloat(purchaseInput.value) || 0;
+            const s = parseFloat(sellingInput.value) || 0;
+            const margin = s - p;
+            const percent = p > 0 ? Math.round((margin / p) * 100) : 0;
+            
+            marginDisplay.innerText = `${margin > 0 ? '+' : ''}${margin.toLocaleString('fr-FR')} FCFA`;
+            marginPercent.innerText = `${percent}%`;
+
+            if (margin < 0) {
+                marginDisplay.classList.replace('text-on-primary-container', 'text-error');
+            } else {
+                marginDisplay.classList.replace('text-error', 'text-on-primary-container');
+            }
+        }
+
+        purchaseInput.addEventListener('input', calculateMargin);
+        sellingInput.addEventListener('input', calculateMargin);
+
+        // Micro-interaction for clicking anywhere outside to close (simulated)
+        document.querySelector('.blur-backdrop').addEventListener('click', () => {
+            document.querySelector('.fixed.inset-0.z-\\[100\\]').style.display = 'none';
+        });
+    </script>
+</body></html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Kassa - Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .chart-bar {
+            transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-error": "#FCEBEB",
+                      "border-default": "#E0E0E0",
+                      "coral-red": "#E24B4A",
+                      "tertiary-fixed": "#ffddb4",
+                      "on-tertiary-container": "#fffbff",
+                      "primary": "#00694c",
+                      "inverse-primary": "#68dbae",
+                      "surface-success": "#E1F5EE",
+                      "on-secondary": "#ffffff",
+                      "background": "#fcf9f8",
+                      "secondary": "#0060a8",
+                      "tertiary-container": "#a16900",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#bccac1",
+                      "on-primary-fixed-variant": "#00513a",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f6f3f2",
+                      "on-secondary-fixed-variant": "#004880",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#86f8c9",
+                      "on-tertiary-fixed": "#291800",
+                      "primary-container": "#008560",
+                      "on-secondary-fixed": "#001c38",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#006c4e",
+                      "inverse-on-surface": "#f3f0ef",
+                      "text-muted": "#999999",
+                      "surface-container-high": "#ebe7e7",
+                      "surface-warning": "#FAEEDA",
+                      "on-secondary-container": "#003d6d",
+                      "outline": "#6d7a73",
+                      "tertiary-fixed-dim": "#ffb955",
+                      "tertiary": "#805200",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#f0edec",
+                      "on-surface": "#1c1b1b",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-surface-variant": "#3d4943",
+                      "surface-muted": "#F7F8FA",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#dcd9d9",
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-desktop": "24px",
+                      "gutter-mobile": "12px",
+                      "stack-gap-md": "16px",
+                      "unit": "4px",
+                      "stack-gap-lg": "24px",
+                      "stack-gap-sm": "8px",
+                      "margin-page": "16px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "caption": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "caption": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm flex justify-between items-center px-gutter-mobile h-14 w-full">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-100">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Yabisso Kassa</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">signal_cellular_alt</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="Merchant Avatar" class="w-full h-full object-cover" data-alt="A professional merchant profile avatar, featuring a friendly individual with modern glasses and clean attire, set against a soft, blurred urban storefront background. The visual style is high-contrast, professional, and trustworthy, using the brand's primary emerald green and clean white tones to reflect a successful African tech entrepreneur aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWsTQaex2xdV_EtN6hfGv_BrGZz8HGsVZMUbSui4-OvoVijb8ucJrjoJDtpRJGLLjfMUy_TQdDHZuErCLX2S4FIvasBLMuXqxZsO2lxEBCedDPHpb4He-8dWHF4Kms8JAx8MocSc9ZrSWMMFamc4-gci30z79u2BZ6eqomrStTezAh6kST56yx1lpzlmH4in153iMmaarhVvr4WDOPFnv3upv3spDx8eITgpUHXM-To13Dlhp6LIC4caOeFZewy86HnlnHUnrAwlw"/>
+</div>
+</div>
+</header>
+<main class="pt-20 px-4 max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="mb-stack-gap-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">Performance Report</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Track your business growth and metrics.</p>
+</div>
+<!-- Period Tabs -->
+<div class="flex bg-surface-container rounded-xl p-1 mb-stack-gap-lg overflow-hidden border border-border-default/50">
+<button class="flex-1 py-2 rounded-lg font-label-md text-label-md transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm" onclick="setActiveTab(this)">Today</button>
+<button class="flex-1 py-2 rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:bg-surface-container-high" onclick="setActiveTab(this)">Week</button>
+<button class="flex-1 py-2 rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:bg-surface-container-high" onclick="setActiveTab(this)">Month</button>
+</div>
+<!-- Metric Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-stack-gap-lg">
+<!-- Total Sales -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-border-default shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="p-2 bg-surface-success rounded-lg text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="flex items-center gap-1 text-primary font-label-sm">
+<span>+12%</span>
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+</div>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Total Sales</h3>
+<p class="font-headline-lg-mobile text-headline-lg-mobile font-bold">FCFA 425,000</p>
+</div>
+<!-- Net Profit -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-border-default shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="p-2 bg-surface-info rounded-lg text-secondary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm">
+<span>+5.4%</span>
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+</div>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Net Profit</h3>
+<p class="font-headline-lg-mobile text-headline-lg-mobile font-bold">FCFA 158,200</p>
+</div>
+<!-- Expenses -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-border-default shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="p-2 bg-surface-error rounded-lg text-coral-red">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div class="flex items-center gap-1 text-coral-red font-label-sm">
+<span>-2.1%</span>
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+</div>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Expenses</h3>
+<p class="font-headline-lg-mobile text-headline-lg-mobile font-bold">FCFA 84,300</p>
+</div>
+</div>
+<!-- Sales Chart Section -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-border-default shadow-[0_4px_12px_rgba(0,0,0,0.05)] mb-stack-gap-lg">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold">Sales per hour</h3>
+<p class="font-label-sm text-on-surface-variant">Daily transaction frequency</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-colors">download</button>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between gap-2 px-2">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none border-b border-border-default/50">
+<div class="border-t border-border-default/20 w-full h-px"></div>
+<div class="border-t border-border-default/20 w-full h-px"></div>
+<div class="border-t border-border-default/20 w-full h-px"></div>
+</div>
+<!-- Bars (Dynamic Mock) -->
+<div class="relative group flex-1">
+<div class="chart-bar w-full bg-primary/20 rounded-t-lg group-hover:bg-primary transition-all duration-300" style="height: 30%;"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none transition-opacity">12k</div>
+<span class="block text-center mt-3 font-label-sm text-on-surface-variant">08:00</span>
+</div>
+<div class="relative group flex-1">
+<div class="chart-bar w-full bg-primary/40 rounded-t-lg group-hover:bg-primary transition-all duration-300" style="height: 55%;"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none transition-opacity">24k</div>
+<span class="block text-center mt-3 font-label-sm text-on-surface-variant">10:00</span>
+</div>
+<div class="relative group flex-1">
+<div class="chart-bar w-full bg-primary rounded-t-lg transition-all duration-300" style="height: 85%;"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none transition-opacity">42k</div>
+<span class="block text-center mt-3 font-label-sm text-on-surface-variant">12:00</span>
+</div>
+<div class="relative group flex-1">
+<div class="chart-bar w-full bg-primary/60 rounded-t-lg group-hover:bg-primary transition-all duration-300" style="height: 70%;"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none transition-opacity">31k</div>
+<span class="block text-center mt-3 font-label-sm text-on-surface-variant">14:00</span>
+</div>
+<div class="relative group flex-1">
+<div class="chart-bar w-full bg-primary/40 rounded-t-lg group-hover:bg-primary transition-all duration-300" style="height: 45%;"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none transition-opacity">18k</div>
+<span class="block text-center mt-3 font-label-sm text-on-surface-variant">16:00</span>
+</div>
+<div class="relative group flex-1">
+<div class="chart-bar w-full bg-primary/20 rounded-t-lg group-hover:bg-primary transition-all duration-300" style="height: 25%;"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none transition-opacity">9k</div>
+<span class="block text-center mt-3 font-label-sm text-on-surface-variant">18:00</span>
+</div>
+</div>
+</div>
+<!-- Top Products List -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md font-bold">Top Products</h3>
+<button class="text-primary font-label-md hover:underline decoration-2 underline-offset-4">View All</button>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-border-default overflow-hidden">
+<!-- Product Row 1 -->
+<div class="flex items-center justify-between p-4 border-b border-border-default last:border-0 hover:bg-surface-container/30 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-surface-warning rounded-full font-label-md text-tertiary">1</div>
+<div class="w-12 h-12 bg-surface-muted rounded-xl flex items-center justify-center text-2xl">☕</div>
+<div>
+<p class="font-label-md text-on-surface">Arabica Coffee Beans</p>
+<p class="font-caption text-on-surface-variant">128 units sold</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-on-surface font-bold">FCFA 64,000</p>
+<p class="font-caption text-primary font-medium">Growth +18%</p>
+</div>
+</div>
+<!-- Product Row 2 -->
+<div class="flex items-center justify-between p-4 border-b border-border-default last:border-0 hover:bg-surface-container/30 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-surface-container-high rounded-full font-label-md text-on-surface-variant">2</div>
+<div class="w-12 h-12 bg-surface-muted rounded-xl flex items-center justify-center text-2xl">🥖</div>
+<div>
+<p class="font-label-md text-on-surface">Artisan Baguette</p>
+<p class="font-caption text-on-surface-variant">94 units sold</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-on-surface font-bold">FCFA 28,200</p>
+<p class="font-caption text-primary font-medium">Growth +12%</p>
+</div>
+</div>
+<!-- Product Row 3 -->
+<div class="flex items-center justify-between p-4 border-b border-border-default last:border-0 hover:bg-surface-container/30 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-surface-container-high rounded-full font-label-md text-on-surface-variant">3</div>
+<div class="w-12 h-12 bg-surface-muted rounded-xl flex items-center justify-center text-2xl">🍯</div>
+<div>
+<p class="font-label-md text-on-surface">Natural Forest Honey</p>
+<p class="font-caption text-on-surface-variant">61 units sold</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-on-surface font-bold">FCFA 45,750</p>
+<p class="font-caption text-coral-red font-medium">Stable 0%</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-20 bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] flex justify-around items-center px-4 pb-2 z-50 rounded-t-xl border-t border-border-default/30">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1">point_of_sale</span>
+<span class="font-label-md text-[10px]">Sales</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+<span class="font-label-md text-[10px]">Inventory</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-[10px]">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="font-label-md text-[10px]">Settings</span>
+</button>
+</nav>
+<script>
+        function setActiveTab(button) {
+            const container = button.parentElement;
+            const buttons = container.querySelectorAll('button');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                btn.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+            });
+            
+            button.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+            button.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+
+            // Simulate chart refresh animation
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach(bar => {
+                const currentHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    // Randomized new height for visual effect
+                    const newHeight = Math.floor(Math.random() * 80 + 10) + '%';
+                    bar.style.height = newHeight;
+                }, 100);
+            });
+        }
+
+        // Trigger chart animation on load
+        window.addEventListener('load', () => {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach((bar, index) => {
+                const finalHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.height = finalHeight;
+                }, index * 100);
+            });
+        });
+    </script>
+</body></html>

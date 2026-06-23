@@ -33,4 +33,8 @@
 
 ---
 
-*Dernière mise à jour: 12/06/2026*
+| 23/06/2026 | GitHub push bloqué (OAuth client secrets dans commit) | `git rm --cached` + `git commit --amend` + ajout au `.gitignore` | ✅ Résolu |
+
+---
+
+*Dernière mise à jour: 23/06/2026*

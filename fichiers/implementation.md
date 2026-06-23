@@ -102,7 +102,20 @@ Yabisso Kassa — Application Flutter Cross-Platform Offline-First (POS) pour pe
 - [x] Flutter: icône caisse (yabissokassa_icon_caisse.png) dans tous les mipmap Android
 - [x] Dashboard: icône dashboard (yabissokassa_icon_dashbord.png) comme favicon
 
-## Phase 11: En attente (prochaines étapes)
+## Phase 11: Renommage Kassa ✅ COMPLÉTÉE
+- [x] "Yabisso Kassa" → "Kassa" dans tous les fichiers d'affichage utilisateur
+- [x] Nom installation "Kassa" sur Android, iOS, macOS, Windows
+- [x] Build Windows .exe (kassa.exe)
+- [x] Build Android APK (app-release.apk)
+- [x] Backup GitHub repo `BENsidneykokolo/Kassa`
+
+## Phase 12: Améliorations inventaire + scanner ✅ COMPLÉTÉE
+- [x] Cliquer sur image produit → EditProductScreen avec bouton supprimer
+- [x] Flash fonctionnel sur `ScannerScreen` (bouton torche)
+- [x] Flash fonctionnel sur scanner code-barres dans `AddProductScreen`
+- [x] Build Windows + Android après modifications
+
+## Phase 13: En attente (prochaines étapes)
 - [ ] Déploiement Render (attente validation user)
 - [ ] Mise à jour _apiBaseUrl dans subscription_screen.dart après Render
 - [ ] Bluetooth printer (thermal printing)
@@ -111,4 +124,4 @@ Yabisso Kassa — Application Flutter Cross-Platform Offline-First (POS) pour pe
 
 ---
 
-*Dernière mise à jour: 15/06/2026*
+*Dernière mise à jour: 23/06/2026*

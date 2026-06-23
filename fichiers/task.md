@@ -4,7 +4,6 @@
 
 | Priorité | Tâche | Assigné | Statut | Date |
 |----------|-------|---------|--------|------|
-| P1 | Build Windows .exe version | Opencode | En attente (après finition mobile) | 18/06/2026 |
 | P1 | Déploiement Render | User | En attente | 15/06/2026 |
 
 ## Tâches à faire
@@ -20,6 +19,14 @@
 
 | Tâche | Complétée le | Notes |
 |-------|--------------|-------|
+| Écran gestion produits dans paramètres (AddProductScreen mode édition) | 23/06/2026 | ProductManagementScreen liste produits → AddProductScreen(product:) + bouton supprimer |
+| Accès edit/supprimé retiré de l'inventaire et écran produits | 23/06/2026 | Uniquement accessible depuis Paramètres > Produits |
+| Renommage "Yabisso Kassa" → "Kassa" (écran vente + install) | 23/06/2026 | desktop_pos_screen, configs Android/iOS/macOS/Windows |
+| Cliquer image inventaire → EditProductScreen + supprimer | 23/06/2026 | inventory_screen + products_content (EditProductScreen) |
+| Flash fonctionnel écrans scanner (2 écrans) | 23/06/2026 | MobileScannerController.toggleTorch() |
+| Build Windows .exe (kassa.exe) | 23/06/2026 | flutter build windows --release |
+| Build Android APK (app-release.apk) | 23/06/2026 | flutter build apk --release |
+| Backup GitHub repo + push | 23/06/2026 | github.com/BENsidneykokolo/Kassa |
 | Fix écran Historique Reçus (crash NULL Sale fields) | 17/06/2026 | sale.dart fromMap null-safe, error handling receipt_history_screen |
 | DB Migration v6 (is_modified, modified_at) | 17/06/2026 | Version 5→6, colonnes is_modified + modified_at dans sales |
 | Catégories récursives infinies | 17/06/2026 | _RecursiveCategoryTile, getAllSubcategoryIdsRecursive |
@@ -104,4 +111,4 @@
 
 ---
 
-*Dernière mise à jour: 18/06/2026*
+*Dernière mise à jour: 23/06/2026*

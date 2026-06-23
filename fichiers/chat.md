@@ -1,5 +1,27 @@
 # Historique des Conversations - Kassa
 
+## Session du 23/06/2026
+
+### Renommage, inventaire edit/delete, flash scanner, builds + git push
+
+### Ajout écran gestion produits dans paramètres
+- **User**: Ajouter écran modifier/éditer/supprimer produit dans paramètres
+- **Opencode**: `AddProductScreen` modifié pour accepter un `Product` optionnel → mode édition avec tous les champs (nom, prix, stock, image, code-barres, catégorie, fournisseur, audio) + bouton "Supprimer ce produit" ✅
+- **Opencode**: Nouveau `ProductManagementScreen` dans settings → liste tous les produits → clic → écran complet ✅
+- **Opencode**: Ancien `EditProductScreen` basique supprimé (remplacé par `AddProductScreen` mode édition) ✅
+- **User**: L'accès edit/supprimer doit être UNIQUEMENT dans paramètres
+- **Opencode**: Retiré les options modifier/supprimer de l'inventaire et de l'écran produits ✅
+- **Build**: Windows .exe ✅ | Android APK ✅
+- **User**: Renommer "Yabisso Kassa" → "Kassa" (écran vente + nom installation)
+- **Opencode**: Modifié `desktop_pos_screen.dart`, AndroidManifest.xml, iOS/macOS/Windows Info.plist/Runner.rc/main.cpp ✅
+- **User**: Cliquer sur image produit dans inventaire → écran edit/supprimer
+- **Opencode**: `inventory_screen.dart` onTap → `EditProductScreen` + bouton supprimer ajouté ✅
+- **User**: Flash fonctionnel sur les 2 écrans scanner
+- **Opencode**: `scanner_screen.dart` + `add_product_screen.dart` → `MobileScannerController.toggleTorch()` ✅
+- **Build**: Windows .exe (kassa.exe) ✅ | Android APK (app-release.apk) ✅
+- **Git**: Repo `BENsidneykokolo/Kassa` créé, commit + push ✅
+- **Secrets**: OAuth client secrets retirés du commit (bloqué par GitHub push protection) ✅
+
 ## Session du 11/06/2026
 
 ### 11:00 - Initialisation

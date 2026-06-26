@@ -34,7 +34,10 @@
 ---
 
 | 23/06/2026 | GitHub push bloqué (OAuth client secrets dans commit) | `git rm --cached` + `git commit --amend` + ajout au `.gitignore` | ✅ Résolu |
+| 26/06/2026 | `sheet.maxRow` pas défini dans excel v4 (6 erreurs analyze) | Remplacer `sheet.maxRow` par `sheet.rows.length` | ✅ Résolu |
+| 26/06/2026 | `.toDouble()` / `.toInt()` sur `CellValue?` null-safe | Pattern matching avec `DoubleCellValue` / `IntCellValue` au lieu de `val is num` | ✅ Résolu |
+| 26/06/2026 | Imports inutilisés après refactoring Excel | Supprimé `dart:typed_data`, `category.dart`, `supplier.dart`, `isSelected` variables | ✅ Résolu |
 
 ---
 
-*Dernière mise à jour: 23/06/2026*
+*Dernière mise à jour: 26/06/2026*

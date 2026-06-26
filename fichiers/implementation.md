@@ -115,7 +115,31 @@ Yabisso Kassa — Application Flutter Cross-Platform Offline-First (POS) pour pe
 - [x] Flash fonctionnel sur scanner code-barres dans `AddProductScreen`
 - [x] Build Windows + Android après modifications
 
-## Phase 13: En attente (prochaines étapes)
+## Phase 13: UI Fixes + Import/Export complet ✅ COMPLÉTÉE
+- [x] Header Ventes simplifié (remove 3 dots, Online badge, font size 20→16, même ligne)
+- [x] Boutons +/- scanner vérifiés (scanner_screen.dart)
+- [x] Fix suppression sous-catégorie (long-press menu contextuel + boutons restructurés)
+- [x] Import/Export JSON v2 avec images base64 + catégories/fournisseurs par nom
+- [x] CSV Import/Export avec category_name, supplier_name, photo_path
+- [x] Fix path.basename dans product_exporter.dart
+
+## Phase 14: Devise, Langue, Excel ✅ COMPLÉTÉE
+- [x] Système multi-devises (10 devises africaines + internationales)
+- [x] CurrencyService avec formatage et persistence SharedPreferences
+- [x] Dialog sélection devise dans Paramètres
+- [x] Système multi-langues (FR, EN, SW, PT)
+- [x] LanguageService avec traductions UI complètes
+- [x] Dialog sélection langue dans Paramètres
+- [x] Import/Export Excel (.xlsx) remplace CSV
+- [x] ExcelService avec détection colonnes auto par en-tête
+- [x] Support types CellValue (IntCellValue, DoubleCellValue, TextCellValue)
+- [x] Fix scroll scanner (bottom padding 2 écrans)
+- [x] Fix 6 erreurs excel_service.dart (maxRow, nullable)
+- [x] flutter analyze 0 erreurs
+
+## Phase 15: En attente (prochaines étapes)
+- [ ] Wiring CurrencyService.formatPrice() partout dans l'app
+- [ ] Wiring LanguageService.translate() pour toutes les chaînes UI
 - [ ] Déploiement Render (attente validation user)
 - [ ] Mise à jour _apiBaseUrl dans subscription_screen.dart après Render
 - [ ] Bluetooth printer (thermal printing)
@@ -124,4 +148,4 @@ Yabisso Kassa — Application Flutter Cross-Platform Offline-First (POS) pour pe
 
 ---
 
-*Dernière mise à jour: 23/06/2026*
+*Dernière mise à jour: 26/06/2026*

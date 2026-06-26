@@ -1094,3 +1094,306 @@ cd yabisso_kassa && flutter.bat analyze
 - `dart analyze` : **0 erreurs, 0 warnings**
 - `flutter build apk --release` : **108.9 MB** (846s)
 - APK v1.4.4 copié
+
+---
+
+## Session du 24/06/2026 — Vérification fichiers .md + enregistrement automatique
+
+### 00:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **18 fichiers .md lus et analysés** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md + 6 DESIGN.md
+  - ✅ **Contexte complet** : Yabisso Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Flutter App** : Phases 1-12 complétées, v1.4.4+13, dernier APK 108.9 MB, GitHub pushé
+    - **Dashboard React** : React 19 + Express 5 + Capacitor 8, mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Windows** : Build partiel (exe 91 KB + DLLs 23 MB, Visual Studio manquant pour rebuild)
+    - **iOS/macOS** : Impossible sur Windows (besoin Mac + Xcode)
+  - ✅ **flutter pub get** : 113 dépendances OK, 62 packages avec versions plus récentes disponibles
+  - ✅ **chat.md mis à jour** en temps réel avec cette session
+  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (24/06/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App | ✅ Pushé | v1.4.4, APK 108.9 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Phases 1-12 | ✅ Complétées | Fondations → Scanner redesign + CSV |
+| Phase 13 | ⏳ En attente | Render deploy, API URL, Bluetooth printer, tests, Play Store |
+| Windows | ⏳ Bloqué | Visual Studio manquant |
+| iOS/macOS | ❌ Bloqué | Besoin Mac |
+
+### Tâches en attente (task.md)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+---
+
+## Session du 24/06/2026 (05:00) — UI fixes + Import/Export complet
+
+### 05:00 — 5 demandes utilisateur
+
+- **User**: 5 demandes :
+  1. Enlever les 3 points en haut à droite dans l'écran "Ventes"
+  2. Enlever "Online" et réduire "Yabisso Kassa" sur une même ligne
+  3. Vérifier les boutons +/- dans les 2 écrans scanner
+  4. Fix suppression sous-catégorie dans "Mes Catégories" (paramètres)
+  5. Import/Export complet : images + toutes les infos produit (prix, nom, catégorie, quantité, etc.)
+
+- **Opencode**: Implémentation complète :
+
+#### Fix 1 : Header écran Ventes — `products_content.dart`
+- Supprimé le `PopupMenuButton` (3 points) qui gérait export/import
+- Supprimé le badge "Online" avec le point vert
+- Réduit la taille du texte "Yabisso Kassa" de `fontSize: 20` → `fontSize: 16`
+- Header simplifié : icône + nom + bouton Scanner sur la même ligne
+- **Fichier**: `lib/screens/products/products_content.dart` ✅
+
+#### Fix 2 : Vérification boutons +/- scanner
+- `scanner_screen.dart` (Ventes) : boutons +/- déjà présents dans `_buildScannedItemCard` (lignes 352-393) ✅
+- `add_product_screen.dart` : scanner est juste pour code-barres, pas de +/- nécessaire ✅
+
+#### Fix 3 : Suppression sous-catégorie — `categories_screen.dart`
+- Ajout d'un **long-press** sur chaque tile catégorie/sous-catégorie qui ouvre un menu contextuel (`_showActionsMenu`)
+- Menu contextuel avec "Ajouter une sous-catégorie" et "Supprimer"
+- Les boutons trailing restructurés avec `constraints: BoxConstraints(minWidth: 32, minHeight: 32)` pour éviter les conflits avec le toggle d'expansion
+- **Fichier**: `lib/screens/categories/categories_screen.dart` ✅
+
+#### Fix 4 : Import/Export CSV complet — `product_exporter.dart`
+- **Export JSON v2** : Ajout de tous les champs produit (nom, prix, prix achat, stock, alerte, code-barres, catégorie nom, fournisseur nom, chemin image)
+- **Images** : Encodage base64 de l'image du produit dans le JSON export (`photo_base64` + `photo_filename`)
+- **Import** : Résolution automatique des catégories/fournisseurs par nom (crée si inexistant)
+- **Import images** : Désencodage base64 → sauvegarde dans `product_images/`
+- **Fichier**: `lib/services/product_exporter.dart` ✅
+
+#### Fix 5 : CSV Service complet — `csv_service.dart`
+- Nouveaux champs export : `category_name` (nom), `supplier_name` (nom), `photo_path` (chemin image)
+- Anciens champs `supplier_id`/`category_id` remplacés par les noms lisibles
+- `exportToCsv()` accepte `categoryNames` et `supplierNames` maps
+- `importProducts()` résout catégories/fournisseurs par nom (auto-création)
+- **Fichier**: `lib/services/csv_service.dart` ✅
+
+#### Fix 6 : CSV Import/Export Screen — `csv_import_export_screen.dart`
+- `_exportCsv()` charge les catégories/fournisseurs et les passe à `exportToCsv()`
+- Nouveaux imports ajoutés (Category, Supplier)
+- **Fichier**: `lib/screens/settings/csv_import_export_screen.dart` ✅
+
+#### Bug fix : `product_exporter.dart`
+- `p.basename()` → `path.basename()` (variable `p` était le produit, pas le module path)
+- Import corrigé : `path/path.dart as path` au lieu de `as p`
+
+#### Builds
+- ✅ **APK Android** : En cours (clean + rebuild après fix erreur libsqlite3.so)
+- ❌ **Windows** : Visual Studio manquant pour rebuild
+
+---
+
+## Session du 25/06/2026 — Vérification fichiers .md + enregistrement automatique
+
+### 00:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **18 fichiers .md lus et analysés** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md + 6 DESIGN.md
+  - ✅ **Contexte complet** : Yabisso Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Flutter App** : Phases 1-13 complétées, v1.4.4+13, dernier APK 108.9 MB, GitHub pushé
+    - **Dashboard React** : React 19 + Express 5 + Capacitor 8, mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Windows** : Build partiel (exe 91 KB + DLLs 23 MB, Visual Studio manquant pour rebuild)
+    - **iOS/macOS** : Impossible sur Windows (besoin Mac + Xcode)
+  - ✅ **chat.md mis à jour** en temps réel avec cette session
+  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (25/06/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App | ✅ Pushé | v1.4.4, APK 108.9 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Phases 1-13 | ✅ Complétées | Fondations → Scanner redesign + CSV |
+| Phase 14 | ⏳ En attente | Render deploy, API URL, Bluetooth printer, tests, Play Store |
+| Windows | ✅ Buildé | VS 2022 Community trouvé + kassa.exe 22.4 MB |
+| iOS/macOS | ❌ Bloqué | Besoin Mac |
+
+### 02:40 — Builds Windows + Android
+
+- **User**: "donne moi le chemin du dernier apk et app pc" + "j'ai Visual Studio, vérifie bien" + "ne t'arrete pas si tu n'as pas fini"
+- **Opencode**:
+  - ✅ **Visual Studio 2022 Community** trouvé : `C:\Program Files\Microsoft Visual Studio\18\Community`
+  - ✅ **MSBuild.exe** présent : `C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe`
+
+#### Build Windows
+- ✅ `flutter build windows --release` : **kassa.exe** (82 KB) + DLLs = **22.4 MB** total
+- 📍 **Exe** : `C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\windows\x64\runner\Release\kassa.exe`
+- 📍 **Dossier Release** : `C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\windows\x64\runner\Release\`
+- Build : 25/06/2026 01:51
+
+#### Build Android
+- ✅ `flutter build apk --release` : **108.9 MB**
+- 📍 **APK brut** : `C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\app\outputs\flutter-apk\app-release.apk`
+- 📍 **APK copié** : `C:\Users\Utilisateur\Documents\Ben\Kassa\apk\kassa_v1.4.5.apk`
+- 📍 **APK latest** : `C:\Users\Utilisateur\Documents\Ben\Kassa\apk\kassa_latest.apk`
+- Build : 25/06/2026 02:39
+
+### Tâches en attente (task.md)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+---
+
+## Session du 25/06/2026 (11:00) — Vérification fichiers .md + enregistrement automatique
+
+### 11:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md clés lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
+  - ✅ **Contexte complet** : Yabisso Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Flutter App** : Phases 1-13, v1.4.5+13, dernier APK 108.9 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : React 19 + Express 5 + Capacitor, mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Windows** : ✅ Buildé (VS 2022 Community trouvé)
+    - **iOS/macOS** : ❌ Bloqué (besoin Mac + Xcode)
+  - ✅ **chat.md mis à jour** en temps réel avec cette session
+  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (25/06/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App | ✅ Pushé | v1.4.5, APK 108.9 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Phases 1-13 | ✅ Complétées | Fondations → Scanner redesign + CSV |
+| Phase 14 | ⏳ En attente | Render deploy, API URL, Bluetooth printer, tests, Play Store |
+| Windows | ✅ Buildé | VS 2022 Community, kassa.exe 22.4 MB |
+| iOS/macOS | ❌ Bloqué | Besoin Mac |
+
+### Tâches en attente (task.md)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+---
+
+## Session du 25/06/2026 (22:30) — Fix scanner écran Paiement
+
+### 22:30 — Diagnostic + Fix scanner paiement
+
+- **User**: Le scanner dans l'écran "Paiement" ne marche pas, celui qui marche est dans l'écran "Ventes"
+- **Opencode**: Diagnostic et correction :
+
+#### Problème identifié
+- **ScannerScreen (ventes)** : `MobileScanner` est TOUJOURS dans l'arbre widget, le `MobileScannerController` est créé dans `initState()` → la caméra démarre correctement ✅
+- **PaymentScreen (paiement)** : `MobileScanner` est conditionnel (`if (_showScanner)`) mais le `MobileScannerController` est créé dans `initState()` avec `autoStart: true` → le controller essaie de démarrer la caméra AVANT que le widget `MobileScanner` ne soit monté → la caméra est dans un mauvais état ❌
+
+#### Fix appliqué — `payment_screen.dart`
+1. **`_scannerController`** : `final` → nullable (`MobileScannerController?`), initialisé à `null`
+2. **`_openScanner()`** : Nouvelle méthode qui crée le controller + affiche le scanner
+3. **`_closeScanner()`** : Nouvelle méthode qui dispose le controller + ferme le scanner
+4. **AppBar bouton** : `setState(() => _showScanner = true)` → `_openScanner()`
+5. **Bouton fermer (X)** : `setState(() => _showScanner = false)` → `_closeScanner()`
+6. **Bouton "Retour au paiement"** : `setState(() => _showScanner = false)` → `_closeScanner()`
+7. **Flash toggle** : `_scannerController.toggleTorch()` → `_scannerController?.toggleTorch()`
+8. **`MobileScanner`** : `controller: _scannerController` → `controller: _scannerController!`
+9. **`dispose()`** : `_scannerController.dispose()` → `_scannerController?.dispose()`
+
+#### Résultat
+- `flutter analyze payment_screen.dart` : **0 erreurs, 0 warnings** (15 infos pré-existants)
+- Le controller et le widget `MobileScanner` sont maintenant créés et montés en même temps → la caméra démarre correctement
+
+---
+
+## Session du 26/06/2026 (15:00) — Devise, Langue, Excel, Scanner scroll, Builds
+
+### 15:00 — Fix scroll scanner (2 écrans)
+
+- **User**: Le scroll ne fonctionne pas quand il y a beaucoup de produits scannés
+- **Opencode**: Ajout `padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 80)` au `ListView.builder` dans `_buildScannedItemsSheet()` pour éviter que la barre de paiement en bas ne chevauche les articles
+  - `scanner_screen.dart` ✅
+  - `payment_screen.dart` ✅
+
+### 15:10 — Système de devise multi-devises
+
+- **User**: Pouvoir changer la devise (FCFA par défaut)
+- **Opencode**: Créé `lib/services/currency_service.dart` avec 10 devises :
+  - XAF/FCFA (Cameroun, Congo, Gabon, etc.) — par défaut
+  - XOF (Sénégal, Côte d'Ivoire, Mali, etc.)
+  - CDF (Congo-Kinshasa)
+  - NGN (Nigeria)
+  - GHS (Ghana)
+  - KES (Kenya)
+  - ZAR (Afrique du Sud)
+  - USD (Dollar)
+  - EUR (Euro)
+  - GBP (Livre sterling)
+- **Opencode**: Ajout `_showCurrencyDialog()` dans `settings_screen.dart` avec `RadioListTile` pour sélection
+- **Opencode**: Persistance via `SharedPreferences`
+- **Note**: `CurrencyService.formatPrice()` existe mais n'est pas encore utilisé partout (les `_fmt()` existants hardcodent encore "FCFA")
+
+### 15:20 — Système de langue multi-langues
+
+- **User**: Pouvoir changer la langue
+- **Opencode**: Créé `lib/services/language_service.dart` avec 4 langues :
+  - Français (par défaut)
+  - English (Anglais)
+  - Kiswahili (Swahili)
+  - Português (Portugais)
+- **Opencode**: Map de traductions complètes pour l'UI (Produits, Stock, Analyse, Paramètres, Paiement, etc.)
+- **Opencode**: Ajout `_showLanguageDialog()` dans `settings_screen.dart` avec `RadioListTile`
+- **Opencode**: Persistance via `SharedPreferences`
+- **Note**: `LanguageService.translate()` existe mais les chaînes UI ne sont pas encore remplacées
+
+### 15:30 — Import/Export Excel (remplace CSV)
+
+- **User**: Remplacer le CSV par Excel (.xlsx)
+- **Opencode**: Ajout `excel: ^4.0.6` au `pubspec.yaml`
+- **Opencode**: Créé `lib/services/excel_service.dart` :
+  - Export : tous les champs produit (nom, prix, prix achat, stock, alerte stock, code-barres, catégorie, fournisseur, photo)
+  - Import : parsing intelligent des colonnes (détection par en-tête : "nom"/"name", "prix"/"price", etc.)
+  - Support `IntCellValue`, `DoubleCellValue`, `TextCellValue` pour le parsing robuste
+- **Opencode**: Modifié `csv_import_export_screen.dart` :
+  - Remplacé `CsvService` par `ExcelService`
+  - Supprimé `_FieldMappingDialog` (plus nécessaire avec Excel)
+  - Texte UI : "CSV" → "Excel"
+- **Opencode**: Supprimé imports inutilisés (`Category`, `Supplier` dans csv_import_export_screen)
+
+### 15:40 — Fix erreurs flutter analyze
+
+- **Opencode**: `flutter analyze` trouvé 6 erreurs dans `excel_service.dart` :
+  - `sheet.maxRow` → `sheet.rows.length` (API excel v4)
+  - `val.toDouble()` / `val.toInt()` sur `CellValue?` → pattern matching avec `DoubleCellValue` / `IntCellValue`
+- **Opencode**: Supprimé imports inutilisés :
+  - `dart:typed_data` dans `excel_service.dart`
+  - `package:path/path.dart` renommé en `p` (évite conflit)
+  - `../../models/category.dart` et `../../models/supplier.dart` dans `csv_import_export_screen.dart`
+- **Opencode**: Supprimé variables `isSelected` inutilisées dans `settings_screen.dart`
+- **Résultat final** : `flutter analyze` → **0 erreurs** (164 infos/warnings pré-existants)
+
+### 15:50 — Build APK + EXE
+
+- **Opencode**: `flutter pub get` → 5 dépendances changées (excel ajouté, posix supprimé)
+- **Opencode**: `flutter build apk --release` — en cours
+- **Opencode**: `flutter build windows --release` — en cours
+- **Opencode**: `flutter analyze` → 0 erreurs ✅
+
+### Fichiers créés
+- `lib/services/currency_service.dart` — 10 devises + formatage
+- `lib/services/language_service.dart` — 4 langues + traductions UI
+- `lib/services/excel_service.dart` — Export/Import Excel (.xlsx)
+
+### Fichiers modifiés
+- `pubspec.yaml` — Ajout `excel: ^4.0.6`
+- `lib/screens/scanner/scanner_screen.dart` — Bottom padding pour scroll
+- `lib/screens/payment/payment_screen.dart` — Bottom padding pour scroll
+- `lib/screens/settings/settings_screen.dart` — Dialogs devise + langue
+- `lib/screens/settings/csv_import_export_screen.dart` — Excel au lieu de CSV

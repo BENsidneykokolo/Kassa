@@ -19,6 +19,20 @@
 
 | Tâche | Complétée le | Notes |
 |-------|--------------|-------|
+| Header Ventes simplifié (remove 3 dots, Online badge, font size) | 24/06/2026 | products_content.dart: icône + nom + Scanner sur 1 ligne |
+| Fix suppression sous-catégorie | 24/06/2026 | Long-press menu contextuel + boutons restructurés dans categories_screen.dart |
+| Import/Export JSON complet avec images | 24/06/2026 | product_exporter.dart v2: base64 images, cat/fournisseur par nom |
+| CSV Import/Export avec catégories/fournisseurs par nom | 24/06/2026 | csv_service.dart: nouveaux champs category_name, supplier_name, photo_path |
+| Fix path.basename dans product_exporter | 24/06/2026 | `p.basename` → `path.basename` |
+| Système multi-devises (10 devises) | 26/06/2026 | currency_service.dart: XAF, XOF, CDF, NGN, GHS, KES, ZAR, USD, EUR, GBP |
+| Système multi-langues (4 langues) | 26/06/2026 | language_service.dart: FR, EN, SW, PT + traductions UI |
+| Import/Export Excel (.xlsx) remplace CSV | 26/06/2026 | excel_service.dart: export/import avec tous champs, détection colonnes auto |
+| Fix scroll scanner (2 écrans) | 26/06/2026 | Bottom padding pour éviter chevauchement barre paiement |
+| Fix 6 erreurs excel_service.dart | 26/06/2026 | maxRow→rows.length, CellValue type matching, imports nettoyés |
+| flutter analyze 0 erreurs | 26/06/2026 | 0 erreurs après tous les fixes |
+
+| Tâche | Complétée le | Notes |
+|-------|--------------|-------|
 | Écran gestion produits dans paramètres (AddProductScreen mode édition) | 23/06/2026 | ProductManagementScreen liste produits → AddProductScreen(product:) + bouton supprimer |
 | Accès edit/supprimé retiré de l'inventaire et écran produits | 23/06/2026 | Uniquement accessible depuis Paramètres > Produits |
 | Renommage "Yabisso Kassa" → "Kassa" (écran vente + install) | 23/06/2026 | desktop_pos_screen, configs Android/iOS/macOS/Windows |
@@ -111,4 +125,4 @@
 
 ---
 
-*Dernière mise à jour: 23/06/2026*
+*Dernière mise à jour: 26/06/2026*

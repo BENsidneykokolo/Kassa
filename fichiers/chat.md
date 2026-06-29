@@ -1940,3 +1940,54 @@ Chaque app nécessite :
 | P2 | Déploiement Play Store | À faire |
 
 ---
+
+## Session du 29/06/2026 — Builds APK 3 apps (employés, admin, dashboard)
+
+### 15:00 — Contexte
+
+- **Objectif** : Construire les APK pour 3 apps du ecosysteme Kassa
+  1. **yabisso_employes** — App Flutter gestion employes
+  2. **yabisso_admin** — Dashboard IA interne Flutter
+  3. **yabisso_admin_dashboard** — Dashboard React + Capacitor
+
+### Travaux effectues
+
+#### 1. yabisso_employes — APK
+- `flutter build apk --release` → **64 MB** ✅
+- Copie : `apk/yabisso_employes.apk`
+
+#### 2. yabisso_admin — APK
+- **Fix AGP** : `android/settings.gradle.kts` — AGP 9.0.1 → 8.11.1, Kotlin 2.3.20 → 2.2.20
+- **Fix ecrans corrompus** (null bytes U+0000) :
+  - `sales_screen.dart` — 100% null bytes → **recree** (198 lignes)
+  - `ai_marketing_screen.dart` — recree precedemment
+  - Fix type cast : `tab['key']! as String` dans les 2 ecrans
+- `flutter build apk --release` → **49 MB** ✅
+- Copie : `apk/yabisso_admin.apk`
+
+#### 3. yabisso_admin_dashboard — APK
+- `npm run build` (React) → dist OK
+- `npx cap sync android` → sync OK
+- `cd android && ./gradlew assembleRelease` → **BUILD SUCCESSFUL**
+- APK : `app-release-unsigned.apk` (3.2 MB) — **non signe** (pas de keystore)
+- Copie : `apk/yabisso_admin_dashboard.apk`
+
+### Recapitulatif APKs
+
+| App | Taille | Statut |
+|-----|--------|--------|
+| yabisso_employes.apk | 64 MB | ✅ Signe |
+| yabisso_admin.apk | 49 MB | ✅ Signe |
+| yabisso_admin_dashboard.apk | 3.2 MB | ⚠️ Non signe |
+
+### Git
+- Commit `45c3e6f` : fix sales_screen.dart (543 insertions)
+- Commit `33143d0` : feat add yabisso_admin (121 fichiers)
+
+### Notes
+- Le dashboard Capacitor est non signe — besoin d'un keystore pour la signature release
+- Les 3 APKs sont dans `apk/`
+
+---
+
+*Fin de session 29/06/2026*

@@ -193,7 +193,7 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                value: selectedRole,
+                initialValue: selectedRole,
                 decoration: InputDecoration(
                   labelText: 'Rôle',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),

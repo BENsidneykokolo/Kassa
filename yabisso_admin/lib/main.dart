@@ -13,6 +13,7 @@ import 'screens/assignments/assignments_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/vouchers/voucher_generator_screen.dart';
+import 'screens/activity/employee_activity_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -32,6 +33,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/settings', builder: (ctx, state) => const SettingsScreen()),
       GoRoute(path: '/profile', builder: (ctx, state) => const ProfileScreen()),
       GoRoute(path: '/vouchers', name: 'vouchers', builder: (ctx, state) => const VoucherGeneratorScreen()),
+      GoRoute(path: '/activity', builder: (ctx, state) => const EmployeeActivityScreen()),
     ],
   );
 });

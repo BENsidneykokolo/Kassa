@@ -316,6 +316,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             Expanded(child: _buildActionCard('Générateur de vouchers', Icons.vpn_key, AppColors.primaryGreen, () => context.push('/vouchers'))),
           ],
         ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(child: _buildActionCard('Activité Employé', Icons.assignment, AppColors.primaryBlue, () => context.push('/activity'))),
+          ],
+        ),
       ],
     );
   }

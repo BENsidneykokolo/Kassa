@@ -1990,4 +1990,61 @@ Chaque app nécessite :
 
 ---
 
+## Session du 30/06/2026
+
+### Complétion des features manquantes + Fix syntax + Build tous APKs
+
+#### Bug critique corrigé : Hash mismatch JS vs Dart
+- `hash |= 0` en JavaScript = tronque à 32-bit signé
+- `hash |= 0` en Dart = no-op (64-bit integers)
+- **Fix**: `hash = hash.toSigned(32)` appliqué dans 4 fichiers :
+  - `yabisso_kassa/lib/services/offline_voucher_service.dart`
+  - `yabisso_kassa/lib/services/points_service.dart`
+  - `yabisso_pos_restaurant/lib/services/subscription_service.dart`
+  - `yabisso_pos_hotel/lib/services/subscription_service.dart`
+
+#### Fix syntax restaurant subscription_screen.dart
+- Le QR code button code était inséré au mauvais endroit (dans `_showWhatsAppPointsDialog` au lieu de `_buildSubscriptionStatus`)
+- **Fix**: Code déplacé dans `_buildSubscriptionStatus` ✅
+- Hotel vérifié : pas de problème ✅
+
+#### Features implémentées
+1. **QR Code generation** dans écrans abonnement (kassa, restaurant, hotel)
+2. **Prestataire ID** ajouté dans : register, subscription, WhatsApp messages, vouchers, profil employes
+3. **QR Scanner** dans employes app (écran `qr_scan_screen.dart` + bouton "Scanner vente")
+4. **WhatsApp share** dans employes dashboard → envoie à +242050332359
+5. **Activity screen** dans admin app (`employee_activity_screen.dart`)
+6. **Activity page** dans Mon App (`Activity.tsx` - historique ventes/vouchers)
+7. **Nettoyage** yabisso_admin : pubspec, imports obsolètes, API dépréciée
+
+#### APKs construits et copiés dans apk/
+
+| App | Taille | Statut |
+|-----|--------|--------|
+| yabisso_kassa.apk | 246 MB | ✅ |
+| yabisso_employes.apk | 196 MB | ✅ |
+| yabisso_admin.apk | 172 MB | ✅ |
+| yabisso_admin_dashboard.apk | 3.3 MB | ✅ |
+| yabisso_pos_restaurant.apk | 58 MB | ✅ |
+| yabisso_pos_hotel.apk | 54 MB | ✅ |
+
+#### Git commits
+- **yabisso_kassa**: `5499dfe` — prestataire ID + QR code + hash fix
+- **yabisso_admin_dashboard**: `169653c` — Activity page + prestataire_id + server support
+- **yabisso_pos_hotel**: `e7b9089` — prestataire ID + QR code + hash fix
+- **yabisso_pos_restaurant**: `e2b9456` — prestataire ID + QR code + hash fix
+- **yabisso_employes**: `1e59615` — WhatsApp share + QR scanner + prestataire ID
+- **yabisso_admin**: `7a476f3` — clean pubspec + activity screen + fix deprecated API
+- **Main repo**: `85b7eea` — submodule refs update
+
+#### Push effectué
+- Main repo : ✅
+- yabisso_kassa : ✅
+- yabisso_pos_hotel : ✅
+- yabisso_pos_restaurant : ✅
+- yabisso_employes : ✅
+- yabisso_admin_dashboard : ✅
+
+---
+
 *Fin de session 29/06/2026*

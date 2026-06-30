@@ -19,6 +19,14 @@
 
 | Tâche | Complétée le | Notes |
 |-------|--------------|-------|
+| Section Aide dans Paramètres (Appel/WhatsApp/SMS/Chatbot) | 27/06/2026 | settings_screen.dart: +242050332359, message auto avec ID boutique |
+| Fix scanner noir écran Paiement | 27/06/2026 | Copié code scanner_screen.dart (ventes) → payment_screen.dart |
+| GitHub Actions iOS + macOS | 26/06/2026 | build.yml: macos-15, IPA + DMG, cache Flutter + CocoaPods |
+| Entitlements macOS (network.client) | 26/06/2026 | DebugProfile + Release: network.client + files.user-selected |
+| Build APK v1.4.6 | 27/06/2026 | 111.4 MB, scanner fix + help section |
+
+| Tâche | Complétée le | Notes |
+|-------|--------------|-------|
 | Header Ventes simplifié (remove 3 dots, Online badge, font size) | 24/06/2026 | products_content.dart: icône + nom + Scanner sur 1 ligne |
 | Fix suppression sous-catégorie | 24/06/2026 | Long-press menu contextuel + boutons restructurés dans categories_screen.dart |
 | Import/Export JSON complet avec images | 24/06/2026 | product_exporter.dart v2: base64 images, cat/fournisseur par nom |

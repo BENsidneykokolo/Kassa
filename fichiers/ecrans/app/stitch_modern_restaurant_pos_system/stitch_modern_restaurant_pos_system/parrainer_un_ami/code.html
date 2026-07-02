@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loyalty Rewards - Parrainer un ami</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191c1e",
+                    "secondary-container": "#82f5c1",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "surface-container": "#eceef0",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-fixed-variant": "#005137",
+                    "on-secondary-container": "#00714e",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "tertiary-fixed": "#e1e0ff",
+                    "surface-dim": "#d8dadc",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#68dba9",
+                    "surface-container-high": "#e6e8ea",
+                    "primary": "#000000",
+                    "inverse-primary": "#bec6e0",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed": "#07006c",
+                    "on-tertiary-container": "#7073ff",
+                    "inverse-surface": "#2d3133",
+                    "secondary": "#006c4a",
+                    "tertiary-container": "#07006c",
+                    "on-secondary-fixed": "#002114",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary-fixed": "#85f8c4",
+                    "on-primary-container": "#7c839b",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#565e74",
+                    "outline": "#76777d",
+                    "primary-container": "#131b2e",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "md": "16px",
+                    "base": "4px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "margin-desktop": "32px",
+                    "xl": "32px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Hanken Grotesk', sans-serif;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .emerald-gradient {
+            background: linear-gradient(135deg, #006c4a 0%, #004d35 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-md h-16 bg-surface dark:bg-inverse-surface">
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-surface-container transition-colors duration-200 rounded-full">
+<span class="material-symbols-outlined text-secondary dark:text-secondary-fixed">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-semibold text-on-surface dark:text-inverse-on-surface">Parrainer un ami</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-surface-container transition-colors duration-200 rounded-full">
+<span class="material-symbols-outlined text-secondary dark:text-secondary-fixed">account_circle</span>
+</button>
+</div>
+</header>
+<main class="pt-16 pb-32 max-w-4xl mx-auto px-4 sm:px-6">
+<!-- Hero Section -->
+<section class="mt-8 rounded-xl overflow-hidden relative h-80 flex flex-col justify-end p-8">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A cinematic, high-quality photograph of diverse friends laughing and sharing an elegant gourmet dinner at a candlelit high-end restaurant table. The lighting is warm and amber-hued, emphasizing a sophisticated and cozy atmosphere. The background is softly blurred to focus on the joy of the dining experience, with emerald green accents in the decor reflecting the brand's luxurious identity. The overall mood is premium, editorial, and inviting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsEf5oTarIRX5sejAl-8iBfNQ-TLOzxFivQpifyZ9JbRHi4L-EPSSQ-NthQ2K0vRdeKDktcfIPWk83-jakhQW499igYabDPDoEDGCUmTW1KY1hJEy7YV3Xalitrl01lRnyfTogIRFoEfu-Ek-fJcdRDojD6W0qxQGSZUao_BNJ562rmKiOrYmsSlHLEY8wKhK8UTnah9l3MeJLsCqRS5PcHT-YPM-zgRbLi47oBNE9cCb-hePlP7SS0omo9lsOHJ3UbrM2nIJRLig')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+</div>
+<div class="relative z-10 text-white max-w-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-2">Partagez le goût de l'Émeraude</h2>
+<p class="font-body-lg text-body-lg opacity-90">Offrez 10€ à vos amis et recevez 10€ après leur première commande</p>
+</div>
+</section>
+<!-- Referral Code Box -->
+<section class="mt-8">
+<div class="glass-card rounded-xl p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex-1 text-center md:text-left">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-1">Votre code personnel</span>
+<div class="flex items-center justify-center md:justify-start gap-4">
+<span class="font-display-lg text-display-lg font-bold text-primary tracking-tighter">EMERALD-2024</span>
+<button class="flex items-center gap-1 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full font-label-md text-label-md hover:opacity-90 transition-all active:scale-95" onclick="copyCode()">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+                            Copier
+                        </button>
+</div>
+</div>
+<div class="w-px h-16 bg-outline-variant hidden md:block"></div>
+<div class="flex flex-col items-center md:items-end gap-3">
+<span class="font-label-sm text-label-sm text-outline">Partager via</span>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">chat</span>
+</button>
+<button class="w-12 h-12 rounded-full flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">mail</span>
+</button>
+<button class="w-12 h-12 rounded-full flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- How it works -->
+<section class="mt-12">
+<h3 class="font-headline-md text-headline-md text-center mb-10">Comment ça marche ?</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<!-- Step 1 -->
+<div class="flex flex-col items-center text-center px-4">
+<div class="w-16 h-16 rounded-full bg-secondary text-on-secondary flex items-center justify-center mb-4 shadow-lg">
+<span class="material-symbols-outlined text-3xl">send</span>
+</div>
+<span class="font-label-md text-label-md text-secondary mb-2">01. Partagez</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Envoyez votre code unique à vos amis par message ou email.</p>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center text-center px-4">
+<div class="w-16 h-16 rounded-full bg-secondary text-on-secondary flex items-center justify-center mb-4 shadow-lg">
+<span class="material-symbols-outlined text-3xl">restaurant</span>
+</div>
+<span class="font-label-md text-label-md text-secondary mb-2">02. Dégustez</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Votre ami utilise le code pour obtenir 10€ sur sa première commande.</p>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center text-center px-4">
+<div class="w-16 h-16 rounded-full bg-secondary text-on-secondary flex items-center justify-center mb-4 shadow-lg">
+<span class="material-symbols-outlined text-3xl">stars</span>
+</div>
+<span class="font-label-md text-label-md text-secondary mb-2">03. Profitez</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Une fois leur commande validée, vous recevez automatiquement 10€.</p>
+</div>
+</div>
+</section>
+<!-- Secondary CTA Area -->
+<section class="mt-16 flex justify-center">
+<button class="group flex items-center gap-3 px-8 py-4 bg-primary text-on-primary rounded-full font-headline-md text-headline-md hover:opacity-90 transition-all shadow-xl active:scale-95">
+                Suivre mes parrainages
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-sm rounded-t-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant transition-transform active:scale-90 py-1" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-sm text-label-sm mt-1">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed-dim rounded-full px-4 py-1 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-sm text-label-sm mt-1">Rewards</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant transition-transform active:scale-90 py-1" href="#">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-label-sm text-label-sm mt-1">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant transition-transform active:scale-90 py-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm mt-1">Orders</span>
+</a>
+</nav>
+<script>
+        function copyCode() {
+            const code = "EMERALD-2024";
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.currentTarget;
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = `<span class="material-symbols-outlined text-sm">check</span> Copié!`;
+                btn.classList.add('bg-secondary', 'text-on-secondary');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.classList.remove('bg-secondary', 'text-on-secondary');
+                }, 2000);
+            });
+        }
+
+        // Simple parallax effect on hero scroll
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            const hero = document.querySelector('section.relative.h-80');
+            if (hero) {
+                const img = hero.querySelector('div.bg-cover');
+                img.style.transform = `translateY(${scroll * 0.3}px)`;
+            }
+        });
+    </script>
+</body></html>

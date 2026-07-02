@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Restaurant POS - Floor Plan</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#000000",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed": "#131b2e",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#82f5c1",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#68dba9",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#565e74",
+                    "on-primary-container": "#7c839b",
+                    "primary-fixed": "#dae2fd",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#07006c",
+                    "inverse-primary": "#bec6e0",
+                    "surface-bright": "#f7f9fb",
+                    "secondary": "#006c4a",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline-variant": "#c6c6cd",
+                    "primary": "#000000",
+                    "on-surface-variant": "#45464d",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "on-secondary-container": "#00714e",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#e1e0ff",
+                    "surface-variant": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#07006c",
+                    "on-secondary-fixed": "#002114",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "outline": "#76777d",
+                    "surface-dim": "#d8dadc",
+                    "on-surface": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-fixed": "#85f8c4",
+                    "on-secondary-fixed-variant": "#005137",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-container": "#7073ff",
+                    "primary-container": "#131b2e",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-desktop": "32px",
+                    "base": "4px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "title-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .floor-plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .floor-plan-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-70">menu</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary font-bold">Floor Plan • Main Hall</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-70">search</button>
+<div class="hidden md:flex items-center gap-sm bg-surface-container-low px-md py-xs rounded-full">
+<span class="material-symbols-outlined text-sm">person</span>
+<span class="font-label-md text-label-md">Julian S.</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-16 mb-20 md:mb-0 p-margin-mobile md:p-margin-desktop overflow-y-auto">
+<!-- Legend Section -->
+<section class="mb-lg flex flex-wrap gap-md items-center justify-center md:justify-start bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant">
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded-sm bg-surface-container-highest border border-outline-variant"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Available</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded-sm bg-secondary"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Occupied</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded-sm bg-tertiary-fixed-dim"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Check Requested</span>
+</div>
+<div class="ml-auto hidden md:flex items-center gap-sm text-on-surface-variant">
+<span class="font-label-sm text-label-sm">Capacity: 48 / 60</span>
+</div>
+</section>
+<!-- Floor Plan Layout -->
+<div class="floor-plan-grid max-w-6xl mx-auto">
+<!-- Table 1 (Occupied) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">4</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white mb-sm">
+<span class="font-headline-md text-headline-md font-bold">01</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">Julian S.</p>
+<p class="font-label-sm text-label-sm text-secondary font-bold">$142.50</p>
+</div>
+</button>
+<!-- Table 2 (Available) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-outline">group</span>
+<span class="font-label-sm text-label-sm text-outline">2</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-sm">
+<span class="font-headline-md text-headline-md font-bold">02</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-outline">Available</p>
+</div>
+</button>
+<!-- Table 3 (Check Requested) -->
+<button class="group relative aspect-square bg-white border-2 border-tertiary-fixed-dim rounded-xl p-md flex flex-col items-center justify-center shadow-md transition-all active:scale-[0.98]">
+<div class="absolute -top-2 -right-2 bg-tertiary-fixed-dim text-on-tertiary-fixed px-2 py-0.5 rounded-full font-label-sm text-label-sm font-bold animate-pulse">CHECK</div>
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">6</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-tertiary-fixed-dim flex items-center justify-center text-on-tertiary-fixed mb-sm">
+<span class="font-headline-md text-headline-md font-bold">03</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">Maria R.</p>
+<p class="font-label-sm text-label-sm text-on-tertiary-fixed font-bold">$284.15</p>
+</div>
+</button>
+<!-- Table 4 (Occupied) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">2</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white mb-sm">
+<span class="font-headline-md text-headline-md font-bold">04</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">Julian S.</p>
+<p class="font-label-sm text-label-sm text-secondary font-bold">$56.00</p>
+</div>
+</button>
+<!-- Table 5 (Occupied) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">4</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white mb-sm">
+<span class="font-headline-md text-headline-md font-bold">05</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">David L.</p>
+<p class="font-label-sm text-label-sm text-secondary font-bold">$89.30</p>
+</div>
+</button>
+<!-- Table 6 (Available) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-outline">group</span>
+<span class="font-label-sm text-label-sm text-outline">4</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-sm">
+<span class="font-headline-md text-headline-md font-bold">06</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-outline">Available</p>
+</div>
+</button>
+<!-- Table 7 (Occupied) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">8</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white mb-sm">
+<span class="font-headline-md text-headline-md font-bold">07</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">Maria R.</p>
+<p class="font-label-sm text-label-sm text-secondary font-bold">$412.00</p>
+</div>
+</button>
+<!-- Table 8 (Available) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-outline">group</span>
+<span class="font-label-sm text-label-sm text-outline">2</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-sm">
+<span class="font-headline-md text-headline-md font-bold">08</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-outline">Available</p>
+</div>
+</button>
+<!-- Table 9 (Check Requested) -->
+<button class="group relative aspect-square bg-white border-2 border-tertiary-fixed-dim rounded-xl p-md flex flex-col items-center justify-center shadow-md transition-all active:scale-[0.98]">
+<div class="absolute -top-2 -right-2 bg-tertiary-fixed-dim text-on-tertiary-fixed px-2 py-0.5 rounded-full font-label-sm text-label-sm font-bold animate-pulse">CHECK</div>
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">2</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-tertiary-fixed-dim flex items-center justify-center text-on-tertiary-fixed mb-sm">
+<span class="font-headline-md text-headline-md font-bold">09</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">David L.</p>
+<p class="font-label-sm text-label-sm text-on-tertiary-fixed font-bold">$42.80</p>
+</div>
+</button>
+<!-- Table 10 (Available) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-outline">group</span>
+<span class="font-label-sm text-label-sm text-outline">4</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-sm">
+<span class="font-headline-md text-headline-md font-bold">10</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-outline">Available</p>
+</div>
+</button>
+<!-- Table 11 (Available) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-outline">group</span>
+<span class="font-label-sm text-label-sm text-outline">6</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-sm">
+<span class="font-headline-md text-headline-md font-bold">11</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-outline">Available</p>
+</div>
+</button>
+<!-- Table 12 (Occupied) -->
+<button class="group relative aspect-square bg-white border border-outline-variant rounded-xl p-md flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+<div class="absolute top-2 right-2 flex gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">3</span>
+</div>
+<div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white mb-sm">
+<span class="font-headline-md text-headline-md font-bold">12</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-label-md text-on-surface-variant">Julian S.</p>
+<p class="font-label-sm text-label-sm text-secondary font-bold">$115.25</p>
+</div>
+</button>
+</div>
+</main>
+<!-- Navigation Drawer (Desktop only sidebar suggestion) -->
+<aside class="hidden lg:flex fixed left-0 top-16 h-[calc(100vh-4rem)] w-20 flex-col py-lg items-center bg-surface-container-low border-r border-outline-variant">
+<nav class="flex flex-col gap-lg w-full items-center">
+<button class="p-3 bg-secondary-container text-on-secondary-container rounded-xl shadow-md transition-transform active:scale-95" title="Tables">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="p-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" title="Menu">
+<span class="material-symbols-outlined">restaurant_menu</span>
+</button>
+<button class="p-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" title="Cart">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all mt-auto" title="Settings">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+</aside>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface border-t border-outline-variant h-20 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-secondary-container bg-secondary-container rounded-full px-4 py-1 transition-all active:scale-95">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-label-sm">Tables</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all active:scale-95">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all active:scale-95">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all active:scale-95">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm">Payment</span>
+</button>
+</nav>
+<script>
+        // Simple interactive feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // In a real app, this would route or open table details
+                console.log('Action triggered:', btn.innerText.trim());
+            });
+        });
+    </script>
+</body></html>

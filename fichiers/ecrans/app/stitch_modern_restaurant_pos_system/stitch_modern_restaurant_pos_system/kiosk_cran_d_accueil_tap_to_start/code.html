@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Emerald Grill | Welcome</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#006c49",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#2a3a4f",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#dae2fd",
+                    "on-primary-fixed-variant": "#005236",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "inverse-surface": "#2d3133",
+                    "primary-container": "#10b981",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#4edea3",
+                    "on-primary-container": "#00422b",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-primary-fixed": "#002113",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "tertiary": "#505f76",
+                    "primary-fixed": "#6ffbbe",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#dae2fd",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed": "#d3e4fe",
+                    "background": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#bbcabf",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary": "#565e74",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-error": "#ffffff",
+                    "outline": "#6c7a71",
+                    "tertiary-container": "#94a4bd",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed-dim": "#4edea3",
+                    "on-secondary-container": "#5c647a",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "content-margin": "32px",
+                    "sidebar-width": "320px",
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "stack-lg": "40px",
+                    "touch-target-min": "48px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-lg": ["16px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        @keyframes pulse-gentle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.02); }
+        }
+        .animate-pulse-gentle {
+            animation: pulse-gentle 3s ease-in-out infinite;
+        }
+        .glass-overlay {
+            background: rgba(19, 27, 46, 0.6);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="h-full font-body-md text-on-background bg-background m-0 p-0 overflow-hidden">
+<!-- Kiosk Tablet Wrapper (Simulating Landscape Tablet) -->
+<main class="relative w-screen h-screen flex items-center justify-center bg-inverse-surface">
+<!-- Full Screen Background Image -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-10000 hover:scale-110" data-alt="A high-end, cinematic close-up of a signature gourmet steak dish at Emerald Grill, garnished with fresh herbs and glistening with a rich reduction. The lighting is warm and atmospheric, evoking a premium restaurant environment with soft bokeh of dining room lights in the background. The color palette features deep charred browns, vibrant emerald greens from the herbs, and golden honey tones from the ambient lighting. The overall mood is sophisticated, inviting, and professional, perfectly aligned with a luxury kiosk design system." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEfH2zDqOOrRaQdnbtyJgekA2-mJHXjXSXQHqgJjazz1NMlXoqJY8ejxpXQ4nVmUIpXBTkzqkD3N27Qqi2_GF4xz00i6iMyOQuiTluu_yfy4j5lhrovfITpN_Qnkq6XpZNeypBJ6TsHXr14lESw45sI5V1ASLvk-gpZ9R83-PiBOx5o-OU3USNfwArleGxXS4KFuELYiSDbShM-4ZBY7WpExRWW8O9RD76s2PP8sv34V0VrXiNjF9lytN6NgPdwtFkCFsc6wY-i5A')">
+</div>
+<!-- Dark Overlay for Contrast -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-transparent to-black/40"></div>
+</div>
+<!-- Language Selector (Top Right) -->
+<div class="absolute top-content-margin right-content-margin z-20">
+<div class="flex items-center gap-2 bg-black/40 backdrop-blur-md rounded-full px-4 py-2 border border-outline-variant/30 transition-all active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined text-white text-[20px]" data-icon="language">language</span>
+<span class="font-label-lg text-label-lg text-white">EN</span>
+<span class="text-white/60 mx-1">|</span>
+<span class="font-label-lg text-label-lg text-white/60">FR</span>
+</div>
+</div>
+<!-- Center Branding & CTA -->
+<section class="relative z-10 flex flex-col items-center text-center max-w-2xl px-stack-lg">
+<!-- Brand Logo -->
+<div class="mb-stack-lg flex flex-col items-center group">
+<div class="w-24 h-24 mb-stack-sm rounded-full bg-primary flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover:rotate-[360deg]">
+<span class="material-symbols-outlined text-white text-[48px]" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-white tracking-tight">Emerald Grill</h1>
+<div class="h-1 w-16 bg-primary rounded-full mt-2"></div>
+</div>
+<!-- Welcoming Message -->
+<div class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-white mb-2">Welcome to Emerald Grill</h2>
+<p class="font-body-lg text-body-lg text-white/80 max-w-md mx-auto">Experience culinary excellence crafted for your palate. Fresh ingredients, bold flavors, unforgettable moments.</p>
+</div>
+<!-- Primary CTA Button -->
+<button class="group relative flex items-center justify-center gap-4 bg-primary text-on-primary font-headline-md text-headline-md py-6 px-12 rounded-xl shadow-[0_20px_50px_rgba(0,108,73,0.3)] hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95 animate-pulse-gentle min-w-[400px]" onclick="handleStart()">
+<span class="material-symbols-outlined text-[32px]" data-icon="touch_app">touch_app</span>
+                Tap to Start Your Order
+                <div class="absolute -inset-1 rounded-xl bg-primary/20 blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+<!-- Table Info (Kiosk specific context) -->
+<div class="mt-stack-lg text-white/50 font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                Table 12 • Emerald Grill Kiosk #04
+            </div>
+</section>
+<!-- Bottom Status Bar (Subtle) -->
+<footer class="absolute bottom-content-margin left-content-margin right-content-margin z-20 flex justify-between items-end">
+<div class="text-white/40 font-label-md text-label-md">
+                v2.4.0 • System Ready
+            </div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-black/20 rounded-full border border-white/10">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="text-white/60 font-label-md text-label-md">Server Connected</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-black/20 rounded-full border border-white/10">
+<span class="material-symbols-outlined text-white/60 text-[18px]" data-icon="contactless">contactless</span>
+<span class="text-white/60 font-label-md text-label-md">NFC Ready</span>
+</div>
+</div>
+</footer>
+</main>
+<script>
+        function handleStart() {
+            // Visual feedback for interaction
+            const btn = document.querySelector('button');
+            btn.innerHTML = `
+                <span class="material-symbols-outlined text-[32px] animate-spin" data-icon="progress_activity">progress_activity</span>
+                Initializing Menu...
+            `;
+            btn.classList.remove('animate-pulse-gentle');
+            btn.classList.add('bg-primary-container', 'text-on-primary-container');
+            
+            // Simulation of navigation to the menu
+            setTimeout(() => {
+                console.log("Navigating to Menu Grid...");
+                // In a real app, this would trigger a route change
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.5s ease';
+            }, 800);
+        }
+
+        // Atmosphere interaction: Mouse move slightly shifts the background for depth
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 50;
+            const moveY = (e.clientY - window.innerHeight / 2) / 50;
+            const bg = document.querySelector('[data-alt*="signature gourmet steak"]');
+            if(bg) {
+                bg.style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+    </script>
+</body></html>

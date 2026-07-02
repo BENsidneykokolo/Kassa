@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SalesPulse - Rapports &amp; Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafd;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E3E8EE;
+        }
+        /* Custom scrollbar for analytics lists */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f4f7;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c4c6ce;
+            border-radius: 10px;
+        }
+    </style>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-primary-container": "#768dad",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#645cff",
+                        "outline": "#74777e",
+                        "tertiary": "#001117",
+                        "primary-fixed": "#d2e4ff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#e2dfff",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "inverse-surface": "#2d3133",
+                        "background": "#f7fafd",
+                        "surface-bright": "#f7fafd",
+                        "inverse-primary": "#b0c8eb",
+                        "surface-container-high": "#e5e8eb",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f1f4f7",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c4c6ce",
+                        "tertiary-fixed-dim": "#3cd7ff",
+                        "surface-tint": "#49607e",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7fafd",
+                        "secondary": "#4a3ee6",
+                        "inverse-on-surface": "#eef1f4",
+                        "surface-variant": "#e0e3e6",
+                        "on-secondary-fixed": "#0f0069",
+                        "on-primary-fixed": "#001c37",
+                        "on-background": "#181c1e",
+                        "on-tertiary-fixed": "#001f27",
+                        "tertiary-container": "#002832",
+                        "on-surface-variant": "#43474d",
+                        "on-secondary-container": "#fffbff",
+                        "primary": "#000f22",
+                        "primary-container": "#0a2540",
+                        "on-surface": "#181c1e",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e0e3e6",
+                        "surface-container": "#ebeef1",
+                        "on-tertiary-fixed-variant": "#004e5f",
+                        "on-primary-fixed-variant": "#314865",
+                        "on-tertiary-container": "#0098b7",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#b4ebff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d7dadd",
+                        "on-secondary-fixed-variant": "#321ed2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "margin-mobile": "20px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "safe-area": "env(safe-area-inset-bottom)",
+                        "lg": "24px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex justify-between items-center px-margin-mobile h-16">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up high-resolution portrait of a professional male executive in a well-lit corporate office. He wears a dark tailored suit and a confident, friendly expression. The lighting is soft and natural, emphasizing a high-stakes yet approachable CRM environment. The background shows a blurred modern office with glass partitions and soft blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr2UXO12EWV53VqHEoutLA5QduoWdgE4r5Vy2sLFLLcZayfHxQvAg8a_PHWPrzlcMlXqieYhwmD0oIQpr5ha3hmi1L1KR9HWEGSf_MsCaZxcDLqvy7uzzn45HVDBd_I_EbX2JYH_h2wrJnfiQEpqknULNgztbsMGWfrrCrBfr2xQlSoU5NoKVl3hM-iGd2_9IOAAYLWl-Fjpz9_MxlijQh4gnFEaoa7iyz-o_bp87Ij7s7UxybIlfTxFM5DQ0aFMx_8nG3gSeCCd0"/>
+</div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">SalesPulse</h1>
+</div>
+<button class="text-on-surface-variant dark:text-outline-variant transition-all duration-200 active:scale-95 hover:bg-surface-container-low dark:hover:bg-surface-container-highest p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-24 pb-28 px-margin-mobile max-w-5xl mx-auto space-y-6">
+<!-- Dashboard Header & Period Selector -->
+<section class="flex flex-col gap-4">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Rapports &amp; Analytics</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Vue d'ensemble de la performance commerciale</p>
+</div>
+<div class="flex bg-surface-container p-1 rounded-xl w-fit">
+<button class="px-4 py-2 font-label-md text-label-md rounded-lg transition-all bg-surface shadow-sm text-secondary" onclick="setActiveTab(this)">Mois</button>
+<button class="px-4 py-2 font-label-md text-label-md rounded-lg transition-all text-on-surface-variant hover:bg-surface-container-highest" onclick="setActiveTab(this)">Trimestre</button>
+<button class="px-4 py-2 font-label-md text-label-md rounded-lg transition-all text-on-surface-variant hover:bg-surface-container-highest" onclick="setActiveTab(this)">Année</button>
+</div>
+</section>
+<!-- KPI Cards Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Sales Goal Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Objectif de Ventes</p>
+<h3 class="font-headline-lg text-headline-lg text-primary mt-1">85% <span class="text-label-md font-normal text-on-surface-variant">atteint</span></h3>
+</div>
+<div class="p-2 bg-secondary/10 rounded-lg">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">target</span>
+</div>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden mt-4">
+<div class="bg-secondary h-full rounded-full transition-all duration-1000" style="width: 85%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2">En avance de 5% par rapport au mois dernier</p>
+</div>
+<!-- Cycle de Vente Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Cycle de Vente Moyen</p>
+<h3 class="font-headline-lg text-headline-lg text-primary mt-1">18 <span class="text-label-md font-normal text-on-surface-variant">jours</span></h3>
+</div>
+<div class="p-2 bg-tertiary-fixed-dim/20 rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">avg_time</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-tertiary-container">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<p class="font-label-sm text-label-sm">-2 jours vs dernier trimestre</p>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface-container-lowest bg-primary-fixed-dim"></div>
+<div class="w-6 h-6 rounded-full border-2 border-surface-container-lowest bg-secondary-fixed-dim"></div>
+<div class="w-6 h-6 rounded-full border-2 border-surface-container-lowest bg-tertiary-fixed"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant font-medium">8 agents actifs</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid Performance Section -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Revenue Area Chart Section (Main Content) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Performance des Ventes</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Croissance du revenu mensuel</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm">Revenu (€)</span>
+</div>
+</div>
+<!-- SVG Area Chart Placeholder -->
+<div class="h-64 w-full flex flex-col justify-end gap-1 overflow-hidden relative pt-4">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between py-4">
+<div class="w-full border-t border-surface-container-high"></div>
+<div class="w-full border-t border-surface-container-high"></div>
+<div class="w-full border-t border-surface-container-high"></div>
+<div class="w-full border-t border-surface-container-high"></div>
+</div>
+<svg class="w-full h-full z-10 drop-shadow-lg" viewbox="0 0 400 150">
+<defs>
+<lineargradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="5%" stop-color="#645cff" stop-opacity="0.3"></stop>
+<stop offset="95%" stop-color="#645cff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,150 L0,120 C40,110 80,130 120,90 C160,50 200,80 240,60 C280,40 320,50 360,20 L400,10 L400,150 Z" fill="url(#areaGradient)"></path>
+<path d="M0,120 C40,110 80,130 120,90 C160,50 200,80 240,60 C280,40 320,50 360,20 L400,10" fill="none" stroke="#645cff" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="flex justify-between px-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>Jan</span><span>Fév</span><span>Mar</span><span>Avr</span><span>Mai</span><span>Jun</span>
+</div>
+</div>
+</div>
+<!-- Leads Source Bar Chart Section -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant">
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Sources de Leads</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Comparaison des canaux</p>
+<div class="space-y-5">
+<!-- Bar 1 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>LinkedIn Ads</span>
+<span class="font-bold">42%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[42%] rounded-full"></div>
+</div>
+</div>
+<!-- Bar 2 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Referral</span>
+<span class="font-bold">28%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed-dim w-[28%] rounded-full"></div>
+</div>
+</div>
+<!-- Bar 3 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Événements</span>
+<span class="font-bold">18%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim w-[18%] rounded-full"></div>
+</div>
+</div>
+<!-- Bar 4 -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Emailing</span>
+<span class="font-bold">12%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant w-[12%] rounded-full"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 bg-secondary text-white rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                    Détails des sources <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Team Leaderboard / Secondary Metric -->
+<section class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant overflow-hidden">
+<h4 class="font-headline-md text-headline-md text-primary mb-6">Top Performance Équipes</h4>
+<div class="overflow-x-auto custom-scrollbar pb-2">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-surface-container-high font-label-md text-label-md text-on-surface-variant">
+<th class="pb-3 px-2">Équipe</th>
+<th class="pb-3">Deals Clos</th>
+<th class="pb-3 text-right">Volume (€)</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-surface-container-low">
+<tr>
+<td class="py-4 px-2 flex items-center gap-3">
+<span class="w-2 h-8 bg-secondary rounded-full"></span>
+<div>
+<p class="font-bold">Europe de l'Ouest</p>
+<p class="text-xs text-on-surface-variant">4 Membres</p>
+</div>
+</td>
+<td class="py-4">124</td>
+<td class="py-4 text-right font-bold text-secondary">450k</td>
+</tr>
+<tr>
+<td class="py-4 px-2 flex items-center gap-3">
+<span class="w-2 h-8 bg-secondary-fixed-dim rounded-full"></span>
+<div>
+<p class="font-bold">Amérique du Nord</p>
+<p class="text-xs text-on-surface-variant">6 Membres</p>
+</div>
+</td>
+<td class="py-4">98</td>
+<td class="py-4 text-right font-bold text-secondary">380k</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-outline-variant dark:border-on-surface-variant shadow-[0_-4px_12px_rgba(10,37,64,0.05)] flex justify-around items-center pt-2 pb-safe px-gutter h-20">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="contacts_product">contacts_product</span>
+<span class="font-label-sm text-label-sm">Contacts</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 transition-transform duration-300 ease-out active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="account_tree" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-label-sm text-label-sm">Deals</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</div>
+</nav>
+<script>
+        function setActiveTab(button) {
+            // Reset all buttons in the same parent
+            const buttons = button.parentElement.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-surface', 'shadow-sm', 'text-secondary');
+                btn.classList.add('text-on-surface-variant', 'hover:bg-surface-container-highest');
+            });
+            
+            // Set active state
+            button.classList.add('bg-surface', 'shadow-sm', 'text-secondary');
+            button.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-highest');
+            
+            // Interaction feedback
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        // Simple entrance animations for cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.bg-surface-container-lowest');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.5s ease-out ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

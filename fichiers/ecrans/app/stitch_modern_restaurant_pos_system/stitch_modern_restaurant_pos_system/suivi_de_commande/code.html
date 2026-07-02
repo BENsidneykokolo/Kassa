@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Slate &amp; Emerald | Order Status</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#07006c",
+                    "on-secondary-fixed": "#002114",
+                    "secondary": "#006c4a",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "inverse-primary": "#bec6e0",
+                    "on-tertiary-container": "#7073ff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed": "#07006c",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#7c839b",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "outline": "#76777d",
+                    "primary-container": "#131b2e",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-tint": "#565e74",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary-fixed": "#85f8c4",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-fixed-variant": "#005137",
+                    "on-secondary-container": "#00714e",
+                    "tertiary-fixed": "#e1e0ff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "surface-variant": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "on-background": "#191c1e",
+                    "secondary-container": "#82f5c1",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "primary": "#000000",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "surface-dim": "#d8dadc",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#68dba9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "margin-desktop": "32px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "base": "4px",
+                    "md": "16px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "title-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .progress-line {
+            height: 2px;
+            background: #e0e3e5;
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            width: 100%;
+            z-index: 0;
+        }
+        .progress-fill {
+            height: 2px;
+            background: #006c4a;
+            width: 66%; /* Dynamic progress */
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            z-index: 1;
+            transition: width 1s ease-in-out;
+        }
+        .order-card-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f2f4f6 100%);
+        }
+        /* Custom scrollbar for receipt */
+        .receipt-scroll::-webkit-scrollbar { width: 4px; }
+        .receipt-scroll::-webkit-scrollbar-track { background: transparent; }
+        .receipt-scroll::-webkit-scrollbar-thumb { background: #c6c6cd; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="restaurant">restaurant</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Slate &amp; Emerald</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container transition-colors active:scale-95 duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+</button>
+<button class="hover:bg-surface-container transition-colors active:scale-95 duration-200 p-2 rounded-full relative">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-24 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+<!-- Left Column: Map & Status -->
+<div class="lg:col-span-7 space-y-md">
+<!-- ETA & Active Header -->
+<section class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Estimated Arrival</p>
+<h2 class="font-display-lg text-display-lg text-primary">12:45 PM</h2>
+</div>
+<div class="text-right">
+<span class="bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-label-md text-label-md">
+                                On its way
+                            </span>
+</div>
+</div>
+<!-- Progress Bar Component -->
+<div class="relative pt-4 pb-8">
+<div class="progress-line"></div>
+<div class="progress-fill"></div>
+<div class="flex justify-between relative z-10">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center mb-sm shadow-md ring-4 ring-white">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Received</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center mb-sm shadow-md ring-4 ring-white">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Preparing</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center mb-sm shadow-md ring-4 ring-white animate-pulse">
+<span class="material-symbols-outlined text-sm" data-icon="moped">moped</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-secondary">Delivery</span>
+</div>
+<div class="flex flex-col items-center opacity-40">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center mb-sm border border-outline-variant">
+<span class="material-symbols-outlined text-sm" data-icon="home">home</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Arrived</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Real-time Map -->
+<section class="h-[400px] rounded-xl overflow-hidden shadow-lg border border-outline-variant relative group">
+<div class="absolute inset-0 bg-surface-container-low" data-location="Chicago, IL" style="">
+<div class="w-full h-full bg-cover bg-center" data-alt="A sophisticated, high-contrast aerial map view of a modern metropolitan city at midday. The map uses a minimalist design palette with Slate greys for buildings and Emerald green accents for parks and delivery routes. A subtle pulsing dot indicates a delivery driver moving along a crisp, highlighted path between high-rise structures and urban greenery, reflecting a professional and high-tech GPS navigation aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_SHsH3B1TRotB9sQcLAWMiLmn8iYqoE1YHm6MjBkOz6ONAz5_62JNVyzCj-4h2etBhflIHkP4R6l06O2syobMeEEGXIlZsUfWYZpQiFT8gPORPOqx35EophuYUf4wHOu63J0dwQInOnm-q-H2QHZ_XwEwH9VaeNf5jIDj-2pUVXA6EoTPPXusN5FCqU5h6VCMq78M4sqZo7GZGmE0t2nJoGmGCuAjqJNOWybGmFkdpx2mFwNC3WtV73W2lHd_kgzqi2vUXN5jgJE')"></div>
+</div>
+<!-- Map Overlay Labels -->
+<div class="absolute top-md left-md z-10 flex gap-sm">
+<div class="bg-white/90 backdrop-blur-md p-sm px-md rounded-full shadow-md flex items-center gap-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md text-primary">Driver: Marco</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary & Actions -->
+<div class="lg:col-span-5 space-y-md">
+<!-- Driver Info / Support -->
+<section class="bg-white p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-md">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary/20">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a friendly delivery courier in a clean, branded dark slate polo shirt. He is smiling warmly against a blurred urban background with soft daylight. The image should have a professional corporate photography style, emphasizing reliability and trustworthiness in a modern hospitality setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzL-ctnC8Fngvt6O7enQggpgMyf6o1JD-VxL997sHXElIUS8yFP2VrF3WrN1twEvnzPXDMs6oNZ8K-0rJK2IbMWqFLmrVE-xLcdQIkAHem_bMiIX3vyxFRP2y9caB9HMOV8pJJe_qTNMMPdAJG5uvJMRBO_LqSd5yf5Cq3GZj1iVk6reUh9o7HExRPEt5wq_54oJKRNbuEWidvwlHTW-LPYOpUfqAAqnLeKsNLXtgeAAxQO1hl-A__upTqxApXgPY-SC7G3gu5J78"/>
+</div>
+<div class="flex-1">
+<h3 class="font-title-lg text-title-lg text-primary">Marco S.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your delivery partner</p>
+</div>
+<div class="flex gap-sm">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chat">chat</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:opacity-90 shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Order Receipt -->
+<section class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+<div class="p-md border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary">Order #88219</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">June 14, 12:12 PM</span>
+</div>
+</div>
+<div class="p-md space-y-md receipt-scroll max-h-80 overflow-y-auto">
+<!-- Item 1 -->
+<div class="flex justify-between items-start pb-md border-b border-outline-variant/30">
+<div class="flex gap-md">
+<span class="font-label-md text-label-md font-bold text-secondary">2x</span>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">Truffle Emerald Risotto</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">No onions, extra parmesan</p>
+</div>
+</div>
+<span class="font-label-md text-label-md">$44.00</span>
+</div>
+<!-- Item 2 -->
+<div class="flex justify-between items-start pb-md border-b border-outline-variant/30">
+<div class="flex gap-md">
+<span class="font-label-md text-label-md font-bold text-secondary">1x</span>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">Seared Slate Salmon</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Medium well, lemon garnish</p>
+</div>
+</div>
+<span class="font-label-md text-label-md">$28.50</span>
+</div>
+<!-- Item 3 -->
+<div class="flex justify-between items-start">
+<div class="flex gap-md">
+<span class="font-label-md text-label-md font-bold text-secondary">3x</span>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">San Pellegrino</h4>
+</div>
+</div>
+<span class="font-label-md text-label-md">$15.00</span>
+</div>
+</div>
+<!-- Totals -->
+<div class="p-md bg-surface-container-low/50 space-y-sm">
+<div class="flex justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Subtotal</span>
+<span>$87.50</span>
+</div>
+<div class="flex justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Delivery Fee</span>
+<span class="text-secondary">FREE</span>
+</div>
+<div class="flex justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Service Tax</span>
+<span>$6.12</span>
+</div>
+<div class="pt-sm border-t border-outline-variant flex justify-between items-end">
+<span class="font-title-lg text-title-lg text-primary">Total Paid</span>
+<span class="font-display-lg text-[24px] text-primary">$93.62</span>
+</div>
+</div>
+</section>
+<!-- Secondary Actions -->
+<div class="flex flex-col gap-sm">
+<button class="w-full bg-secondary text-white font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+                        Contact Support
+                    </button>
+<button class="w-full bg-transparent border border-outline text-on-surface font-title-lg text-title-lg py-md rounded-xl hover:bg-surface-container transition-colors active:scale-[0.98]">
+                        Share Tracking Link
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest border-t border-outline-variant shadow-lg flex justify-around items-center h-20 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="lunch_dining">lunch_dining</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate subtle progress bar update
+            const progress = document.querySelector('.progress-fill');
+            setTimeout(() => {
+                progress.style.width = '75%';
+            }, 3000);
+
+            // Add smooth hover effect to receipt items
+            const rows = document.querySelectorAll('.receipt-scroll > div');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.backgroundColor = 'rgba(130, 245, 193, 0.05)';
+                    row.style.transition = 'background-color 0.3s ease';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.backgroundColor = 'transparent';
+                });
+            });
+        });
+    </script>
+</body></html>

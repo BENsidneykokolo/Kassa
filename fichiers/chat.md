@@ -2047,4 +2047,213 @@ Chaque app nécessite :
 
 ---
 
-*Fin de session 29/06/2026*
+## Session du 30/06/2026 — Vérification fichiers .md + enregistrement automatique
+
+### 12:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **18 fichiers .md lus et analysés** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md + 6 DESIGN.md extraits des écrans
+  - ✅ **Contexte complet** : Kassa — Écosystème 6 apps Flutter + Dashboard React pour commerçants africains
+    - **yabisso_kassa** : POS principal, v1.4.11, APK 246 MB, GitHub pushé
+    - **yabisso_employes** : Gestion employés, 196 MB, GitHub pushé
+    - **yabisso_admin** : Dashboard IA interne, 172 MB, GitHub pushé
+    - **yabisso_admin_dashboard** : Dashboard React + Capacitor, 3.3 MB, GitHub pushé
+    - **yabisso_pos_restaurant** : POS restaurant, 58 MB, GitHub pushé
+    - **yabisso_pos_hotel** : POS hôtel, 54 MB, GitHub pushé
+    - **Windows** : ✅ Buildé (VS 2022 Community)
+    - **iOS/macOS** : 🔄 GitHub Actions en cours
+  - ✅ **Derniers travaux** : Fix hash JS/Dart (toSigned(32)), QR codes abonnement, prestataire ID, WhatsApp amélioré
+  - ✅ **chat.md mis à jour** en temps réel avec cette session
+  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (30/06/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| yabisso_kassa | ✅ Pushé | v1.4.11, APK 246 MB, GitHub |
+| yabisso_employes | ✅ Pushé | APK 196 MB, GitHub |
+| yabisso_admin | ✅ Pushé | APK 172 MB, GitHub |
+| yabisso_admin_dashboard | ✅ Pushé | APK 3.3 MB, GitHub |
+| yabisso_pos_restaurant | ✅ Pushé | APK 58 MB, GitHub |
+| yabisso_pos_hotel | ✅ Pushé | APK 54 MB, GitHub |
+| Phase 16 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | VS 2022 Community |
+| iOS/macOS | 🔄 GitHub Actions | Flutter 3.44.x |
+
+### Tâches en attente (task.md)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+---
+
+## Session du 01/07/2026 — Vérification fichiers .md + enregistrement automatique
+
+### 00:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
+  - ✅ **Contexte complet** : Kassa — Écosystème 6 apps Flutter + Dashboard React pour commerçants africains
+    - **yabisso_kassa** : POS principal, v1.4.11, APK 246 MB, GitHub pushé
+    - **yabisso_employes** : Gestion employés, 196 MB, GitHub pushé
+    - **yabisso_admin** : Dashboard IA interne, 172 MB, GitHub pushé
+    - **yabisso_admin_dashboard** : Dashboard React + Capacitor, 3.3 MB, GitHub pushé
+    - **yabisso_pos_restaurant** : POS restaurant, 58 MB, GitHub pushé
+    - **yabisso_pos_hotel** : POS hôtel, 54 MB, GitHub pushé
+    - **Windows** : ✅ Buildé (VS 2022 Community)
+    - **iOS/macOS** : 🔄 GitHub Actions en cours
+  - ✅ **Derniers travaux (30/06)** : Fix hash JS/Dart (toSigned(32)), QR codes abonnement, prestataire ID, WhatsApp amélioré
+  - ✅ **chat.md mis à jour** en temps réel avec cette session
+  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (01/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| yabisso_kassa | ✅ Pushé | v1.4.11, APK 246 MB, GitHub |
+| yabisso_employes | ✅ Pushé | APK 196 MB, GitHub |
+| yabisso_admin | ✅ Pushé | APK 172 MB, GitHub |
+| yabisso_admin_dashboard | ✅ Pushé | APK 3.3 MB, GitHub |
+| yabisso_pos_restaurant | ✅ Pushé | APK 58 MB, GitHub |
+| yabisso_pos_hotel | ✅ Pushé | APK 54 MB, GitHub |
+| Phase 16 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | VS 2022 Community |
+| iOS/macOS | 🔄 GitHub Actions | Flutter 3.44.x |
+
+### Tâches en attente (task.md)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+---
+
+*Fin de session 01/07/2026*
+
+---
+
+## Session du 01/07/2026 (suite) — QR Code employé + fix Activity + share historique
+
+### 01:00 — Fix historique vouchers Activity (Mon App)
+
+- **User**: "je ne vois pas l'historique des vouchers que j'ai créé" (demandé 3+ fois)
+- **Opencode**: 
+  - **Problème 1**: Les vouchers "ONLINE" générés via le formulaire n'avaient pas de champ `type` → ils n'apparaissaient que sous filtre "ONLINE" (matching `!v.type`)
+  - **Fix 1**: Ajouté `type: 'ONLINE'` dans `server/index.cjs` pour le endpoint `/api/vouchers/generate`
+  - **Fix 2**: Réécrit `Activity.tsx` avec :
+    - Filtre par statut (Tous/Disponible/Utilisé/Expiré/Annulé)
+    - Tri par date décroissante
+    - Affichage des timestamps création + activation + expiration
+    - Couleurs correctes par statut (vert=actif, bleu=disponible, orange=expiré, rouge=annulé)
+    - Badge type (WEB/OFF/PTS)
+    - Détails max produits + durée
+  - **Fichiers**: `server/index.cjs` + `src/pages/Activity.tsx`
+
+### 01:10 — Share historique ventes par jour (employé dashboard)
+
+- **User**: "quand le prestataire choisir l'historique par rapport au jour, c'est uniquement cet historique qui est partagé"
+- **Opencode**: 
+  - **Vérifié**: `_shareDailySales()` filtre déjà par `created_at LIKE '$dateStr%'` → seul le jour sélectionné est partagé ✅
+  - **Amélioré**: Ajout du **détail de chaque vente** dans le message WhatsApp :
+    - Numéro, nom boutique, plan, montant, commission, heure
+    - Séparateur "--- DÉTAIL DES VENTES ---"
+  - **Fichier**: `dashboard_screen.dart` (employés) ✅
+
+### 01:20 — Bouton "Afficher QR Code" dans profil employé
+
+- **User**: Ajouter un bouton "Afficher QR Code" sous "Copier ID" dans le profil employé
+- **Opencode**:
+  - Ajouté import `qr_flutter` ✅
+  - Ajouté bouton "Afficher QR Code" (bleu, outlined) sous "Copier ID" ✅
+  - Méthode `_showQrCodeDialog()` : dialog avec QR code du `employee.id` + nom + instructions ✅
+  - Design : `QrImageView` size 200, fond blanc, bordures arrondies ✅
+  - **Fichier**: `profile_screen.dart` (employés) ✅
+
+### 01:30 — Champ "ID Prestataire" + scanner QR dans inscription Kassa
+
+- **User**: Ajouter un champ "ID Prestataire" avec bouton scanner QR dans l'écran inscription de Kassa
+- **Opencode**:
+  - Ajouté `_prestataireIdController` ✅
+  - Champ "ID Prestataire (optionnel)" avec icône badge + bouton scanner QR vert ✅
+  - `_scanPrestataireId()` : ouvre `_PrestataireQRScannerScreen` ✅
+  - `_PrestataireQRScannerScreen` : scanner MobileScanner avec flash toggle, overlay 250x250, instruction texte ✅
+  - Sauvegarde `prestataire_id` dans SharedPreferences via `db.setSetting()` ✅
+  - Dispose du controller ajouté ✅
+  - **Fichier**: `subscription_screen.dart` (kassa) ✅
+
+### Résumé des fichiers modifiés
+
+| Fichier | App | Changements |
+|---------|-----|-------------|
+| `server/index.cjs` | Dashboard | `type: 'ONLINE'` ajouté aux vouchers générés |
+| `src/pages/Activity.tsx` | Dashboard | Réécrit : filtres statut, tri date, détails timestamps |
+| `dashboard_screen.dart` | Employés | Share : détail de chaque vente dans message WhatsApp |
+| `profile_screen.dart` | Employés | Bouton "Afficher QR Code" + dialog QR |
+| `subscription_screen.dart` | Kassa | Champ ID Prestataire + scanner QR + sauvegarde |
+
+---
+
+### 02:00 — Renommage "yabisso_admin_dashboard" → "Travail"
+
+- **User**: Renommer le dashboard en "Travail"
+- **Opencode**:
+  - `capacitor.config.json` → appName: "Travail" ✅
+  - `package.json` → productName: "Travail" ✅
+  - `index.html` → title: "Travail" ✅
+  - `src/components/Sidebar.tsx` → "Travail" ✅
+  - `src/layouts/Layout.tsx` → "Travail" ✅
+  - `src/pages/Vouchers.tsx` → message WhatsApp: "Travail" ✅
+  - `start.bat` → echo: "Travail" ✅
+  - `build_electron.bat` → echo: "Travail" ✅
+  - `server/index.cjs` → console.log: "Travail" ✅
+
+### 02:15 — Build APK Travail
+
+- **Opencode**: `flutter build apk --release` → BUILD SUCCESSFUL (1m38s) ✅
+- **Opencode**: Copié `app-release.apk` → `apk/travail.apk` ✅
+
+### 02:20 — Fix overflow vendor_auth_screen (Kassa)
+
+- **User**: "Bottom overflowed by 54 pixels" sur écran inscription Kassa
+- **Opencode**: `_showSubscriptionRequiredDialog()` → Column wrappé dans `SingleChildScrollView` ✅
+- **Fichier**: `vendor_auth_screen.dart` ✅
+
+### 02:30 — Vérification export Excel
+
+- **Opencode**: Vérifié `excel_service.dart` — toutes les 8 colonnes déjà exportées (nom, prix, prix_achat, stock, stock_alert, code_barre, catégorie, fournisseur) ✅
+- **Opencode**: Import Excel auto-résout catégories/fournisseurs ✅
+
+### Résumé des fichiers modifiés (suite)
+
+| Fichier | App | Changements |
+|---------|-----|-------------|
+| `capacitor.config.json` | Dashboard | appName → "Travail" |
+| `package.json` | Dashboard | productName → "Travail" |
+| `index.html` | Dashboard | title → "Travail" |
+| `Sidebar.tsx` | Dashboard | "Travail" |
+| `Layout.tsx` | Dashboard | "Travail" |
+| `Vouchers.tsx` | Dashboard | "Travail" |
+| `start.bat` | Dashboard | "Travail" |
+| `build_electron.bat` | Dashboard | "Travail" |
+| `server/index.cjs` | Dashboard | console.log → "Travail" |
+| `vendor_auth_screen.dart` | Kassa | SingleChildScrollView overflow fix |
+
+### APK générés
+- `apk/travail.apk` ✅ (nouveau)
+
+---
+
+*Fin de session 01/07/2026*

@@ -9,3 +9,23 @@ nul
 *.exe
 *.apk
 fichiers/doc google/
+**/.dart_tool/
+**/node_modules/
+**/dist/
+**/dist-electron/
+**/.gradle/
+**/.settings/
+**/.classpath
+**/.project
+**/*.so
+**/*.dill
+**/*.stamp
+**/pubspec.lock
+**/android/.project
+**/android/.settings/
+**/android/app/.classpath
+**/android/app/.project
+**/android/app/.settings/
+**/android/local.properties
+**/android/gradle.properties
+**/*.dll

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>LuxeStay POS - Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Tokens -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e2e8f8",
+                    "surface-container-highest": "#dce2f3",
+                    "on-tertiary-container": "#828485",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#e1e3e4",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed": "#191c1d",
+                    "surface-dim": "#d3daea",
+                    "primary-container": "#1c1b1b",
+                    "on-surface": "#151c27",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-primary-container": "#858383",
+                    "secondary-fixed-dim": "#e9c176",
+                    "primary": "#000000",
+                    "inverse-primary": "#c8c6c5",
+                    "on-primary-fixed": "#1c1b1b",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#444748",
+                    "tertiary-container": "#191c1d",
+                    "surface": "#f9f9ff",
+                    "on-secondary-container": "#785a1a",
+                    "surface-tint": "#5f5e5e",
+                    "secondary-container": "#fed488",
+                    "primary-fixed": "#e5e2e1",
+                    "tertiary-fixed-dim": "#c5c7c8",
+                    "surface-variant": "#dce2f3",
+                    "on-background": "#151c27",
+                    "secondary-fixed": "#ffdea5",
+                    "inverse-on-surface": "#ebf1ff",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "background": "#f9f9ff",
+                    "secondary": "#775a19",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#454748",
+                    "on-error": "#ffffff",
+                    "surface-container": "#e7eefe",
+                    "surface-bright": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f0f3ff",
+                    "outline": "#747878",
+                    "outline-variant": "#c4c7c7",
+                    "on-primary-fixed-variant": "#474746",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#261900",
+                    "inverse-surface": "#2a313d",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "md": "24px",
+                    "safe-margin": "20px",
+                    "lg": "32px",
+                    "base": "4px",
+                    "sm": "16px",
+                    "gutter": "12px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Montserrat"],
+                    "label-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg-mobile": ["Montserrat"],
+                    "headline-sm": ["Montserrat"],
+                    "headline-md": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .luxury-card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .luxury-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.85);
+        }
+        .gold-accent-bar {
+            width: 4px;
+            height: 100%;
+            background: #775a19;
+            border-radius: 4px 0 0 4px;
+        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-dim shadow-md flex justify-between items-center px-md py-xs w-full">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel concierge manager, wearing a crisp dark suit with a gold lapel pin. The lighting is soft and warm, reflecting a high-end lobby atmosphere. The aesthetic is clean, sharp, and sophisticated, aligning with a premium hospitality brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8lrJ8LQ2-LMBqROPviA_YYl31ZMQHdWVOLQ4P2Qt3jKZIBx8064Ig0ztKlfJbUF1pgMpQ0dRLqhbB5GQYo0RUGTP_f4_E2HSI9p5D73YcjlXHpBHfZyKDHu6MADDVCE7fbptiXeuO2_JI2nf0JusMBlpMHWQzb-ObfValXV2Y95P1q6R_PpdEjTEYYwee-Zw8TmbL3v7PYMwBK3D1a1uNUR2n4HAUbVCQrgDxoJKETa2yMS75m_HxsvvDvap0qmvW0vxreW5uEgI"/>
+</div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary dark:text-primary-fixed-dim tracking-tight">LuxeStay POS</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="p-md space-y-md max-w-4xl mx-auto">
+<!-- Welcome Section & Hero Visual -->
+<section class="relative rounded-xl overflow-hidden h-44 flex items-end p-md luxury-card">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="An abstract, high-fashion architectural shot of a luxury hotel terrace at dusk. Soft golden ambient lighting illuminates marble surfaces and high-end furniture. The composition is clean and airy with a professional, corporate modern aesthetic featuring deep shadows and warm tonal highlights." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD2v_DTsPfLI8UhHa8T-nMJAN5_7keVw2HWc-O5Q_MFKlEBvjSuOjSnMh3WROE1-MFD5ySuJRhgubWheetRkSAE6G_RYUB3xMr46lFvlRq9bIWN8QLi62ddfQJxS3llTKWGBAUn5v0mjd1z3KQ5ilbuDiRKkLoVxico8MXvh5pMM9SfPL89VD2efcjnmS7_f-cezOMsSYX6Fc8Psk8bDatgowb0eQFE7dZuPYQCFzvkWYk9t3wQ6PcvtZ68o7ly-I5h5AD26QfhrJA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<div class="relative z-10 text-white">
+<p class="font-label-lg text-label-lg opacity-80">Good afternoon, Alex</p>
+<h2 class="font-headline-md text-headline-md">Grand Terrace Lounge</h2>
+</div>
+</section>
+<!-- KPI Bento Grid -->
+<section class="bento-grid">
+<!-- Daily Revenue -->
+<div class="luxury-card rounded-xl p-md flex flex-col justify-between h-32 border-l-4 border-secondary">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Daily Revenue</span>
+<div class="flex flex-col">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">$4,280.50</span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12.5%
+                    </span>
+</div>
+</div>
+<!-- Active Tables -->
+<div class="luxury-card rounded-xl p-md flex flex-col justify-between h-32 border-l-4 border-primary">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Tables</span>
+<div class="flex flex-col">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">18 / 24</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">75% Capacity</span>
+</div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="grid grid-cols-2 gap-sm">
+<button class="bg-primary text-on-primary font-label-lg text-label-lg py-md rounded-xl flex items-center justify-center gap-xs hover:opacity-90 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined">add_circle</span>
+                Open New Table
+            </button>
+<button class="bg-surface-container-lowest border-2 border-primary text-primary font-label-lg text-label-lg py-md rounded-xl flex items-center justify-center gap-xs hover:bg-surface-container-low active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">event_available</span>
+                View Reservations
+            </button>
+</section>
+<!-- Pending Orders List -->
+<section class="space-y-sm">
+<div class="flex justify-between items-center px-xs">
+<h3 class="font-headline-sm text-headline-sm">Pending Orders</h3>
+<button class="text-secondary font-label-lg text-label-lg flex items-center gap-1">
+                    See All <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+<div class="space-y-xs">
+<!-- Order Card 1 -->
+<div class="luxury-card rounded-xl flex items-stretch overflow-hidden">
+<div class="gold-accent-bar"></div>
+<div class="p-sm flex-1 flex justify-between items-center">
+<div class="space-y-1">
+<div class="flex items-center gap-xs">
+<span class="font-headline-sm text-[16px]">Table 12</span>
+<span class="bg-secondary-container text-on-secondary-container px-xs py-[2px] rounded-full text-[10px] font-bold uppercase tracking-tighter">Kitchen</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">3 Items • $124.00</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-error">12m ago</p>
+<button class="text-primary mt-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="luxury-card rounded-xl flex items-stretch overflow-hidden opacity-90">
+<div class="w-1 h-full bg-outline-variant"></div>
+<div class="p-sm flex-1 flex justify-between items-center">
+<div class="space-y-1">
+<div class="flex items-center gap-xs">
+<span class="font-headline-sm text-[16px]">Table 04</span>
+<span class="bg-surface-container-high text-on-surface-variant px-xs py-[2px] rounded-full text-[10px] font-bold uppercase tracking-tighter">Drinks Only</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">5 Items • $86.50</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">4m ago</p>
+<button class="text-primary mt-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Order Card 3 -->
+<div class="luxury-card rounded-xl flex items-stretch overflow-hidden">
+<div class="gold-accent-bar"></div>
+<div class="p-sm flex-1 flex justify-between items-center">
+<div class="space-y-1">
+<div class="flex items-center gap-xs">
+<span class="font-headline-sm text-[16px]">Poolside 08</span>
+<span class="bg-secondary-container text-on-secondary-container px-xs py-[2px] rounded-full text-[10px] font-bold uppercase tracking-tighter">Kitchen</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">2 Items • $210.00</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-error">18m ago</p>
+<button class="text-primary mt-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Floor Plan Snippet / Interactive Map -->
+<section class="luxury-card rounded-xl p-md overflow-hidden bg-white">
+<h3 class="font-headline-sm text-headline-sm mb-md">Quick Map View</h3>
+<div class="relative w-full aspect-square md:aspect-video rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A top-down, minimalist architectural floor plan diagram of a high-end restaurant lounge. The map features clean white lines on a subtle grey-blue background, with circular and rectangular table shapes. Active tables are highlighted with a soft gold glow, while available ones are simple outlines. The style is professional, clean, and highly legible." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNW7WWzRBSDgJZBDnVgmZxdc9EFUEBRukswBwOxNCN6qzjXMlSijLQ3RjVALW7EBFL11wtpUFhdCQp4IU1PyELaD1FcMfzTH6uWqCKw98RANvrIo8grOWWYO438JDMNtwBK6bmUEU2YXu8llxEFcqUuEUxGicJWK8efYzae3swoYLiKU0NRhlhuIoomeW3JLdDifqweF47RcDrQKhusIOG70PsJI6x5RGodDuLtqo2yoRUm3-1swHSx7wgmLsVG62no1q9CkXGagw"/>
+<!-- Floating labels simulation -->
+<div class="absolute top-1/4 left-1/3 bg-primary text-white text-[10px] px-xs py-1 rounded-full shadow-lg">T-12</div>
+<div class="absolute bottom-1/3 right-1/4 bg-primary text-white text-[10px] px-xs py-1 rounded-full shadow-lg">T-04</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/5">
+<button class="bg-white/90 backdrop-blur text-primary font-label-lg text-label-lg px-md py-sm rounded-full shadow-xl flex items-center gap-xs">
+<span class="material-symbols-outlined">fullscreen</span> Expand Map
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-safe-margin pb-safe-margin pt-xs bg-surface dark:bg-surface-container-lowest border-t border-outline-variant dark:border-none shadow-[0_-4px_10px_rgba(0,0,0,0.08)] z-50">
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary dark:bg-secondary-container text-on-primary dark:text-on-secondary-container rounded-xl px-sm py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- Tables -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-sm py-1 hover:bg-surface-container-highest dark:hover:bg-tertiary-container active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">table_restaurant</span>
+<span class="font-label-sm text-label-sm">Tables</span>
+</a>
+<!-- Menu -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-sm py-1 hover:bg-surface-container-highest dark:hover:bg-tertiary-container active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-sm py-1 hover:bg-surface-container-highest dark:hover:bg-tertiary-container active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interaction for feedback
+        document.querySelectorAll('.luxury-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Future expansion: Navigate or open details
+            });
+        });
+
+        // Dynamic Time Update for demo feel
+        function updateTime() {
+            const now = new Date();
+            // Just for show if needed in labels
+        }
+        setInterval(updateTime, 60000);
+    </script>
+</body></html>

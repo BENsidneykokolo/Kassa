@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Emerald Grill | Dish Customization</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e0e3e5",
+                    "tertiary-container": "#94a4bd",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#bbcabf",
+                    "surface-tint": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "on-background": "#191c1e",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#6ffbbe",
+                    "tertiary-fixed": "#d3e4fe",
+                    "secondary": "#565e74",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-fixed": "#131b2e",
+                    "primary-container": "#10b981",
+                    "tertiary": "#505f76",
+                    "primary-fixed-dim": "#4edea3",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#006c49",
+                    "outline": "#6c7a71",
+                    "on-primary-fixed-variant": "#005236",
+                    "inverse-primary": "#4edea3",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-secondary-container": "#5c647a",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#2a3a4f",
+                    "on-primary-fixed": "#002113",
+                    "on-surface": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary-container": "#dae2fd",
+                    "on-primary-container": "#00422b",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-container": "#eceef0",
+                    "inverse-surface": "#2d3133",
+                    "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-lg": "40px",
+                    "content-margin": "32px",
+                    "gutter": "24px",
+                    "touch-target-min": "48px",
+                    "stack-md": "24px",
+                    "stack-sm": "12px",
+                    "sidebar-width": "320px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "label-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "label-lg": ["16px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["20px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-shadow {
+            box-shadow: 0px 4px 20px rgba(25, 28, 30, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background overflow-hidden">
+<!-- Sidebar (As per JSON: SideNavBar) -->
+<aside class="bg-inverse-surface dark:bg-inverse-surface w-sidebar-width h-full fixed left-0 top-0 flex flex-col py-stack-md z-50">
+<div class="px-8 mb-10 flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary-fixed">Emerald Grill</h1>
+<p class="font-label-md text-label-md text-surface-variant opacity-70">Table 12</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-primary-fixed font-bold border-l-4 border-primary-fixed pl-4" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-label-lg text-label-lg">Menu</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-lg text-label-lg">Favorites</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined">star</span>
+<span class="font-label-lg text-label-lg">Specials</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-lg text-label-lg">Help</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full h-touch-target-min rounded-xl bg-primary text-white font-label-lg flex items-center justify-center gap-2 active:scale-95 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+                Call Server
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width h-screen flex flex-col relative overflow-hidden">
+<!-- Top Nav (As per JSON: TopNavBar) -->
+<header class="flex justify-between items-center px-content-margin h-touch-target-min w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-8 h-full">
+<button class="flex items-center gap-2 text-on-surface active:scale-90 transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-headline-md text-headline-md">Back</span>
+</button>
+<nav class="flex gap-8 h-full items-center">
+<a class="font-headline-md text-headline-md text-primary border-b-4 border-primary h-full flex items-center pt-1" href="#">Mains</a>
+<a class="font-headline-md text-headline-md text-on-surface-variant hover:text-primary transition-all" href="#">Drinks</a>
+<a class="font-headline-md text-headline-md text-on-surface-variant hover:text-primary transition-all" href="#">Desserts</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-90 transition-all">shopping_cart</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-90 transition-all">person</span>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-lg active:scale-95 transition-all">
+                    Checkout
+                </button>
+</div>
+</header>
+<!-- Customization Canvas -->
+<div class="flex-1 overflow-y-auto hide-scrollbar pb-32">
+<!-- Hero Image Section -->
+<section class="w-full h-[400px] relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105" data-alt="A premium, high-contrast photograph of a perfectly seared Wagyu steak resting on a minimalist dark ceramic plate. The meat is sliced to reveal a tender, pink medium-rare center with rich marbleization. Soft, warm overhead lighting emphasizes the glossy texture of the sear, set against a background of charcoal gray tones and a subtle emerald green napkin. The overall mood is sophisticated and culinary-focused, echoing a high-end light mode dashboard aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAP8cHof4g-zXjFQpf_6-Z8W7VWnwHXLk94eQ08A5arFYaMl6W8bYbYlklE-YPS1Ru1yQH98Cfzyk6W5DJucj0GusyBHSz65WBYKK5nZ87a8UJpYLxi6oS4f_6C07xrx7StOvqyDJNLb6IB5Xokgk5pFm-srW1WomPsTggGWA-A9YZUS9fVTn4zaQ-anRwwdDGFP2r9pgdnOCH-2YVSUuMMgsueNH_Fa4Iyu9Gi8nGJgoCwVnp2dFUAr1gTzpKvRY2uy3c71sRl-7I')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-8 left-content-margin right-content-margin">
+<h2 class="font-display-lg text-display-lg text-white mb-2">A5 Wagyu Ribeye</h2>
+<p class="font-body-lg text-body-lg text-white/80 max-w-2xl">Japanese Kagoshima Prefecture A5 Wagyu, meticulously seared over binchotan charcoal for an unparalleled buttery texture.</p>
+</div>
+</section>
+<!-- Selection Groups -->
+<div class="px-content-margin py-stack-lg space-y-stack-lg">
+<!-- Cooking Temperature -->
+<div class="space-y-stack-sm">
+<div class="flex justify-between items-end">
+<h3 class="font-headline-lg text-headline-lg">Select Doneness</h3>
+<span class="font-label-lg text-label-lg text-primary">Required</span>
+</div>
+<div class="grid grid-cols-5 gap-gutter">
+<button class="doneness-btn border-2 border-outline-variant bg-white p-6 rounded-xl flex flex-col items-center gap-3 active:scale-95 transition-all" onclick="selectItem(this, 'doneness')">
+<span class="font-headline-md text-headline-md">Rare</span>
+<span class="font-label-md text-label-md opacity-60">Cool Red Center</span>
+</button>
+<button class="doneness-btn border-2 border-primary bg-white p-6 rounded-xl flex flex-col items-center gap-3 active:scale-95 transition-all ring-2 ring-primary/20" onclick="selectItem(this, 'doneness')">
+<span class="font-headline-md text-headline-md text-primary">Med Rare</span>
+<span class="font-label-md text-label-md text-primary/70">Warm Red Center</span>
+</button>
+<button class="doneness-btn border-2 border-outline-variant bg-white p-6 rounded-xl flex flex-col items-center gap-3 active:scale-95 transition-all" onclick="selectItem(this, 'doneness')">
+<span class="font-headline-md text-headline-md">Medium</span>
+<span class="font-label-md text-label-md opacity-60">Warm Pink Center</span>
+</button>
+<button class="doneness-btn border-2 border-outline-variant bg-white p-6 rounded-xl flex flex-col items-center gap-3 active:scale-95 transition-all" onclick="selectItem(this, 'doneness')">
+<span class="font-headline-md text-headline-md">Med Well</span>
+<span class="font-label-md text-label-md opacity-60">Slightly Pink</span>
+</button>
+<button class="doneness-btn border-2 border-outline-variant bg-white p-6 rounded-xl flex flex-col items-center gap-3 active:scale-95 transition-all" onclick="selectItem(this, 'doneness')">
+<span class="font-headline-md text-headline-md">Well Done</span>
+<span class="font-label-md text-label-md opacity-60">Cooked Through</span>
+</button>
+</div>
+</div>
+<!-- Sauces -->
+<div class="space-y-stack-sm">
+<h3 class="font-headline-lg text-headline-lg">Choose Sauce</h3>
+<div class="grid grid-cols-4 gap-gutter">
+<button class="group border border-outline-variant bg-white p-gutter rounded-xl flex items-center gap-6 active:scale-95 transition-all" onclick="toggleItem(this)">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small, elegant silver ramekin filled with rich, glossy dark brown bordelaise sauce, reflecting soft studio light. The sauce has a deep, luxurious sheen. Minimalist background in soft neutral tones, professional food photography style with sharp focus on the liquid texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz8gML6jZzbHAim1p_qutHoU8R-E72aNtzgemLq4030mTazs6MI_vpY76TFSBH91ZGKgfwN0GhCnbKJZuheRqTDpJ_p3uZrbnqox6OBML60yOPl76xkVirG1XUYLX-RW8p2WsXtm0EAm5LudAD3MRJoefbIytLkDQS3XWXMxdv9pL7btA8N_02bXo7mANxaYMkE-Jps9TUK99mDULqpXmWkN-sw5-MmhIOVlNq1e9_PkvCQErlqCt0ZFeddsZoZ-GVCdDr7eZ4ICU"/>
+</div>
+<div class="text-left flex-1">
+<p class="font-headline-md text-headline-md">Bordelaise</p>
+<p class="font-label-md text-label-md opacity-60">Red wine reduction</p>
+</div>
+<span class="material-symbols-outlined text-outline group-selected:text-primary">radio_button_unchecked</span>
+</button>
+<button class="group border border-outline-variant bg-white p-gutter rounded-xl flex items-center gap-6 active:scale-95 transition-all" onclick="toggleItem(this)">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close-up of a creamy, pale yellow Béarnaise sauce in a minimalist white porcelain bowl. Specks of fresh green tarragon are visible within the velvety emulsion. Soft, high-key lighting creates a bright and fresh aesthetic, highlighting the sauce's thickness and richness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8jJJxepoc9UHpRxL6FIPQupEcIQwcZcGCUFCH7Fwc0POpBDOpkP_zfOjVnyG27zaFRAbBbkv0zohpsoYdzti9szdaPAdXaTeUaeKL9EBBseXoS7mHDduLBuP-dulBhq4hBeyl7iobkRF-XLO6Alz41-5heiC0hzsO9MqNNm3BE03vx4hf_yCfTReVH0Cu7hH8cbhAbKIzvFr1SXS0-QzFR6Sf4yjFFhHfkER9efyJggEG7AG4XpzeAVHFtl0Iu2_WJpyXb8AA66M"/>
+</div>
+<div class="text-left flex-1">
+<p class="font-headline-md text-headline-md">Béarnaise</p>
+<p class="font-label-md text-label-md opacity-60">Classic tarragon</p>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</button>
+<button class="group border border-outline-variant bg-white p-gutter rounded-xl flex items-center gap-6 active:scale-95 transition-all" onclick="toggleItem(this)">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small vessel containing vibrant green Chimichurri sauce, filled with chopped herbs, garlic, and oils. The lighting is bright and crisp, showcasing the textures of the fresh cilantro and parsley. Clean, modern aesthetic with a focus on color and freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdAD5fhkDRhv0n21EptztzbuKqgAwUswA69sqdb4gkff8pyitydIkr3hJAv5QqIjuHOomoPF4pwwqs6ZJTRUdlTd5BGfTEh4JmYuktEhHED1LRmr2iizx4R6LrrVi9A0tN80Zm9yenxhZpbP6cExEDyTTmsuMn92_1D-a7-VqyyfaKYpoX-G2jfqv4EfUR90rVgc76i45_scmNU7jnHJcbjD6Yksbv9_-vEV9zfmvFifJ2_9mgYBL2Vssgd9TiHtZNCj7MDPnvuBM"/>
+</div>
+<div class="text-left flex-1">
+<p class="font-headline-md text-headline-md">Chimichurri</p>
+<p class="font-label-md text-label-md opacity-60">Fresh herb &amp; garlic</p>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</button>
+<button class="group border border-outline-variant bg-white p-gutter rounded-xl flex items-center gap-6 active:scale-95 transition-all" onclick="toggleItem(this)">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A rich peppercorn sauce with visible whole cracked black peppercorns in a creamy brown base, served in a sleek dark dish. Dramatic lighting highlights the texture of the cream and the spice of the peppers. Professional gourmet food photography with a focus on depth and warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjMT8JGMZTCfBCSbwFMLRQzDv7aPZwWzL5oJtn30gMNrMm2gVaHZ-ErZaKvCN6cIocVYw-JO9P2CclWcRA-a4MWSQJ7Obh84WahWtzRijt2KTv5UIK-AcEZO2-F37i40XQhLlPxQ7vIrJIeS616eGfYsgm3EnlJz6I3lpKnLncVFfqnRy-Ev12PEUV94dqX-i8j0A2WqiVbXxDDFkuW7q6M2uuSUG5WdaHEZWM2J7NABr4Kdtp8mSWi19mg2EsVobgGC0C6Ik5F7M"/>
+</div>
+<div class="text-left flex-1">
+<p class="font-headline-md text-headline-md">Peppercorn</p>
+<p class="font-label-md text-label-md opacity-60">Cracked black pepper</p>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</button>
+</div>
+</div>
+<!-- Add-ons / Toppings (Bento Grid Style) -->
+<div class="space-y-stack-sm">
+<h3 class="font-headline-lg text-headline-lg">Enhancements</h3>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Extra Truffle -->
+<div class="col-span-8 group border border-outline-variant bg-white p-gutter rounded-xl flex justify-between items-center cursor-pointer active:scale-[0.98] transition-all" onclick="toggleBento(this)">
+<div class="flex items-center gap-8">
+<div class="w-32 h-32 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Macro photography of fresh black truffle shavings falling onto a surface, with a whole black truffle in the background. Elegant lighting highlights the intricate patterns within the truffle slices. The color palette is earthy and sophisticated, featuring deep blacks, browns, and cream tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMZW_JdExaxP-FAByHaagQ1576pHDnLQ6y9W-j6A9dLrX67o7hO8_C4QEJctw4DplwiFjYV4x1JyKtPSLkYbDVtEobUy1nF4enrWElhCGF7QMgtIGvrAkhUS2ioTkADP7D7RpCR6Ma5qoymafcu2_7ZolIgAo2aC2bTOIFZyIWGj4ykk7PYA-weR6_409hVyUQtfVLXVXgWA-Moh00CNai7xxKeIJvfzpkpzEAxZpNtLt2Wcr8WrtszH0GoWX8Nwxby4PDl8vlqeA"/>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline-md text-headline-md">Shaved Black Truffle</h4>
+<p class="font-body-md text-body-md opacity-70">Aromatic Umbrian truffles shaved tableside.</p>
+<p class="font-label-lg text-label-lg text-primary">+$24.00</p>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant flex items-center justify-center group-[.selected]:bg-primary group-[.selected]:border-primary transition-colors">
+<span class="material-symbols-outlined text-white opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<!-- Garlic Butter -->
+<div class="col-span-4 group border border-outline-variant bg-white p-gutter rounded-xl flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all" onclick="toggleBento(this)">
+<div class="space-y-4">
+<div class="w-full h-32 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A melting pat of artisanal herb-infused garlic butter resting on a warm surface. The butter is glowing with a golden hue, and tiny flecks of parsley and roasted garlic are visible. Soft, atmospheric lighting creates a cozy, appetizing feel with rich warm tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW_popdZ4j4tSOWq3J3m6jcQpbS7jVeK5OkIUkLt-A8oT17TRFss751WX7PZz0L3LO1KK7QEVGO4TLDB1wvZI_0CI6nTAtQpzejmhuJP9NoX1mFpNfBt3pyYgekYxwRkCzmZMihlLCbwltEfN4HL6UjF8lUf3FXn4nk-Tyi4QOpo1qHc9mHuOMjXEMLyP9WUKGJgWVIMdXC2FocAqCBbzendyGvOEr6iPQN38gA1y18jmkNWQQPF74-PJSKkCcRMrthbFW_TlPnfQ"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md">Roasted Garlic Butter</h4>
+<p class="font-label-lg text-label-lg text-primary">+$4.00</p>
+</div>
+</div>
+<div class="flex justify-end mt-4">
+<div class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center group-[.selected]:bg-primary group-[.selected]:border-primary transition-colors">
+<span class="material-symbols-outlined text-white text-sm opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Action Bar -->
+<footer class="absolute bottom-0 left-0 right-0 h-32 bg-white/90 backdrop-blur-md border-t border-outline-variant flex items-center px-content-margin justify-between z-50 custom-shadow">
+<div class="flex items-center gap-12">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md opacity-50 uppercase tracking-widest">Total Price</span>
+<span class="font-display-lg text-display-lg text-primary">$128.00</span>
+</div>
+<!-- Quantity Selector -->
+<div class="flex items-center bg-surface-container rounded-full h-16 px-2">
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-white text-on-surface shadow-sm active:scale-90 transition-all" onclick="updateQty(-1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="w-16 text-center font-headline-md text-headline-md" id="qty-val">1</span>
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-white text-on-surface shadow-sm active:scale-90 transition-all" onclick="updateQty(1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<button class="h-16 px-12 bg-primary text-white rounded-full font-headline-md text-headline-md flex items-center gap-4 hover:bg-on-primary-fixed-variant active:scale-95 transition-all">
+<span>Add to Order</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</footer>
+</main>
+<script>
+        function selectItem(el, group) {
+            const btns = document.querySelectorAll(`.${group}-btn`);
+            btns.forEach(btn => {
+                btn.classList.remove('border-primary', 'ring-2', 'ring-primary/20');
+                btn.classList.add('border-outline-variant');
+                const text = btn.querySelector('.font-headline-md');
+                const sub = btn.querySelector('.font-label-md');
+                if (text) text.classList.remove('text-primary');
+                if (sub) sub.classList.remove('text-primary/70');
+            });
+            
+            el.classList.remove('border-outline-variant');
+            el.classList.add('border-primary', 'ring-2', 'ring-primary/20');
+            const activeText = el.querySelector('.font-headline-md');
+            const activeSub = el.querySelector('.font-label-md');
+            if (activeText) activeText.classList.add('text-primary');
+            if (activeSub) activeSub.classList.add('text-primary/70');
+        }
+
+        function toggleItem(el) {
+            const icon = el.querySelector('.material-symbols-outlined');
+            const isSelected = el.classList.contains('border-primary');
+            
+            if (isSelected) {
+                el.classList.remove('border-primary', 'ring-1', 'ring-primary/20');
+                el.classList.add('border-outline-variant');
+                icon.innerText = 'radio_button_unchecked';
+                icon.classList.remove('text-primary');
+            } else {
+                el.classList.remove('border-outline-variant');
+                el.classList.add('border-primary', 'ring-1', 'ring-primary/20');
+                icon.innerText = 'check_circle';
+                icon.classList.add('text-primary');
+                icon.style.fontVariationSettings = "'FILL' 1";
+            }
+        }
+
+        function toggleBento(el) {
+            el.classList.toggle('selected');
+            el.classList.toggle('border-primary');
+            el.classList.toggle('ring-1');
+            el.classList.toggle('ring-primary/20');
+        }
+
+        let currentQty = 1;
+        function updateQty(delta) {
+            currentQty = Math.max(1, currentQty + delta);
+            document.getElementById('qty-val').innerText = currentQty;
+        }
+
+        // Micro-interaction for feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (window.navigator.vibrate) window.navigator.vibrate(10);
+            });
+        });
+    </script>
+</body></html>

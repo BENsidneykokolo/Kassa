@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestion des Réservations - Table 12</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#006c4a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#82f5c1",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#45464d",
+                        "on-primary-fixed": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#e1e0ff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#68dba9",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed": "#85f8c4",
+                        "surface": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-container": "#7c839b",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#7073ff",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-variant": "#e0e3e5",
+                        "primary-container": "#131b2e",
+                        "tertiary-container": "#07006c",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#76777d",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-secondary-fixed": "#002114",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#000000",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f7f9fb",
+                        "primary": "#000000",
+                        "on-secondary-fixed-variant": "#005137",
+                        "surface-tint": "#565e74",
+                        "on-secondary-container": "#00714e",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "margin-desktop": "32px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "margin-mobile": "16px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "title-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-80 bg-surface-container-low border-r border-outline-variant z-40 flex-col py-lg">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-lg text-secondary tracking-tight">Table 12</h1>
+</div>
+<div class="flex items-center px-lg mb-xl space-x-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional high-resolution headshot of a restaurant server named Julian, wearing a clean charcoal grey uniform. The background is a sophisticated, softly blurred upscale restaurant interior with warm ambient lighting. The style is modern corporate photography, clean and authoritative, matching a luxury hospitality brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVda3YSRl6hjr37pp5tfktXUCrm1CmbOddaLhGI6ek9-WXrAxkA1ke4p_vYyq_gPcXXqSJeoh7ntmxrckfCs1QhsiWuf9QhtPII_2v1ouzrqjYw3j-p_I3Cy3xrOY5_y2Ci7qeGQRwDqZl4Y1KJ8B1BIAV7Tz3oZCjWZFt1_zbk5j_5okvsOMMMzRVUZUBYa6I2585o2_a7C_XtFiIAWR-Vg7hx-NiGAH4T_Xh_xt7-PMweN8p0yCh39e1Hhh8DkWHtj0iFm5PclM"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Julian S.</p>
+<p class="font-body-md text-on-surface-variant">Server #102 • Shift: Lunch</p>
+</div>
+</div>
+<nav class="flex-1 px-sm space-y-xs">
+<a class="flex items-center px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined mr-md">map</span>
+<span class="font-body-md">Floor Plan</span>
+</a>
+<a class="flex items-center px-md py-sm bg-secondary-container text-on-secondary-container rounded-r-full font-bold group" href="#">
+<span class="material-symbols-outlined mr-md">calendar_month</span>
+<span class="font-body-md">Reservations</span>
+</a>
+<a class="flex items-center px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined mr-md">kitchen</span>
+<span class="font-body-md">Kitchen Display</span>
+</a>
+<a class="flex items-center px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined mr-md">history</span>
+<span class="font-body-md">Order History</span>
+</a>
+<div class="pt-lg pb-sm px-lg text-on-surface-variant/50 font-label-sm uppercase tracking-widest">Admin</div>
+<a class="flex items-center px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined mr-md">assessment</span>
+<span class="font-body-md">Shift Report</span>
+</a>
+<a class="flex items-center px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined mr-md">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 md:left-80 right-0 h-16 bg-surface border-b border-outline-variant z-30 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center">
+<button class="md:hidden mr-md text-secondary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md-mobile md:text-headline-md text-secondary">Gestion des Réservations</h2>
+</div>
+<div class="flex items-center space-x-md">
+<button class="hidden md:flex items-center px-lg py-sm bg-secondary text-on-secondary rounded-lg font-bold hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined mr-sm">add</span>
+                Ajouter
+            </button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-16 pb-24 md:pb-8 md:pl-80 min-h-screen">
+<div class="max-w-6xl mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+<!-- Date Selector & Filters -->
+<section class="mb-lg">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-on-surface">Aujourd'hui, 24 Mai</h3>
+<div class="flex space-x-sm">
+<button class="p-sm border border-outline rounded-lg hover:bg-surface-container-low">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-sm border border-outline rounded-lg hover:bg-surface-container-low">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex space-x-sm overflow-x-auto scrollbar-hide pb-sm">
+<button class="flex-shrink-0 px-lg py-sm bg-secondary-container text-on-secondary-container rounded-full font-bold">Tous</button>
+<button class="flex-shrink-0 px-lg py-sm bg-surface-container text-on-surface-variant rounded-full hover:bg-surface-container-high transition-colors">Confirmé (12)</button>
+<button class="flex-shrink-0 px-lg py-sm bg-surface-container text-on-surface-variant rounded-full hover:bg-surface-container-high transition-colors">Arrivé (4)</button>
+<button class="flex-shrink-0 px-lg py-sm bg-surface-container text-on-surface-variant rounded-full hover:bg-surface-container-high transition-colors">Attente (2)</button>
+</div>
+</section>
+<!-- Search Bar (Integrated) -->
+<div class="relative mb-lg">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full pl-xl pr-md py-md bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none font-body-md" placeholder="Rechercher un client ou un numéro..." type="text"/>
+</div>
+<!-- Bento Reservation Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Time Slot Group: 19:00 -->
+<div class="col-span-full border-b border-outline-variant pb-sm mb-sm mt-md flex items-center">
+<span class="font-label-md text-secondary mr-md">19:00</span>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<!-- Reservation Card 1 -->
+<div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h4 class="font-headline-md text-on-surface group-hover:text-secondary transition-colors">Jean Dupont</h4>
+<p class="font-label-sm text-on-surface-variant">Ref: #R-8821</p>
+</div>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container text-label-sm rounded-lg font-bold">Confirmé</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-lg">
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">groups</span>
+<span class="font-label-md">4 Personnes</span>
+</div>
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">table_restaurant</span>
+<span class="font-label-md">Fenêtre #4</span>
+</div>
+</div>
+<div class="flex space-x-sm">
+<button class="flex-1 py-sm bg-secondary text-on-secondary rounded-lg font-bold text-label-md active:scale-95 transition-all">Arrivé</button>
+<button class="p-sm border border-outline-variant rounded-lg hover:bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Reservation Card 2 -->
+<div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h4 class="font-headline-md text-on-surface">Marie Lefebvre</h4>
+<p class="font-label-sm text-on-surface-variant">Ref: #R-8824</p>
+</div>
+<span class="px-sm py-xs bg-surface-container-highest text-on-surface text-label-sm rounded-lg font-bold">Arrivé</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-lg">
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">groups</span>
+<span class="font-label-md">2 Personnes</span>
+</div>
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">restaurant</span>
+<span class="font-label-md">Table #12</span>
+</div>
+</div>
+<div class="flex space-x-sm">
+<button class="flex-1 py-sm border border-secondary text-secondary rounded-lg font-bold text-label-md hover:bg-secondary/5 transition-all">Détails</button>
+<button class="p-sm border border-outline-variant rounded-lg hover:bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Time Slot Group: 19:30 -->
+<div class="col-span-full border-b border-outline-variant pb-sm mb-sm mt-md flex items-center">
+<span class="font-label-md text-secondary mr-md">19:30</span>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<!-- Reservation Card 3 (No Show Example) -->
+<div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-all group opacity-75">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h4 class="font-headline-md text-on-surface">Luc Martin</h4>
+<p class="font-label-sm text-on-surface-variant">Ref: #R-8830</p>
+</div>
+<span class="px-sm py-xs bg-error-container text-on-error-container text-label-sm rounded-lg font-bold">Absent</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-lg">
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">groups</span>
+<span class="font-label-md">6 Personnes</span>
+</div>
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">warning</span>
+<span class="font-label-md">Terrasse</span>
+</div>
+</div>
+<div class="flex space-x-sm">
+<button class="flex-1 py-sm border border-outline-variant text-on-surface-variant rounded-lg font-bold text-label-md hover:bg-surface-container-low transition-all">Libérer Table</button>
+</div>
+</div>
+<!-- Reservation Card 4 -->
+<div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h4 class="font-headline-md text-on-surface">Sophie Bernard</h4>
+<p class="font-label-sm text-on-surface-variant">Ref: #R-8832</p>
+</div>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container text-label-sm rounded-lg font-bold">Confirmé</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-lg">
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">groups</span>
+<span class="font-label-md">3 Personnes</span>
+</div>
+<div class="flex items-center space-x-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-md">cake</span>
+<span class="font-label-md">Anniversaire</span>
+</div>
+</div>
+<div class="flex space-x-sm">
+<button class="flex-1 py-sm bg-secondary text-on-secondary rounded-lg font-bold text-label-md active:scale-95 transition-all">Arrivé</button>
+<button class="p-sm border border-outline-variant rounded-lg hover:bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Empty State Placeholder (Visual Variety) -->
+<div class="border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-xl text-on-surface-variant/40 bg-surface-container-low/30 min-h-[200px]">
+<span class="material-symbols-outlined text-headline-lg mb-md">add_circle</span>
+<p class="font-label-md">Ajouter une réservation</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Mobile Only) -->
+<button class="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface border-t border-outline-variant h-20 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-label-sm">Tables</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-secondary-container bg-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm">Payment</span>
+</button>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple ripple-like effect or hover handling if needed
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('click', () => {
+                // Future expansion: open details modal
+            });
+        });
+    </script>
+</body></html>

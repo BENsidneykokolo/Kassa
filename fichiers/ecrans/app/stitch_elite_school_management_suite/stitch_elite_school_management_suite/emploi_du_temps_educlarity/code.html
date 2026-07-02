@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduClarity | Student Weekly Schedule</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#00201c",
+                    "surface-tint": "#565e74",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed": "#ffdadb",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "outline": "#76777d",
+                    "secondary": "#006b5f",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary-container": "#f23d5c",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "on-secondary-container": "#006f64",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "background": "#f7f9fb",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-primary-fixed": "#131b2e",
+                    "on-tertiary-fixed": "#40000d",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "on-surface": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-surface-variant": "#45464d",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-fixed": "#71f8e4",
+                    "tertiary-container": "#40000d",
+                    "secondary-container": "#6df5e1",
+                    "inverse-surface": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+            grid-template-rows: auto repeat(12, 60px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm transition-all duration-300">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">EduClarity</h1>
+</div>
+<nav class="hidden md:flex items-center gap-stack-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors px-3 py-2 rounded-lg" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-primary font-bold px-3 py-2 bg-surface-container rounded-lg" href="#">Schedule</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors px-3 py-2 rounded-lg" href="#">Homework</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors px-3 py-2 rounded-lg" href="#">Grades</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant cursor-pointer hover:border-secondary transition-all">
+<img class="w-full h-full object-cover" data-alt="A professional student profile avatar in a clean, high-key photography style. The young male student has a friendly expression, wearing a minimalist navy blue academic sweater. The background is a soft, out-of-focus modern library environment with warm lighting and subtle teal accents that align with the EduClarity brand colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0AesTdf2fCJN2fZgGCJnSLZUY7jy4FC4BdSkP80wq4-lfKh6B7ZDQDbp0iE699fysnKmz1i0Ckn4svC3zvM9p5TAOe-ZbjDeqUbkbxGLAH5rkyO8XpIybWK-NJj_cc1PFk2m_5jKIILiX1--4ldsb9J1eDBNYITEZx1Yz1_Lg_wisUEulc5n3uPmnIIVPVBGoaW0M3gu7a1BlTSiyo2khFsiDd2V47RFcvef9cRReSBoNJ5n-bSQgtUnjb5QlgyAmZ3QndIdLkLem"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Sidebar (Desktop) -->
+<aside class="hidden lg:flex fixed left-0 top-0 h-full z-[60] py-6 w-80 flex-col bg-surface border-r border-outline-variant shadow-lg transition-all duration-300">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md text-primary font-bold mb-8">EduClarity</h1>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">person</span>
+</div>
+<div>
+<h2 class="font-label-md text-label-md text-on-surface font-bold">Alex Rivers</h2>
+<p class="text-[12px] text-on-surface-variant">Grade 11-B • ID: 48291</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Homework</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Grades</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Library</span>
+</a>
+<div class="pt-6 border-t border-outline-variant mt-6">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-20 lg:pt-8 lg:pb-8 lg:pl-80 min-h-screen px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto space-y-8">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary">Weekly Schedule</h2>
+<p class="text-on-surface-variant font-body-md">Spring Semester 2024 • Week 12</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="px-4 py-2 bg-white shadow-sm rounded-md font-label-md text-primary">Week</button>
+<button class="px-4 py-2 text-on-surface-variant font-label-md hover:text-primary transition-colors">Month</button>
+</div>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-primary text-white rounded-lg font-label-md hover:opacity-90 transition-all active:scale-95 shadow-md">
+<span class="material-symbols-outlined text-lg">print</span>
+                        Print PDF
+                    </button>
+</div>
+</section>
+<!-- Status Quick Bar -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-white/40 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/30 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined">history_edu</span>
+</div>
+<div>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider font-bold">Today's Classes</p>
+<p class="font-headline-sm text-headline-sm text-primary">5 Classes</p>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-white/40 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed-dim/30 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<div>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider font-bold">Total Hours</p>
+<p class="font-headline-sm text-headline-sm text-primary">28h/Week</p>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-white/40 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed/30 text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider font-bold">Next Homework</p>
+<p class="font-headline-sm text-headline-sm text-primary">Math Quiz</p>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-white/40 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed/30 text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider font-bold">Attendance</p>
+<p class="font-headline-sm text-headline-sm text-primary">96%</p>
+</div>
+</div>
+</div>
+<!-- Calendar Container -->
+<div class="bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-slate-100 overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<div class="min-w-[900px] schedule-grid border-b border-outline-variant bg-surface">
+<!-- Time Column Header -->
+<div class="p-4 border-r border-outline-variant bg-surface-container-low"></div>
+<!-- Day Headers -->
+<div class="p-4 border-r border-outline-variant text-center bg-white group">
+<span class="block text-[12px] font-bold text-on-surface-variant uppercase tracking-widest">Mon</span>
+<span class="text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">18</span>
+</div>
+<div class="p-4 border-r border-outline-variant text-center bg-white group">
+<span class="block text-[12px] font-bold text-on-surface-variant uppercase tracking-widest">Tue</span>
+<span class="text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">19</span>
+</div>
+<div class="p-4 border-r border-outline-variant text-center bg-secondary-container/10 group">
+<span class="block text-[12px] font-bold text-secondary uppercase tracking-widest">Wed</span>
+<span class="text-headline-sm font-bold text-secondary">20</span>
+<div class="text-[10px] text-secondary font-bold">TODAY</div>
+</div>
+<div class="p-4 border-r border-outline-variant text-center bg-white group">
+<span class="block text-[12px] font-bold text-on-surface-variant uppercase tracking-widest">Thu</span>
+<span class="text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">21</span>
+</div>
+<div class="p-4 text-center bg-white group">
+<span class="block text-[12px] font-bold text-on-surface-variant uppercase tracking-widest">Fri</span>
+<span class="text-headline-sm font-bold text-primary group-hover:text-secondary transition-colors">22</span>
+</div>
+<!-- Grid Background Body -->
+<!-- Row 8:00 AM -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">08:00</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-b border-outline-variant relative"></div>
+<!-- Row 9:00 AM -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">09:00</div>
+<div class="border-r border-b border-outline-variant relative">
+<!-- Mon 9:00 - Physics -->
+<div class="absolute inset-x-1 top-2 h-[110px] z-10 bg-on-secondary-container/90 text-white rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-white">
+<p class="text-[11px] font-bold uppercase opacity-80">09:00 - 10:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">Physics AP</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Lab 402</span>
+</div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5">
+<!-- Wed 9:00 - Chemistry -->
+<div class="absolute inset-x-1 top-2 h-[110px] z-10 bg-error/90 text-white rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-white">
+<p class="text-[11px] font-bold uppercase opacity-80">09:00 - 10:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">Chemistry</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Room 102</span>
+</div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-b border-outline-variant relative">
+<!-- Fri 9:00 - World History -->
+<div class="absolute inset-x-1 top-2 h-[110px] z-10 bg-on-tertiary-fixed-variant text-white rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-white">
+<p class="text-[11px] font-bold uppercase opacity-80">09:00 - 10:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">World Hist</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Hall B</span>
+</div>
+</div>
+</div>
+<!-- Row 10:00 AM -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">10:00</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative">
+<!-- Tue 10:00 - Calculus -->
+<div class="absolute inset-x-1 top-4 h-[110px] z-10 bg-primary-container text-white rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-secondary">
+<p class="text-[11px] font-bold uppercase opacity-80">10:00 - 11:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">Calculus BC</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Room 301</span>
+</div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5"></div>
+<div class="border-r border-b border-outline-variant relative">
+<!-- Thu 10:00 - Calculus -->
+<div class="absolute inset-x-1 top-4 h-[110px] z-10 bg-primary-container text-white rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-secondary">
+<p class="text-[11px] font-bold uppercase opacity-80">10:00 - 11:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">Calculus BC</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Room 301</span>
+</div>
+</div>
+</div>
+<div class="border-b border-outline-variant relative"></div>
+<!-- Row 11:00 AM -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">11:00</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5">
+<!-- Current Time Indicator Line -->
+<div class="absolute top-1/2 left-0 w-full border-t-2 border-secondary z-20 flex items-center">
+<div class="w-3 h-3 rounded-full bg-secondary -ml-1.5 shadow-sm"></div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-b border-outline-variant relative"></div>
+<!-- Row 12:00 PM (LUNCH) -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant bg-surface-container-low">12:00</div>
+<div class="border-b border-outline-variant bg-slate-50 flex items-center justify-center" colspan="5">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-[0.2em]">Lunch Break &amp; Study Period</span>
+</div>
+<!-- Row 1:00 PM -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">13:00</div>
+<div class="border-r border-b border-outline-variant relative">
+<!-- Mon 13:00 - Lit -->
+<div class="absolute inset-x-1 top-2 h-[110px] z-10 bg-secondary-fixed-dim text-on-secondary-fixed rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-on-secondary-fixed">
+<p class="text-[11px] font-bold uppercase opacity-80">13:00 - 14:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">Literature AP</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Library 2A</span>
+</div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative">
+<!-- Tue 13:00 - Computer Sci -->
+<div class="absolute inset-x-1 top-2 h-[110px] z-10 bg-primary-fixed-dim text-on-primary-fixed rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-primary">
+<p class="text-[11px] font-bold uppercase opacity-80">13:00 - 14:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">CS: Java</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Comp Lab 1</span>
+</div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5"></div>
+<div class="border-r border-b border-outline-variant relative">
+<!-- Thu 13:00 - Computer Sci -->
+<div class="absolute inset-x-1 top-2 h-[110px] z-10 bg-primary-fixed-dim text-on-primary-fixed rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-primary">
+<p class="text-[11px] font-bold uppercase opacity-80">13:00 - 14:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">CS: Java</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Comp Lab 1</span>
+</div>
+</div>
+</div>
+<div class="border-b border-outline-variant relative"></div>
+<!-- Filling remaining rows for visual rhythm -->
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">14:00</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5">
+<!-- Wed 14:00 - Physical Ed -->
+<div class="absolute inset-x-1 top-4 h-[110px] z-10 bg-on-primary-fixed-variant text-white rounded-lg p-3 shadow-md hover:scale-[1.02] transition-transform cursor-pointer border-l-4 border-white/40">
+<p class="text-[11px] font-bold uppercase opacity-80">14:00 - 15:45</p>
+<h4 class="font-bold text-sm leading-tight mt-1">Phys Ed</h4>
+<div class="flex items-center gap-1 mt-2 text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span>Gymnasium</span>
+</div>
+</div>
+</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-b border-outline-variant relative"></div>
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">15:00</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-b border-outline-variant relative"></div>
+<div class="p-2 text-right text-[12px] font-bold text-on-surface-variant border-r border-b border-outline-variant">16:00</div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-r border-b border-outline-variant relative bg-secondary-container/5"></div>
+<div class="border-r border-b border-outline-variant relative"></div>
+<div class="border-b border-outline-variant relative"></div>
+</div>
+</div>
+</div>
+<!-- Detailed Task Card & Sidebar Context -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Today's Tasks -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-white p-6 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-white">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-sm text-headline-sm text-primary">Daily Checklist</h3>
+<button class="text-secondary font-label-md hover:underline">Manage Tasks</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-secondary-container transition-all group">
+<div class="w-6 h-6 rounded border-2 border-outline group-hover:border-secondary transition-colors cursor-pointer"></div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Submit Physics Lab Report</h4>
+<p class="text-[12px] text-on-surface-variant">Due by 11:59 PM today</p>
+</div>
+<span class="px-2 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded uppercase">High Priority</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-secondary-container transition-all group">
+<div class="w-6 h-6 rounded border-2 border-outline group-hover:border-secondary transition-colors cursor-pointer"></div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Read Chapter 4 of Gatsby</h4>
+<p class="text-[12px] text-on-surface-variant">Lit Class tomorrow</p>
+</div>
+<span class="px-2 py-1 bg-surface-container-highest text-on-surface-variant text-[10px] font-bold rounded uppercase">Pending</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl border border-slate-100 bg-secondary-container/10">
+<div class="w-6 h-6 rounded bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface-variant line-through">Calculus Homework Set 12</h4>
+<p class="text-[12px] text-on-surface-variant">Completed at 08:30 AM</p>
+</div>
+<span class="px-2 py-1 bg-secondary text-white text-[10px] font-bold rounded uppercase">Done</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Teacher Availability -->
+<div class="space-y-6">
+<div class="bg-primary-container text-white p-6 rounded-2xl shadow-lg relative overflow-hidden h-full">
+<div class="relative z-10">
+<h3 class="font-headline-sm text-headline-sm mb-4">Office Hours</h3>
+<p class="text-primary-fixed-dim text-sm mb-6">Need help with your current subjects? Connect with your instructors today.</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div>
+<p class="text-sm font-bold">Dr. Elena Vance</p>
+<p class="text-[11px] text-primary-fixed-dim">Physics • Available until 4 PM</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">chat</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined">calculate</span>
+</div>
+<div>
+<p class="text-sm font-bold">Prof. Marcus Thorne</p>
+<p class="text-[11px] text-primary-fixed-dim">Math • Online Now</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">chat</span>
+</button>
+</div>
+</div>
+<button class="mt-8 w-full py-3 bg-white text-primary font-bold rounded-xl text-sm hover:bg-primary-fixed transition-colors">
+                                View Full Directory
+                            </button>
+</div>
+<!-- Abstract Background Decoration -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl"></div>
+<div class="absolute -left-10 -top-10 w-40 h-40 bg-primary/30 rounded-full blur-3xl"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 bg-surface shadow-[0px_-4px_20px_rgba(15,23,42,0.05)] border-t border-outline-variant z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-sm text-label-sm mt-1">Homework</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">grading</span>
+<span class="font-label-sm text-label-sm mt-1">Grades</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">local_library</span>
+<span class="font-label-sm text-label-sm mt-1">Library</span>
+</a>
+</nav>
+<!-- Interactive FAB (Mobile Only) -->
+<button class="md:hidden fixed right-6 bottom-24 w-14 h-14 bg-primary text-white rounded-2xl shadow-xl flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+<script>
+        // Micro-interactions and Tab Logic
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Prevent default for demo
+                e.preventDefault();
+                console.log('Navigated to:', link.innerText.trim());
+            });
+        });
+
+        // Current time line update logic (simulated)
+        const updateTimeIndicator = () => {
+            const indicator = document.querySelector('.border-secondary');
+            if (indicator) {
+                // Logic to reposition based on current HH:MM could go here
+                // For demo, it's statically placed in the 11:00 slot
+            }
+        };
+        setInterval(updateTimeIndicator, 60000);
+    </script>
+</body></html>

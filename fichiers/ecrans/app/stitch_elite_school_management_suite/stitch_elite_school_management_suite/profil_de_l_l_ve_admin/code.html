@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Profile | Academic Clarity Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f7f9fb",
+                    "tertiary-fixed": "#ffdadb",
+                    "on-primary-fixed": "#131b2e",
+                    "on-background": "#191c1e",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "on-secondary-fixed": "#00201c",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#bec6e0",
+                    "secondary-container": "#6df5e1",
+                    "tertiary": "#000000",
+                    "tertiary-container": "#40000d",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006b5f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#f23d5c",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-container": "#006f64",
+                    "primary": "#000000",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-tertiary-fixed": "#40000d",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "outline": "#76777d",
+                    "surface-tint": "#565e74",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "outline-variant": "#c6c6cd",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed": "#71f8e4",
+                    "surface-container": "#eceef0",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gpa-trend-bar {
+            transition: height 1s ease-out;
+        }
+        .active-tab-indicator {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        /* Custom scrollbar for data-dense areas */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-40 h-20 bg-surface dark:bg-surface-container-high shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex justify-between items-center px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Academic Clarity Portal</h1>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Directory</a>
+<a class="text-primary font-bold border-b-2 border-primary text-label-md font-label-md px-3 py-2" href="#">Profiles</a>
+<a class="text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Classes</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a principal administrator in a modern office environment, soft high-key lighting, corporate minimalist aesthetic, wearing a dark navy blazer, blurred background of a glass-walled conference room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4RTwTOnJvWwIi7N_2nbi39Bzp1w1Vp2wEWPFBPQJIBjgYgBkWPV4KQzD8pbduBmz1uhGwq_K-eUvi2ghxjsH-juoIs1zJ3Xj6SFw8znDdjp7f_g3OAamHO2FYfKB9clv4bfQPSnIDrQTYi3ah_ObyemaDA1NfMnQY04zsJ8N4bi6wUsVcPGhc2HwsYaIN-XRGlnJyrVHq4VGPCs1Fg1NMDlfigfGKAvP65x8CGfVsqaCqbYxhzbpNIalh_RczPjj0-wKajXn195OT"/>
+</div>
+</div>
+</header>
+<!-- Side Navigation (Drawer) -->
+<aside class="fixed left-0 top-20 h-[calc(100vh-80px)] w-72 bg-surface-container-lowest border-r border-outline-variant shadow-md py-stack-lg hidden xl:flex flex-col">
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">person_search</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Active Module</p>
+<p class="text-body-md font-body-md font-bold text-primary">Student Profiles</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-6 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Directory</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 mx-2 bg-primary-container text-on-primary-container font-bold rounded-lg scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_search</span>
+<span class="font-label-md text-label-md">Profiles</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">class</span>
+<span class="font-label-md text-label-md">Classes</span>
+</a>
+</nav>
+<div class="mt-auto px-6 py-6 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary"></div>
+<div>
+<p class="text-label-sm font-label-sm font-bold">District Admin</p>
+<p class="text-[10px] text-on-surface-variant">North District Office</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="pt-24 pb-20 xl:pl-80 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Profile Header Section -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-stack-lg mb-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-32 bg-primary-container opacity-5"></div>
+<div class="relative flex flex-col md:flex-row items-center md:items-end gap-6 z-10">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl border-4 border-surface-container-lowest shadow-lg overflow-hidden bg-white">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a student named Alex Rivers, light-skinned with short brown hair, wearing a neutral academic sweater. Professional studio lighting, minimalist light-grey background, modern educational aesthetic, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA42YAI-kPFPqqbQzBpYXzTcqDCMKlojQZZmO2EnOjSXmEWAEafu0PQuYT8s5Fxmz0px-90FguJaCYPX_wbhgiD69AO_p5UI0dNn-i06Ry41qBioPwfgCJcAh5wJcCyps-vDgGKz3s-Y1-ZUwLtnr-OyC9v8NK0qnJDqh_rsqzLvXuQwJVossuF105O-dSucWexksYHbsj7aoukkAMYiZQCIjTF-t5S-6DCT65SEoJrbHfT0cf-z2xo02-mhihbfh7xXtannlvljmMx"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+<h2 class="text-display-lg-mobile md:text-headline-md font-bold text-primary">Alex Rivers</h2>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm">Class of 2024</span>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-4 text-on-surface-variant font-label-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">fingerprint</span>
+                            ID: #AR-992034
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            Grade 12A
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Campus North
+                        </div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-2 bg-primary text-white rounded-lg font-label-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+                        Edit Profile
+                    </button>
+<button class="p-2 border border-outline-variant text-on-surface-variant rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Tab Navigation -->
+<nav class="flex border-b border-outline-variant mb-8 gap-8 overflow-x-auto custom-scrollbar">
+<button class="pb-4 text-label-md font-bold text-primary border-b-2 border-primary whitespace-nowrap active-tab-indicator" id="tab-academic" onclick="switchTab('academic')">Academic Info</button>
+<button class="pb-4 text-label-md font-medium text-on-surface-variant hover:text-primary whitespace-nowrap active-tab-indicator" id="tab-attendance" onclick="switchTab('attendance')">Attendance</button>
+<button class="pb-4 text-label-md font-medium text-on-surface-variant hover:text-primary whitespace-nowrap active-tab-indicator" id="tab-disciplinary" onclick="switchTab('disciplinary')">Disciplinary</button>
+<button class="pb-4 text-label-md font-medium text-on-surface-variant hover:text-primary whitespace-nowrap active-tab-indicator" id="tab-contact" onclick="switchTab('contact')">Contact</button>
+</nav>
+<!-- Tab Content: Academic Info (Default) -->
+<div class="space-y-gutter" id="content-academic">
+<div class="bento-grid">
+<!-- Performance Overview -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-stack-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)]">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-headline-sm font-headline-sm text-primary">GPA Trend Analysis</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-secondary"></span> Actual
+                            </span>
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-outline-variant"></span> Target
+                            </span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between px-4 border-b border-outline-variant relative">
+<!-- Chart Bars -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-12 bg-secondary rounded-t-lg gpa-trend-bar" style="height: 75%;"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Fr</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-12 bg-secondary rounded-t-lg gpa-trend-bar" style="height: 82%;"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">So</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-12 bg-secondary rounded-t-lg gpa-trend-bar" style="height: 88%;"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Jr</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-12 bg-primary rounded-t-lg gpa-trend-bar" style="height: 94%;"></div>
+<span class="text-label-sm font-label-sm font-bold text-primary">Sr (Cur)</span>
+</div>
+<!-- Grid lines -->
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none flex flex-col justify-between opacity-10">
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+</div></div></div></div></div></main></body></html>

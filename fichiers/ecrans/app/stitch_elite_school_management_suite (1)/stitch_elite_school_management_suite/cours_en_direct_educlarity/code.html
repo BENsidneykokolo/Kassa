@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Classes | EduClarity</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "error": "#ba1a1a",
+                    "tertiary": "#000000",
+                    "surface": "#f7f9fb",
+                    "on-secondary-fixed": "#00201c",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "background": "#f7f9fb",
+                    "primary-container": "#131b2e",
+                    "surface-tint": "#565e74",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-container": "#eceef0",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "error-container": "#ffdad6",
+                    "outline": "#76777d",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "secondary": "#006b5f",
+                    "on-secondary-container": "#006f64",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-container": "#7c839b",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary-container": "#40000d",
+                    "on-tertiary-fixed": "#40000d",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed": "#71f8e4",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary-container": "#f23d5c",
+                    "tertiary-fixed": "#ffdadb",
+                    "surface-bright": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "secondary-container": "#6df5e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "display-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+        }
+        .active-glow {
+            box-shadow: 0 0 0 2px rgba(0, 107, 95, 0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed p-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-full">menu</button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold">EduClarity</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary" href="#">Schedule</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary" href="#">Messaging</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young student with a friendly smile, set against a soft-focus library background. The lighting is bright and natural, reflecting a clean light-mode aesthetic with high clarity and sophisticated minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmhavZ115SaZvaqEZrqYAwo76h6Ri63dsy4WsUWhlW_7AWOuyTWiXzd_GWmOoOcIgPp2a412QO0Ki5dzKWLaG6Oo9JTAmnBFhOBcCeqH1MhlEH6o7T-HMChVjCyhBo3lXCCfCVTKzp7RdLMJGX830-8dFzxQcRqZdJcSoYFxxJgiD5-HnO8LWbarOYgVqFUGkbL5W4HG_OZitgP5juG-X1ux1dLhgxpl4j6PYzb0METtLLcEBcvJp3-Xn0kcg8X-t1k_yTBkbob2LX"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation (Desktop Only) -->
+<aside class="hidden md:block fixed left-0 top-0 h-full z-[60] py-6 w-80 bg-surface dark:bg-surface-dim shadow-lg">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">person</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md font-bold">Alex Rivers</h3>
+<p class="text-xs text-on-surface-variant">Grade 11-B</p>
+<p class="text-[10px] text-outline">Student ID: 48291</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 bg-secondary-container text-on-secondary-container rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">video_camera_front</span>
+<span class="font-label-md text-label-md">Live Classes</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Homework</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Grades</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Library</span>
+</a>
+<div class="pt-8 mt-8 border-t border-outline-variant">
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:pl-80 pt-24 pb-20 md:pb-12 min-h-screen">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Welcome Section -->
+<section class="mb-stack-lg">
+<div class="relative overflow-hidden rounded-xl bg-primary text-white p-8 md:p-12">
+
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+<div>
+<span class="inline-block px-3 py-1 bg-secondary text-white text-[10px] font-bold uppercase tracking-wider rounded mb-4">Ongoing Now</span>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-4">Advanced Calculus</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed max-w-xl opacity-90">Join Dr. Sarah Jenkins for a deep dive into Differential Equations. 45 students are currently in the session.</p>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-lg font-label-md text-label-md flex items-center gap-3 active:scale-95 transition-transform hover:shadow-lg">
+<span class="material-symbols-outlined">play_circle</span>
+                            Join Session Now
+                        </button>
+</div>
+</div>
+</section>
+<!-- Grid Layout for Classes -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Upcoming Sessions (Bento Column) -->
+<section class="lg:col-span-8 space-y-gutter">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm">Upcoming Live Sessions</h3>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                            View Calendar <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Upcoming Card 1 -->
+<div class="glass-card rounded-xl p-6 custom-shadow hover:translate-y-[-4px] transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-full">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tomorrow, 10:00 AM</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">more_vert</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-2">Modern World History</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">Topic: The impact of industrialization on 19th-century global trade routes.</p>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a middle-aged history professor with glasses, wearing a neutral blazer. Bright, clean academic office setting with books in the background. High-quality professional photography, light-mode aesthetic, soft natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnFiN4it6126KmAAtuWmqt0NH_lD_5PRI5oXsj4_-w7i5vWLsZxDcRs5ktuMfHT_pPV9Qc7tC4WrTUC4_PNo6ISv--vndzAydFYm5IsCdKlDK6S__1K1qvjlRKYh1AC4sY-1_J0Xdd2oYVTz6-LrXgpIFpwqNaMOi1vIpCR8C_-ceFILrnQJ819lAEwoSJSuFihY-8Ti23paPWmC2IFkmTj28zAUHiCscHBnKBs6YrGHRime_8dd-yeQudcHB2kmmk7jKRY9ahxje1"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Prof. Marcus Chen</span>
+</div>
+<button class="p-2 text-secondary hover:bg-secondary-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+<!-- Upcoming Card 2 -->
+<div class="glass-card rounded-xl p-6 custom-shadow hover:translate-y-[-4px] transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-full">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Wed, 2:00 PM</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">more_vert</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-2">Molecular Biology</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">Topic: CRISPR-Cas9 mechanism and ethical implications in modern medicine.</p>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A smiling female scientist in a professional lab coat, clear soft lighting. The background is a clean, modern science laboratory with subtle blue accents. Professional academic aesthetic, high clarity, minimalist composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARHl87huOsy96o3uNp2FlH_0Ggxe9REJRRFkMm1wbg_nbvxHlwnHCWa4AVOMOytMBQgC5c_wrACbzn6XspL9-cmolC8Kr7CTMEANcqfa1IeB6WCJGdxcAbOkH7CgRwB6t50t1uDJVvnlnfy2WpF2CcbovIF8KjqkwnwvfFfIYvULrIUod0hFr-F9TRp6syDJW6iiNTuLxVjC2dJprnuhzRPrHS8gGMhb85oSJCnB_kaSjV7jjKFx8BnbJfPfSMyKLez3yjRlNxM_ze"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Dr. Elena Rodriguez</span>
+</div>
+<button class="p-2 text-secondary hover:bg-secondary-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+<!-- Upcoming Card 3 -->
+<div class="glass-card rounded-xl p-6 custom-shadow hover:translate-y-[-4px] transition-all duration-300 lg:col-span-2">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="md:w-1/3 h-40 rounded-lg bg-surface-container-low overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-5xl opacity-40">palette</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="bg-surface-container-highest inline-block px-3 py-1 rounded-full mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Friday, 11:30 AM</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-2">Graphic Design Principles</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">An interactive workshop exploring the Golden Ratio and its application in modern UI/UX workflows.</p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Creative professional with a modern hairstyle and a clean, minimalist black turtleneck. Soft-focus design studio background with artistic posters. Bright light-mode photography with a focus on professional creativity and design excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvz60-j2FEfyr5ec_V2Apws-gUKgeTlJCfu6InH3zaSTs-bE03GYTn8bIIcJUt_QHeShPB0InU3YWd1keG_RV8pE4ofKC6D_yM5GXYyCJwe2MrY9MFm-z_OPqX7xla9sl8OxVmll0wSoC5wjxbMp8KFeQ9X6GJ9T0V5-8EvIQV2Pb-aCDOnyV0q-2JHe-NRDRUWg8n16LJqSGPU0nWpTh9zEpMBnH-C29jDaL6IKTXIZMHXYfb6v_TdGIsZzBAXp8F6xPEq_t5cf7J"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Alex Thompson</span>
+<span class="text-outline mx-2">•</span>
+<span class="font-label-md text-label-md text-secondary">Workshop Series</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recorded Sessions (Side Bento Column) -->
+<aside class="lg:col-span-4 space-y-gutter">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm">Recorded Past Sessions</h3>
+</div>
+<div class="space-y-4">
+<!-- Record 1 -->
+<div class="bg-white rounded-xl overflow-hidden custom-shadow group cursor-pointer border border-transparent hover:border-secondary transition-all">
+<div class="relative h-32 w-full">
+<img class="w-full h-full object-cover" data-alt="A dark, professional classroom screen showing complex physics equations and diagrams. High-contrast, sharp detail. The scene is framed as a video thumbnail with a play overlay. Clean academic aesthetic, high production value." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEkhHOJJAJ55xvM464SrAMFTo4Gao0EMqFclBBRPt3RSjT_RnCirg1DyMI_0F3HHqqpAiAgp4CFb3zT12lcC3Ob8NbLNho3S9jjpn6fCb2Pu1fnGRO-87wcy6hvv9JaLpLpb7FJWqksnYumudn5D6_nNHAp3Du9R85vyzKVw3R4L0Cc7MpdCRtuVZbK8UtTFC3TbAaWDK0z4egqn6XOVjEY4Zo54wpesSc0q-JXIel1BSXyGjifLG8mcy2bYBNUh8dFc4J1YzDmAXp"/>
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded">
+                                    58:24
+                                </div>
+</div>
+<div class="p-4">
+<p class="text-[10px] font-bold text-secondary uppercase mb-1">Physics 101</p>
+<h5 class="font-label-md text-label-md font-bold mb-1 group-hover:text-secondary transition-colors">Quantum Mechanics Intro</h5>
+<p class="text-xs text-on-surface-variant">Recorded 2 days ago • 142 views</p>
+</div>
+</div>
+<!-- Record 2 -->
+<div class="bg-white rounded-xl overflow-hidden custom-shadow group cursor-pointer border border-transparent hover:border-secondary transition-all">
+<div class="relative h-32 w-full">
+<img class="w-full h-full object-cover" data-alt="Macro photography of a high-end fountain pen and textured paper with elegant cursive writing. Bright, clean desk setting with soft shadows. Video thumbnail style. Professional, minimalist academic look with high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANBQDo3u-ChOvOXVKyTYkumqq2LOuJz6acYIhsVEiztG9IROZyDW1FPxKvS5D40AQL9M9Jy_4yyv2E0_Cam8apulGtkJMfAgext_-PQhHfWFpPX4xXasJMpVmbwB8v7Bmopto8odRdHhwXT8SggjWxzovxajEBUM2sI5ALWcuHeBMJAbGGjeNdvNmmEos1IHI-viT8jG5ON1y3UwZTPHnh_9FaCNbBlzvIeJHxQwgD8L9hmT2_MY8kip7Rpo71o3FMucuHDUmwfSzZ"/>
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded">
+                                    42:15
+                                </div>
+</div>
+<div class="p-4">
+<p class="text-[10px] font-bold text-secondary uppercase mb-1">Literature</p>
+<h5 class="font-label-md text-label-md font-bold mb-1 group-hover:text-secondary transition-colors">Post-Modern Narratives</h5>
+<p class="text-xs text-on-surface-variant">Recorded 4 days ago • 89 views</p>
+</div>
+</div>
+<!-- Record 3 -->
+<div class="bg-white rounded-xl overflow-hidden custom-shadow group cursor-pointer border border-transparent hover:border-secondary transition-all">
+<div class="relative h-32 w-full">
+<img class="w-full h-full object-cover" data-alt="An abstract visualization of digital data streams and glowing lines. Dark navy and teal palette. Clean tech aesthetic, professional and modern. Video thumbnail composition with high resolution and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_-AShxesNOmcbbpPdLVekXqy7tsfJLYgsxUfmDns21Srq7jCIV2DdAupXyz-aR2wb3gp89CMc6TpIOVQqbudbxqcNw1veCu8Jdzo0Kpspx-ElfmePJ8UPajTxIeHbVX4TB-gnnhzIyD6Qp8se-Ca-WrjgHFzKBjX_fUntX6vWJavrlZM7XRi6xHPyeALUCnsiT7KeIt9iawrGz1RSuoFwemhsOIw1mW_FUrqrvquPvT2JulonHQtlRUoGs77wxVxd9gTQgOmygofl"/>
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded">
+                                    1:05:00
+                                </div>
+</div>
+<div class="p-4">
+<p class="text-[10px] font-bold text-secondary uppercase mb-1">Computer Science</p>
+<h5 class="font-label-md text-label-md font-bold mb-1 group-hover:text-secondary transition-colors">Algorithms &amp; Complexity</h5>
+<p class="text-xs text-on-surface-variant">Recorded 1 week ago • 210 views</p>
+</div>
+</div>
+<button class="w-full py-4 border-2 border-dashed border-outline-variant rounded-xl text-on-surface-variant font-label-md text-label-md hover:border-secondary hover:text-secondary transition-all">
+                            View All Recordings
+                        </button>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-[0px_-4px_20px_rgba(15,23,42,0.05)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">video_camera_front</span>
+<span class="font-label-sm text-label-sm">Live</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">local_library</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+</nav>
+<!-- Micro-interactions Script -->
+<script>
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Toggle mobile drawer placeholder (functional simple version)
+        const menuBtn = document.querySelector('header button.material-symbols-outlined');
+        menuBtn.addEventListener('click', () => {
+            console.log('Mobile menu toggled');
+            // Logic for showing a mobile drawer could go here
+        });
+    </script>
+</body></html>

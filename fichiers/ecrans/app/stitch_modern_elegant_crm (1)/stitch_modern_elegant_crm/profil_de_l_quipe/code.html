@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#321ed2",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2d3133",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "outline": "#74777e",
+                    "on-tertiary-container": "#0098b7",
+                    "surface-dim": "#d7dadd",
+                    "on-primary-container": "#768dad",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-tertiary-fixed": "#001f27",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f1f4f7",
+                    "outline-variant": "#c4c6ce",
+                    "inverse-primary": "#b0c8eb",
+                    "inverse-on-surface": "#eef1f4",
+                    "surface-container-high": "#e5e8eb",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#d2e4ff",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "background": "#f7fafd",
+                    "surface": "#f7fafd",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#e2dfff",
+                    "tertiary-container": "#002832",
+                    "surface-variant": "#e0e3e6",
+                    "surface-container": "#ebeef1",
+                    "on-background": "#181c1e",
+                    "on-surface-variant": "#43474d",
+                    "tertiary-fixed": "#b4ebff",
+                    "on-surface": "#181c1e",
+                    "primary": "#000f22",
+                    "on-secondary-container": "#fffbff",
+                    "secondary-container": "#645cff",
+                    "on-primary-fixed": "#001c37",
+                    "on-primary-fixed-variant": "#314865",
+                    "on-tertiary-fixed-variant": "#004e5f",
+                    "tertiary-fixed-dim": "#3cd7ff",
+                    "secondary": "#4a3ee6",
+                    "on-secondary-fixed": "#0f0069",
+                    "surface-bright": "#f7fafd",
+                    "primary-container": "#0a2540",
+                    "tertiary": "#001117",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#49607e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "safe-area": "env(safe-area-inset-bottom)",
+                    "xs": "4px",
+                    "margin-mobile": "20px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f7fafd;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .performance-bar {
+        transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .shadow-premium {
+        box-shadow: 0 4px 12px rgba(10, 37, 64, 0.08);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface dark:bg-on-background shadow-sm flex justify-between items-center px-margin-mobile h-16 w-full z-50">
+<div class="flex items-center gap-3">
+<button class="transition-all duration-200 active:scale-95 text-secondary">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">Team Member</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary dark:text-secondary-fixed">search</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a senior business executive with a warm, confident smile. The background is a blurred high-end office with soft blue and purple lighting. The photo is crisp, high-contrast, and fits a premium corporate CRM aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmVPUyawsFgirBjspWCXVJnkeJjJl7rTxqvWWvy9FJN0f2B72p_E-6pTTOkqlJPWoQR-UAwBqcQBqeydSOOq3vpNec7oqEt5kxoDM3v30cDBih5brOo_5036CIku2HVslq2I6mFxL2r7oFUb-tWdpUkiDGkNCNg6v7cRx0tKovpnhGNLtl2L5kRjSfAdSv5vV97iTTU7QKhxJAkd6K-xR2IM03-TGsSI1BiY9kLQj3OUbZ98DK6SRIP7Sbfqq3XMOTzm1LWinfU5w"/>
+</div>
+</div>
+</header>
+<main class="mt-16 px-margin-mobile space-y-lg">
+<!-- Profile Header Section -->
+<section class="pt-lg flex flex-col items-center text-center">
+<div class="relative mb-md">
+<div class="w-32 h-32 rounded-3xl overflow-hidden shadow-premium border-4 border-white">
+<img class="w-full h-full object-cover" data-alt="A sharp, executive-style headshot of Marcus Thorne, a professional sales representative in his late 30s wearing a tailored navy suit. The lighting is bright and modern, against a clean Soft White background. The overall mood is reliable and technologically sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7VAxMbfhI-0KTi9PEIZdZKC89uPz7jQ3CcbUEeVN_pqm5YanJNLr6jYg8Bo937YfCbuy0DFdM98amfvU0NPK7SwQblpde5Oywuu2OBqUR2RG6nI2g3IkykBdX3yvy_hbJcHpa9mK85WWat2SsULblqWvTKv49KmC3DSorCtuTKHUBFiSHWvrOIxfHxmaBCoKtJ9smvxZ8cztB-j_evXI7MxOwOx23YIcX7mZO7mz74WBn4sRDp6_rEB--25jo6sRqMXwY8A3Jj4"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-white p-2 rounded-xl shadow-lg border-2 border-white">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-primary">Marcus Thorne</h2>
+<p class="text-on-surface-variant font-body-md text-body-md mt-1">Senior Accounts Executive • EMEA Region</p>
+<div class="flex gap-2 mt-4">
+<span class="bg-[#e8f5e9] text-[#2e7d32] px-3 py-1 rounded-full text-label-md font-label-md">Top Performer</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-label-md font-label-md">Q3 Leader</span>
+</div>
+</section>
+<!-- Contact Actions -->
+<div class="grid grid-cols-2 gap-md">
+<button class="bg-secondary-container text-on-secondary-container h-14 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 shadow-premium">
+<span class="material-symbols-outlined">call</span>
+<span class="text-body-md font-body-md">Call Now</span>
+</button>
+<button class="bg-surface-container-high text-primary h-14 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 border border-outline-variant">
+<span class="material-symbols-outlined">mail</span>
+<span class="text-body-md font-body-md">Email</span>
+</button>
+</div>
+<!-- Performance Dashboard (Bento Style) -->
+<section class="grid grid-cols-2 gap-md">
+<div class="col-span-1 bg-white p-md rounded-xl shadow-premium border border-outline-variant/30 flex flex-col justify-between h-32">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Deals Closed</span>
+<div>
+<span class="text-headline-lg-mobile font-headline-lg-mobile text-primary">42</span>
+<span class="text-label-sm font-label-sm text-[#2e7d32] ml-1">↑ 12%</span>
+</div>
+</div>
+<div class="col-span-1 bg-white p-md rounded-xl shadow-premium border border-outline-variant/30 flex flex-col justify-between h-32">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Win Rate</span>
+<div>
+<span class="text-headline-lg-mobile font-headline-lg-mobile text-primary">78%</span>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2">
+<div class="bg-secondary h-full rounded-full" style="width: 78%"></div>
+</div>
+</div>
+</div>
+<div class="col-span-2 bg-primary-container text-white p-lg rounded-2xl shadow-premium relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-label-md font-label-md text-primary-fixed opacity-80 uppercase tracking-widest">Revenue Generated</span>
+<div class="mt-2">
+<span class="text-headline-lg font-headline-lg">$1.24M</span>
+<p class="text-label-md font-label-md text-primary-fixed mt-1">112% of annual quota reached</p>
+</div>
+</div>
+<!-- Abstract visual element -->
+<div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+</section>
+<!-- Monthly Performance Bar Chart -->
+<section class="bg-white p-lg rounded-2xl shadow-premium border border-outline-variant/30">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h3 class="text-headline-md font-headline-md text-primary">Performance</h3>
+<p class="text-label-md font-label-md text-outline">Revenue by month (USD)</p>
+</div>
+<button class="text-secondary font-label-md flex items-center gap-1">
+                    Full Report <span class="material-symbols-outlined text-sm">trending_up</span>
+</button>
+</div>
+<div class="flex items-end justify-between h-40 gap-3 px-2">
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="performance-bar w-full bg-surface-container-high rounded-t-lg relative" style="height: 45%;">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-100 transition-opacity rounded-t-lg"></div>
+</div>
+<span class="text-[10px] font-semibold text-outline">JAN</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="performance-bar w-full bg-surface-container-high rounded-t-lg relative" style="height: 65%;">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-100 transition-opacity rounded-t-lg"></div>
+</div>
+<span class="text-[10px] font-semibold text-outline">FEB</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="performance-bar w-full bg-surface-container-high rounded-t-lg relative" style="height: 55%;">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-100 transition-opacity rounded-t-lg"></div>
+</div>
+<span class="text-[10px] font-semibold text-outline">MAR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="performance-bar w-full bg-secondary rounded-t-lg" style="height: 85%;"></div>
+<span class="text-[10px] font-semibold text-secondary">APR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="performance-bar w-full bg-surface-container-high rounded-t-lg relative" style="height: 75%;">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-100 transition-opacity rounded-t-lg"></div>
+</div>
+<span class="text-[10px] font-semibold text-outline">MAY</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="performance-bar w-full bg-surface-container-high rounded-t-lg relative" style="height: 95%;">
+<div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-100 transition-opacity rounded-t-lg"></div>
+</div>
+<span class="text-[10px] font-semibold text-outline">JUN</span>
+</div>
+</div>
+</section>
+<!-- Personal Info & Recent Leads -->
+<section class="space-y-md">
+<div class="bg-white rounded-2xl shadow-premium overflow-hidden border border-outline-variant/30">
+<div class="p-md bg-surface-container-low flex items-center justify-between">
+<span class="text-label-md font-label-md text-primary uppercase">Contact Details</span>
+<span class="material-symbols-outlined text-outline">info</span>
+</div>
+<div class="p-md space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-outline">Official Email</p>
+<p class="text-body-md font-body-md text-primary font-semibold">m.thorne@salespulse.com</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">phone_iphone</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-outline">Work Phone</p>
+<p class="text-body-md font-body-md text-primary font-semibold">+44 20 7946 0128</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/80 dark:bg-on-background/80 backdrop-blur-md border-t border-outline-variant dark:border-outline shadow-[0_-4px_12px_rgba(10,37,64,0.08)]">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90 hover:text-secondary" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="text-label-md font-label-md">Deals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90 hover:text-secondary" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-fixed dark:bg-secondary-container text-on-secondary-fixed dark:text-on-secondary-container rounded-xl px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-label-md font-label-md">Team</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90 hover:text-secondary" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<script>
+      // Simple interaction for the chart bars
+      document.querySelectorAll('.performance-bar').forEach(bar => {
+        bar.addEventListener('click', function() {
+          this.classList.toggle('bg-secondary');
+          this.classList.toggle('bg-surface-container-high');
+        });
+      });
+    </script>
+</body></html>

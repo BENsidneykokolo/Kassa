@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SalesPulse - Nouvelle Tâche</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#002832",
+                        "primary-container": "#0a2540",
+                        "on-tertiary-fixed-variant": "#004e5f",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#fffbff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "surface-dim": "#d7dadd",
+                        "primary": "#000f22",
+                        "tertiary-fixed-dim": "#3cd7ff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#768dad",
+                        "inverse-surface": "#2d3133",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#314865",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#645cff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eef1f4",
+                        "surface-tint": "#49607e",
+                        "inverse-primary": "#b0c8eb",
+                        "on-secondary-fixed": "#0f0069",
+                        "on-secondary-fixed-variant": "#321ed2",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-high": "#e5e8eb",
+                        "on-background": "#181c1e",
+                        "tertiary-fixed": "#b4ebff",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f1f4f7",
+                        "surface-bright": "#f7fafd",
+                        "on-surface-variant": "#43474d",
+                        "secondary-fixed": "#e2dfff",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface": "#f7fafd",
+                        "primary-fixed": "#d2e4ff",
+                        "error-container": "#ffdad6",
+                        "background": "#f7fafd",
+                        "tertiary": "#001117",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c4c6ce",
+                        "outline": "#74777e",
+                        "surface-variant": "#e0e3e6",
+                        "on-tertiary-container": "#0098b7",
+                        "surface-container-highest": "#e0e3e6",
+                        "surface-container": "#ebeef1",
+                        "on-surface": "#181c1e",
+                        "secondary": "#4a3ee6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "safe-area": "env(safe-area-inset-bottom)",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #635BFF !important;
+            box-shadow: 0 0 0 2px rgba(99, 91, 255, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E3E8EE;
+            border-radius: 10px;
+        }
+        .modal-shadow {
+            box-shadow: 0 -8px 24px rgba(10, 37, 64, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex items-end">
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-primary-container/40 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
+<!-- Modal Content -->
+<main class="relative bg-surface-container-lowest w-full max-w-xl mx-auto rounded-t-3xl z-50 modal-shadow overflow-hidden flex flex-col max-h-[839px] animate-in slide-in-from-bottom duration-300">
+<!-- Header -->
+<header class="flex items-center justify-between px-margin-mobile py-lg bg-surface-container-lowest border-b border-outline-variant/30 sticky top-0 z-10">
+<h1 class="font-headline-md text-headline-md text-primary">Nouvelle Tâche</h1>
+<button aria-label="Fermer" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-all active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</header>
+<!-- Form Scrollable Area -->
+<section class="flex-1 overflow-y-auto px-margin-mobile py-lg custom-scrollbar">
+<form class="space-y-xl pb-32">
+<!-- Task Title -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="task-title">Titre de la tâche</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3.5 text-body-lg font-body-lg placeholder:text-outline focus:ring-2 focus:ring-secondary/20 transition-all" id="task-title" placeholder="ex: Relancer client Acme Corp" type="text"/>
+</div>
+<!-- Category Chips -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Catégorie</label>
+<div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant font-medium transition-all flex items-center gap-2 hover:bg-surface-container-high active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">call</span> Appel
+                        </button>
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-secondary bg-secondary-container text-on-secondary-container font-medium transition-all flex items-center gap-2 active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">groups</span> Réunion
+                        </button>
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant font-medium transition-all flex items-center gap-2 hover:bg-surface-container-high active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">mail</span> Email
+                        </button>
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant font-medium transition-all flex items-center gap-2 hover:bg-surface-container-high active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span> Relance
+                        </button>
+</div>
+</div>
+<!-- Priority Selection -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Priorité</label>
+<div class="grid grid-cols-3 gap-3">
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="priority" type="radio" value="high"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface-variant peer-checked:bg-error-container peer-checked:text-on-error-container peer-checked:border-error transition-all group-active:scale-95">
+<span class="material-symbols-outlined mb-1">priority_high</span>
+<span class="text-label-sm font-label-sm">Haute</span>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="priority" type="radio" value="medium"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary transition-all group-active:scale-95">
+<span class="material-symbols-outlined mb-1">remove</span>
+<span class="text-label-sm font-label-sm">Moyenne</span>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="priority" type="radio" value="low"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface-variant peer-checked:bg-tertiary-container peer-checked:text-tertiary-fixed peer-checked:border-tertiary-fixed transition-all group-active:scale-95">
+<span class="material-symbols-outlined mb-1">keyboard_arrow_down</span>
+<span class="text-label-sm font-label-sm">Basse</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Due Date & Time -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="due-date">Date et heure d'échéance</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">calendar_today</span>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-xl pl-12 pr-4 py-3.5 text-body-md font-body-md focus:ring-2 focus:ring-secondary/20 transition-all" id="due-date" type="datetime-local"/>
+</div>
+</div><div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Rappel automatique</label>
+<div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant font-medium transition-all flex items-center gap-2 hover:bg-surface-container-high active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">notifications_off</span> Aucun
+</button>
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-secondary bg-secondary-container text-on-secondary-container font-medium transition-all flex items-center gap-2 active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">notifications_active</span> 15 min avant
+</button>
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant font-medium transition-all flex items-center gap-2 hover:bg-surface-container-high active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">notifications</span> 1h avant
+</button>
+<button class="chip-btn whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant font-medium transition-all flex items-center gap-2 hover:bg-surface-container-high active:scale-95" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">notifications</span> 1 jour avant
+</button>
+</div>
+</div>
+<!-- Related Contact / Opportunity -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="related-entity">Contact ou Opportunité</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<select class="w-full bg-surface-bright border border-outline-variant rounded-xl pl-12 pr-4 py-3.5 text-body-md font-body-md appearance-none focus:ring-2 focus:ring-secondary/20 transition-all" id="related-entity">
+<option value="">Sélectionner un lien...</option>
+<option value="1">Jean Dupont (Acme Corp)</option>
+<option value="2">Projet Expansion (Global Tech)</option>
+<option value="3">Marie Curie (R&amp;D Labs)</option>
+<option value="4">Contrat Maintenance (Suez)</option>
+</select>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline pointer-events-none">expand_more</span>
+</div>
+<!-- Selected Preview -->
+<div class="mt-2 flex items-center gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-label-md">JD</div>
+<div class="flex-1">
+<p class="text-body-md font-medium text-primary">Jean Dupont</p>
+<p class="text-label-sm text-on-surface-variant">Directeur Commercial, Acme Corp</p>
+</div>
+<button class="text-error hover:bg-error-container/20 p-1 rounded-full transition-colors" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<!-- Description -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="description">Détails ou notes</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3.5 text-body-md font-body-md placeholder:text-outline focus:ring-2 focus:ring-secondary/20 transition-all resize-none" id="description" placeholder="Ajouter un contexte supplémentaire..." rows="4"></textarea>
+</div>
+</form>
+</section>
+<!-- Footer / Action -->
+<footer class="p-margin-mobile bg-surface-container-lowest border-t border-outline-variant/30 absolute bottom-0 left-0 w-full z-20 backdrop-blur-lg">
+<button class="w-full bg-secondary text-on-secondary font-semibold py-4 rounded-xl shadow-lg shadow-secondary/20 hover:bg-secondary/90 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_task</span>
+                Créer la tâche
+            </button>
+<div class="h-safe-area"></div>
+</footer>
+</main>
+<script>
+        function selectChip(btn) {
+            // Deselect others
+            const chips = document.querySelectorAll('.chip-btn');
+            chips.forEach(chip => {
+                chip.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'border-secondary');
+                chip.classList.add('bg-surface-container-low', 'text-on-surface-variant', 'border-outline-variant');
+                const icon = chip.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.fontVariationSettings = "'FILL' 0";
+            });
+
+            // Select current
+            btn.classList.add('bg-secondary-container', 'text-on-secondary-container', 'border-secondary');
+            btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant', 'border-outline-variant');
+            const icon = btn.querySelector('.material-symbols-outlined');
+            if(icon) icon.style.fontVariationSettings = "'FILL' 1";
+        }
+
+        // Close logic mock
+        document.querySelector('button[aria-label="Fermer"]').addEventListener('click', () => {
+            const modal = document.querySelector('main');
+            const backdrop = document.querySelector('.fixed.inset-0');
+            modal.classList.add('translate-y-full');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                alert('Modal closed - Returning to Tasks list');
+            }, 300);
+        });
+
+        // Initialize with a date
+        const now = new Date();
+        now.setHours(now.getHours() + 2);
+        now.setMinutes(0);
+        document.getElementById('due-date').value = now.toISOString().slice(0, 16);
+    </script>
+</body></html>

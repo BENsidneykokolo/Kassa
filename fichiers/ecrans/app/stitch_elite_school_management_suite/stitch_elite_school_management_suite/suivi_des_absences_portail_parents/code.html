@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Portal | EduClarity</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "surface-dim": "#d8dadc",
+                    "on-surface": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "on-primary-fixed": "#131b2e",
+                    "outline": "#76777d",
+                    "primary-container": "#131b2e",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#565e74",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e0e3e5",
+                    "secondary-fixed": "#71f8e4",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-background": "#191c1e",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "secondary": "#006b5f",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-container": "#40000d",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary-fixed": "#00201c",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#006f64",
+                    "tertiary-fixed": "#ffdadb",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary-fixed": "#40000d",
+                    "background": "#f7f9fb",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#f23d5c",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#6df5e1",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        .bento-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.08);
+        }
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .chart-bar {
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">menu</span>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">EduClarity</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6">
+<nav class="flex gap-4 font-label-md text-label-md">
+<a class="text-primary font-bold" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary" href="#">Schedule</a>
+<a class="text-on-surface-variant hover:text-primary" href="#">Messages</a>
+</nav>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high school student with a friendly expression, wearing a navy blue blazer. The lighting is soft and academic, set against a neutral grey background to maintain a sophisticated institutional feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPPMtW99nuBS-Ik8xLapqKXeSiNNj2QGg0VBlYG0x_hIeRQ7HXg7ieCdvI0L31yxvlFU-r7mvGZluhabr5-SIabduviKMyi5o4dJMcTJyJs-A4NZzDyDaOh3SSRX8EvkvyLQ7HtsGPrSCUYZifUjibGUc5ZSlt3xV0989S8TmYN1QzBNUgjwgeihjhFKQx9p5Bkv1YRpD9rG6pkuLhk7CzZV_GOXLXeD6py_cIXlSTZB3tIC-4H6LZwtaRvBXnWXxCLqPq3ikxNEUl"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Child Profile Summary -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex items-center gap-6">
+<div class="h-20 w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+<img class="w-full h-full object-cover" data-alt="A focused high school student named Alex Rivers sitting in a modern library. He is wearing a dark polo shirt, and the background shows blurred bookshelves and warm, natural light coming through a window. The style is clean, modern, and high-quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQJ7p-IkmlG8RN3hkrrEjY338JCtHCIvXJJUxLeVfGrEK6-Z9nzpx6T8oBVuvA7stgLNl3A0sijfqlEvbRmp3qSdQH_JqQXu5kZtsPrC1IVE96_pKdGlokZ76xkgdveOkWSo-CsnoZuS6VeLW7b4Ywzj_sqMdoZF5nv6koUfvYwjHpBSB9gkqt3Sj79UZEps8rSJCmlbsRmIihGS1G-s2ePGCEJWYI3RsCjQj3X9U6c4_RveIMlDdDg0twyhHDbFGRytfNGE5k23Ug"/>
+</div>
+<div>
+<h2 class="font-display-lg text-display-lg text-primary">Alex Rivers</h2>
+<div class="flex items-center gap-3 mt-1">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">Grade 11-B</span>
+<span class="text-on-surface-variant text-label-md font-label-md">Student ID: 48291</span>
+</div>
+</div>
+</div>
+<button class="bg-primary text-white px-6 py-3 rounded-lg font-label-md flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                    Justify Absence
+                </button>
+</div>
+</section>
+<!-- Bento Grid Layout for Stats and Charts -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-stack-lg">
+<!-- Attendance Rate Card -->
+<div class="bento-card p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant font-label-md">Attendance Rate</span>
+<span class="material-symbols-outlined text-secondary">verified</span>
+</div>
+<div class="text-5xl font-bold text-primary mb-2">96.4%</div>
+<p class="text-label-sm text-on-surface-variant">+0.2% from last month</p>
+</div>
+<div class="mt-6 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[96.4%]"></div>
+</div>
+</div>
+<!-- Total Absences Card -->
+<div class="bento-card p-6 bg-surface-container-low border-l-4 border-primary">
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant font-label-md">Total Absences</span>
+<span class="material-symbols-outlined text-primary">event_busy</span>
+</div>
+<div class="text-5xl font-bold text-primary mb-2">04</div>
+<div class="flex gap-2">
+<span class="text-label-sm px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded">3 Justified</span>
+<span class="text-label-sm px-2 py-0.5 bg-error-container text-on-error-container rounded">1 Pending</span>
+</div>
+</div>
+<!-- Total Tardiness Card -->
+<div class="bento-card p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant font-label-md">Total Tardiness</span>
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+</div>
+<div class="text-5xl font-bold text-primary mb-2">02</div>
+<p class="text-label-sm text-on-surface-variant">Average delay: 12 mins</p>
+</div>
+<!-- Attendance Chart - Spans 2 Columns on Desktop -->
+<div class="bento-card p-8 md:col-span-2">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline-sm text-headline-sm text-primary">Attendance History</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_left</span>
+</button>
+<span class="font-label-md py-2 px-2 text-primary">Semester 1</span>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex items-end justify-between h-48 gap-4 px-4">
+<!-- Sept -->
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[98%]"></div>
+<span class="text-label-sm text-on-surface-variant">Sep</span>
+</div>
+<!-- Oct -->
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[94%]"></div>
+<span class="text-label-sm text-on-surface-variant">Oct</span>
+</div>
+<!-- Nov -->
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[97%]"></div>
+<span class="text-label-sm text-on-surface-variant">Nov</span>
+</div>
+<!-- Dec -->
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-secondary rounded-t-lg chart-bar h-[92%]"></div>
+<span class="text-label-sm text-primary font-bold">Dec</span>
+</div>
+<!-- Jan (Future placeholder) -->
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-surface-container rounded-t-lg h-[20%] opacity-50"></div>
+<span class="text-label-sm text-outline-variant">Jan</span>
+</div>
+</div>
+</div>
+<!-- Quick Info/Action Card -->
+<div class="bento-card p-8 bg-primary-container text-white">
+<h3 class="font-headline-sm text-headline-sm mb-4">Action Needed</h3>
+<p class="font-body-md text-on-primary-container mb-6">Alex was absent during Biology on Dec 12th. Please provide a justification or upload a doctor's note.</p>
+<a class="inline-flex items-center gap-2 text-secondary-fixed hover:underline font-label-md" href="#">
+                    Upload Documentation
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<div class="mt-8 p-4 bg-white/10 rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed">info</span>
+<span class="text-label-sm">School policy requires justification within 48 hours.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Events List -->
+<section class="bento-card overflow-hidden">
+<div class="p-6 border-b border-surface-container">
+<h3 class="font-headline-sm text-headline-sm text-primary">Recent Attendance Events</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-md">
+<tr>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Subject</th>
+<th class="px-6 py-4">Type</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5 font-label-md text-primary">Dec 12, 2023</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-label-md text-primary">Biology (AP)</span>
+<span class="text-label-sm text-on-surface-variant">Period 1 • Mr. Henderson</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-label-md">Absence</span>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-error-container text-on-error-container">Pending</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-label-md hover:underline">Resolve</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5 font-label-md text-primary">Dec 08, 2023</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-label-md text-primary">World History</span>
+<span class="text-label-sm text-on-surface-variant">Period 3 • Ms. Sterling</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-label-md">Late Arrival</span>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-secondary-container text-on-secondary-container">Justified</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant font-label-md hover:underline">View</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5 font-label-md text-primary">Nov 28, 2023</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-label-md text-primary">Algebra II</span>
+<span class="text-label-sm text-on-surface-variant">Period 2 • Mr. Vance</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-label-md">Absence</span>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-secondary-container text-on-secondary-container">Justified</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant font-label-md hover:underline">View</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors opacity-60">
+<td class="px-6 py-5 font-label-md text-primary">Nov 15, 2023</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-label-md text-primary">English Literature</span>
+<span class="text-label-sm text-on-surface-variant">Period 4 • Dr. Aris</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-label-md">Unjustified</span>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-surface-container-highest text-on-surface-variant">Closed</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant font-label-md hover:underline">View History</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low text-center">
+<button class="text-primary font-label-md hover:underline py-2">Load More History</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 bg-surface shadow-[0px_-4px_20px_rgba(15,23,42,0.05)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold" href="#">
+<span class="material-symbols-outlined">grading</span>
+<span class="font-label-sm text-label-sm">Attendance</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-sm text-label-sm">Homework</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">local_library</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for bar charts
+        window.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach(bar => {
+                const height = bar.classList.contains('h-[98%]') ? '98%' : 
+                               bar.classList.contains('h-[94%]') ? '94%' : 
+                               bar.classList.contains('h-[97%]') ? '97%' : 
+                               bar.classList.contains('h-[92%]') ? '92%' : '20%';
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.height = height;
+                }, 100);
+            });
+        });
+
+        // Simple mock interaction for justification button
+        document.querySelector('button.bg-primary').addEventListener('click', () => {
+            alert('Opening Absence Justification Workflow...');
+        });
+    </script>
+</body></html>

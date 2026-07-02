@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LuxeStay POS - Sous-facture</title>
+<!-- Google Fonts: Montserrat & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffdea5",
+                    "primary-fixed": "#e5e2e1",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary-container": "#191c1d",
+                    "surface-container": "#e7eefe",
+                    "secondary": "#775a19",
+                    "surface-bright": "#f9f9ff",
+                    "on-surface": "#151c27",
+                    "inverse-surface": "#2a313d",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#261900",
+                    "secondary-fixed-dim": "#e9c176",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#dce2f3",
+                    "outline-variant": "#c4c7c7",
+                    "surface-tint": "#5f5e5e",
+                    "surface-container-highest": "#dce2f3",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary": "#000000",
+                    "primary-container": "#1c1b1b",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "surface-container-high": "#e2e8f8",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c8c6c5",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-fixed": "#191c1d",
+                    "surface": "#f9f9ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#828485",
+                    "on-primary-container": "#858383",
+                    "tertiary-fixed-dim": "#c5c7c8",
+                    "inverse-on-surface": "#ebf1ff",
+                    "tertiary": "#000000",
+                    "on-surface-variant": "#444748",
+                    "surface-dim": "#d3daea",
+                    "tertiary-fixed": "#e1e3e4",
+                    "on-primary-fixed-variant": "#474746",
+                    "on-secondary-container": "#785a1a",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#454748",
+                    "surface-container-low": "#f0f3ff",
+                    "on-background": "#151c27",
+                    "background": "#f9f9ff",
+                    "secondary-container": "#fed488",
+                    "outline": "#747878"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "safe-margin": "20px",
+                    "sm": "16px",
+                    "base": "4px",
+                    "xl": "48px",
+                    "lg": "32px",
+                    "xs": "8px",
+                    "gutter": "12px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg-mobile": ["Montserrat"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-payment-method {
+            border: 2px solid #775a19 !important;
+            background-color: #fed48820;
+        }
+        .gold-shimmer {
+            background: linear-gradient(135deg, #000000 0%, #1c1b1b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .gold-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(254, 212, 136, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface shadow-md flex justify-between items-center px-md py-xs w-full">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a luxury hotel concierge operator wearing a sharp charcoal suit, set against a blurred background of a marble hotel lobby. The lighting is warm and cinematic, emphasizing a high-end hospitality environment with golden accents and clean, elegant textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYCKpHBIJEtpGEnf9ot2okfP3BIbel8j3XzFnuAIkcJzKN9DgRAtaH13p4A6vocX84eZXIeN4UMGC-JWDc2MtCOUyagjN7b9EWkczxz5Evr_mDaFlOUSi4YitMA3VuSavKMOKQd0-7xL2NXPaD_QeR0hq0GJ90olN-5iWenYAwAHAw9SNksNxSCtK9n8ECgG4mOqYFQ7qS_US3KQj0EkW1IGeTMWXmbr1kfiGcM0x95u8KPhQz2yABcd9T7n8llzATjpBOfwp4KsY"/>
+</div>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tight">LuxeStay POS</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-base rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-safe-margin pt-md pb-32">
+<!-- Back Navigation & Header -->
+<div class="flex items-center gap-sm mb-lg">
+<button class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-high transition-all active:scale-90" onclick="history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary">Sous-facture / Table 14</h1>
+<p class="text-on-surface-variant font-body-sm">Division partielle des consommations</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start">
+<!-- Items Section -->
+<section class="md:col-span-7 space-y-md">
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_10px_rgba(0,0,0,0.06)] border border-outline-variant/30">
+<h2 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-md">Articles Sélectionnés</h2>
+<div class="space-y-sm">
+<!-- Item 1 -->
+<div class="flex items-center justify-between py-sm border-b border-outline-variant/20">
+<div class="flex gap-md items-center">
+<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A gourmet close-up shot of Truffle Tagliatelle served on a white porcelain plate. The pasta is perfectly swirled, topped with fresh black truffle shavings and a hint of parsley. The lighting is soft and focused, evocative of a high-end fine dining restaurant with a warm, luxurious atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5SgpGDP4Mbg3urCxJ99pxre6PqmWeteSSEcJVH0XVVyh86LUhNHPsN_llDc9_Sj6158frN_WnCADMD0qXmu-TIqYPcAhsLzc9UcnHObzcobf8aKgISw6nYqXNPqCz1e17p0dPY2B5ikdj6yxV37Jpz3E4FJVCAG3Uk9D414D4ugPH538w4YjsVt6Ek9UBzZR0EbSxhax5D0JJ6CKwBixeFl1Kjy_5ldpo46nAKIODHNuC6wFYPpK_4oQ1yAb4grz6ZHxURoAqcY4"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-primary">Truffle Tagliatelle</h3>
+<p class="text-on-surface-variant font-body-sm">Quantité: 2</p>
+</div>
+</div>
+<span class="font-headline-sm text-primary">76.00 €</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between py-sm">
+<div class="flex gap-md items-center">
+<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A sophisticated close-up of a crystal glass of Dom Pérignon champagne, with fine bubbles rising through the golden liquid. The glass is held against a background of a dimly lit, elegant lounge with soft bokeh highlights. The mood is celebratory and exclusive, following a boutique concierge aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB0RGMgxdMRZKYgBYuPRAbh19Q7dIDY717jI78YvKW8ZVOU1NHz5gAU4xg1jH0PoiqXEnfdk81xxxVXoZljMLAs2x7cn3VXpHoJCqWi-hwI0U6verTWBaYb85qn9EJO46ZyKMYDR-lB7pubjKP354isIEGBS45rNayVxWzje3zHd6OtLNPfXNgEWqsJgfLa3Sg_1uC7776MomEcEks602vyR4Wp-mBcNb8eCuIV8oVcdzEk_Ytmp-xEQjZ4-piTz68eeXJ1LH7QxY"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-primary">Dom Pérignon Glass</h3>
+<p class="text-on-surface-variant font-body-sm">Quantité: 1</p>
+</div>
+</div>
+<span class="font-headline-sm text-primary">45.00 €</span>
+</div>
+</div>
+</div>
+<!-- Payment Methods -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_10px_rgba(0,0,0,0.06)] border border-outline-variant/30">
+<h2 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-md">Mode de Paiement</h2>
+<div class="grid grid-cols-3 gap-sm">
+<button class="payment-btn active-payment-method flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant hover:bg-surface-container-high transition-all" onclick="selectPayment(this)">
+<span class="material-symbols-outlined text-secondary mb-xs">hotel_class</span>
+<span class="font-label-sm text-primary">Chambre</span>
+</button>
+<button class="payment-btn flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant hover:bg-surface-container-high transition-all" onclick="selectPayment(this)">
+<span class="material-symbols-outlined text-primary mb-xs">credit_card</span>
+<span class="font-label-sm text-primary">Carte</span>
+</button>
+<button class="payment-btn flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant hover:bg-surface-container-high transition-all" onclick="selectPayment(this)">
+<span class="material-symbols-outlined text-primary mb-xs">payments</span>
+<span class="font-label-sm text-primary">Espèces</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Summary Section -->
+<aside class="md:col-span-5">
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_10px_25px_rgba(0,0,0,0.08)] sticky top-32 border border-outline-variant/30">
+<h2 class="font-headline-sm text-primary mb-lg">Détails du Montant</h2>
+<div class="space-y-sm mb-lg">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md">Sous-total</span>
+<span class="font-body-md">121.00 €</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md">Frais de Service (15%)</span>
+<span class="font-body-md">18.15 €</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md">TVA (8%)</span>
+<span class="font-body-md">9.68 €</span>
+</div>
+</div>
+<div class="pt-md border-t-2 border-dashed border-outline-variant/50 mb-lg">
+<div class="flex justify-between items-end">
+<div>
+<span class="font-label-lg uppercase tracking-tighter text-on-surface-variant">Total Partiel</span>
+<p class="text-body-sm text-on-secondary-fixed-variant">TTC inclus</p>
+</div>
+<span class="font-display-lg text-primary text-display-lg">148.83 €</span>
+</div>
+</div>
+<button class="w-full py-md rounded-xl gold-shimmer text-secondary-fixed font-headline-sm shadow-xl active:scale-95 transition-all flex items-center justify-center gap-sm">
+<span>Payer la sous-facture</span>
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<p class="text-center mt-md text-on-tertiary-container font-label-sm">
+                        Référence Transaction: #LS-9921-T14
+                    </p>
+</div>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-safe-margin pb-safe-margin pt-xs bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.08)] border-t border-outline-variant md:border-none z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-sm py-1 hover:bg-surface-container-highest transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-sm py-1 hover:bg-surface-container-highest transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">table_restaurant</span>
+<span class="font-label-sm text-label-sm">Tables</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-sm py-1 hover:bg-surface-container-highest transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl px-sm py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+</nav>
+<script>
+        function selectPayment(element) {
+            // Remove active class from all payment buttons
+            document.querySelectorAll('.payment-btn').forEach(btn => {
+                btn.classList.remove('active-payment-method');
+                const icon = btn.querySelector('.material-symbols-outlined');
+                icon.classList.remove('text-secondary');
+                icon.classList.add('text-primary');
+            });
+
+            // Add active class to clicked button
+            element.classList.add('active-payment-method');
+            const icon = element.querySelector('.material-symbols-outlined');
+            icon.classList.remove('text-primary');
+            icon.classList.add('text-secondary');
+        }
+    </script>
+</body></html>

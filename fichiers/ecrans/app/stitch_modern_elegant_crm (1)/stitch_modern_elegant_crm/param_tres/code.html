@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SalesPulse - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#321ed2",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3133",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "outline": "#74777e",
+                        "on-tertiary-container": "#0098b7",
+                        "surface-dim": "#d7dadd",
+                        "on-primary-container": "#768dad",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f1f4f7",
+                        "outline-variant": "#c4c6ce",
+                        "inverse-primary": "#b0c8eb",
+                        "inverse-on-surface": "#eef1f4",
+                        "surface-container-high": "#e5e8eb",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "background": "#f7fafd",
+                        "surface": "#f7fafd",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#e2dfff",
+                        "tertiary-container": "#002832",
+                        "surface-variant": "#e0e3e6",
+                        "surface-container": "#ebeef1",
+                        "on-background": "#181c1e",
+                        "on-surface-variant": "#43474d",
+                        "tertiary-fixed": "#b4ebff",
+                        "on-surface": "#181c1e",
+                        "primary": "#000f22",
+                        "on-secondary-container": "#fffbff",
+                        "secondary-container": "#645cff",
+                        "on-primary-fixed": "#001c37",
+                        "on-primary-fixed-variant": "#314865",
+                        "on-tertiary-fixed-variant": "#004e5f",
+                        "tertiary-fixed-dim": "#3cd7ff",
+                        "secondary": "#4a3ee6",
+                        "on-secondary-fixed": "#0f0069",
+                        "surface-bright": "#f7fafd",
+                        "primary-container": "#0a2540",
+                        "tertiary": "#001117",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#49607e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "safe-area": "env(safe-area-inset-bottom)",
+                        "xs": "4px",
+                        "margin-mobile": "20px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-on-background shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex justify-between items-center px-margin-mobile h-16">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a high-level sales executive with a confident expression. The lighting is bright and corporate, emphasizing a clean-shaven look and modern professional attire. The background is a soft-focus office interior with Trust Blue and Soft White accents, maintaining a premium CRM brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYjwdKrCPrYw1tZUYKI-Kv9j-DBKnVNaEZzdBZcO-VHMq9FrNx9GGhiRNzFCEid3hNruGfKOQr_zFBRtEEIvSR6zC7jOnUFsHCynBpmeL-KgHywvPyuAZxtGp5dGBCef_3QYGH2BkwGkQJeIsxIoGzAWZBeuN-9NWGjq3oAYHxq7ghOtyQVuit36vqX7ujMr3xLk0dIi8KER_7tC-vvzrmS4dcr8lNRJ924ROl3yYiVnk6EeVLuT0POG8rBSatEMa7Cb_V0gX_3MU"/>
+</div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">SalesPulse</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95 text-secondary">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-mobile max-w-lg mx-auto space-y-6">
+<!-- User Profile Section -->
+<section class="space-y-4">
+<h2 class="text-label-md font-label-md text-outline uppercase tracking-widest">User Profile</h2>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 flex items-center gap-4">
+<div class="relative">
+<img class="w-16 h-16 rounded-full object-cover border-2 border-secondary/20" data-alt="A detailed professional avatar of Alex Rivera, a senior account manager. He is wearing a crisp navy suit against a minimalist light gray studio background. The image is framed as a circular headshot with high-end lighting that highlights detail and professionalism, fitting for a premium corporate CRM interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKaTKT2VyxP35gKOv61fr2BnE8gnEE65qVV77AQxYWv8ZYskGMszxKK8xOS9BAONbzqGkHIwNComp4wbMh3OdAtJKKTbKTn6ktHaTdJF5oZ6Euyu9pB8Rlo0B96lPrUn2YdOpVv1PVj-6371bgJsrNTP5kF8GjM_ptHLS51s5TLVeGCOqlCvsAGgBpUEZ5nhIXkz19f1XrmEYlDpcWIi6QZfrjbjBPpjh1Xn5pUXTsgMlnrmX_fUCh0oW7P7HP8xS1POJRAyszkr8"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex-1">
+<h3 class="text-headline-md font-headline-md text-on-surface">Alex Rivera</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Senior Account Manager</p>
+<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold">PERFORMANCE: 112%</span>
+</div>
+<button class="text-secondary-container p-2 rounded-lg hover:bg-secondary-fixed/30 transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</div>
+</section>
+<!-- Account Security -->
+<section class="space-y-3">
+<h2 class="text-label-md font-label-md text-outline uppercase tracking-widest">Account Security</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 overflow-hidden">
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="lock">lock</span>
+<span class="text-body-lg font-body-lg">Two-Factor Auth (2FA)</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary-container"></div>
+</label>
+</div>
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="password">password</span>
+<span class="text-body-lg font-body-lg">Change Password</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Notifications -->
+<section class="space-y-3">
+<h2 class="text-label-md font-label-md text-outline uppercase tracking-widest">Notifications</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 overflow-hidden">
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="mail">mail</span>
+<div class="flex flex-col">
+<span class="text-body-lg font-body-lg">Email Alerts</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Deal status updates</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary-container"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="notifications_active">notifications_active</span>
+<div class="flex flex-col">
+<span class="text-body-lg font-body-lg">Push Notifications</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Real-time task reminders</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary-container"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- CRM Customization -->
+<section class="space-y-3">
+<h2 class="text-label-md font-label-md text-outline uppercase tracking-widest">CRM Customization</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 overflow-hidden">
+<button class="w-full flex items-center justify-between p-md border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="payments">payments</span>
+<div class="flex flex-col items-start">
+<span class="text-body-lg font-body-lg">Default Currency</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Currently: USD ($)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="expand_more">expand_more</span>
+</button>
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="calendar_month">calendar_month</span>
+<div class="flex flex-col items-start">
+<span class="text-body-lg font-body-lg">Date Format</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">MM/DD/YYYY</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</section>
+<!-- Danger Zone -->
+<div class="pt-4">
+<button class="w-full py-4 px-md bg-error-container text-on-error-container rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Sign Out
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/80 dark:bg-on-background/80 backdrop-blur-md border-t border-outline-variant shadow-[0_-4px_12px_rgba(10,37,64,0.08)]">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90 hover:text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="text-label-md font-label-md">Deals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90 hover:text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90 hover:text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md font-label-md">Team</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-fixed dark:bg-secondary-container text-on-secondary-fixed dark:text-on-secondary-container rounded-xl px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interactions for toggles
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parent = this.closest('.bg-surface-container-lowest');
+                if (this.checked) {
+                    parent.style.boxShadow = '0 10px 25px -5px rgba(99, 91, 255, 0.1)';
+                } else {
+                    parent.style.boxShadow = '0 4px 12px rgba(10, 37, 64, 0.08)';
+                }
+            });
+        });
+
+        // Pull-to-refresh feel simulation
+        let touchstartY = 0;
+        document.addEventListener('touchstart', e => {
+            touchstartY = e.changedTouches[0].screenY;
+        }, false);
+
+        document.addEventListener('touchend', e => {
+            let touchendY = e.changedTouches[0].screenY;
+            if (touchendY > touchstartY + 100 && window.scrollY === 0) {
+                // Trigger refresh animation logic here if needed
+                console.log('Refreshing settings...');
+            }
+        }, false);
+    </script>
+</body></html>

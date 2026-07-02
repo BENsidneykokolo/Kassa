@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SalesPulse CRM Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafd;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(99, 91, 255, 0.1) 0%, rgba(99, 91, 255, 0) 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0e3e6;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface mb-24 md:mb-0 md:pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young male executive named Alex, looking confident and friendly. He is wearing a modern charcoal suit against a soft-focus office background with high-key lighting. The overall style is clean, corporate modern, and highly professional, reflecting the SalesPulse brand identity with soft white tones and blue highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBILbTGnD-J1R0Y44iZfKChn1fJluobThtyTf8TtSRv8CW4DHfCwqQFkbKvNTC8NuqrDIFVk58pmloEaHNcYCqZSwhImmli-AokeUnIG7TrjDxa61a186viUnanmw3SESB6UArlFN4QqTVR-O_jW5HsaAnhknLXSUdDjjDfEqEmiNE_3yuVqrIf-2cJJxbQWs1GVAZTyfQmEUzytj8o7rIv2LC3SEITntxbmf1T7y4rVeQOj4KHPWELksITYkqQJwjzVvaswRgv7Wg"/>
+</div>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">SalesPulse</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="transition-all duration-200 active:scale-95 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest p-2 rounded-full">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="transition-all duration-200 active:scale-95 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low p-2 rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-mobile pt-8 pb-12 max-w-7xl mx-auto">
+<!-- Greeting Section -->
+<section class="mb-8">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1">Hello, Alex!</h1>
+<p class="text-body-md text-on-surface-variant">Here's what's happening with your pipeline today.</p>
+</section>
+<!-- KPI Cards Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mb-8">
+<!-- Revenue Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant tracking-wider uppercase">Revenue</span>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">$128k</span>
+<span class="text-label-sm text-green-600 bg-green-50 px-2 py-0.5 rounded-full font-bold">+12%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-secondary-container h-full w-[75%]"></div>
+</div>
+</div>
+<!-- New Leads Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant tracking-wider uppercase">New Leads</span>
+<span class="material-symbols-outlined text-secondary">person_add</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">24</span>
+<span class="text-label-sm text-secondary-container bg-secondary/10 px-2 py-0.5 rounded-full font-bold">Today</span>
+</div>
+<div class="flex -space-x-2 mt-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-primary-fixed"></div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-secondary-fixed"></div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-tertiary-fixed"></div>
+<div class="w-6 h-6 flex items-center justify-center rounded-full border-2 border-surface bg-surface-container-high text-[10px] font-bold">+21</div>
+</div>
+</div>
+<!-- Win Rate Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant tracking-wider uppercase">Win Rate</span>
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">68%</span>
+<span class="text-label-sm text-on-surface-variant">vs 62% last month</span>
+</div>
+<div class="mt-2 flex items-end gap-1 h-6">
+<div class="bg-secondary/20 w-full h-2 rounded-t-sm"></div>
+<div class="bg-secondary/40 w-full h-4 rounded-t-sm"></div>
+<div class="bg-secondary/60 w-full h-3 rounded-t-sm"></div>
+<div class="bg-secondary w-full h-6 rounded-t-sm"></div>
+</div>
+</div>
+</section>
+<!-- Main Chart & Tasks Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Performance Chart Area -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-[0_4px_12px_rgba(10,37,64,0.08)]">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Monthly Sales Performance</h2>
+<p class="text-body-md text-on-surface-variant">Revenue growth over the last 6 months</p>
+</div>
+<select class="bg-surface-container border-none rounded-lg text-label-md text-on-surface-variant focus:ring-secondary-container">
+<option>Last 6 Months</option>
+<option>Year to Date</option>
+</select>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between px-2 pt-4">
+<!-- Simple CSS Area Chart Mockup -->
+<div class="absolute inset-0 flex items-end px-2 pointer-events-none">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<defs>
+<lineargradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#645cff" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#645cff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,80 Q50,60 100,70 T200,40 T300,50 T400,20 L400,100 L0,100 Z" fill="url(#chartFill)"></path>
+<path d="M0,80 Q50,60 100,70 T200,40 T300,50 T400,20" fill="none" stroke="#645cff" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+<div class="flex flex-col items-center gap-2 z-10">
+<span class="text-[10px] text-on-surface-variant">Jan</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10">
+<span class="text-[10px] text-on-surface-variant">Feb</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10">
+<span class="text-[10px] text-on-surface-variant">Mar</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10">
+<span class="text-[10px] text-on-surface-variant">Apr</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10">
+<span class="text-[10px] text-on-surface-variant">May</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10">
+<span class="text-[10px] text-on-surface-variant">Jun</span>
+</div>
+</div>
+</div>
+<!-- Tasks for Today -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex flex-col h-full">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-primary">Tasks for Today</h2>
+<span class="text-label-md text-secondary font-bold">View All</span>
+</div>
+<div class="flex flex-col gap-4 flex-grow">
+<!-- Task 1 -->
+<div class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="mt-1">
+<div class="w-5 h-5 rounded border-2 border-secondary-container group-hover:bg-secondary-container/10 transition-colors"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-primary">Call with Acme Corp CEO</p>
+<p class="text-label-sm text-on-surface-variant">10:30 AM • High Priority</p>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="mt-1">
+<div class="w-5 h-5 rounded border-2 border-secondary-container"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-primary">Review Global Logistics Proposal</p>
+<p class="text-label-sm text-on-surface-variant">2:00 PM • Medium Priority</p>
+</div>
+</div>
+<!-- Task 3 -->
+<div class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="mt-1">
+<div class="w-5 h-5 rounded border-2 border-secondary-container"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-primary">Follow up with Sarah Miller</p>
+<p class="text-label-sm text-on-surface-variant">4:15 PM • High Priority</p>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-secondary-container text-on-secondary-container rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Create Task
+                </button>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<section class="mt-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-[0_4px_12px_rgba(10,37,64,0.08)]">
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Recent Activity</h2>
+<div class="space-y-6">
+<!-- Activity 1 -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px] fill-icon">handshake</span>
+</div>
+<div class="border-b border-outline-variant pb-4 w-full">
+<div class="flex justify-between items-start">
+<p class="text-body-md text-primary">
+<span class="font-bold">Deal Won:</span> Acme Corp Cloud Migration
+                            </p>
+<span class="text-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<p class="text-label-md text-on-surface-variant mt-1">Contract signed by David Smith for $45,000</p>
+</div>
+</div>
+<!-- Activity 2 -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]">person</span>
+</div>
+<div class="border-b border-outline-variant pb-4 w-full">
+<div class="flex justify-between items-start">
+<p class="text-body-md text-primary">
+<span class="font-bold">New Lead:</span> Jessica Thompson
+                            </p>
+<span class="text-label-sm text-on-surface-variant">4h ago</span>
+</div>
+<p class="text-label-md text-on-surface-variant mt-1">From LinkedIn Campaign • Technology Sector</p>
+</div>
+</div>
+<!-- Activity 3 -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-orange-600 text-[20px]">mail</span>
+</div>
+<div class="w-full">
+<div class="flex justify-between items-start">
+<p class="text-body-md text-primary">
+<span class="font-bold">Email Opened:</span> Follow-up Proposal
+                            </p>
+<span class="text-label-sm text-on-surface-variant">5h ago</span>
+</div>
+<p class="text-label-md text-on-surface-variant mt-1">Opened by Michael Brown at Global Logistics (3rd view)</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-outline-variant rounded-t-xl shadow-[0_-4px_12px_rgba(10,37,64,0.05)] flex justify-around items-center pt-2 pb-safe px-gutter">
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined fill-icon">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined">contacts_product</span>
+<span class="font-label-sm text-label-sm">Contacts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm">Deals</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</div>
+</nav>
+<!-- Desktop Floating Action Button (Conceptual) -->
+<button class="hidden md:flex fixed bottom-8 right-8 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        // Micro-interaction for KPI cards
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+
+        // Simple Task Completion Toggle Mockup
+        document.querySelectorAll('.group').forEach(task => {
+            task.addEventListener('click', function() {
+                const check = this.querySelector('.border-secondary-container');
+                if(check.classList.contains('bg-secondary-container')) {
+                    check.classList.remove('bg-secondary-container');
+                    check.innerHTML = '';
+                    this.querySelector('p').classList.remove('line-through', 'opacity-50');
+                } else {
+                    check.classList.add('bg-secondary-container');
+                    check.innerHTML = '<span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span>';
+                    this.querySelector('p').classList.add('line-through', 'opacity-50');
+                }
+            });
+        });
+    </script>
+</body></html>

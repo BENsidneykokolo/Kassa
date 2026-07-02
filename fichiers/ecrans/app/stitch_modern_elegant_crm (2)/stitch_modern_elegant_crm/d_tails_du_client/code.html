@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "on-primary-container": "#768dad",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#645cff",
+                    "outline": "#74777e",
+                    "tertiary": "#001117",
+                    "primary-fixed": "#d2e4ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#e2dfff",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "inverse-surface": "#2d3133",
+                    "background": "#f7fafd",
+                    "surface-bright": "#f7fafd",
+                    "inverse-primary": "#b0c8eb",
+                    "surface-container-high": "#e5e8eb",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f1f4f7",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c4c6ce",
+                    "tertiary-fixed-dim": "#3cd7ff",
+                    "surface-tint": "#49607e",
+                    "on-primary": "#ffffff",
+                    "surface": "#f7fafd",
+                    "secondary": "#4a3ee6",
+                    "inverse-on-surface": "#eef1f4",
+                    "surface-variant": "#e0e3e6",
+                    "on-secondary-fixed": "#0f0069",
+                    "on-primary-fixed": "#001c37",
+                    "on-background": "#181c1e",
+                    "on-tertiary-fixed": "#001f27",
+                    "tertiary-container": "#002832",
+                    "on-surface-variant": "#43474d",
+                    "on-secondary-container": "#fffbff",
+                    "primary": "#000f22",
+                    "primary-container": "#0a2540",
+                    "on-surface": "#181c1e",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e0e3e6",
+                    "surface-container": "#ebeef1",
+                    "on-tertiary-fixed-variant": "#004e5f",
+                    "on-primary-fixed-variant": "#314865",
+                    "on-tertiary-container": "#0098b7",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#b4ebff",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d7dadd",
+                    "on-secondary-fixed-variant": "#321ed2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "margin-mobile": "20px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "safe-area": "env(safe-area-inset-bottom)",
+                    "lg": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(247, 250, 253, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen pb-32">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-on-surface-variant transition-all duration-200 active:scale-95" data-icon="arrow_back">arrow_back</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">SalesPulse</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="search">search</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a high-level executive woman with a friendly but authoritative expression. She is in a modern office with glass partitions and soft, natural morning light that creates a clean, corporate atmosphere. The colors are muted whites and soft blues, aligning with a high-end CRM user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGdSTWrv6sqq8guqIWKcNPrnhJ3QZUhQ45Pl6uZhGcPhJdqKkhZPKp3uklDVJWlmGArAT6ymDCAREYTMFG0sMPe7vPyMNUfOAV4R7w8FriYiV5sS2osvAj9Fn__GZvEOAXDnixJOizD7zSfeRngNxnuu2Nbiz25cOK1pBjE9VAJhpNG2qfLQvp3uLIKxDOeGaHGtfdZSAqRcnK_yXrjUPDnbto7FTyBBxOkbWFMrqWtD8ksmvUnYuoBMenfgfF_3r7ZrBtdY-1J9M"/>
+</div>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile max-w-2xl mx-auto space-y-6">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center text-center py-4">
+<div class="relative mb-4">
+<div class="w-24 h-24 rounded-[2rem] overflow-hidden border-2 border-white shadow-lg rotate-3">
+<img class="w-full h-full object-cover -rotate-3 scale-110" data-alt="A sharp, cinematic portrait of Julian Thorne, a CEO in his late 40s with a confident and visionary look. He is wearing a tailored navy suit against a backdrop of a blurred high-tech city skyline at dusk. The lighting is dramatic yet professional, emphasizing the premium 'Executive Precision' brand identity with deep blues and crisp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHI6xyQcoRU3WG6yZ8RFLEqvImWWuoJ5efXq4o2jsT26Dt_Ny13sfextlU45Xpq32PkBXye_Egka9jRhjhScjZMcXF9VmbeN09II9__FIGX2j6soJspcUKZ2HqEevRkFa7sK3rgudYxprD1YUvqIKnk5WsdKnrMnxpSegXeQSuy6aWHmCx3nB5DZPvC4711CVXWpr7i15A2yLrsij3wzSQ2lbj_W2MzcRkobGArWJRZg3xL3nD_cuj1bBqVco5Yy2h8_gfPeFZL24"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-white p-1 rounded-full border-2 border-surface">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1">Julian Thorne</h2>
+<p class="font-body-md text-on-surface-variant mb-3">CEO, Quantum Dynamics</p>
+<div class="flex gap-2">
+<span class="bg-error-container text-on-error-container font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    Hot Lead
+                </span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-3 py-1 rounded-full">
+                    Tech Sector
+                </span>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="grid grid-cols-3 gap-4">
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-white rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 transition-all duration-200 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Appel</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-white rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 transition-all duration-200 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Message</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-white rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 transition-all duration-200 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Email</span>
+</button>
+</section>
+<!-- Opportunities (Bento Style) -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h3 class="font-headline-md text-headline-md text-primary">Opportunités</h3>
+<span class="font-label-md text-label-md text-secondary font-semibold">Voir tout</span>
+</div>
+<div class="bg-white p-5 rounded-2xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/10 rounded-bl-[100px] -mr-4 -mt-4"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Enterprise AI Suite</h4>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+                            Closing: Dec 15, 2023
+                        </p>
+</div>
+<span class="text-headline-md font-bold text-secondary">$45,000</span>
+</div>
+<div class="space-y-2 relative z-10">
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Étape: Négociation</span>
+<span>75%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Information -->
+<section class="bg-white p-6 rounded-2xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary border-b border-outline-variant/20 pb-3">Informations de contact</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="alternate_email">alternate_email</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Email Professionnel</p>
+<p class="font-body-lg text-body-lg text-primary">j.thorne@quantumdynamics.ai</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="smartphone">smartphone</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Mobile</p>
+<p class="font-body-lg text-body-lg text-primary">+33 6 45 82 91 00</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="location_on">location_on</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Siège Social</p>
+<p class="font-body-lg text-body-lg text-primary">Silicon Sentier, Paris, France</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Activity Timeline -->
+<section class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary">Activité Récente</h3>
+<div class="space-y-0 relative before:content-[''] before:absolute before:left-5 before:top-4 before:bottom-4 before:w-[2px] before:bg-outline-variant/30">
+<!-- Activity Item 1 -->
+<div class="relative pl-12 py-3">
+<div class="absolute left-0 top-3 w-10 h-10 rounded-full bg-white border-2 border-secondary-container flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="mail">mail</span>
+</div>
+<div class="bg-white p-4 rounded-xl border border-outline-variant/20 shadow-sm">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md text-primary">Email envoyé</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hier, 14:30</span>
+</div>
+<p class="font-body-md text-on-surface-variant italic">"Proposition commerciale révisée..."</p>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="relative pl-12 py-3">
+<div class="absolute left-0 top-3 w-10 h-10 rounded-full bg-white border-2 border-secondary-container flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="call">call</span>
+</div>
+<div class="bg-white p-4 rounded-xl border border-outline-variant/20 shadow-sm">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md text-primary">Appel passé</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lundi, 10:15</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Discussion sur l'intégration API - 12 min.</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="relative pl-12 py-3">
+<div class="absolute left-0 top-3 w-10 h-10 rounded-full bg-white border-2 border-outline-variant flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="person_add">person_add</span>
+</div>
+<div class="bg-white p-4 rounded-xl border border-outline-variant/20 shadow-sm opacity-70">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md text-primary">Contact créé</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">24 Nov 2023</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-outline-variant dark:border-on-surface-variant shadow-[0_-4px_12px_rgba(10,37,64,0.05)] flex justify-around items-center pt-2 pb-safe px-gutter">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="contacts_product" style="font-variation-settings: 'FILL' 1;">contacts_product</span>
+<span class="font-label-sm text-label-sm">Contacts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-label-sm text-label-sm">Deals</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interactions for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 150);
+            });
+        });
+
+        // Add scroll animation to reveal sections
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition</script></body></html>

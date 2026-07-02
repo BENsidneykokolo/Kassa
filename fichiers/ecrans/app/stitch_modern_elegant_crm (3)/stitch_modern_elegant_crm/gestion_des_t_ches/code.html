@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SalesPulse - Task Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#321ed2",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2d3133",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "outline": "#74777e",
+                    "on-tertiary-container": "#0098b7",
+                    "surface-dim": "#d7dadd",
+                    "on-primary-container": "#768dad",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-tertiary-fixed": "#001f27",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f1f4f7",
+                    "outline-variant": "#c4c6ce",
+                    "inverse-primary": "#b0c8eb",
+                    "inverse-on-surface": "#eef1f4",
+                    "surface-container-high": "#e5e8eb",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#d2e4ff",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "background": "#f7fafd",
+                    "surface": "#f7fafd",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#e2dfff",
+                    "tertiary-container": "#002832",
+                    "surface-variant": "#e0e3e6",
+                    "surface-container": "#ebeef1",
+                    "on-background": "#181c1e",
+                    "on-surface-variant": "#43474d",
+                    "tertiary-fixed": "#b4ebff",
+                    "on-surface": "#181c1e",
+                    "primary": "#000f22",
+                    "on-secondary-container": "#fffbff",
+                    "secondary-container": "#645cff",
+                    "on-primary-fixed": "#001c37",
+                    "on-primary-fixed-variant": "#314865",
+                    "on-tertiary-fixed-variant": "#004e5f",
+                    "tertiary-fixed-dim": "#3cd7ff",
+                    "secondary": "#4a3ee6",
+                    "on-secondary-fixed": "#0f0069",
+                    "surface-bright": "#f7fafd",
+                    "primary-container": "#0a2540",
+                    "tertiary": "#001117",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#49607e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "safe-area": "env(safe-area-inset-bottom)",
+                    "xs": "4px",
+                    "margin-mobile": "20px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-card {
+            background: #FFFFFF;
+            border: 1px solid #E3E8EE;
+            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.08);
+            transition: transform 0.2s ease;
+        }
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface dark:bg-on-background shadow-[0_4px_12px_rgba(10,37,64,0.08)] z-50 flex justify-between items-center px-margin-mobile h-16 transition-all duration-200">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior sales executive in a modern, brightly lit corporate office. The user has a confident smile, wearing business casual attire. The photography style is high-key with a soft, shallow depth of field, emphasizing the professional and reliable persona of SalesPulse." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrGVaJAi5i8T1P-_EAVKJkzEeziEHthQVRsUpWOH2rKe-bLJbVSLhBGrHWYMkwxy6B8SoxYkTL59uBRbjBdyW9WxLrVfgtLCoWrl4kRHXjGMw_rwPWwtb0e2on8EnxYpyxBlLWjvyOThauVnp8mnWFJbUYaJP-xNJFd8kYg4cS8KnZmASw0GI3ZmQiUaPTCgpqJ1XPd5IbgeAoUV2eNOqMdAghpNcynnGIOznF3BpOVUlE9mvMfJvzuX6Z_gswTBIQtZVUOL6HBpo"/>
+</div>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">SalesPulse</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-all active:scale-95 text-secondary dark:text-secondary-fixed">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-20 px-margin-mobile">
+<!-- Weekly Pulse Summary -->
+<section class="mt-md">
+<h2 class="text-label-md font-label-md text-outline uppercase tracking-wider mb-sm">Weekly Pulse</h2>
+<div class="grid grid-cols-2 gap-md">
+<div class="bento-card p-md rounded-xl flex flex-col justify-between h-32 bg-gradient-to-br from-white to-surface-container-low">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="trending_up">trending_up</span>
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-green-100 text-green-700">+12%</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-primary">24</div>
+<div class="text-label-md font-label-md text-on-surface-variant">Deals Closed</div>
+</div>
+</div>
+<div class="bento-card p-md rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="task_alt">task_alt</span>
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">8 Pending</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-primary">86%</div>
+<div class="text-label-md font-label-md text-on-surface-variant">Task Velocity</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Search & Quick Filters -->
+<section class="mt-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-secondary transition-colors" data-icon="manage_search">manage_search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-white border border-outline-variant rounded-xl text-body-md focus:ring-2 focus:ring-secondary-container focus:border-secondary-container outline-none transition-all shadow-sm" placeholder="Search tasks, leads..." type="text"/>
+</div>
+<div class="flex gap-sm mt-md overflow-x-auto custom-scrollbar pb-1">
+<button class="flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-full text-label-md transition-transform active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]" data-icon="all_inclusive">all_inclusive</span>
+                    All Tasks
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md hover:bg-surface-container-low transition-all active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                    Calls
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md hover:bg-surface-container-low transition-all active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]" data-icon="groups">groups</span>
+                    Meetings
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md hover:bg-surface-container-low transition-all active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
+                    Emails
+                </button>
+</div>
+</section>
+<!-- Task List -->
+<section class="mt-lg pb-10">
+<div class="flex justify-between items-center mb-md">
+<h2 class="text-headline-md font-headline-md text-primary">Active Tasks</h2>
+<button class="text-secondary font-label-md flex items-center gap-1 active:scale-95 transition-transform">
+                    View All
+                    <span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="space-y-md">
+<!-- Task Card 1 -->
+<div class="bento-card p-md rounded-xl group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start">
+<div class="flex-1 pr-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-md bg-error-container text-on-error-container">High Priority</span>
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+                                    Due 2h
+                                </span>
+</div>
+<h3 class="text-body-lg font-semibold text-primary">Finalize Contract - Acme Corp</h3>
+<p class="text-body-md text-on-surface-variant mt-1">Review legal terms with Sarah Jenkins</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-outline group-hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</button>
+</div>
+</div>
+<div class="mt-md flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-secondary-fixed flex items-center justify-center text-[10px] font-bold text-on-secondary-fixed">SJ</div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-on-primary-fixed">AR</div>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">In Progress</span>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="bento-card p-md rounded-xl group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-on-tertiary-container"></div>
+<div class="flex justify-between items-start">
+<div class="flex-1 pr-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant">Medium Priority</span>
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="event">event</span>
+                                    Tomorrow
+                                </span>
+</div>
+<h3 class="text-body-lg font-semibold text-primary">Intro Call: Nexa Logistics</h3>
+<p class="text-body-md text-on-surface-variant mt-1">Qualification call for Q3 expansion</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-outline transition-colors">
+<span class="material-symbols-outlined" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</button>
+</div>
+</div>
+<div class="mt-md flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="call">call</span>
+<span class="text-label-sm text-on-surface-variant">Sales Discovery</span>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container rounded text-outline">To Do</span>
+</div>
+</div>
+<!-- Task Card 3 (Completed) -->
+<div class="bento-card p-md rounded-xl group relative overflow-hidden opacity-70">
+<div class="flex justify-between items-start">
+<div class="flex-1 pr-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-md bg-surface-container-low text-outline">Low Priority</span>
+</div>
+<h3 class="text-body-lg font-semibold text-primary line-through">Send Follow-up: RetailX</h3>
+<p class="text-body-md text-on-surface-variant mt-1">Email recap from Tuesday's demo</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+</div>
+</div>
+</div>
+<div class="mt-md flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="mail">mail</span>
+<span class="text-label-sm text-outline">Outreach</span>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-green-50 text-green-600 rounded">Done</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/80 dark:bg-on-background/80 backdrop-blur-md border-t border-outline-variant dark:border-outline shadow-[0_-4px_12px_rgba(10,37,64,0.08)]">
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="text-label-md font-label-md">Deals</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-fixed dark:bg-secondary-container text-on-secondary-fixed dark:text-on-secondary-container rounded-xl px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</button>
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md font-label-md">Team</span>
+</button>
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-3 py-1 transition-transform duration-300 ease-in-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction: Scale cards on scroll
+        const cards = document.querySelectorAll('.bento-card');
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                } else {
+                    entry.target.style.opacity = '0.5';
+                    entry.target.style.transform = 'translateY(10px)';
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => {
+            card.style.transition = 'all 0.5s ease-out';
+            observer.observe(card);
+        });
+
+        // Filter button toggle logic
+        const filterButtons = document.querySelectorAll('section:nth-of-type(2) button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-secondary', 'text-white');
+                    b.classList.add('bg-white', 'text-on-surface-variant');
+                });
+                btn.classList.remove('bg-white', 'text-on-surface-variant');
+                btn.classList.add('bg-secondary', 'text-white');
+            });
+        });
+    </script>
+</body></html>

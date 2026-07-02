@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>LuxeStay POS - Order Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Custom scrollbar for minimalist look */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e2e1;
+            border-radius: 10px;
+        }
+        .active-gold-bar {
+            position: relative;
+        }
+        .active-gold-bar::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 4px;
+            background-color: #ffdea5;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e2e8f8",
+                        "surface-container-highest": "#dce2f3",
+                        "on-tertiary-container": "#828485",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e1e3e4",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed": "#191c1d",
+                        "surface-dim": "#d3daea",
+                        "primary-container": "#1c1b1b",
+                        "on-surface": "#151c27",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-primary-container": "#858383",
+                        "secondary-fixed-dim": "#e9c176",
+                        "primary": "#000000",
+                        "inverse-primary": "#c8c6c5",
+                        "on-primary-fixed": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#444748",
+                        "tertiary-container": "#191c1d",
+                        "surface": "#f9f9ff",
+                        "on-secondary-container": "#785a1a",
+                        "surface-tint": "#5f5e5e",
+                        "secondary-container": "#fed488",
+                        "primary-fixed": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c5c7c8",
+                        "surface-variant": "#dce2f3",
+                        "on-background": "#151c27",
+                        "secondary-fixed": "#ffdea5",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "background": "#f9f9ff",
+                        "secondary": "#775a19",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e7eefe",
+                        "surface-bright": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f0f3ff",
+                        "outline": "#747878",
+                        "outline-variant": "#c4c7c7",
+                        "on-primary-fixed-variant": "#474746",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#261900",
+                        "inverse-surface": "#2a313d",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "md": "24px",
+                        "safe-margin": "20px",
+                        "lg": "32px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "gutter": "12px",
+                        "xl": "48px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Montserrat"],
+                        "label-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "headline-sm": ["Montserrat"],
+                        "headline-md": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface-dim shadow-md flex justify-between items-center px-md py-xs">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel concierge operator, dressed in a sharp black suit with a gold pin. The lighting is soft and flattering, set against a blurred background of a high-end boutique hotel lobby featuring marble and warm lighting. The aesthetic is clean, corporate modern, and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmFAO6JgsJqJLYb4o1kGJt9flX9cJ_Us3X6yBeUhl8PudUcKJnKMV1PKrf7UV6KQDiaZ4L4h4M7Dm44L5aCUU31r2eGsVlW2Wp2Afiq4VvKjDR4hExlfmzGZqdgUbtEgdB72QWi-498z-Bg4AykbAhDHJNycRIy_lCIR9Tp9SLeHtezcVYj8VGnQNRpxZuv8hmPRKEsgL1nAj6pVuPdceqh7YLjc__Jz3h0ZYEYwctWsayhAJ1Dk0ATYUCjthMcpWjCKmAHgmdXD8"/>
+</div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary dark:text-primary-fixed-dim tracking-tight">LuxeStay POS</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors p-2 rounded-full">notifications</button>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-safe-margin py-md">
+<!-- Breadcrumb / Context -->
+<div class="flex items-center justify-between mb-lg">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Order Summary</h2>
+<p class="text-on-surface-variant font-body-sm">Table 12 • 2 Guests • Server: Julian</p>
+</div>
+<button class="flex items-center gap-xs px-sm py-2 border-2 border-primary rounded-xl font-label-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">add</span>
+                Add More
+            </button>
+</div>
+<!-- Items Container -->
+<div class="space-y-sm mb-lg">
+<!-- Order Item Card -->
+<div class="bg-surface-container-lowest shadow-[0_4px_10px_rgba(0,0,0,0.12)] rounded-xl p-sm flex items-center gap-md active-gold-bar transition-transform hover:scale-[1.01]">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A gourmet close-up of a truffle-infused Wagyu beef burger on a toasted brioche bun, presented on a dark slate plate. The lighting is dramatic and warm, emphasizing the textures of the melted cheese and juicy meat. High-end culinary photography style with a clean, luxury light-mode background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS1shErWDqs84MBu-C99_vW3HWD6LXXGpnohjj7iVc0BbJmMRBn0Cbo-sT1hX2SvZF4904YdWtKWo76-mJOsyx475frWZODb76BY9X72Zy01DPPh_fb_5-2YvesfIOL2B0CNdQHOWsp1mZoWq6FYsjwnid3eF84VN7zNQcRQTG1J8RBxgEAnHCHGTFk1OFHLBb09mMeAikkglZSeHmF7VPKmWd7t8DTnUmSM1oxuqkkGM3QXgVAwYcC0Zm04UW8S1gY5Wg_Rg21pI"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-headline-sm">Wagyu Truffle Burger</h3>
+<p class="text-on-surface-variant text-body-sm">Medium-rare, no pickles</p>
+<span class="text-secondary font-label-lg mt-1 block">$34.00</span>
+</div>
+<div class="flex items-center bg-surface-container rounded-full px-xs py-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-body-lg">remove</span>
+</button>
+<span class="w-8 text-center font-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-body-lg">add</span>
+</button>
+</div>
+</div>
+<!-- Order Item Card -->
+<div class="bg-surface-container-lowest shadow-[0_4px_10px_rgba(0,0,0,0.12)] rounded-xl p-sm flex items-center gap-md active-gold-bar transition-transform hover:scale-[1.01]">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A delicate chilled lobster salad served in a crystal bowl, garnished with microgreens and edible gold leaf. The scene is bright and airy, reflecting a high-end coastal restaurant atmosphere. Soft ambient shadows and premium white marble surface. Corporate modern food photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk3eZCPNWf8czHMWmoKp6G9YzNWTYvxNDz3a2ZdVGODW0kFiS88gpubMvMQVtmQE975WMMfQ1D6gLkTfVtMiHhTEOKUMZQi10D4MeFafxW2pr6o8O5Mge0RaT_Y93p11waORCawrNFG1j4Mp_EPLODiu4f3k1m7tHgYAmKZxkTJygCEEioyKjz9ziAantniBXYmHeZwxrbbAC-CyiOW90tU7Dztdk2dJiIiBHjC0mw2eq5Bynkwgq1UEaZBTyyXwcEzeGjqnGme4k"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-headline-sm">Lobster Bisque Salad</h3>
+<p class="text-on-surface-variant text-body-sm">Classic dressing</p>
+<span class="text-secondary font-label-lg mt-1 block">$28.00</span>
+</div>
+<div class="flex items-center bg-surface-container rounded-full px-xs py-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-body-lg">remove</span>
+</button>
+<span class="w-8 text-center font-label-lg">2</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-body-lg">add</span>
+</button>
+</div>
+</div>
+<!-- Order Item Card -->
+<div class="bg-surface-container-lowest shadow-[0_4px_10px_rgba(0,0,0,0.12)] rounded-xl p-sm flex items-center gap-md active-gold-bar transition-transform hover:scale-[1.01]">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A signature cocktail in a chilled coupe glass, featuring a dark blackberry base and a sprig of burnt rosemary. The lighting is low-key with golden highlights, evoking a sophisticated lounge bar vibe. The image is crisp, focused, and follows the luxury corporate modern design aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWwZjqRJQXi8pKb-mg0Lx4ulMLU4w9gc3UxY9z4NV3QkgVcbR8ordKS1LxlMjkotp-uDhs6jFXld3ORJmkuSRWsoji-dP-fq2Din1xF-2z9FMPnWifSM0gzvAirTetfDLqr8MUak1iE5qaUY9xj8EYA9I9OZI3tR4CRShG3KcIFvLafY1AOGPl6fin1Y3Fob_CzEr2pN-BPMORzGLzgDgedz4ECjLQE6jaWONsdGRFmxUf49_9ydORVrHqaj9F85oLxydzgpm35aA"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-headline-sm">Midnight Bramble</h3>
+<p class="text-on-surface-variant text-body-sm">Extra ice, rosemary garnish</p>
+<span class="text-secondary font-label-lg mt-1 block">$18.00</span>
+</div>
+<div class="flex items-center bg-surface-container rounded-full px-xs py-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-body-lg">remove</span>
+</button>
+<span class="w-8 text-center font-label-lg">3</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-body-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Order Notes Section -->
+<div class="bg-white rounded-xl p-sm shadow-[0_4px_10px_rgba(0,0,0,0.08)] mb-xl">
+<label class="flex items-center gap-xs font-label-lg text-on-surface mb-xs">
+<span class="material-symbols-outlined text-secondary">assignment</span>
+                Order Notes & Allergies
+            </label>
+<textarea class="w-full border-0 border-b-2 border-outline-variant focus:border-secondary-fixed-dim focus:ring-0 transition-colors bg-surface-container-low p-sm font-body-sm rounded-t-lg" placeholder="Add special instructions, allergy alerts (e.g., Peanut Allergy), or plating requests..." rows="3"></textarea>
+<div class="flex flex-wrap gap-xs mt-sm">
+<span class="px-sm py-1 bg-error-container text-on-error-container rounded-full font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span> Gluten Free
+                </span>
+<span class="px-sm py-1 bg-surface-container-high text-on-surface rounded-full font-label-sm">Nut Allergy</span>
+<span class="px-sm py-1 bg-surface-container-high text-on-surface rounded-full font-label-sm">Anniversary</span>
+</div>
+</div>
+<!-- Order Totals -->
+<div class="bg-surface-container rounded-2xl p-md mb-xl">
+<div class="flex justify-between items-center mb-xs">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="font-body-md">$144.00</span>
+</div>
+<div class="flex justify-between items-center mb-xs">
+<span class="text-on-surface-variant">Tax (8%)</span>
+<span class="font-body-md">$11.52</span>
+</div>
+<div class="flex justify-between items-center mb-xs">
+<span class="text-on-surface-variant">Service Charge</span>
+<span class="font-body-md">$15.00</span>
+</div>
+<div class="h-[1px] bg-outline-variant my-sm"></div>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm">Total</span>
+<span class="font-display-lg text-primary">$170.52</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-md bg-primary text-on-primary rounded-xl font-headline-sm shadow-xl hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-sm group relative overflow-hidden" id="send-to-kitchen">
+<span class="relative z-10">Send to Kitchen</span>
+<span class="material-symbols-outlined relative z-10 group-hover:translate-x-1 transition-transform">restaurant</span>
+<div class="absolute inset-0 bg-secondary-fixed-dim opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-safe-margin pb-safe-margin pt-xs bg-surface dark:bg-surface-container-lowest border-t border-outline-variant dark:border-none shadow-[0_-4px_10px_rgba(0,0,0,0.08)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-sm py-1 hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-sm py-1 hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">table_restaurant</span>
+<span class="font-label-sm text-label-sm">Tables</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container px-sm py-1 hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary dark:bg-secondary-container text-on-primary dark:text-on-secondary-container rounded-xl px-sm py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+</nav>
+<script>
+        // Simple success animation for 'Send to Kitchen' button
+        const sendBtn = document.getElementById('send-to-kitchen');
+        sendBtn.addEventListener('click', function() {
+            const originalContent = this.innerHTML;
+            this.innerHTML = '<span class="material-symbols-outlined text-white animate-bounce">check_circle</span> Order Sent!';
+            this.classList.remove('bg-primary');
+            this.classList.add('bg-secondary');
+            
+            setTimeout(() => {
+                this.innerHTML = originalContent;
+                this.classList.remove('bg-secondary');
+                this.classList.add('bg-primary');
+            }, 2500);
+        });
+
+        // Toggle Active States visually
+        document.querySelectorAll('nav a').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Prevent real nav for demo
+                if(this.getAttribute('href') === '#') e.preventDefault();
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SalesPulse - Contact Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eef1f4",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474d",
+                    "tertiary-fixed-dim": "#3cd7ff",
+                    "secondary": "#4a3ee6",
+                    "tertiary": "#001117",
+                    "on-primary-container": "#768dad",
+                    "surface-container-low": "#f1f4f7",
+                    "on-primary-fixed-variant": "#314865",
+                    "on-background": "#181c1e",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#0f0069",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "inverse-primary": "#b0c8eb",
+                    "surface-container-highest": "#e0e3e6",
+                    "outline-variant": "#c4c6ce",
+                    "tertiary-container": "#002832",
+                    "primary-container": "#0a2540",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#001c37",
+                    "outline": "#74777e",
+                    "surface": "#f7fafd",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "surface-dim": "#d7dadd",
+                    "on-surface": "#181c1e",
+                    "secondary-fixed": "#e2dfff",
+                    "on-secondary-fixed-variant": "#321ed2",
+                    "surface-variant": "#e0e3e6",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#49607e",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#645cff",
+                    "on-tertiary-container": "#0098b7",
+                    "background": "#f7fafd",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f7fafd",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-error-container": "#93000a",
+                    "primary": "#000f22",
+                    "tertiary-fixed": "#b4ebff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#d2e4ff",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-high": "#e5e8eb",
+                    "surface-container": "#ebeef1",
+                    "on-tertiary-fixed-variant": "#004e5f",
+                    "inverse-surface": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "margin-mobile": "20px",
+                    "safe-area": "env(safe-area-inset-bottom)"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e0e3e6;
+            border-radius: 10px;
+        }
+        
+        .contact-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-[0_4px_12px_rgba(10,37,64,0.08)] flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a smiling executive woman in her 30s, wearing a tailored blazer. The lighting is soft and natural, emphasizing a bright and clear light-mode aesthetic consistent with a premium CRM corporate branding. The background is a blurred high-end office interior with subtle blue and purple accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYhJaM3E7T--Tz4mwSMZxlii12Lef971YuAQwqJ8Cy-imdR0BhHATjNKft-Oo0xRPgsZPpeocVYekCC_-Kx18HJY7vW3uK3ZzRD7BNWUcX176CXdQtqlMYLMTIjWP_5dPyrFtZNljiJKeZSHZuopundhazLMTYC5I_VlbkG_EbK7LlB4Yo28b8eeU7_wanxnPw-BRfLFMfhuPwT8yj7k3Kb1XnV5tJ2jc1u1X-iwIl5GeS2JZIMoDaOQalMad5U3YJ1xDGUOr8DIU"/>
+</div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">SalesPulse</h1>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 active:scale-95 hover:bg-surface-container-low dark:hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant">search</span>
+</button>
+</header>
+<main class="pt-20 px-margin-mobile max-w-2xl mx-auto">
+<!-- Search & Filter Section -->
+<section class="mt-4 mb-6">
+<div class="relative w-full group mb-4">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-secondary-container focus:border-transparent transition-all duration-300 font-body-md text-on-surface" placeholder="Search contacts..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-primary text-on-primary shadow-sm active:scale-95 transition-transform">All</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest active:scale-95 transition-transform">Hot Leads</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest active:scale-95 transition-transform">Customers</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest active:scale-95 transition-transform">Inactive</button>
+</div>
+</section>
+<!-- Contacts List -->
+<div class="space-y-4">
+<!-- Contact Card 1 -->
+<div class="contact-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 flex items-center gap-4 transition-all duration-200 hover:shadow-md cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male tech entrepreneur in a modern office, featuring soft directional lighting. The aesthetic is clean and corporate, utilizing a color palette of soft whites and deep blues. The setting suggests a high-stakes business environment with professional energy and a friendly but focused expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7eFh3Oz74qg9f3yR1s0IsijISeb2qC9F94gQEOb7lkUq3jI7zfZrGG-NjVZI_jHHiw3GnH_TymV3Big367IjnxqvNlUjXVs9l9MveZjTkFxnzGCQwXMgcKmkPTCZJq2JCCvZ-q8nDPdHNItT3tYBlADCsAUqIwlHPVdo9Hk8BNO363tqn8Zt5DqyvaN77wKZB8cRUrRPdbiQj4bxgpKQDJFcy8uuilumnFIMw28Bp9r7BbVq4bDy2O0vsfUV6sj48-bwA7VAtLTE"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-lg text-primary truncate">Julian Thorne</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-error-container text-on-error-container uppercase tracking-wider">Hot Lead</span>
+</div>
+<p class="text-on-surface-variant text-body-md truncate">CEO, Quantum Dynamics</p>
+<div class="flex gap-3 mt-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contact Card 2 -->
+<div class="contact-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 flex items-center gap-4 transition-all duration-200 hover:shadow-md cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close-up professional headshot of a creative director woman with a confident smile. She is wearing stylish glasses and a neutral-toned silk blouse. The lighting is warm and bright, emphasizing clarity and reliability in a professional CRM design system context. Soft white backgrounds with subtle architectural details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7ed6Y2TVJVLRUKwyPmNBUlEXthhLIniw8Zrdw0FWrFXPX5OfpBmFoG_58ZkX2ZQ6WzBOoAFk7wp67WEcNcz9tSal4LfZun8Kwu8ksAdnf0J8WeJilXQhaSAdqoq9xwkE1UFYegUCutw54eL08VFstKm6kCNE-D6-DIpGarEO72O4XWPcJw62E6hRPDQfMFe8us2h8Vyot33ysDKx7XqDdN4udyII4CQz5zaSzDwf7zpuB3Vhf4J1ITnjHf0pvZOb2nfCznBSFrzU"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-lg text-primary truncate">Elena Vance</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant uppercase tracking-wider">Customer</span>
+</div>
+<p class="text-on-surface-variant text-body-md truncate">Director of Ops, CloudScale</p>
+<div class="flex gap-3 mt-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contact Card 3 -->
+<div class="contact-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 flex items-center gap-4 transition-all duration-200 hover:shadow-md cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional male executive in his 40s, looking towards the camera with a friendly, trustworthy expression. He is outdoors in a sleek, modern city plaza with skyscrapers in the soft-focus background. The lighting is clean and daylight-balanced, reflecting a high-end, corporate modern aesthetic with blue and gray tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ9Y59RULUKxYUiuipxx5eWqbt4yBVPf4NaO0Ua9JNn97hh_Sdv8J8UhU9C384u8GsXAh4CMjtFHsJREQw4I-c5oA_dToUa7CGE-PBMQbwbAaZTOZX-TPwWxgf4PxQFemwairUFSP3XI9KXMnNZgm5dWR-6SJsUgb6TyghG5hJQlWOTNCrcGV48KaNhQfDnHrEuq4-Jc0asT1fDulfBm77DA1-qQHza1MU4NelqAmug1S6G8TnT_EvKTbXMFY4TpW7AGApFBDNNVA"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-lg text-primary truncate">Marcus Sterling</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-surface-container-highest text-on-surface-variant uppercase tracking-wider">Inactive</span>
+</div>
+<p class="text-on-surface-variant text-body-md truncate">VP Sales, HeavyLift Inc.</p>
+<div class="flex gap-3 mt-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contact Card 4 -->
+<div class="contact-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 flex items-center gap-4 transition-all duration-200 hover:shadow-md cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young professional woman in a creative workspace, wearing a minimalist black outfit. The composition uses generous white space and soft lighting to create a premium, calm, and organized visual feel. The color palette features whites, light blues, and deep blacks, matching a modern CRM interface design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNrQEWAHRhN8c0cGzmPwNijERKbhQG0ouuttxG__li7HaUTWa3WKnOYOSyTNQrbn3kDI0GPZpZRyqjPidXhR_Je7n0QKCIpLt8py0K-2KuvcQsqRUzNrxX4na_xZLzloLvYTVRHjRurBciQqSrBtTPk9oSz6won7qHPXpHlaZP5Iz_j1F1azL7OrjSkPnYSg5_L2Qfs0DG2szZX-2XdPihoNGdxYBhnicDWhgVV7NtdLe5W8ypDl5vLuvoELe-O540e0TOLhBlrFI"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-lg text-primary truncate">Sarah Chen</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-error-container text-on-error-container uppercase tracking-wider">Hot Lead</span>
+</div>
+<p class="text-on-surface-variant text-body-md truncate">Founding Partner, NeoVentures</p>
+<div class="flex gap-3 mt-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contact Card 5 -->
+<div class="contact-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(10,37,64,0.08)] border border-outline-variant/30 flex items-center gap-4 transition-all duration-200 hover:shadow-md cursor-pointer">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A high-quality portrait of a sophisticated senior business leader in a refined library setting. He has gray hair and is wearing a crisp white shirt. The lighting is dramatic but soft, using corporate modern tones of innovation purple and trust blue in the subtle shadows. The mood is authoritative yet reliable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANcHxNYwiOEAPFJ9Pfmr9yyk2LAFCQdFKVEtE35KxFVbuCAnaLa67QtRYBpCfPiqPEZeP6Ds2kluyLywxu-55iz_r2Gq_WP0SV_hS7WeL8FVvKFeJ2whcjPKEINQinyM5EUstoDotEo55KHq9jsoZPaCbHwGEcUEQeuJRQVDG3j8mk6Vob7ZUF8Vvm9uoXqGtMcIbA24qCRoZ9DErvHmYyDYuVNVS6NP9tgtVrH6k86SvELRmj7_atyxcNWPNJSkHKdfMsWF778ek"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-lg text-primary truncate">Robert Whitmore</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant uppercase tracking-wider">Customer</span>
+</div>
+<p class="text-on-surface-variant text-body-md truncate">Chairman, Heritage Trust</p>
+<div class="flex gap-3 mt-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low text-secondary hover:bg-secondary hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed right-6 bottom-24 w-14 h-14 rounded-full bg-secondary-container text-on-secondary-container shadow-xl flex items-center justify-center transition-transform duration-300 ease-out active:scale-90 hover:brightness-110 z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-outline-variant dark:border-on-surface-variant shadow-[0_-4px_12px_rgba(10,37,64,0.05)] flex justify-around items-center pt-2 pb-safe px-gutter w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90 hover:bg-surface-container dark:hover:bg-surface-container-high rounded-xl px-4" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 transition-transform duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">contacts_product</span>
+<span class="font-label-sm text-label-sm mt-1">Contacts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90 hover:bg-surface-container dark:hover:bg-surface-container-high rounded-xl px-4" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm mt-1">Deals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 transition-transform duration-300 ease-out active:scale-90 hover:bg-surface-container dark:hover:bg-surface-container-high rounded-xl px-4" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm mt-1">Tasks</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('button')) return; // Don't trigger card click if buttons clicked
+                console.log('Contact clicked:', card.querySelector('h3').innerText);
+                // Trigger animation/transition feedback
+                card.style.background = 'var(--tw-surface-container-low)';
+                setTimeout(() => {
+                    card.style.background = 'white';
+                }, 150);
+            });
+        });
+
+        // Filter chip toggle
+        const chips = document.querySelectorAll('.overflow-x-auto button');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => {
+                    c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                    c.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                chip.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                chip.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

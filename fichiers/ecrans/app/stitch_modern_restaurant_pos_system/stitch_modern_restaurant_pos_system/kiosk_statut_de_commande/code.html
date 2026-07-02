@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Confirmation | Emerald Grill</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e0e3e5",
+                    "tertiary-container": "#94a4bd",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#bbcabf",
+                    "surface-tint": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "on-background": "#191c1e",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#6ffbbe",
+                    "tertiary-fixed": "#d3e4fe",
+                    "secondary": "#565e74",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-fixed": "#131b2e",
+                    "primary-container": "#10b981",
+                    "tertiary": "#505f76",
+                    "primary-fixed-dim": "#4edea3",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#006c49",
+                    "outline": "#6c7a71",
+                    "on-primary-fixed-variant": "#005236",
+                    "inverse-primary": "#4edea3",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-secondary-container": "#5c647a",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#2a3a4f",
+                    "on-primary-fixed": "#002113",
+                    "on-surface": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary-container": "#dae2fd",
+                    "on-primary-container": "#00422b",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-container": "#eceef0",
+                    "inverse-surface": "#2d3133",
+                    "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-lg": "40px",
+                    "content-margin": "32px",
+                    "gutter": "24px",
+                    "touch-target-min": "48px",
+                    "stack-md": "24px",
+                    "stack-sm": "12px",
+                    "sidebar-width": "320px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "label-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-md": ["14px", { "lineHeight": "18px", "fontWeight": "500" }],
+                    "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "body-lg": ["20px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "body-md": ["18px", { "lineHeight": "26px", "fontWeight": "400" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+            vertical-align: middle;
+        }
+        .order-confetti {
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        @keyframes pulse-emerald {
+            0%, 100% { background-color: #10b981; }
+            50% { background-color: #34d399; }
+        }
+        .animate-status-pulse {
+            animation: pulse-emerald 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        /* Custom scrollbar for kiosk lists */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bbcabf; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden h-screen w-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<div class="flex h-full w-full">
+<!-- SIDEBAR (Anchor: SideNavBar) -->
+<aside class="w-sidebar-width h-full fixed left-0 top-0 bg-inverse-surface flex flex-col py-stack-md z-20">
+<div class="px-8 mb-stack-lg">
+<h1 class="font-headline-md text-headline-md text-primary-fixed tracking-tight">Emerald Grill</h1>
+<p class="font-label-md text-label-md text-surface-variant opacity-80 uppercase tracking-widest mt-1">Table 12</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- History is likely active given we just finished an order flow -->
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">restaurant</span>
+<span class="font-label-lg text-label-lg">Menu</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">favorite</span>
+<span class="font-label-lg text-label-lg">Favorites</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-primary-fixed font-bold border-l-4 border-primary-fixed pl-4" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">star</span>
+<span class="font-label-lg text-label-lg">Specials</span>
+</a>
+<a class="flex items-center gap-4 py-4 transition-colors duration-200 text-surface-variant opacity-70 pl-5 hover:bg-on-surface-variant hover:text-white group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">help</span>
+<span class="font-label-lg text-label-lg">Help</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-primary py-4 rounded-xl flex items-center justify-center gap-3 text-white font-label-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+                    Call Server
+                </button>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 ml-sidebar-width h-full relative overflow-y-auto">
+<!-- Background Decoration (Shader/WebGL) -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-20">
+
+</div>
+<!-- Top App Bar (Anchor: TopNavBar) -->
+<header class="sticky top-0 z-10 bg-surface flex justify-between items-center px-content-margin h-touch-target-min w-full border-b border-outline-variant backdrop-blur-md bg-opacity-80">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg text-headline-lg text-primary">Emerald Grill Kiosk</span>
+<nav class="hidden lg:flex gap-6">
+<span class="font-label-lg text-on-surface-variant cursor-pointer hover:text-primary transition-all">Starters</span>
+<span class="font-label-lg text-on-surface-variant cursor-pointer hover:text-primary transition-all">Mains</span>
+<span class="font-label-lg text-on-surface-variant cursor-pointer hover:text-primary transition-all">Drinks</span>
+<span class="font-label-lg text-on-surface-variant cursor-pointer hover:text-primary transition-all">Desserts</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="text-on-surface-variant active:scale-90 transition-transform"><span class="material-symbols-outlined">shopping_cart</span></button>
+<button class="text-on-surface-variant active:scale-90 transition-transform"><span class="material-symbols-outlined">person</span></button>
+</div>
+</div>
+</header>
+<!-- Success Content -->
+<div class="relative z-10 px-content-margin py-stack-lg max-w-5xl mx-auto flex flex-col gap-10">
+<!-- Hero Section: Thank You -->
+<div class="text-center flex flex-col items-center gap-4">
+<div class="w-24 h-24 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-4 shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-background tracking-tight">Thank You!</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Your order has been received and sent to our kitchen.</p>
+<div class="mt-4 bg-surface-container-high border border-outline-variant px-12 py-6 rounded-2xl inline-block shadow-sm">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest block mb-2">Order Number</span>
+<span class="font-display-lg text-display-lg text-primary-container tabular-nums">#EG-4829</span>
+</div>
+</div>
+<!-- Bento Grid Layout for Status & Options -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Progress Tracker Card -->
+<div class="md:col-span-8 bg-white border border-outline-variant rounded-xl p-8 flex flex-col gap-8 shadow-sm">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-background">Kitchen Status</h3>
+<span class="px-4 py-1 bg-primary-container/10 text-primary-container font-label-lg rounded-full animate-status-pulse text-white">Preparing Your Meal</span>
+</div>
+<!-- Horizontal Visual Tracker -->
+<div class="relative pt-8 pb-4">
+<!-- Progress Line Background -->
+<div class="absolute top-1/2 left-0 w-full h-1 bg-surface-container-highest -translate-y-1/2 rounded-full"></div>
+<!-- Active Progress Line -->
+<div class="absolute top-1/2 left-0 w-1/2 h-1 bg-primary-container -translate-y-1/2 rounded-full transition-all duration-1000"></div>
+<div class="relative flex justify-between">
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center z-10 ring-4 ring-white">
+<span class="material-symbols-outlined text-xl">receipt_long</span>
+</div>
+<span class="font-label-md text-label-md text-on-background">Ordered</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center z-10 ring-4 ring-white">
+<span class="material-symbols-outlined text-xl">skillet</span>
+</div>
+<span class="font-label-md text-label-md text-on-background font-bold">Cooking</span>
+</div>
+<div class="flex flex-col items-center gap-3 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center z-10 ring-4 ring-white">
+<span class="material-symbols-outlined text-xl">restaurant</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Plating</span>
+</div>
+<div class="flex flex-col items-center gap-3 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center z-10 ring-4 ring-white">
+<span class="material-symbols-outlined text-xl">directions_walk</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Arriving</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container">info</span>
+<div>
+<p class="font-label-lg text-label-lg text-on-background">Estimated Wait Time</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Approximately 12-15 minutes. We'll alert you here when your drinks are ready.</p>
+</div>
+</div>
+</div>
+<!-- Receipt Options Card -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="bg-white border border-outline-variant rounded-xl p-8 flex-1 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-on-background mb-6">Receipt</h3>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-between p-5 rounded-xl border border-outline-variant hover:border-primary-container hover:bg-primary-container/5 transition-all group active:scale-95">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary-container">print</span>
+<span class="font-label-lg text-label-lg">Print Now</span>
+</div>
+<span class="material-symbols-outlined text-surface-variant">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-5 rounded-xl border border-outline-variant hover:border-primary-container hover:bg-primary-container/5 transition-all group active:scale-95">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary-container">mail</span>
+<span class="font-label-lg text-label-lg">Email Receipt</span>
+</div>
+<span class="material-symbols-outlined text-surface-variant">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-5 rounded-xl border border-outline-variant hover:border-primary-container hover:bg-primary-container/5 transition-all group active:scale-95">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary-container">sms</span>
+<span class="font-label-lg text-label-lg">SMS Copy</span>
+</div>
+<span class="material-symbols-outlined text-surface-variant">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Actions -->
+<div class="flex flex-wrap items-center justify-center gap-6 mt-4">
+<button class="px-8 py-5 rounded-xl bg-inverse-surface text-white font-label-lg hover:bg-slate-800 transition-colors active:scale-95 flex items-center gap-3 min-w-[240px] justify-center">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+                        Add More to Order
+                    </button>
+<button class="px-8 py-5 rounded-xl border border-outline-variant text-on-surface-variant font-label-lg hover:bg-surface-container-high transition-colors active:scale-95 flex items-center gap-3 min-w-[240px] justify-center">
+<span class="material-symbols-outlined">star</span>
+                        Rate Your Experience
+                    </button>
+</div>
+</div>
+<!-- Atmospheric Background Image -->
+<div class="fixed bottom-0 right-0 -z-10 w-1/3 h-1/2 opacity-10 blur-sm">
+<div class="bg-cover bg-center w-full h-full" data-alt="A clean high-key professional photograph of a gourmet burger and fresh salad served on an emerald green ceramic plate with soft side lighting and a minimalist dark slate background. The image evokes a premium dining atmosphere and sophisticated culinary craft." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsBlVuKn8Xbn-lNB1rYjh6LhqtFxIZQrpJlA_T45N2uKP-gSzP8EdoYH4dyZlOXBub2wG3chQTdWSJ6D7iKN8Gyzd-jIGDRoFftIMrIFo7O4jT-uWIUzeptuSR1yOVesA21ouW6nvHjBfrAgpVWu4xcrTyc5uZkR9-9Kubj1GgosyBQKn-1svHl1y2ifQwzQAO99zeeBVLbG6urk5dZvNteEWSfL-MPWPYnhy--1xFvcmTgzNIP_0V6h-9nCaMmPxwMKYvb_H6joI')"></div>
+</div>
+</main>
+</div>
+<!-- Numerical Keypad or Email Modal (Hidden by default, triggered by actions) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-6" id="email-modal">
+<div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+<div class="p-8 border-b border-outline-variant flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-background">Send Digital Receipt</h4>
+<button class="w-12 h-12 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors rounded-full" onclick="closeEmailModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-8">
+<label class="block font-label-md text-label-md text-secondary mb-3">Email Address</label>
+<input class="w-full h-14 bg-surface-container-low border border-outline-variant rounded-xl px-4 focus:ring-2 focus:ring-primary-container focus:border-transparent outline-none text-body-md" placeholder="customer@example.com" type="email"/>
+<!-- Large Tablet-Friendly Numerical/Alpha Keypad would go here in a real kiosk, 
+                     but we'll provide a large primary button for the confirmation flow -->
+<button class="w-full bg-primary-container text-white h-14 rounded-xl mt-8 font-label-lg shadow-lg shadow-primary-container/20 active:scale-95 transition-transform">
+                    Send Receipt
+                </button>
+</div>
+</div>
+</div>
+<script>
+        // Simple Interaction logic for demo
+        function openEmailModal() {
+            document.getElementById('email-modal').classList.remove('hidden');
+        }
+        function closeEmailModal() {
+            document.getElementById('email-modal').classList.add('hidden');
+        }
+
+        // Add listeners to buttons to show interactions
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Email Receipt')) {
+                btn.onclick = openEmailModal;
+            }
+        });
+
+        // Closing modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('email-modal');
+            if (event.target == modal) {
+                closeEmailModal();
+            }
+        }
+    </script>
+</body></html>

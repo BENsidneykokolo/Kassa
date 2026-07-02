@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Loyalty Rewards | Premium Hospitality POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#76777d",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#002114",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "secondary-fixed": "#85f8c4",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#005137",
+                    "background": "#f7f9fb",
+                    "secondary": "#006c4a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-dim": "#d8dadc",
+                    "primary-container": "#131b2e",
+                    "on-surface": "#191c1e",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-primary-container": "#7c839b",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#68dba9",
+                    "primary": "#000000",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-fixed": "#131b2e",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-container": "#07006c",
+                    "surface": "#f7f9fb",
+                    "on-secondary-container": "#00714e",
+                    "surface-tint": "#565e74",
+                    "secondary-container": "#82f5c1",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-container": "#7073ff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed": "#07006c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "xs": "4px",
+                    "margin-desktop": "32px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "gutter": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "title-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .reward-card-gradient {
+            background: linear-gradient(135deg, #131b2e 0%, #1c253d 100%);
+        }
+        .qr-scanner-frame::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border: 2px solid #006c4a;
+            border-radius: 12px;
+            clip-path: polygon(0 0, 30% 0, 30% 5%, 0 5%, 0 30%, 5% 30%, 5% 0, 0 0, 70% 0, 100% 0, 100% 30%, 95% 30%, 95% 5%, 70% 5%, 70% 0, 100% 70%, 100% 100%, 70% 100%, 70% 95%, 95% 95%, 95% 70%, 100% 70%, 30% 100%, 0 100%, 0 70%, 5% 70%, 5% 95%, 30% 95%, 30% 100%);
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .float-animation {
+            animation: subtle-float 4s ease-in-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-md h-16 bg-surface dark:bg-inverse-surface">
+<div class="flex items-center gap-md">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors duration-200 text-secondary dark:text-secondary-fixed">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-semibold text-on-surface dark:text-inverse-on-surface">Loyalty Rewards</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors duration-200 text-secondary dark:text-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</header>
+<main class="pt-20 px-margin-mobile md:px-margin-desktop max-w-5xl mx-auto space-y-lg">
+<!-- Total Points Bento Grid Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Points Card -->
+<div class="md:col-span-7 reward-card-gradient text-white rounded-xl p-lg shadow-lg flex flex-col justify-between min-h-[220px] relative overflow-hidden">
+
+<div class="relative z-10">
+<p class="font-label-md text-label-md text-secondary-fixed opacity-80 uppercase tracking-widest">Available Balance</p>
+<div class="flex items-baseline gap-xs mt-xs">
+<span class="font-display-lg text-display-lg font-bold">1,250</span>
+<span class="font-title-lg text-title-lg text-secondary-fixed">pts</span>
+</div>
+</div>
+<div class="relative z-10 mt-xl">
+<div class="flex justify-between items-end mb-sm">
+<span class="font-body-md text-body-md text-white/80">150 points until Emerald Tier</span>
+<span class="font-label-sm text-label-sm text-secondary-fixed">85%</span>
+</div>
+<div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-1000" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<!-- Scan to Earn -->
+<div class="md:col-span-5 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col items-center justify-center text-center">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-md">Scan to Earn</h3>
+<div class="relative p-xs bg-white rounded-lg shadow-sm qr-scanner-frame">
+<img class="w-32 h-32 md:w-40 md:h-40" data-alt="A clean, high-contrast QR code centered on a crisp white square background. The design is minimalist, framed by emerald green corner brackets that suggest a scanning interface. The surrounding lighting is bright and professional, evoking a modern high-end hospitality setting with a focus on digital utility and cleanliness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXIsblSWjy0EuWLuJ313ihI8sOs7Ntm63gY--se_8f1bh4J4rnHX7MyE2SY2Sc5rM_-CKVcF3JcH9g0PrwCCdnqvRWoSSOnYEmXImdJDDZj_IIBzjdPN6zct36VhNf81L1ikFjxYT424Tt3q8vvb6z_i_-ibdICfRssatmnNJTxswJpBp5G8Zn9g0f8FIDy7oynC2dNhXygqid2FJ7Iz-36sO4ZJka0RmvNNUh4sdez-zKouif2uW5WQEMFL9JciiaOK2oBBonsRE"/>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-md">Present this code at checkout to collect points.</p>
+</div>
+</section>
+<!-- Your Rewards Section -->
+<section class="space-y-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Your Rewards</h2>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                    View History <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Horizontal Scroll Rewards -->
+<div class="flex gap-gutter overflow-x-auto pb-gutter scrollbar-hide snap-x -mx-margin-mobile px-margin-mobile">
+<!-- Reward Card 1 -->
+<div class="min-w-[280px] snap-start bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-40 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-end, close-up photograph of a decadent chocolate lava cake with a molten center, dusted with fine powdered sugar and garnished with a single fresh raspberry. The lighting is warm and dramatic, typical of a fine-dining evening atmosphere. Deep slate and rich emerald tones are subtly integrated into the background styling for visual consistency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk55a1ImeWCT7TAhdlhw-IRvCC9CsJQeRBQsmt6O7GdwZOkupjCIzeRcXoYFTgVnuFWvT-6ozwhita_U9CLRYx5Qbo-qRSBfl1JKeFu_wXDoBN2We8VluNdba8VS2_7OLaFbkNN3f8LnMbk-mLWcBLfNuChSaJ1ht4bSX6f0YEofARt8H355yyYACTkYeoV3EbStla8HF00Zv07f1QEVkzMnVNnO9YvpAcm4MI4naJXtTGqHasG11iSiDuYS6nrlJTRcFWpqQGqHc"/>
+<div class="absolute top-2 right-2 bg-secondary text-white font-label-sm text-label-sm px-3 py-1 rounded-full">
+                            500 pts
+                        </div>
+</div>
+<div class="p-md space-y-sm">
+<h4 class="font-title-lg text-title-lg text-on-surface">Free Dessert</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Choose any signature dessert from our seasonal menu.</p>
+<button class="w-full bg-secondary text-white font-label-md text-label-md py-3 rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98]">
+                            Redeem Reward
+                        </button>
+</div>
+</div>
+<!-- Reward Card 2 -->
+<div class="min-w-[280px] snap-start bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-40 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylishly composed flat lay of a restaurant table featuring various artisanal dishes and crystal glassware, reflecting a high-end dining experience. The scene is illuminated with soft ambient light, creating a professional and welcoming mood. The color palette emphasizes deep slates and forest greens, aligning with the brand's sophisticated aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHlwFzmhBBU_H_WtGLaqkxvErqK1HPfD0NvRWa0oABejNOF5T3OA3Ea0_iRYE39E0JliemH7FLzyah95ZUZVGr45Fe1a7wfDVnY4MQK4mjDYERjwsRCv5Bg48YIAKOT0g5mDRVNutkUB4mW8Xmf1T7jgaZ-Nx5JbHfw7F0Z254negzrzTriw6Rbt-Gl_IjVMGQXNCM3qXbGSqur7Qy9dRuuJv2dq0Nby9NcWxXuqHyOAmZNTCZDoqbvrfSJFhsZn9RWBFzRmEAMvQ"/>
+<div class="absolute top-2 right-2 bg-secondary text-white font-label-sm text-label-sm px-3 py-1 rounded-full">
+                            1000 pts
+                        </div>
+</div>
+<div class="p-md space-y-sm">
+<h4 class="font-title-lg text-title-lg text-on-surface">10% Off Entire Meal</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Apply a 10% discount to your entire check, excluding gratuity.</p>
+<button class="w-full bg-secondary text-white font-label-md text-label-md py-3 rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98]">
+                            Redeem Reward
+                        </button>
+</div>
+</div>
+<!-- Reward Card 3 -->
+<div class="min-w-[280px] snap-start bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-40 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant, vibrant cocktail in a chilled coupe glass, garnished with a twisted citrus peel and a sprig of fresh mint. The beverage has a luminous emerald hue, glowing under soft, focused lighting. The background is a dark, sophisticated bar setting with blurred lights, maintaining a modern and authoritative visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQK3_7lWTxorf5-FaLJvGur8SVLslEWIYtbV04Y4Bk4eNHCiJWfVdy1EJKjH5d_b41EEk04j1CuznnGIsJZJCMj0dMZoXz1p3PVbU-xr1B9P5KMppFlZYhm3SI3-HJbV87rOqI7w180sJGriIfnw7pB1iI9opUNR9d1Lz6yMvaZouuwVZhvD3kDoo5LDu4lwHKC7KKnDhDSEUy08eLGUUgzA46KZYkl9kvDp_gVMgMRhNK_xSNNVCI-XgPiimqCcJ6iwZ_TMT4rCY"/>
+<div class="absolute top-2 right-2 bg-secondary text-white font-label-sm text-label-sm px-3 py-1 rounded-full">
+                            750 pts
+                        </div>
+</div>
+<div class="p-md space-y-sm">
+<h4 class="font-title-lg text-title-lg text-on-surface">Complimentary Cocktail</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Enjoy one handcrafted cocktail or house-selected wine.</p>
+<button class="w-full bg-secondary text-white font-label-md text-label-md py-3 rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98]">
+                            Redeem Reward
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Tier Progress Details -->
+<section class="bg-primary-container text-on-primary-container p-lg rounded-xl flex items-center justify-between border border-outline-variant/20">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div>
+<h4 class="font-title-lg text-title-lg">Emerald Tier Status</h4>
+<p class="font-body-md text-body-md text-on-primary-container/70">Unlock priority booking and 2x point events.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed-dim rounded-full px-4 py-1 hover:opacity-80 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-sm text-label-sm">Rewards</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-label-sm text-label-sm">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for point progress
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.querySelector('.bg-secondary.h-full');
+            if (progressBar) {
+                progressBar.style.width = '0%';
+                setTimeout(() => {
+                    progressBar.style.width = '85%';
+                }, 300);
+            }
+        });
+    </script>
+</body></html>

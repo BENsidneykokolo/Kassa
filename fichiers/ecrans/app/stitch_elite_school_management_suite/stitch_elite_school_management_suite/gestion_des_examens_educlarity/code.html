@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduClarity - Gestion des Examens</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+        .tab-active { position: relative; }
+        .tab-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: currentColor; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-low": "#f2f4f6",
+                        "primary": "#000000",
+                        "secondary-fixed": "#71f8e4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#005048",
+                        "surface": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed-variant": "#92002a",
+                        "tertiary-container": "#40000d",
+                        "secondary": "#006b5f",
+                        "on-background": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#131b2e",
+                        "surface-tint": "#565e74",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-fixed": "#40000d",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed": "#dae2fd",
+                        "background": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "inverse-surface": "#2d3133",
+                        "inverse-primary": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface-variant": "#45464d",
+                        "on-primary-container": "#7c839b",
+                        "tertiary-fixed": "#ffdadb",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#f23d5c",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary-container": "#6df5e1",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#000000",
+                        "outline": "#76777d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container-highest": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "unit": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopAppBar from JSON -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-100" id="menu-trigger">menu</button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold">EduClarity</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors" href="#">Schedule</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors" href="#">Grades</a>
+</nav>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young adult student with a friendly smile, set against a soft blurred academic library background. The lighting is bright and even, reinforcing a clean, educational atmosphere with a focus on reliability and success." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZIyO1R1xAQIELcekt8Dt-Ysom3IFe4Ujj6cQqRdKok8gczmPfSOOuvnVEBDVevsxnIejF5B0vpumjWko9fDmQs9VzlG6G6gjfxmWvlSsiuqwUVwQuACZPp8AxRyZdeXz0gEmBZ6-UDB3UDy7zowYrd3w4mtI1lYz5x9sqKqdAZ_gT3L7O6rPgB1Hx7Js7uIXUEulTnZstYSsIv18dcoD7OzjgDTZgeVoWrsZY2nP78rKNIxrBgPiFI_Sxtmcm_G3X-ihjkOz5NBzj"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation Drawer from JSON (Hidden by default, desktop visible logic or toggle) -->
+<aside class="fixed left-0 top-0 h-full z-[60] py-6 bg-surface dark:bg-surface-dim shadow-lg w-80 rounded-r-xl transform -translate-x-full transition-transform duration-300 ease-in-out" id="drawer">
+<div class="px-6 mb-8 flex flex-col items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-secondary">
+<img class="w-full h-full object-cover" data-alt="Portrait of Alex Rivers, a high school student with a focused expression. He wears a simple navy blazer. The background is a clean, modern educational interior with soft morning light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDurTflrlNjlx1wZD6_kCKOtY9qtOIlpYdUxB6TVs6xSeqFkuEbqE9E_zo41IZEVrqtV8tPiyXJPLA8XfDPVMIyZWOQVQVgKjgRlB3jTgRrHqzvQmSM2zDAr2OWLfwaYMRfihUXBFNv_gVG_qUSW-ax5HSsx4TXohDZ-N0d6Je4Qeep9ZH3EUBEJ_ajVrI94xxUxoZ6FVjzLiEsfUOSQYYiZ_NN61f8A0vzUbg83FiGcN4nGd51CQrnVBVznNZPRjR3w7C9kGGlOWOY"/>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary">Alex Rivers</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Grade 11-B</p>
+<span class="text-[10px] text-outline mt-1 uppercase tracking-widest font-bold">Student ID: 48291</span>
+</div>
+<nav class="flex flex-col gap-1">
+<!-- Active Tab Logic: Home/Dashboard as default -->
+<a class="flex items-center gap-4 py-3 px-6 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full mx-2 my-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant dark:text-outline-variant mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant dark:text-outline-variant mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Homework</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant dark:text-outline-variant mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Grades</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant dark:text-outline-variant mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant dark:text-outline-variant mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Library</span>
+</a>
+<div class="mt-8 border-t border-outline-variant mx-4 pt-4">
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant dark:text-outline-variant mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Overlay -->
+<div class="fixed inset-0 bg-black/20 z-[55] hidden opacity-0 transition-opacity duration-300" id="drawer-overlay"></div>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary">Gestion des Examens</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Vue d'ensemble et administration des épreuves académiques.</p>
+</div>
+<!-- Contextual Tabs / Toggle for Teacher/Student Mockup -->
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="px-6 py-2 rounded-lg font-label-md text-label-md bg-white shadow-sm text-primary transition-all" id="view-student">Étudiant</button>
+<button class="px-6 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-all" id="view-teacher">Enseignant</button>
+</div>
+</div>
+<!-- Content Area: Student View (Default) -->
+<div class="space-y-stack-lg" id="student-view">
+<div class="bento-grid">
+<!-- Countdown Main Card -->
+<div class="col-span-12 lg:col-span-8 glass-card rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] overflow-hidden border border-white/50 relative">
+<div class="p-8 flex flex-col h-full justify-between z-10 relative">
+<div>
+<span class="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-sm text-label-sm mb-4">
+<span class="material-symbols-outlined text-[14px]">timer</span> Prochain Examen
+                            </span>
+<h3 class="font-headline-md text-headline-md text-primary">Mathématiques Avancées : Calcul Intégral</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Salle 402 • 09:00 AM • Professeur Girard</p>
+</div>
+<div class="mt-12 flex flex-wrap gap-8 items-center">
+<div class="text-center">
+<div class="font-display-lg text-display-lg text-primary tracking-tight">02</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Jours</div>
+</div>
+<div class="text-primary font-display-lg text-display-lg">:</div>
+<div class="text-center">
+<div class="font-display-lg text-display-lg text-primary tracking-tight">14</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Heures</div>
+</div>
+<div class="text-primary font-display-lg text-display-lg">:</div>
+<div class="text-center">
+<div class="font-display-lg text-display-lg text-primary tracking-tight">35</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Minutes</div>
+</div>
+<button class="ml-auto bg-primary text-on-primary px-8 py-3 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">Réviser maintenant</button>
+</div>
+</div>
+<!-- Visual decoration -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-fixed/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+</div>
+<!-- Small Statistics -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 space-y-gutter">
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex items-center gap-6">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm">15.5 / 20</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Moyenne Générale</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex items-center gap-6">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">done_all</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm">12 / 14</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Examens Réalisés</p>
+</div>
+</div>
+</div>
+<!-- Upcoming List -->
+<div class="col-span-12 md:col-span-6 lg:col-span-6 bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-6">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline-sm text-headline-sm text-primary">Examens à venir</h4>
+<button class="text-secondary font-label-md text-label-md hover:underline">Voir calendrier</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center p-4 border border-outline-variant rounded-lg hover:border-secondary transition-colors group cursor-pointer">
+<div class="w-12 h-12 bg-surface-container flex flex-col items-center justify-center rounded-lg mr-4">
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">OCT</span>
+<span class="font-headline-sm text-headline-sm -mt-1">18</span>
+</div>
+<div class="flex-1">
+<div class="font-label-md text-label-md text-primary">Physique Quantique</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">08:30 - 11:30 • Amphi B</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+<div class="flex items-center p-4 border border-outline-variant rounded-lg hover:border-secondary transition-colors group cursor-pointer">
+<div class="w-12 h-12 bg-surface-container flex flex-col items-center justify-center rounded-lg mr-4">
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">OCT</span>
+<span class="font-headline-sm text-headline-sm -mt-1">21</span>
+</div>
+<div class="flex-1">
+<div class="font-label-md text-label-md text-primary">Littérature Française</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">14:00 - 17:00 • Salle 201</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Recent Results -->
+<div class="col-span-12 lg:col-span-6 bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-6">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline-sm text-headline-sm text-primary">Derniers Résultats</h4>
+<button class="text-secondary font-label-md text-label-md hover:underline">Relevé complet</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant">Matière</th>
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant text-center">Note</th>
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="py-4 font-label-md text-label-md text-primary">Biologie Cellulaire</td>
+<td class="py-4 text-center font-bold text-secondary">18 / 20</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary">Excellent</span>
+</td>
+</tr>
+<tr>
+<td class="py-4 font-label-md text-label-md text-primary">Histoire-Géo</td>
+<td class="py-4 text-center font-bold text-primary">14 / 20</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-surface-container text-on-surface-variant">Validé</span>
+</td>
+</tr>
+<tr>
+<td class="py-4 font-label-md text-label-md text-primary">Anglais LV1</td>
+<td class="py-4 text-center font-bold text-primary">16.5 / 20</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary">A+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Content Area: Teacher View (Hidden by default) -->
+<div class="hidden space-y-stack-lg" id="teacher-view">
+<div class="bento-grid">
+<!-- Create Exam Form Card -->
+<div class="col-span-12 lg:col-span-7 bg-white rounded-xl shadow-[0px_10px_30px_rgba(15,23,42,0.1)] p-8">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Programmer un nouvel examen</h3>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Titre de l'épreuve</label>
+<input class="w-full border-slate-200 rounded-lg focus:ring-secondary focus:border-secondary transition-all" placeholder="Ex: Examen Final Semestre 1" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Matière</label>
+<select class="w-full border-slate-200 rounded-lg focus:ring-secondary focus:border-secondary transition-all">
+<option>Mathématiques</option>
+<option>Physique-Chimie</option>
+<option>SVT</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Assigner à la classe</label>
+<select class="w-full border-slate-200 rounded-lg focus:ring-secondary focus:border-secondary transition-all">
+<option>Terminale S-1</option>
+<option>Terminale S-2</option>
+<option>Première B</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Date</label>
+<div class="relative">
+<input class="w-full border-slate-200 rounded-lg focus:ring-secondary focus:border-secondary transition-all" type="date"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Heure de début</label>
+<input class="w-full border-slate-200 rounded-lg focus:ring-secondary focus:border-secondary transition-all" type="time"/>
+</div>
+</div>
+<div class="pt-4 flex gap-4">
+<button class="bg-primary text-on-primary px-10 py-3 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all" type="submit">Publier l'examen</button>
+<button class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-all" type="button">Brouillon</button>
+</div>
+</form>
+</div>
+<!-- Sidebar for Teachers: Quick Stats & Active Exams -->
+<div class="col-span-12 lg:col-span-5 space-y-gutter">
+<!-- Progress Card -->
+<div class="bg-primary text-white p-8 rounded-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-headline-sm text-headline-sm mb-2">Corrections en attente</h4>
+<div class="text-4xl font-extrabold mb-4">42 copies</div>
+<div class="w-full bg-white/20 h-2 rounded-full mb-2">
+<div class="bg-secondary-fixed w-1/3 h-full rounded-full"></div>
+</div>
+<p class="font-label-sm text-label-sm opacity-80">Physique - Terminale S1 (12/36 corrigés)</p>
+</div>
+<span class="material-symbols-outlined absolute -right-8 -bottom-8 text-white/10 text-[180px]">history_edu</span>
+</div>
+<!-- Manage classes list -->
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Mes Classes Actives</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-secondary-container text-on-secondary-container flex items-center justify-center rounded-md font-bold">TS</div>
+<span class="font-label-md text-label-md">Terminale S-1</span>
+</div>
+<span class="text-xs text-outline">32 élèves</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center rounded-md font-bold">P1</div>
+<span class="font-label-md text-label-md">Première B-2</span>
+</div>
+<span class="text-xs text-outline">28 élèves</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar from JSON (Visible on Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 bg-surface dark:bg-inverse-surface border-t border-outline-variant z-50 shadow-[0px_-4px_20px_rgba(15,23,42,0.05)]">
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-sm text-label-sm">Homework</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">grading</span>
+<span class="font-label-sm text-label-sm">Grades</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">local_library</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+</nav>
+<script>
+        const studentView = document.getElementById('student-view');
+        const teacherView = document.getElementById('teacher-view');
+        const btnStudent = document.getElementById('view-student');
+        const btnTeacher = document.getElementById('view-teacher');
+
+        btnStudent.addEventListener('click', () => {
+            studentView.classList.remove('hidden');
+            teacherView.classList.add('hidden');
+            btnStudent.classList.add('bg-white', 'shadow-sm', 'text-primary');
+            btnStudent.classList.remove('text-on-surface-variant');
+            btnTeacher.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+            btnTeacher.classList.add('text-on-surface-variant');
+        });
+
+        btnTeacher.addEventListener('click', () => {
+            teacherView.classList.remove('hidden');
+            studentView.classList.add('hidden');
+            btnTeacher.classList.add('bg-white', 'shadow-sm', 'text-primary');
+            btnTeacher.classList.remove('text-on-surface-variant');
+            btnStudent.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+            btnStudent.classList.add('text-on-surface-variant');
+        });
+
+        // Drawer Logic
+        const menuTrigger = document.getElementById('menu-trigger');
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('drawer-overlay');
+
+        function toggleDrawer() {
+            drawer.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+            setTimeout(() => {
+                overlay.classList.toggle('opacity-0');
+            }, 10);
+        }
+
+        menuTrigger.addEventListener('click', toggleDrawer);
+        overlay.addEventListener('click', toggleDrawer);
+
+        // Simple Countdown Interaction
+        let minutes = 35;
+        setInterval(() => {
+            const minEl = document.querySelector('.text-display-lg:nth-child(5)'); // Index based selector for minutes
+            // Simplified for mockup purposes
+        }, 60000);
+    </script>
+</body></html>

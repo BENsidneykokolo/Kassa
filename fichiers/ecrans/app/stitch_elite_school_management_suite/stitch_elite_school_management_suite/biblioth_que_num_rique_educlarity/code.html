@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduClarity - Digital Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#00201c",
+                    "surface-tint": "#565e74",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed": "#ffdadb",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "outline": "#76777d",
+                    "secondary": "#006b5f",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary-container": "#f23d5c",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "on-secondary-container": "#006f64",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "background": "#f7f9fb",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-primary-fixed": "#131b2e",
+                    "on-tertiary-fixed": "#40000d",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "on-surface": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-surface-variant": "#45464d",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-fixed": "#71f8e4",
+                    "tertiary-container": "#40000d",
+                    "secondary-container": "#6df5e1",
+                    "inverse-surface": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface min-h-screen pb-20 md:pb-0 md:pl-80">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-0 md:left-80 z-50 bg-surface shadow-sm h-16 flex items-center justify-between px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Library</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2 w-64 lg:w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-full ml-2" placeholder="Search ebooks, papers, videos..." type="text"/>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of a young student with a friendly expression, wearing a minimalist navy blue sweater. The background is a soft, out-of-focus academic setting with clean white walls and warm natural lighting, maintaining a sophisticated and modern educational aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmhYk_hGAgpqLBl9M57PoQQzfs-UhfRTamD2mj7QAvYVDXRc7QmIo0vV03vtkwS4BywwCpWD1QwGTNjfY2-Hnk--9CJZjMl2uxc7MXSzsGcQl1nspJYPnp3dijcV1RwV7vjQaiSwYHf_Qt3dloglS4DpecuejOLCl2AXmrLSOSF8mIb8tKcdabU46fTLwbHznOfon7oFOj4dFVOUlmJoZu8sKANeq5L9Efz90uS_uUnYtPFRWhsNgqSaeIqpZhd7NHbGKFH4ezzHLP"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full w-80 bg-surface shadow-lg z-[60] py-6 hidden md:flex flex-col rounded-r-xl">
+<div class="px-6 mb-10">
+<span class="font-headline-md text-headline-md text-primary font-bold">EduClarity</span>
+</div>
+<div class="px-4 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up avatar of Alex Rivers, a high school student with a modern haircut, looking confident. The image has a clean, high-key lighting style consistent with a premium SaaS platform interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRiGJuIl9eoasKTULKNhzu8_SrplZ9O8XZ_aDgh02ZX5ENSuTqZI4r3O-uVDRSYWBnN_7TiR5SIxhTb-8SsxQ3_tckInBZGEs_6qKxlNIovgnsikKj1wcSXBkhXEOdjQFSur8CK7SPl4Ro2-VqNHEP1RPOi2IOoBCxU1gkvh0emh1c0x_4VgEbfAfXoFGvkXF9WEo3neItRr2RhFlJ0Mc4uh9h7kmMgn_W-aGScc3bZLhMJgBKrUPHW80dUTV0xGp7Q1FR6v43vIVN"/>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">Alex Rivers</p>
+<p class="text-label-sm text-outline-variant">Grade 11-B • 48291</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md">Homework</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md">Grades</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 bg-secondary-container text-on-secondary-container rounded-full mx-2 font-bold transition-all" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md">Library</span>
+</a>
+<div class="pt-4 mt-4 border-t border-outline-variant mx-4"></div>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
+<!-- Search & Quick Filters (Mobile Only Search) -->
+<div class="md:hidden">
+<div class="flex items-center bg-white rounded-xl px-4 py-3 shadow-sm border border-outline-variant">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-full ml-2" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<!-- Featured Section (Bento Layout) -->
+<section class="space-y-stack-md">
+<h2 class="font-headline-sm text-headline-sm">Featured Resources</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[400px]">
+<!-- Main Featured Card -->
+<div class="md:col-span-2 relative rounded-xl overflow-hidden group cursor-pointer shadow-md">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="High-resolution visual representation of modern quantum physics, featuring abstract glowing particles and crystalline structures. The aesthetic is clean and high-tech, using deep navy blue and vibrant teal lighting to suggest advanced scientific knowledge. Minimalist white typography overlays the scene, evoking a prestigious textbook cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdEy40RlKYyDCOZSLBXovHm4a7wQXWU8F62yyZRwCtdYat2X38Jv0rq_QnJM6sNrnaO7V7YhdVRVyxkN__4f398IYdSaBISA_1cWSfvvsGTOZMdMV5dYtddIMD-A9JDaxrUIA2aoI6HvD0wI0g-x21yEEXBdVXAcHY3XjjDYc0uDDwLWBtsQrjnTFNeCeJzdvJjHBBg6RZVKdoN5qV7RFKU-93P7OBXeVhIeF-GxbevfOHBj0IPOhcvvymW_ypveeA6tLGVW-Ip4cx"/>
+<div class="absolute bottom-0 left-0 p-8 z-20 w-full">
+<span class="bg-secondary text-white px-3 py-1 rounded-full text-label-sm mb-4 inline-block uppercase tracking-wider">New Publication</span>
+<h3 class="font-display-lg-mobile md:font-display-lg text-white mb-2">Introduction to Quantum Mechanics</h3>
+<p class="text-white/80 font-body-md max-w-lg mb-6">Comprehensive research paper by Dr. Sarah Chen exploring the intersection of quantum entanglement and computational logic.</p>
+<button class="bg-white text-primary px-6 py-2 rounded-lg font-label-md hover:bg-surface-container-high transition-colors">Start Reading</button>
+</div>
+</div>
+<!-- Secondary Featured Stack -->
+<div class="space-y-6 flex flex-col">
+<div class="flex-1 relative rounded-xl overflow-hidden group cursor-pointer shadow-md bg-primary-container">
+<div class="p-6 h-full flex flex-col justify-between">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl">video_library</span>
+<div>
+<h4 class="text-white font-headline-sm mb-1">Advanced Calculus</h4>
+<p class="text-on-primary-container text-label-md">12 Video lectures series</p>
+</div>
+</div>
+</div>
+<div class="flex-1 glass-card rounded-xl overflow-hidden group cursor-pointer shadow-md p-6 border-secondary/20 border">
+<div class="h-full flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary text-4xl">article</span>
+<span class="text-secondary font-bold text-label-sm">PDF</span>
+</div>
+<div>
+<h4 class="text-on-surface font-headline-sm mb-1">Modern Economics 2024</h4>
+<p class="text-on-surface-variant text-label-md">Q1 Growth Trends Report</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Filter Chips -->
+<div class="flex items-center gap-3 overflow-x-auto hide-scrollbar py-2">
+<button class="bg-primary text-white px-6 py-2 rounded-full font-label-md whitespace-nowrap shadow-md">All Resources</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md whitespace-nowrap hover:border-secondary hover:text-secondary transition-colors">E-Books</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md whitespace-nowrap hover:border-secondary hover:text-secondary transition-colors">Research Papers</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md whitespace-nowrap hover:border-secondary hover:text-secondary transition-colors">Videos</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md whitespace-nowrap hover:border-secondary hover:text-secondary transition-colors">Lecture Notes</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md whitespace-nowrap hover:border-secondary hover:text-secondary transition-colors">Past Exams</button>
+</div>
+<!-- Browse Grid -->
+<section class="space-y-stack-md pb-12">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm">Browse All</h2>
+<button class="text-secondary font-label-md flex items-center gap-1">Sort by: Relevance <span class="material-symbols-outlined text-sm">expand_more</span></button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<!-- Book Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Elegant book cover for 'World History: The Modern Era'. The design uses sophisticated deep red and cream tones with a minimalist line art illustration of a world map. The typography is a clean sans-serif font, reflecting high-end academic publishing standards. The lighting is soft and flat, emphasizing texture and color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGLOWj3f2oF1xKzjP0DMInKIINcCruTJKS-thnA1iNHydyctaEqNzgoBrJ1WLXLedEWtMgIJES19pfxz6_ZHx9OrHiAoZAP6R97GxURaVRQLIx5JrjOliyfuqjCCp_ASwrjtHn7oO-sSn3ZVTHM0BEz4gTv0Iojd5bMER67fdYmrGqVtZ2KvExMzwKPWHc6YAOvKuQC_-jC4Tz9QG6QCNVDxwgTJVNeIjK6wK9ez8TjRceP32FkjJC2D4dSXy2DXtFYLoEiZKjNxyB"/>
+<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full bg-white/90 shadow-md flex items-center justify-center text-primary hover:text-secondary">
+<span class="material-symbols-outlined text-lg">bookmark</span>
+</button>
+</div>
+</div>
+<h5 class="font-label-md text-on-surface truncate">World History: The Modern Era</h5>
+<p class="text-label-sm text-on-surface-variant">Prof. James Sterling</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-sm font-bold">4.8</span>
+</div>
+</div>
+<!-- Book Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Educational video thumbnail for 'Biology: Cellular Structures'. A high-definition 3D biological rendering of a human cell with vibrant organelles in shades of purple, green, and blue. Overlaid with a subtle play icon in the center. The mood is scientific and bright, set against a dark, professional background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7wj_OJOCwZOPSWyeZBpPRoxO_rCG8kYSbz4ycNLXMQmYu4VhEhSOh6ZFWnl2xE44aAjqSH0LMpAqmmbByYQsRQBuzYARsb_jopGcgt1syou40lravuKOKClovRM3wXtNwXEzR6buZvb32WgFAWs99oPZPSoKZeT8hznprHAw963Q1Wo_tCe90I3ptnzB_x-I3_YxwW9XcOe7_DFfciYYCAE6EO85BK7eF6mL9xBskigY0E89q6jAxcpco-XcRet95PkCftNea3wnS"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-secondary/80 flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<h5 class="font-label-md text-on-surface truncate">Biology: Cellular Structures</h5>
+<p class="text-label-sm text-on-surface-variant">Dr. Maria Garcia • 45m</p>
+</div>
+<!-- Book Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Research paper cover titled 'The Future of AI in Education'. Modern minimalist cover with a light grey geometric background and clean navy blue typography. It conveys institutional authority and forward-thinking research. The light is diffused, creating a serene, scholarly atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlJw77O4XtN4oR8gu-q1dl2m_JVgxUZNn0AMrz59u-QqoKb801Xrpvy61Nm1eNMujXwM2U2PspxyIaifaetHFeURO7_woGUY2gB_IiaVEiDA2cYv2KC4Ou9EIE6VSJFTE2OyRJMKLoDrs6rWzOnza0vFs5O0aCZFxonTX-9pp3H9mur84DwuprJw2ifxOrplEPoDXeR5Vo9-SXNXXBjrdDlhPrNa7e7uFIEkq92rUXgIgMmuu4iwKBm0zbmXxSVBYLsqc_2ARYVQ-R"/>
+</div>
+<h5 class="font-label-md text-on-surface truncate">The Future of AI in Education</h5>
+<p class="text-label-sm text-on-surface-variant">EduClarity Research Group</p>
+<div class="mt-2">
+<span class="bg-surface-container text-on-surface-variant text-[10px] uppercase font-bold px-2 py-0.5 rounded">White Paper</span>
+</div>
+</div>
+<!-- Book Card 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Textbook cover for 'Linear Algebra: Concepts and Apps'. Bold mathematical symbols arranged in a sophisticated layout using a palette of slate grey and deep emerald green. The design is clean, professional, and accessible. Soft ambient lighting highlights the crisp graphic elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzuLKyQHvO3o0wZcAhwmvoGKf_Qtgge8FG6eCEuxHj7XRwzNERg6K68v3RqQgitgak2_Wy90dr7AXBIE_WxsJx0mHAeELQgxLA-XOdxXudtV-NP5N6MiVIMHCkCyf9k5g4dmwcKTHoCbkHoE6QYjWKRhWL-4C4kkTG4fbdebfBnyFSUSk_PVq6BlOGteO6SOa5Ako3fdkkJlaDIcww8kXMWrq1W6gs6FvLM7ORJXvY4OmSl8RCizyS7gEODmkW3kfIWiSrJeK8YbvP"/>
+</div>
+<h5 class="font-label-md text-on-surface truncate">Linear Algebra: Concepts & Apps</h5>
+<p class="text-label-sm text-on-surface-variant">Dr. Robert Vance</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-sm font-bold">4.9</span>
+</div>
+</div>
+<!-- Book Card 5 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Minimalist book cover for 'Creative Writing: The Narrative Flow'. Soft pastel blue background with a simple ink pen illustration. Elegant serif typography provides a contrast that suggests creativity and literary depth. The lighting is soft and even, enhancing the calm and focused aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCJd5XWLUjQpOE-zHNMyUWEacDlRqu6SdHGIxI0EvEde3F8xSdyxMNhmXvQQ2Ah2MScMWxn3BdVdwqOXO_MKpcxsRsYmuMzsIPp8K-Q9teZrQ5VPzlwCPLBSCRrkRGxFO9a6N_6uJ_C4UMNMBGy56nDOisG-OTNIoXDmqLZonrSIDFs-JURTRGoV3EGRD6_7ZI9xRJPDyV9b9c1yk_C9OR4OVgp-hcqzxoBy4J8iODVcmr8ynLbkSYx-NbPwJaDCbooGuceajXdDb7"/>
+</div>
+<h5 class="font-label-md text-on-surface truncate">Creative Writing: Narrative Flow</h5>
+<p class="text-label-sm text-on-surface-variant">Evelyn Rhodes</p>
+</div>
+<!-- Book Card 6 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Chemistry textbook cover 'Molecular Dynamics'. Detailed illustration of molecular bonds in a clean, modern style using a color scheme of deep navy and bright cyan. The image is crisp and clinical, ideal for a high-end educational platform. Bright studio lighting effect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPbQAp_Elfq0cBkDe3ZpYO1TPd8oZcSJv2mZ6wo-SBr0DvFYlBtGoOvO_fbcet7CPNtOVLBWRUb2ZJD3kivZH7TmlvIv1cbtd2TWc-iw5TsibgS8pf-vWhCXsY16QvffFF8akErlUgRYCFG-jaLN9kf2q7J3X8J1I15E5G_soehRY9-CrK6PI71M1ZNkjJrds4IvJaVUh18O1H4TOzB7cT1wEDgVz4R8_z5Eu0hcEO1qYcMqNDObOWHB_xR1L_nbl3BjHRBA3pzcJn"/>
+</div>
+<h5 class="font-label-md text-on-surface truncate">Chemistry: Molecular Dynamics</h5>
+<p class="text-label-sm text-on-surface-variant">Prof. Alan Smith</p>
+</div>
+<!-- Book Card 7 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="A video lecture series thumbnail for 'Psychology of Learning'. A warm, inviting image of a brain illustration with soft light glowing from within. The color palette consists of warm oranges and deep purples, reflecting thought and cognition. A minimalist UI overlay shows a progress bar at the bottom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP3eO3RfP5zinFANU9NjXvpcFrvx9T8BbEUn78F1epWdezB_e0LgSlwEfcCJqZ4xkXEZAl1KeMBihf_c2BdQa4l-H6cHPezfCriB3dEXVc91JTNvo-eFUbHesu1cbtAd6eDlZUiXgBJsKcdfW1zBIGTcFRiGR2h8Y6u5AQJ3Zwm1qfBwf9V1fVnioClvUqKg4sbS3zzoi-DrsjPIByW-b4BzCxTGJ0vWcjomU0009TK1BWCrYmMqaW2IBxY55uTPCDY_G-2Xp47eDk"/>
+</div>
+<h5 class="font-label-md text-on-surface truncate">Psychology of Learning</h5>
+<p class="text-label-sm text-on-surface-variant">Dr. Linda Brown • 8 Videos</p>
+</div>
+<!-- Book Card 8 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm border border-transparent group-hover:border-secondary group-hover:shadow-lg transition-all mb-3 relative">
+<img class="w-full h-full object-cover" data-alt="Educational chart collection cover 'Data Science for Beginners'. Sleek data visualizations including bar graphs and heatmaps in a modern dark-mode aesthetic with neon blue and pink highlights. The layout is structured and clean, appealing to data enthusiasts and students." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgDEk88LRaIc3sm28QFx0ToK35rfBLEtX3gkXbOoST-pbm6tl4UrTE0tBPArkSL4MtZFF__pJSMKE0UdtjxjtBgSm9EAeFmUnGyGnz0QGDJzLA0BxBcbRcXF-DCWfgZK7-C6F7YVxAP3XIVZDcZVQKN7vvdw2ho4eWrd5-NXMnPdVCpHBtLtIydv5U8KdpqIlipWoqYPKuk7MHvthbAqbO83fRqE8iT1YjNNaprPduHxamlWBnTAf4ernL3HbbsbpvgfVoh6XgJiPQ"/>
+</div>
+<h5 class="font-label-md text-on-surface truncate">Data Science for Beginners</h5>
+<p class="text-label-sm text-on-surface-variant">Tech Faculty Papers</p>
+</div>
+</div>
+<div class="flex justify-center pt-8">
+<button class="border border-outline text-primary font-label-md px-8 py-3 rounded-lg hover:bg-surface-container transition-colors">Load More Resources</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 bg-surface shadow-[0px_-4px_20px_rgba(15,23,42,0.05)] z-50 px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-sm">Homework</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">grading</span>
+<span class="font-label-sm">Grades</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_library</span>
+<span class="font-label-sm">Library</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interaction for categories
+        document.querySelectorAll('.flex.items-center.gap-3.overflow-x-auto button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.flex.items-center.gap-3.overflow-x-auto button').forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white', 'shadow-md');
+                    b.classList.add('bg-white', 'border', 'border-outline-variant', 'text-on-surface-variant');
+                });
+                this.classList.add('bg-primary', 'text-white', 'shadow-md');
+                this.classList.remove('bg-white', 'border', 'border-outline-variant', 'text-on-surface-variant');
+            });
+        });
+
+        // Hover animations for the bento grid
+        const bentoCards = document.querySelectorAll('section div.group');
+        bentoCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

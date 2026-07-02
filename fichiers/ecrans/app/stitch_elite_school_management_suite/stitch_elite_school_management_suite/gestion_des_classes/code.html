@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Clarity Portal | Class &amp; Schedule Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f7f9fb",
+                    "tertiary-fixed": "#ffdadb",
+                    "on-primary-fixed": "#131b2e",
+                    "on-background": "#191c1e",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "on-secondary-fixed": "#00201c",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#bec6e0",
+                    "secondary-container": "#6df5e1",
+                    "tertiary": "#000000",
+                    "tertiary-container": "#40000d",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006b5f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#f23d5c",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-container": "#006f64",
+                    "primary": "#000000",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-tertiary-fixed": "#40000d",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "outline": "#76777d",
+                    "surface-tint": "#565e74",
+                    "inverse-on-surface": "#eff1f3",
+                    "background": "#f7f9fb",
+                    "outline-variant": "#c6c6cd",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed": "#71f8e4",
+                    "surface-container": "#eceef0",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .schedule-grid-item:hover {
+            background-color: #f2f4f6;
+            cursor: pointer;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface shadow-[0px_4px_20px_rgba(15,23,42,0.05)] h-20 flex justify-between items-center px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="school">school</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Academic Clarity Portal</h1>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Directory</a>
+<a class="text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Profiles</a>
+<a class="text-primary font-bold border-b-2 border-primary font-label-md px-3 py-2" href="#">Classes</a>
+</nav>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-label-md font-bold text-on-surface">Principal Admin</p>
+<p class="text-label-sm text-on-surface-variant">District Office</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold shadow-sm">
+                AD
+            </div>
+</div>
+</header>
+<!-- Side Navigation (Desktop Only) -->
+<aside class="fixed left-0 top-20 h-[calc(100vh-80px)] w-72 bg-surface-container-lowest border-r border-outline-variant hidden lg:flex flex-col py-stack-lg z-40 transition-all duration-300">
+<div class="px-6 mb-8">
+<h2 class="text-label-sm font-bold uppercase tracking-wider text-outline mb-4">Core Management</h2>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all mx-2 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary" data-icon="dashboard">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all mx-2 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary" data-icon="group">group</span>
+<span class="font-label-md">Directory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all mx-2 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary" data-icon="person_search">person_search</span>
+<span class="font-label-md">Profiles</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-lg mx-2 scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="class">class</span>
+<span class="font-label-md">Classes</span>
+</a>
+</div>
+</div>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+<span class="text-label-sm font-bold text-secondary">Accredited Site</span>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-tight">Data synchronized with Central District Database (v4.2.1)</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-20 lg:pl-72 min-h-screen px-4 md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Header Section -->
+<section class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-secondary mb-1">
+<span class="material-symbols-outlined text-sm" data-icon="history_edu">history_edu</span>
+<span class="text-label-sm uppercase tracking-widest font-bold">Academic Session 2024-25</span>
+</div>
+<h2 class="text-display-lg-mobile md:text-display-lg font-display-lg text-primary leading-tight">Classes &amp; Scheduling</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Manage institutional capacity, track student distribution across sections, and optimize room allocations via our smart scheduling grid.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 rounded-lg border border-primary text-primary font-bold hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-xl" data-icon="edit_calendar">edit_calendar</span>
+                    Edit Schedule
+                </button>
+<button class="px-6 py-3 rounded-lg bg-primary text-on-primary font-bold hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg">
+<span class="material-symbols-outlined text-xl" data-icon="add_circle">add_circle</span>
+                    Assign New Class
+                </button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Class Roster (Left Side) -->
+<div class="lg:col-span-4 space-y-gutter">
+<div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
+<div class="flex items-center justify-between mb-stack-md px-2">
+<h3 class="text-headline-sm font-headline-sm text-primary">Class Roster</h3>
+<span class="text-label-sm bg-surface-container-high px-2 py-1 rounded text-on-surface-variant">8 Sections</span>
+</div>
+<div class="space-y-3">
+<!-- Class Item -->
+<div class="group p-4 bg-surface rounded-lg border border-transparent hover:border-secondary transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="text-headline-sm font-bold text-primary">11-B</span>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">STEM TRACK</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-3">
+<span class="material-symbols-outlined text-lg" data-icon="person">person</span>
+<span class="text-label-md">Dr. Alistair Thorne</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-slate-400 border-2 border-white"></div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed border-2 border-white text-[10px] font-bold text-primary">+29</div>
+</div>
+<span class="text-label-sm font-bold text-secondary">32 Students</span>
+</div>
+</div>
+<div class="group p-4 bg-surface rounded-lg border border-transparent hover:border-secondary transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="text-headline-sm font-bold text-primary">10-A</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">GEN ACADEMIC</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-3">
+<span class="material-symbols-outlined text-lg" data-icon="person">person</span>
+<span class="text-label-md">Ms. Sarah Jenkins</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white"></div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed border-2 border-white text-[10px] font-bold text-primary">+26</div>
+</div>
+<span class="text-label-sm font-bold text-secondary">28 Students</span>
+</div>
+</div>
+<div class="group p-4 bg-surface rounded-lg border border-transparent hover:border-secondary transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="text-headline-sm font-bold text-primary">12-C</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">HUMANITIES</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-3">
+<span class="material-symbols-outlined text-lg" data-icon="person">person</span>
+<span class="text-label-md">Prof. Julian Vane</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-slate-400 border-2 border-white"></div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed border-2 border-white text-[10px] font-bold text-primary">+21</div>
+</div>
+<span class="text-label-sm font-bold text-secondary">24 Students</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-stack-md py-3 text-label-md font-bold text-on-surface-variant hover:text-primary flex items-center justify-center gap-2 transition-colors">
+                        View All Classes
+                        <span class="material-symbols-outlined text-lg" data-icon="keyboard_arrow_right">keyboard_arrow_right</span>
+</button>
+</div>
+<!-- Room Availability Stats -->
+<div class="bg-primary text-on-primary rounded-xl p-stack-md shadow-lg overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="text-label-sm font-bold uppercase tracking-wider opacity-70 mb-4">Space Utilization</h3>
+<div class="flex items-end justify-between mb-4">
+<span class="text-display-lg font-display-lg">84%</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed font-bold text-[10px] px-2 py-1 rounded-full">+12% vs LY</span>
+</div>
+<p class="text-body-md opacity-80 mb-6">Classroom occupancy is at peak levels. 4 rooms available for extra-curricular booking.</p>
+<div class="h-2 w-full bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[84%] rounded-full"></div>
+</div>
+</div>
+<!-- Subtle background decoration -->
+<span class="material-symbols-outlined absolute -bottom-6 -right-6 text-[120px] opacity-10 rotate-12" data-icon="meeting_room">meeting_room</span>
+</div>
+</div>
+<!-- Scheduling Grid (Right Side) -->
+<div class="lg:col-span-8">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex flex-col h-full">
+<div class="p-stack-md border-b border-outline-variant/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h3 class="text-headline-sm font-headline-sm text-primary">Room Availability Matrix</h3>
+<p class="text-label-sm text-on-surface-variant">Live schedule for Academic Wing - Floor 2</p>
+</div>
+<div class="flex items-center gap-2 bg-surface p-1 rounded-lg border border-outline-variant/30">
+<button class="px-4 py-1.5 bg-white text-primary font-bold rounded-md shadow-sm text-label-sm transition-all">Today</button>
+<button class="px-4 py-1.5 text-on-surface-variant font-label-md hover:bg-white rounded-md transition-all">This Week</button>
+</div>
+</div>
+<div class="flex-1 overflow-x-auto custom-scrollbar">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-4 text-left text-label-sm font-bold text-on-surface-variant border-b border-outline-variant/30 sticky left-0 bg-surface-container-low z-20">ROOM / TIME</th>
+<th class="p-4 text-center text-label-sm font-bold text-on-surface-variant border-b border-outline-variant/30">08:00 AM</th>
+<th class="p-4 text-center text-label-sm font-bold text-on-surface-variant border-b border-outline-variant/30">10:00 AM</th>
+<th class="p-4 text-center text-label-sm font-bold text-on-surface-variant border-b border-outline-variant/30">12:00 PM</th>
+<th class="p-4 text-center text-label-sm font-bold text-on-surface-variant border-b border-outline-variant/30">02:00 PM</th>
+<th class="p-4 text-center text-label-sm font-bold text-on-surface-variant border-b border-outline-variant/30">04:00 PM</th>
+</tr>
+</thead>
+<tbody>
+<!-- Room Rows -->
+<tr>
+<td class="p-4 border-b border-outline-variant/30 sticky left-0 bg-white z-10">
+<p class="font-bold text-primary">Lab 201</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Chemistry</p>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-secondary-container/30 border-l-4 border-secondary p-2 rounded text-[11px]">
+<p class="font-bold text-on-secondary-container">Class 11-B</p>
+<p class="text-secondary">Chemistry Prac</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-secondary-container/30 border-l-4 border-secondary p-2 rounded text-[11px]">
+<p class="font-bold text-on-secondary-container">Class 11-C</p>
+<p class="text-secondary">Chemistry Prac</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-primary-container text-on-primary-container/80 p-2 rounded text-[11px] opacity-60">
+<p class="font-bold">Maintenance</p>
+<p>Cleaning</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-4 border-b border-outline-variant/30 sticky left-0 bg-white z-10">
+<p class="font-bold text-primary">Hall 102</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Lecture Hall</p>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-tertiary-container/10 border-l-4 border-error p-2 rounded text-[11px]">
+<p class="font-bold text-on-tertiary-fixed-variant">Class 10-A</p>
+<p class="text-on-tertiary-fixed-variant">World History</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-tertiary-container/10 border-l-4 border-error p-2 rounded text-[11px]">
+<p class="font-bold text-on-tertiary-fixed-variant">Class 10-B</p>
+<p class="text-on-tertiary-fixed-variant">World History</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-secondary-container/30 border-l-4 border-secondary p-2 rounded text-[11px]">
+<p class="font-bold text-on-secondary-container">General Body</p>
+<p class="text-secondary">Orientation</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-4 border-b border-outline-variant/30 sticky left-0 bg-white z-10">
+<p class="font-bold text-primary">Class 304</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Standard</p>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-primary-container text-on-primary-container p-2 rounded text-[11px]">
+<p class="font-bold">Class 12-C</p>
+<p class="opacity-80">Calculus II</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r">
+<div class="bg-primary-container text-on-primary-container p-2 rounded text-[11px]">
+<p class="font-bold">Staff Meeting</p>
+<p class="opacity-80">Internal</p>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 border-r group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+<td class="p-2 border-b border-outline-variant/30 group schedule-grid-item">
+<div class="flex flex-col items-center justify-center text-outline opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span class="text-[9px] font-bold">BOOK</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low flex justify-between items-center text-label-sm text-on-surface-variant rounded-b-xl">
+<div class="flex gap-4">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> Science Block</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-error"></span> Humanities</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Admin/Other</span>
+</div>
+<p>Showing 12 of 45 Rooms</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Access Section -->
+<section class="mt-stack-lg grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4">
+<div class="p-3 bg-secondary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="event_seat">event_seat</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Hall Bookings</h4>
+<p class="text-label-sm text-on-surface-variant">Reserve shared spaces for events or exams.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4">
+<div class="p-3 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Schedule History</h4>
+<p class="text-label-sm text-on-surface-variant">Review previous semesters and patterns.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4">
+<div class="p-3 bg-tertiary-fixed-dim/20 rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant" data-icon="warning">warning</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Conflict Alerts</h4>
+<p class="text-label-sm text-on-surface-variant">2 overlapping schedules detected for Friday.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest px-margin-mobile shadow-[0px_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-label-sm">Students</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+<span class="text-label-sm">Profiles</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+<span class="text-label-sm">Classes</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for schedule grid items
+        document.querySelectorAll('.schedule-grid-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const room = item.parentElement.querySelector('p.font-bold').innerText;
+                const index = Array.from(item.parentElement.children).indexOf(item);
+                const time = document.querySelectorAll('thead th')[index].innerText;
+                
+                // Visual feedback
+                item.classList.add('bg-secondary-container/20');
+                setTimeout(() => {
+                    item.classList.remove('bg-secondary-container/20');
+                    alert(`Booking interface for ${room} at ${time} would launch here.`);
+                }, 200);
+            });
+        });
+
+        // Search highlight simulation (Atmospheric)
+        window.addEventListener('load', () => {
+            console.log("Portal Initialized: Academic Session 2024-25 Ready.");
+        });
+    </script>
+</body></html>

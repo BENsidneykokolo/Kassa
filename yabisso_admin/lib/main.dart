@@ -14,6 +14,11 @@ import 'screens/settings/settings_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/vouchers/voucher_generator_screen.dart';
 import 'screens/activity/employee_activity_screen.dart';
+import 'screens/tracking/employee_tracking_screen.dart';
+import 'screens/tracking/shared_sales_screen.dart';
+import 'screens/tracking/commerce_tracking_screen.dart';
+import 'screens/candidates/candidates_screen.dart';
+import 'screens/analytics/analytics_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -34,6 +39,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/profile', builder: (ctx, state) => const ProfileScreen()),
       GoRoute(path: '/vouchers', name: 'vouchers', builder: (ctx, state) => const VoucherGeneratorScreen()),
       GoRoute(path: '/activity', builder: (ctx, state) => const EmployeeActivityScreen()),
+      GoRoute(path: '/employee-tracking', builder: (ctx, state) => const EmployeeTrackingScreen()),
+      GoRoute(path: '/shared-sales', builder: (ctx, state) => const SharedSalesScreen()),
+      GoRoute(path: '/commerce-tracking', builder: (ctx, state) => const CommerceTrackingScreen()),
+      GoRoute(path: '/candidates', builder: (ctx, state) => const CandidatesScreen()),
+      GoRoute(path: '/analytics', builder: (ctx, state) => const AnalyticsScreen()),
     ],
   );
 });

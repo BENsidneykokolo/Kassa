@@ -17,7 +17,7 @@ class DatabaseHelper {
   Future<Database> _initDB(String filePath) async {
     final dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, filePath);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 5, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -110,6 +110,153 @@ class DatabaseHelper {
         created_at TEXT
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE checkin_requests (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        employee_phone TEXT,
+        date TEXT NOT NULL,
+        check_in_time TEXT,
+        status TEXT DEFAULT 'pending',
+        reviewed_by TEXT,
+        reviewed_at TEXT,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE shared_sales_reports (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        employee_phone TEXT,
+        date TEXT NOT NULL,
+        date_display TEXT,
+        sales_count INTEGER DEFAULT 0,
+        total_amount INTEGER DEFAULT 0,
+        total_commission INTEGER DEFAULT 0,
+        salaire INTEGER DEFAULT 0,
+        sales_json TEXT,
+        status TEXT DEFAULT 'imported',
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE candidates (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        phone TEXT,
+        cv_path TEXT,
+        cv_type TEXT,
+        contact_status TEXT DEFAULT 'not_contacted',
+        presentation_status TEXT DEFAULT 'not_attended',
+        meeting_status TEXT DEFAULT 'not_come',
+        notes TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE prospectives (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT,
+        shop_name TEXT NOT NULL,
+        category TEXT,
+        owner_name TEXT,
+        owner_phone TEXT,
+        address TEXT,
+        visit_date TEXT,
+        visit_time TEXT,
+        result TEXT DEFAULT 'interested',
+        comment TEXT,
+        manager_notes TEXT,
+        manager_status TEXT DEFAULT 'pending',
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+  }
+
+  Future<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS checkin_requests (
+          id TEXT PRIMARY KEY,
+          employee_id TEXT NOT NULL,
+          employee_name TEXT NOT NULL,
+          employee_phone TEXT,
+          date TEXT NOT NULL,
+          check_in_time TEXT,
+          status TEXT DEFAULT 'pending',
+          reviewed_by TEXT,
+          reviewed_at TEXT,
+          created_at TEXT
+        )
+      ''');
+    }
+    if (oldVersion < 3) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS shared_sales_reports (
+          id TEXT PRIMARY KEY,
+          employee_id TEXT NOT NULL,
+          employee_name TEXT NOT NULL,
+          employee_phone TEXT,
+          date TEXT NOT NULL,
+          date_display TEXT,
+          sales_count INTEGER DEFAULT 0,
+          total_amount INTEGER DEFAULT 0,
+          total_commission INTEGER DEFAULT 0,
+          salaire INTEGER DEFAULT 0,
+          sales_json TEXT,
+          status TEXT DEFAULT 'imported',
+          created_at TEXT
+        )
+      ''');
+    }
+    if (oldVersion < 4) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS candidates (
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          phone TEXT,
+          cv_path TEXT,
+          cv_type TEXT,
+          contact_status TEXT DEFAULT 'not_contacted',
+          presentation_status TEXT DEFAULT 'not_attended',
+          meeting_status TEXT DEFAULT 'not_come',
+          notes TEXT,
+          created_at TEXT,
+          updated_at TEXT
+        )
+      ''');
+    }
+    if (oldVersion < 5) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS prospectives (
+          id TEXT PRIMARY KEY,
+          employee_id TEXT NOT NULL,
+          employee_name TEXT,
+          shop_name TEXT NOT NULL,
+          category TEXT,
+          owner_name TEXT,
+          owner_phone TEXT,
+          address TEXT,
+          visit_date TEXT,
+          visit_time TEXT,
+          result TEXT DEFAULT 'interested',
+          comment TEXT,
+          manager_notes TEXT,
+          manager_status TEXT DEFAULT 'pending',
+          created_at TEXT,
+          updated_at TEXT
+        )
+      ''');
+    }
   }
 
   Future<void> insert(String table, Map<String, dynamic> data) async {

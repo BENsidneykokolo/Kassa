@@ -322,6 +322,28 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             Expanded(child: _buildActionCard('Activité Employé', Icons.assignment, AppColors.primaryBlue, () => context.push('/activity'))),
           ],
         ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(child: _buildActionCard('Suivi des employés', Icons.fingerprint, AppColors.primaryAmber, () => context.push('/employee-tracking'))),
+            const SizedBox(width: 12),
+            Expanded(child: _buildActionCard('Ventes employés', Icons.receipt_long, AppColors.primaryGreen, () => context.push('/shared-sales'))),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(child: _buildActionCard('Candidats', Icons.person_search, AppColors.primaryBlue, () => context.push('/candidates'))),
+            const SizedBox(width: 12),
+            Expanded(child: _buildActionCard('Suivi commerces', Icons.store_mall_directory, AppColors.primaryGreen, () => context.push('/commerce-tracking'))),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(child: _buildActionCard('Analyse & Performance', Icons.analytics, AppColors.primaryAmber, () => context.push('/analytics'))),
+          ],
+        ),
       ],
     );
   }
@@ -420,7 +442,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           _buildNavItem(Icons.home, 'Dashboard', true, () {}),
           _buildNavItem(Icons.people, 'Employés', false, () => context.push('/employees')),
           _buildNavItem(Icons.trending_up, 'Ventes', false, () => context.push('/sales')),
-          _buildNavItem(Icons.vpn_key, 'Vouchers', false, () => context.push('/vouchers')),
+          _buildNavItem(Icons.analytics, 'Analyse', false, () => context.push('/analytics')),
           _buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')),
         ],
       ),

@@ -20,6 +20,15 @@ import 'screens/tracking/commerce_tracking_screen.dart';
 import 'screens/candidates/candidates_screen.dart';
 import 'screens/candidates/relance_screen.dart';
 import 'screens/analytics/analytics_screen.dart';
+import 'screens/rh/rh_dashboard_screen.dart';
+import 'screens/rh/leaves_screen.dart';
+import 'screens/rh/objectives_screen.dart';
+import 'screens/rh/rewards_screen.dart';
+import 'screens/rh/sanctions_screen.dart';
+import 'screens/rh/trainings_screen.dart';
+import 'screens/rh/manager_notes_screen.dart';
+import 'screens/rh/daily_reports_admin_screen.dart';
+import 'screens/rh/notifications_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -46,6 +55,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/candidates', builder: (ctx, state) => const CandidatesScreen()),
       GoRoute(path: '/relance', builder: (ctx, state) => const RelanceScreen()),
       GoRoute(path: '/analytics', builder: (ctx, state) => const AnalyticsScreen()),
+      GoRoute(path: '/rh', builder: (ctx, state) => const RhDashboardScreen()),
+      GoRoute(path: '/leaves', builder: (ctx, state) => const LeavesScreen()),
+      GoRoute(path: '/objectives', builder: (ctx, state) => const ObjectivesScreen()),
+      GoRoute(path: '/rewards', builder: (ctx, state) => const RewardsScreen()),
+      GoRoute(path: '/sanctions', builder: (ctx, state) => const SanctionsScreen()),
+      GoRoute(path: '/trainings', builder: (ctx, state) => const TrainingsScreen()),
+      GoRoute(path: '/manager-notes', builder: (ctx, state) => const ManagerNotesScreen()),
+      GoRoute(path: '/daily-reports', builder: (ctx, state) => const DailyReportsAdminScreen()),
+      GoRoute(path: '/notifications', builder: (ctx, state) => const NotificationsScreen()),
     ],
   );
 });

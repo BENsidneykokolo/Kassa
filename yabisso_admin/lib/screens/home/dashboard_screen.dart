@@ -325,6 +325,14 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         const SizedBox(height: 12),
         Row(
           children: [
+            Expanded(child: _buildActionCard('Tableau de bord RH', Icons.dashboard, AppColors.primaryGreen, () => context.push('/rh'))),
+            const SizedBox(width: 12),
+            Expanded(child: _buildActionCard('Congés', Icons.event_busy, AppColors.primaryAmber, () => context.push('/leaves'))),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
             Expanded(child: _buildActionCard('Suivi des employés', Icons.fingerprint, AppColors.primaryAmber, () => context.push('/employee-tracking'))),
             const SizedBox(width: 12),
             Expanded(child: _buildActionCard('Ventes employés', Icons.receipt_long, AppColors.primaryGreen, () => context.push('/shared-sales'))),

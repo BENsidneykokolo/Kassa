@@ -17,7 +17,7 @@ class DatabaseHelper {
   Future<Database> _initDB(String filePath) async {
     final dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, filePath);
-    return await openDatabase(path, version: 6, onCreate: _createDB, onUpgrade: _upgradeDB);
+    return await openDatabase(path, version: 7, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -183,6 +183,197 @@ class DatabaseHelper {
         updated_at TEXT
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE employee_profiles (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        email TEXT,
+        photo_path TEXT,
+        department TEXT,
+        position TEXT,
+        manager_id TEXT,
+        manager_name TEXT,
+        hire_date TEXT,
+        status TEXT DEFAULT 'active',
+        contract_type TEXT,
+        address TEXT,
+        emergency_contact TEXT,
+        emergency_phone TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE employee_documents (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        doc_type TEXT NOT NULL,
+        doc_name TEXT NOT NULL,
+        file_path TEXT,
+        notes TEXT,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE leaves (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        leave_type TEXT NOT NULL,
+        start_date TEXT NOT NULL,
+        end_date TEXT NOT NULL,
+        days INTEGER DEFAULT 1,
+        reason TEXT,
+        status TEXT DEFAULT 'pending',
+        reviewed_by TEXT,
+        reviewed_at TEXT,
+        review_comment TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE objectives (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        target_value INTEGER DEFAULT 0,
+        current_value INTEGER DEFAULT 0,
+        unit TEXT DEFAULT '',
+        period TEXT DEFAULT 'monthly',
+        start_date TEXT,
+        end_date TEXT,
+        status TEXT DEFAULT 'active',
+        created_by TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE rewards (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        reward_type TEXT NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        date TEXT NOT NULL,
+        awarded_by TEXT,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE sanctions (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        sanction_type TEXT NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        date TEXT NOT NULL,
+        issued_by TEXT,
+        status TEXT DEFAULT 'active',
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE trainings (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        description TEXT,
+        trainer TEXT,
+        duration_hours INTEGER DEFAULT 0,
+        date TEXT,
+        status TEXT DEFAULT 'planned',
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE employee_trainings (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        training_id TEXT NOT NULL,
+        training_title TEXT NOT NULL,
+        status TEXT DEFAULT 'enrolled',
+        completion_date TEXT,
+        score INTEGER,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE manager_notes (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        note TEXT NOT NULL,
+        category TEXT DEFAULT 'general',
+        sentiment TEXT DEFAULT 'neutral',
+        created_by TEXT,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE daily_reports (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        date TEXT NOT NULL,
+        shops_visited INTEGER DEFAULT 0,
+        demonstrations INTEGER DEFAULT 0,
+        subscriptions INTEGER DEFAULT 0,
+        sales_count INTEGER DEFAULT 0,
+        difficulties TEXT,
+        suggestions TEXT,
+        general_notes TEXT,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE notifications (
+        id TEXT PRIMARY KEY,
+        user_id TEXT,
+        user_role TEXT,
+        title TEXT NOT NULL,
+        body TEXT NOT NULL,
+        type TEXT DEFAULT 'info',
+        is_read INTEGER DEFAULT 0,
+        reference_id TEXT,
+        reference_type TEXT,
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE attendance (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        date TEXT NOT NULL,
+        check_in TEXT,
+        check_out TEXT,
+        status TEXT DEFAULT 'present',
+        is_late INTEGER DEFAULT 0,
+        early_departure INTEGER DEFAULT 0,
+        overtime_hours REAL DEFAULT 0,
+        notes TEXT,
+        created_at TEXT
+      )
+    ''');
   }
 
   Future<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
@@ -264,6 +455,73 @@ class DatabaseHelper {
       await db.execute('ALTER TABLE candidates ADD COLUMN relance_status TEXT DEFAULT \'active\'');
       await db.execute('ALTER TABLE candidates ADD COLUMN relance_stage TEXT');
       await db.execute('ALTER TABLE candidates ADD COLUMN last_contact_date TEXT');
+    }
+    if (oldVersion < 7) {
+      await db.execute('''CREATE TABLE IF NOT EXISTS employee_profiles (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, email TEXT, photo_path TEXT,
+        department TEXT, position TEXT, manager_id TEXT, manager_name TEXT,
+        hire_date TEXT, status TEXT DEFAULT 'active', contract_type TEXT, address TEXT,
+        emergency_contact TEXT, emergency_phone TEXT, created_at TEXT, updated_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS employee_documents (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, doc_type TEXT NOT NULL,
+        doc_name TEXT NOT NULL, file_path TEXT, notes TEXT, created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS leaves (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        leave_type TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL,
+        days INTEGER DEFAULT 1, reason TEXT, status TEXT DEFAULT 'pending',
+        reviewed_by TEXT, reviewed_at TEXT, review_comment TEXT, created_at TEXT, updated_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS objectives (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        title TEXT NOT NULL, description TEXT, target_value INTEGER DEFAULT 0,
+        current_value INTEGER DEFAULT 0, unit TEXT DEFAULT '', period TEXT DEFAULT 'monthly',
+        start_date TEXT, end_date TEXT, status TEXT DEFAULT 'active', created_by TEXT,
+        created_at TEXT, updated_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS rewards (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        reward_type TEXT NOT NULL, title TEXT NOT NULL, description TEXT, date TEXT NOT NULL,
+        awarded_by TEXT, created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS sanctions (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        sanction_type TEXT NOT NULL, title TEXT NOT NULL, description TEXT, date TEXT NOT NULL,
+        issued_by TEXT, status TEXT DEFAULT 'active', created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS trainings (
+        id TEXT PRIMARY KEY, title TEXT NOT NULL, description TEXT, trainer TEXT,
+        duration_hours INTEGER DEFAULT 0, date TEXT, status TEXT DEFAULT 'planned',
+        created_at TEXT, updated_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS employee_trainings (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        training_id TEXT NOT NULL, training_title TEXT NOT NULL, status TEXT DEFAULT 'enrolled',
+        completion_date TEXT, score INTEGER, created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS manager_notes (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        note TEXT NOT NULL, category TEXT DEFAULT 'general', sentiment TEXT DEFAULT 'neutral',
+        created_by TEXT, created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS daily_reports (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        date TEXT NOT NULL, shops_visited INTEGER DEFAULT 0, demonstrations INTEGER DEFAULT 0,
+        subscriptions INTEGER DEFAULT 0, sales_count INTEGER DEFAULT 0, difficulties TEXT,
+        suggestions TEXT, general_notes TEXT, created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS notifications (
+        id TEXT PRIMARY KEY, user_id TEXT, user_role TEXT, title TEXT NOT NULL,
+        body TEXT NOT NULL, type TEXT DEFAULT 'info', is_read INTEGER DEFAULT 0,
+        reference_id TEXT, reference_type TEXT, created_at TEXT
+      )''');
+      await db.execute('''CREATE TABLE IF NOT EXISTS attendance (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        date TEXT NOT NULL, check_in TEXT, check_out TEXT, status TEXT DEFAULT 'present',
+        is_late INTEGER DEFAULT 0, early_departure INTEGER DEFAULT 0, overtime_hours REAL DEFAULT 0,
+        notes TEXT, created_at TEXT
+      )''');
     }
   }
 

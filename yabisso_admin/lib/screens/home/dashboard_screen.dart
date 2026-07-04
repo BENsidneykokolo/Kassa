@@ -341,6 +341,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         const SizedBox(height: 12),
         Row(
           children: [
+            Expanded(child: _buildActionCard('Relance', Icons.phone_callback, AppColors.primaryAmber, () => context.push('/relance'))),
+            const SizedBox(width: 12),
             Expanded(child: _buildActionCard('Analyse & Performance', Icons.analytics, AppColors.primaryAmber, () => context.push('/analytics'))),
           ],
         ),

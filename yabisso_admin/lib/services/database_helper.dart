@@ -17,7 +17,7 @@ class DatabaseHelper {
   Future<Database> _initDB(String filePath) async {
     final dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, filePath);
-    return await openDatabase(path, version: 5, onCreate: _createDB, onUpgrade: _upgradeDB);
+    return await openDatabase(path, version: 6, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -154,6 +154,9 @@ class DatabaseHelper {
         contact_status TEXT DEFAULT 'not_contacted',
         presentation_status TEXT DEFAULT 'not_attended',
         meeting_status TEXT DEFAULT 'not_come',
+        relance_status TEXT DEFAULT 'active',
+        relance_stage TEXT,
+        last_contact_date TEXT,
         notes TEXT,
         created_at TEXT,
         updated_at TEXT
@@ -256,6 +259,11 @@ class DatabaseHelper {
           updated_at TEXT
         )
       ''');
+    }
+    if (oldVersion < 6) {
+      await db.execute('ALTER TABLE candidates ADD COLUMN relance_status TEXT DEFAULT \'active\'');
+      await db.execute('ALTER TABLE candidates ADD COLUMN relance_stage TEXT');
+      await db.execute('ALTER TABLE candidates ADD COLUMN last_contact_date TEXT');
     }
   }
 

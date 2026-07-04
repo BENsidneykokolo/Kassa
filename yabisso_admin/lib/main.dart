@@ -18,6 +18,7 @@ import 'screens/tracking/employee_tracking_screen.dart';
 import 'screens/tracking/shared_sales_screen.dart';
 import 'screens/tracking/commerce_tracking_screen.dart';
 import 'screens/candidates/candidates_screen.dart';
+import 'screens/candidates/relance_screen.dart';
 import 'screens/analytics/analytics_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -43,6 +44,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/shared-sales', builder: (ctx, state) => const SharedSalesScreen()),
       GoRoute(path: '/commerce-tracking', builder: (ctx, state) => const CommerceTrackingScreen()),
       GoRoute(path: '/candidates', builder: (ctx, state) => const CandidatesScreen()),
+      GoRoute(path: '/relance', builder: (ctx, state) => const RelanceScreen()),
       GoRoute(path: '/analytics', builder: (ctx, state) => const AnalyticsScreen()),
     ],
   );

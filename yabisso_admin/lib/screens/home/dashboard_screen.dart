@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/app_theme.dart';
 import '../../providers/providers.dart';
 import '../../services/ai_service.dart';
+import '../../services/permissions_service.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -14,6 +15,12 @@ class DashboardScreen extends ConsumerStatefulWidget {
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   static const _primary = AppColors.primaryGreen;
   static const _bg = AppColors.background;
+
+  bool _hasPermission(String permission) {
+    final admin = ref.read(currentAdminProvider);
+    if (admin == null) return false;
+    return PermissionsService.instance.hasPermission(admin.role, permission);
+  }
 
   @override
   void initState() {
@@ -50,7 +57,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(admin.name, admin.initials),
+                _buildHeader(admin.name, admin.initials, admin.role),
                 const SizedBox(height: 20),
                 _buildStatsGrid(statsAsync),
                 const SizedBox(height: 20),
@@ -69,7 +76,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     );
   }
 
-  Widget _buildHeader(String name, String initials) {
+  Widget _buildHeader(String name, String initials, String role) {
     final now = DateTime.now();
     final greeting = now.hour < 12 ? 'Bonjour' : (now.hour < 18 ? 'Bon après-midi' : 'Bonsoir');
     return Row(
@@ -84,7 +91,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('$greeting, $name', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              Text('Tableau de bord Super Admin', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+              Text('Tableau de bord ${PermissionsService.instance.getRoleLabel(role)}', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
             ],
           ),
         ),
@@ -95,6 +102,37 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: const Icon(Icons.notifications_outlined, color: AppColors.primaryAmber, size: 22),
+        ),
+        const SizedBox(width: 8),
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                title: const Text('Déconnexion'),
+                content: const Text('Voulez-vous vous déconnecter ?'),
+                actions: [
+                  TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Annuler')),
+                  TextButton(
+                    onPressed: () {
+                      ref.read(currentAdminProvider.notifier).state = null;
+                      Navigator.pop(ctx);
+                      context.go('/login');
+                    },
+                    child: const Text('Se déconnecter', style: TextStyle(color: AppColors.primaryRed)),
+                  ),
+                ],
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.primaryRed.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Icon(Icons.logout, color: AppColors.primaryRed, size: 22),
+          ),
         ),
       ],
     );
@@ -290,70 +328,121 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   Widget _buildQuickActions() {
+    final actions = <Widget>[];
+
+    if (_hasPermission('employees_view')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Employés', Icons.people, _primary, () => context.push('/employees'))),
+          const SizedBox(width: 12),
+          if (_hasPermission('analytics_view'))
+            Expanded(child: _buildActionCard('Ventes', Icons.trending_up, AppColors.primaryBlue, () => context.push('/sales'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('tasks_view')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Assignations', Icons.assignment, AppColors.primaryAmber, () => context.push('/assignments'))),
+          const SizedBox(width: 12),
+          Expanded(child: _buildActionCard('IA Marketing', Icons.campaign, AppColors.primaryRed, () => context.push('/ai-marketing'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('vouchers_generate')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Générateur de vouchers', Icons.vpn_key, AppColors.primaryGreen, () => context.push('/voucher-generator'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('attendance_view')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Activité Employé', Icons.assignment, AppColors.primaryBlue, () => context.push('/employee-activity'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('leaves_view') || _hasPermission('objectives_view')) {
+      actions.add(Row(
+        children: [
+          if (_hasPermission('objectives_view'))
+            Expanded(child: _buildActionCard('Tableau de bord RH', Icons.dashboard, AppColors.primaryGreen, () => context.push('/rh-dashboard'))),
+          if (_hasPermission('objectives_view') && _hasPermission('leaves_view'))
+            const SizedBox(width: 12),
+          if (_hasPermission('leaves_view'))
+            Expanded(child: _buildActionCard('Congés', Icons.event_busy, AppColors.primaryAmber, () => context.push('/leaves'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('attendance_view')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Suivi des employés', Icons.fingerprint, AppColors.primaryAmber, () => context.push('/employee-tracking'))),
+          const SizedBox(width: 12),
+          Expanded(child: _buildActionCard('Ventes employés', Icons.receipt_long, AppColors.primaryGreen, () => context.push('/shared-sales'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Démarchage importés', Icons.store_mall_directory, AppColors.primaryAmber, () => context.push('/shared-prospections'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('candidates_view')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Candidats', Icons.person_search, AppColors.primaryBlue, () => context.push('/candidates'))),
+          const SizedBox(width: 12),
+          Expanded(child: _buildActionCard('Suivi commerces', Icons.store_mall_directory, AppColors.primaryGreen, () => context.push('/commerce-tracking'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('prospectives_view')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Relance', Icons.phone_callback, AppColors.primaryAmber, () => context.push('/relance'))),
+          const SizedBox(width: 12),
+          if (_hasPermission('analytics_view'))
+            Expanded(child: _buildActionCard('Analyse & Performance', Icons.analytics, AppColors.primaryAmber, () => context.push('/analytics'))),
+        ],
+      ));
+      actions.add(const SizedBox(height: 12));
+    }
+
+    if (_hasPermission('reports_export')) {
+      actions.add(Row(
+        children: [
+          Expanded(child: _buildActionCard('Export PDF', Icons.file_download, AppColors.primaryGreen, () => context.push('/export'))),
+        ],
+      ));
+    }
+
+    if (actions.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Actions rapides', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Employés', Icons.people, _primary, () => context.push('/employees'))),
-            const SizedBox(width: 12),
-            Expanded(child: _buildActionCard('Ventes', Icons.trending_up, AppColors.primaryBlue, () => context.push('/sales'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Assignations', Icons.assignment, AppColors.primaryAmber, () => context.push('/assignments'))),
-            const SizedBox(width: 12),
-            Expanded(child: _buildActionCard('IA Marketing', Icons.campaign, AppColors.primaryRed, () => context.push('/ai-marketing'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Générateur de vouchers', Icons.vpn_key, AppColors.primaryGreen, () => context.push('/vouchers'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Activité Employé', Icons.assignment, AppColors.primaryBlue, () => context.push('/activity'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Tableau de bord RH', Icons.dashboard, AppColors.primaryGreen, () => context.push('/rh'))),
-            const SizedBox(width: 12),
-            Expanded(child: _buildActionCard('Congés', Icons.event_busy, AppColors.primaryAmber, () => context.push('/leaves'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Suivi des employés', Icons.fingerprint, AppColors.primaryAmber, () => context.push('/employee-tracking'))),
-            const SizedBox(width: 12),
-            Expanded(child: _buildActionCard('Ventes employés', Icons.receipt_long, AppColors.primaryGreen, () => context.push('/shared-sales'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Candidats', Icons.person_search, AppColors.primaryBlue, () => context.push('/candidates'))),
-            const SizedBox(width: 12),
-            Expanded(child: _buildActionCard('Suivi commerces', Icons.store_mall_directory, AppColors.primaryGreen, () => context.push('/commerce-tracking'))),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildActionCard('Relance', Icons.phone_callback, AppColors.primaryAmber, () => context.push('/relance'))),
-            const SizedBox(width: 12),
-            Expanded(child: _buildActionCard('Analyse & Performance', Icons.analytics, AppColors.primaryAmber, () => context.push('/analytics'))),
-          ],
-        ),
+        ...actions,
       ],
     );
   }
@@ -440,6 +529,21 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   Widget _buildBottomNav(BuildContext context) {
+    final items = <Widget>[
+      _buildNavItem(Icons.home, 'Dashboard', true, () {}),
+    ];
+
+    if (_hasPermission('employees_view')) {
+      items.add(_buildNavItem(Icons.people, 'Employés', false, () => context.push('/employees')));
+    }
+
+    if (_hasPermission('analytics_view')) {
+      items.add(_buildNavItem(Icons.trending_up, 'Ventes', false, () => context.push('/sales')));
+      items.add(_buildNavItem(Icons.analytics, 'Analyse', false, () => context.push('/analytics')));
+    }
+
+    items.add(_buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')));
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -448,13 +552,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildNavItem(Icons.home, 'Dashboard', true, () {}),
-          _buildNavItem(Icons.people, 'Employés', false, () => context.push('/employees')),
-          _buildNavItem(Icons.trending_up, 'Ventes', false, () => context.push('/sales')),
-          _buildNavItem(Icons.analytics, 'Analyse', false, () => context.push('/analytics')),
-          _buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')),
-        ],
+        children: items,
       ),
     );
   }

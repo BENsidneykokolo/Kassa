@@ -223,7 +223,7 @@ class _ManagerNotesScreenState extends ConsumerState<ManagerNotesScreen> {
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
-                      initialValue: _selectedEmployeeId,
+                      value: _selectedEmployeeId,
                       decoration: InputDecoration(
                         labelText: 'Employé',
                         border: OutlineInputBorder(
@@ -256,7 +256,7 @@ class _ManagerNotesScreenState extends ConsumerState<ManagerNotesScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      initialValue: _selectedCategory,
+                      value: _selectedCategory,
                       decoration: InputDecoration(
                         labelText: 'Catégorie',
                         border: OutlineInputBorder(
@@ -276,7 +276,7 @@ class _ManagerNotesScreenState extends ConsumerState<ManagerNotesScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      initialValue: _selectedSentiment,
+                      value: _selectedSentiment,
                       decoration: InputDecoration(
                         labelText: 'Sentiment',
                         border: OutlineInputBorder(

@@ -57,13 +57,33 @@ class _ObjectivesScreenState extends ConsumerState<ObjectivesScreen> {
   Future<void> _incrementObjective(Map<String, dynamic> obj) async {
     final newCurrent = (obj['current_value'] as int) + 1;
     final newStatus = newCurrent >= (obj['target_value'] as int) ? 'completed' : obj['status'];
+    final now = DateTime.now().toIso8601String();
+    
     await DatabaseHelper.instance.update('objectives', {
       'current_value': newCurrent,
       'status': newStatus,
-      'updated_at': DateTime.now().toIso8601String(),
+      'updated_at': now,
     }, obj['id']);
+    
     final admin = ref.read(currentAdminProvider);
     await DatabaseHelper.instance.logActivity(admin?.id, 'objective_incremented', 'Objectif "${obj['title']}" incrementé à $newCurrent');
+    
+    // Auto notification when objective is completed
+    if (newStatus == 'completed') {
+      await DatabaseHelper.instance.insert('notifications', {
+        'id': const Uuid().v4(),
+        'user_id': obj['employee_id'],
+        'user_role': 'employee',
+        'title': 'Objectif atteint!',
+        'body': 'Félicitations! Vous avez atteint l\'objectif: ${obj['title']}',
+        'type': 'objective_completed',
+        'is_read': 0,
+        'reference_id': obj['id'],
+        'reference_type': 'objective',
+        'created_at': now,
+      });
+    }
+    
     _loadData();
   }
 
@@ -92,7 +112,7 @@ class _ObjectivesScreenState extends ConsumerState<ObjectivesScreen> {
                 const Text('Nouvel objectif', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedEmployee,
+                  value: selectedEmployee,
                   decoration: InputDecoration(labelText: 'Employé', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _employees.map((e) => DropdownMenuItem(value: e['id'] as String, child: Text(e['name'] as String))).toList(),
                   onChanged: (v) => setModalState(() => selectedEmployee = v),
@@ -116,14 +136,14 @@ class _ObjectivesScreenState extends ConsumerState<ObjectivesScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedUnit,
+                  value: selectedUnit,
                   decoration: InputDecoration(labelText: 'Unité', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _units.map((u) => DropdownMenuItem(value: u, child: Text(u))).toList(),
                   onChanged: (v) => setModalState(() => selectedUnit = v ?? selectedUnit),
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedPeriod,
+                  value: selectedPeriod,
                   decoration: InputDecoration(labelText: 'Période', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _periods.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value))).toList(),
                   onChanged: (v) => setModalState(() => selectedPeriod = v ?? selectedPeriod),
@@ -167,6 +187,20 @@ class _ObjectivesScreenState extends ConsumerState<ObjectivesScreen> {
                         'updated_at': now,
                       });
                       await db.logActivity(admin?.id, 'objective_created', 'Objectif "${titleController.text}" créé pour ${emp['name']}');
+                      
+                      // Auto notification
+                      await db.insert('notifications', {
+                        'id': const Uuid().v4(),
+                        'user_id': selectedEmployee,
+                        'user_role': 'employee',
+                        'title': 'Nouvel objectif',
+                        'body': 'Un nouvel objectif vous a été assigné: ${titleController.text}',
+                        'type': 'objective',
+                        'is_read': 0,
+                        'reference_id': null,
+                        'reference_type': 'objective',
+                        'created_at': now,
+                      });
                       _loadData();
                       if (mounted) Navigator.pop(ctx);
                     },

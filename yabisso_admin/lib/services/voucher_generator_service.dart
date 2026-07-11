@@ -3,7 +3,6 @@ import 'dart:math';
 class VoucherGeneratorService {
   static const _chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   static const _planChars = {'MICRO': 'M', 'BASIC': 'B', 'PREMIUM': 'P', 'UNLIMITED': 'U'};
-  static const _businessPrefixes = {'boutique': 'B', 'restaurant': 'R', 'hotel': 'H'};
 
   static String _hashId(String id) {
     int hash = 0;
@@ -42,5 +41,12 @@ class VoucherGeneratorService {
     final hexPoints = points.toRadixString(16).toUpperCase().padLeft(3, '0');
     final check = _randomChars(2);
     return 'PTS-$hash-$hexPoints-$check';
+  }
+
+  /// Generate an online voucher code (not tied to any boutique)
+  static String generateOnlineVoucher() {
+    final part1 = _randomChars(4);
+    final part2 = _randomChars(4);
+    return 'YAB-$part1-$part2';
   }
 }

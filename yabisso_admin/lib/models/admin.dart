@@ -68,6 +68,8 @@ class Admin {
     'admin',
     'hr_manager',
     'marketing_director',
+    'manager',
+    'superviseur',
   ];
 
   static const Map<String, String> roleLabels = {
@@ -75,5 +77,7 @@ class Admin {
     'admin': 'Admin',
     'hr_manager': 'Directeur RH',
     'marketing_director': 'Directeur Marketing',
+    'manager': 'Manager',
+    'superviseur': 'Superviseur',
   };
 }

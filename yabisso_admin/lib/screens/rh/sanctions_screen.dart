@@ -99,7 +99,7 @@ class _SanctionsScreenState extends ConsumerState<SanctionsScreen> {
                 ),
                 const SizedBox(height: 20),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedEmployee,
+                  value: selectedEmployee,
                   decoration: InputDecoration(
                     labelText: 'Employé',
                     border: OutlineInputBorder(
@@ -116,7 +116,7 @@ class _SanctionsScreenState extends ConsumerState<SanctionsScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedType,
+                  value: selectedType,
                   decoration: InputDecoration(
                     labelText: 'Type de sanction',
                     border: OutlineInputBorder(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../core/app_theme.dart';
 import '../../models/employee.dart';
 import '../../providers/providers.dart';
@@ -104,7 +105,7 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
 
   Widget _buildEmployeeCard(Employee employee) {
     return GestureDetector(
-      onTap: () => context.push('/employee-detail/${employee.id}'),
+      onTap: () => context.push('/employee-detail?id=${employee.id}'),
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.all(14),
@@ -155,6 +156,7 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
   void _showAddEmployeeDialog() {
     final nameController = TextEditingController();
     final phoneController = TextEditingController();
+    final idController = TextEditingController();
     String selectedRole = 'prestataire';
 
     showModalBottomSheet(
@@ -175,6 +177,41 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
             children: [
               const Text('Ajouter un employé', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => _scanEmployeeQr(ctx, setModalState, nameController, phoneController, idController),
+                  icon: const Icon(Icons.qr_code_scanner, size: 20),
+                  label: const Text('Scanner QR Code de l\'employé'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.primaryBlue,
+                    side: const BorderSide(color: AppColors.primaryBlue),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(child: Divider(color: Colors.grey[300])),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text('ou saisie manuelle', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                  ),
+                  Expanded(child: Divider(color: Colors.grey[300])),
+                ],
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: idController,
+                decoration: InputDecoration(
+                  labelText: 'ID de l\'employé',
+                  hintText: 'Ex: EMP-001 (laisser vide pour auto)',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 16),
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
@@ -193,7 +230,7 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                initialValue: selectedRole,
+                value: selectedRole,
                 decoration: InputDecoration(
                   labelText: 'Rôle',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -212,11 +249,175 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
                   onPressed: () async {
                     if (nameController.text.isEmpty || phoneController.text.isEmpty) return;
                     final db = DatabaseHelper.instance;
-                    final id = const Uuid().v4();
+                    final id = idController.text.isNotEmpty ? idController.text : const Uuid().v4();
                     final now = DateTime.now().toIso8601String();
                     final initials = nameController.text.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
                     final employee = Employee(
                       id: id, name: nameController.text, phone: phoneController.text,
+                      role: selectedRole, initials: initials, createdAt: now, updatedAt: now,
+                    );
+                    await db.insert('employees', employee.toMap());
+                    ref.invalidate(employeesProvider);
+                    if (mounted) Navigator.pop(ctx);
+                  },
+                  child: const Text('Ajouter'),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _scanEmployeeQr(BuildContext ctx, StateSetter setModalState, TextEditingController nameController, TextEditingController phoneController, TextEditingController idController) {
+    Navigator.pop(ctx);
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setDialogState) => Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SizedBox(
+              width: 320,
+              height: 400,
+              child: Stack(
+                children: [
+                  MobileScanner(
+                    onDetect: (capture) {
+                      final barcode = capture.barcodes.first;
+                      final raw = barcode.rawValue ?? '';
+                      if (raw.startsWith('YABISSO_EMP:')) {
+                        final parts = raw.split(':');
+                        if (parts.length >= 2) {
+                          final empId = parts[1];
+                          Navigator.pop(ctx);
+                          _showAddEmployeeFromQr(empId);
+                        }
+                      } else if (!raw.contains('{')) {
+                        Navigator.pop(ctx);
+                        _showAddEmployeeFromQr(raw);
+                      }
+                    },
+                  ),
+                  Positioned(
+                    top: 12, left: 12,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black45,
+                      child: IconButton(
+                        icon: const Icon(Icons.close, color: Colors.white, size: 20),
+                        onPressed: () => Navigator.pop(ctx),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20, left: 0, right: 0,
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(8)),
+                        child: const Text('Scannez le QR code de l\'employé', style: TextStyle(color: Colors.white, fontSize: 13)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showAddEmployeeFromQr(String employeeId) async {
+    final nameController = TextEditingController();
+    final phoneController = TextEditingController();
+    String selectedRole = 'prestataire';
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setModalState) => Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(ctx).viewInsets.bottom,
+            left: 24, right: 24, top: 24,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.qr_code, color: AppColors.primaryBlue, size: 22),
+                  const SizedBox(width: 8),
+                  const Text('Ajouter employé via QR', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryBlue.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.info_outline, size: 16, color: AppColors.primaryBlue),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text('ID scanné: ${employeeId.substring(0, 12)}...', style: TextStyle(fontSize: 12, color: Colors.grey[700], fontFamily: 'monospace')),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: 'Nom complet',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: 'Téléphone',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                value: selectedRole,
+                decoration: InputDecoration(
+                  labelText: 'Rôle',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'prestataire', child: Text('Prestataire')),
+                  DropdownMenuItem(value: 'commercial', child: Text('Commercial')),
+                  DropdownMenuItem(value: 'manager', child: Text('Manager')),
+                ],
+                onChanged: (v) => setModalState(() => selectedRole = v ?? 'prestataire'),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity, height: 48,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (nameController.text.isEmpty || phoneController.text.isEmpty) return;
+                    final db = DatabaseHelper.instance;
+                    final now = DateTime.now().toIso8601String();
+                    final initials = nameController.text.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
+                    final employee = Employee(
+                      id: employeeId, name: nameController.text, phone: phoneController.text,
                       role: selectedRole, initials: initials, createdAt: now, updatedAt: now,
                     );
                     await db.insert('employees', employee.toMap());

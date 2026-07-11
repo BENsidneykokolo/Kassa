@@ -72,14 +72,14 @@ class _LeavesScreenState extends ConsumerState<LeavesScreen> {
                 const Text('Nouvelle demande de congé', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedEmployee,
+                  value: selectedEmployee,
                   decoration: InputDecoration(labelText: 'Employé', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _employees.map((e) => DropdownMenuItem(value: e['id'] as String, child: Text(e['name'] as String))).toList(),
                   onChanged: (v) => setModalState(() => selectedEmployee = v),
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedType,
+                  value: selectedType,
                   decoration: InputDecoration(labelText: 'Type de congé', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _leaveTypes.map((t) => DropdownMenuItem(value: t, child: Text(t))).toList(),
                   onChanged: (v) => setModalState(() => selectedType = v ?? selectedType),
@@ -128,6 +128,14 @@ class _LeavesScreenState extends ConsumerState<LeavesScreen> {
                         'status': 'pending',
                         'created_at': now,
                         'updated_at': now,
+                      });
+                      await db.insert('notifications', {
+                        'id': const Uuid().v4(),
+                        'title': 'Demande de congé',
+                        'body': '${emp['name']} demande un congé du ${startDate.toIso8601String().substring(0, 10)} au ${endDate.toIso8601String().substring(0, 10)}',
+                        'type': 'warning',
+                        'reference_type': 'leave',
+                        'created_at': now,
                       });
                       await db.logActivity(ref.read(currentAdminProvider)?.id, 'leave_created', 'Demande de congé pour ${emp['name']}');
                       _loadData();

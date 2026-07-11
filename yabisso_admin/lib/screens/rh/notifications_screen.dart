@@ -299,7 +299,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      initialValue: _selectedType,
+                      value: _selectedType,
                       decoration: InputDecoration(
                         labelText: 'Type',
                         border: OutlineInputBorder(
@@ -327,7 +327,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      initialValue: _selectedTargetRole,
+                      value: _selectedTargetRole,
                       decoration: InputDecoration(
                         labelText: 'Rôle cible',
                         border: OutlineInputBorder(

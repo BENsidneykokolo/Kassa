@@ -99,6 +99,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
     context.go('/');
   }
 
+  bool _loading = false;
+
   Future<void> _register() async {
     if (_nameController.text.isEmpty || _phoneController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -106,32 +108,59 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
       );
       return;
     }
-    final admin = await AuthService.instance.register(
-      _nameController.text, _phoneController.text, _selectedRole,
-    );
-    setState(() {
-      _selectedAdmin = admin;
-      _showPinEntry = true;
-      _isFirstTime = true;
-      _isLogin = true;
-    });
+    setState(() => _loading = true);
+    try {
+      final admin = await AuthService.instance.register(
+        _nameController.text, _phoneController.text, _selectedRole,
+      );
+      if (mounted) {
+        setState(() {
+          _selectedAdmin = admin;
+          _showPinEntry = true;
+          _isFirstTime = true;
+          _isLogin = true;
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _loading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur inscription: $e'), backgroundColor: AppColors.primaryRed),
+        );
+      }
+    }
   }
 
   Future<void> _handleLogin() async {
-    final admin = await AuthService.instance.loginByPhone(_phoneController.text);
-    if (admin == null) {
+    setState(() => _loading = true);
+    try {
+      final admin = await AuthService.instance.loginByPhone(_phoneController.text);
+      if (admin == null) {
+        if (mounted) {
+          setState(() => _loading = false);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Aucun compte trouvé'), backgroundColor: AppColors.primaryRed),
+          );
+        }
+        return;
+      }
       if (mounted) {
+        setState(() {
+          _selectedAdmin = admin;
+          _showPinEntry = true;
+          _isFirstTime = admin.pinHash == null;
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _loading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Aucun compte trouvé'), backgroundColor: AppColors.primaryRed),
+          SnackBar(content: Text('Erreur connexion: $e'), backgroundColor: AppColors.primaryRed),
         );
       }
-      return;
     }
-    setState(() {
-      _selectedAdmin = admin;
-      _showPinEntry = true;
-      _isFirstTime = admin.pinHash == null;
-    });
   }
 
   @override
@@ -251,8 +280,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
         SizedBox(
           width: double.infinity, height: 52,
           child: ElevatedButton(
-            onPressed: _handleLogin,
-            child: const Text('Se connecter', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            onPressed: _loading ? null : _handleLogin,
+            child: _loading
+                ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                : const Text('Se connecter', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
       ],
@@ -271,8 +302,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
         SizedBox(
           width: double.infinity, height: 52,
           child: ElevatedButton(
-            onPressed: _register,
-            child: const Text('S\'inscrire', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            onPressed: _loading ? null : _register,
+            child: _loading
+                ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                : const Text('S\'inscrire', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
       ],

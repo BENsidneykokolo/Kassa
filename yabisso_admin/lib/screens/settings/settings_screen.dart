@@ -42,6 +42,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             _buildSection('Données', [
               _buildActionTile('Exporter les données', 'Télécharger un CSV de toutes les données', Icons.file_download_outlined, () => _showExportDialog()),
               _buildActionTile('Synchroniser', 'Synchroniser avec le serveur', Icons.sync, () => _showSyncDialog()),
+              _buildActionTile('Import / Export Pack', 'Sauvegarder, restaurer ou envoyer des tâches', Icons.inventory_2, () => context.push('/pack')),
               _buildActionTile('Vider le cache', 'Libérer l\'espace de stockage', Icons.delete_outline, () => _showClearCacheDialog()),
             ]),
             const SizedBox(height: 20),

@@ -154,7 +154,7 @@ class _DailyReportsAdminScreenState extends State<DailyReportsAdminScreen> {
             child: Column(
               children: [
                 DropdownButtonFormField<String>(
-                  initialValue: _selectedEmployeeId,
+                  value: _selectedEmployeeId,
                   decoration: InputDecoration(
                     labelText: 'Filtrer par employé',
                     border: OutlineInputBorder(

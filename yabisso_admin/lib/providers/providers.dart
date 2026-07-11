@@ -89,6 +89,7 @@ final dashboardStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async 
   ref.watch(employeesRefreshProvider);
   ref.watch(salesRefreshProvider);
   ref.watch(assignmentsRefreshProvider);
+  ref.watch(checkinRequestsRefreshProvider);
   final db = DatabaseHelper.instance;
   final today = DateTime.now().toIso8601String().substring(0, 10);
   final now = DateTime.now();
@@ -103,6 +104,7 @@ final dashboardStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async 
   final totalSales = await db.count('sale_records');
   final pendingProposals = await db.count('ai_proposals', where: "status = 'pending'");
   final pendingAssignments = await db.count('assignments', where: "status = 'pending'");
+  final pendingCheckins = await db.count('checkin_requests', where: "status = 'pending'");
 
   return {
     'totalEmployees': totalEmployees,
@@ -112,6 +114,104 @@ final dashboardStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async 
     'totalSales': totalSales,
     'pendingProposals': pendingProposals,
     'pendingAssignments': pendingAssignments,
-    'pendingDecisions': pendingProposals + pendingAssignments,
+    'pendingCheckins': pendingCheckins,
+    'pendingDecisions': pendingProposals + pendingAssignments + pendingCheckins,
   };
+});
+
+final checkinRequestsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(checkinRequestsRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('checkin_requests', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final checkinRequestsRefreshProvider = StateProvider<int>((ref) => 0);
+
+final pendingCheckinsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(checkinRequestsRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('checkin_requests', where: "status = 'pending'", orderBy: 'created_at DESC');
+  return maps;
+});
+
+final sharedSalesReportsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(sharedSalesRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('shared_sales_reports', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final sharedSalesRefreshProvider = StateProvider<int>((ref) => 0);
+
+final sharedProspectionsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(sharedProspectionsRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('shared_prospections_reports', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final sharedProspectionsRefreshProvider = StateProvider<int>((ref) => 0);
+
+final candidatesProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(candidatesRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('candidates', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final candidatesRefreshProvider = StateProvider<int>((ref) => 0);
+
+final contactHistoryProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('contact_history', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final employeeTasksProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(employeeTasksRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('employee_tasks', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final employeeTasksRefreshProvider = StateProvider<int>((ref) => 0);
+
+final pendingTasksProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(employeeTasksRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('employee_tasks', where: "status = 'pending' OR status = 'in_progress'", orderBy: 'created_at DESC');
+  return maps;
+});
+
+final todayTasksProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(employeeTasksRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final today = DateTime.now().toIso8601String().substring(0, 10);
+  final maps = await db.getAll('employee_tasks', where: "due_date = ? OR created_at LIKE ?", whereArgs: ['$today%', '$today%']);
+  return maps;
+});
+
+final activityLogProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(activityLogRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('activity_log', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final activityLogRefreshProvider = StateProvider<int>((ref) => 0);
+
+final notificationsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  ref.watch(notificationsRefreshProvider);
+  final db = DatabaseHelper.instance;
+  final maps = await db.getAll('notifications', orderBy: 'created_at DESC');
+  return maps;
+});
+
+final notificationsRefreshProvider = StateProvider<int>((ref) => 0);
+
+final unreadNotificationsProvider = FutureProvider<int>((ref) async {
+  ref.watch(notificationsRefreshProvider);
+  final db = DatabaseHelper.instance;
+  return db.count('notifications', where: 'is_read = 0');
 });

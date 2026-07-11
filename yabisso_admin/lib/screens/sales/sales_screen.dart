@@ -266,7 +266,7 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
           _buildNavItem(Icons.home, 'Dashboard', false, () => context.go('/')),
           _buildNavItem(Icons.people, 'Employés', false, () => context.push('/employees')),
           _buildNavItem(Icons.trending_up, 'Ventes', true, () {}),
-          _buildNavItem(Icons.vpn_key, 'Vouchers', false, () => context.push('/vouchers')),
+          _buildNavItem(Icons.vpn_key, 'Vouchers', false, () => context.push('/voucher-generator')),
           _buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')),
         ],
       ),

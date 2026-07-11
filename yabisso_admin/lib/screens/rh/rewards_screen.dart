@@ -77,14 +77,14 @@ class _RewardsScreenState extends ConsumerState<RewardsScreen> {
                 const Text('Nouvelle récompense', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedEmployee,
+                  value: selectedEmployee,
                   decoration: InputDecoration(labelText: 'Employé', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _employees.map((e) => DropdownMenuItem(value: e['id'] as String, child: Text(e['name'] as String))).toList(),
                   onChanged: (v) => setModalState(() => selectedEmployee = v),
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedType,
+                  value: selectedType,
                   decoration: InputDecoration(labelText: 'Type', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                   items: _rewardTypes.map((t) => DropdownMenuItem(value: t, child: Text(t))).toList(),
                   onChanged: (v) => setModalState(() => selectedType = v ?? selectedType),

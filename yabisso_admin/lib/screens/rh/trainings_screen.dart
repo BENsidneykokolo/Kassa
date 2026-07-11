@@ -174,7 +174,7 @@ class _TrainingsScreenState extends ConsumerState<TrainingsScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: selectedStatus,
+                  value: selectedStatus,
                   decoration: InputDecoration(
                     labelText: 'Statut',
                     border: OutlineInputBorder(

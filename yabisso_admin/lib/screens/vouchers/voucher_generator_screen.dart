@@ -16,8 +16,10 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
 
   String _businessType = 'boutique';
   final _businessIdController = TextEditingController();
+  final _prestataireIdController = TextEditingController();
   String _voucherMode = 'subscription';
   String _selectedPlan = 'BASIC';
+  String _selectedDuration = '30';
   final _pointsController = TextEditingController();
   String? _generatedCode;
   List<Map<String, dynamic>> _history = [];
@@ -40,6 +42,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
   @override
   void dispose() {
     _businessIdController.dispose();
+    _prestataireIdController.dispose();
     _pointsController.dispose();
     super.dispose();
   }
@@ -66,7 +69,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     final prefs = await SharedPreferences.getInstance();
     final list = prefs.getStringList('voucher_history') ?? [];
     final now = DateTime.now().toLocal().toString().substring(0, 16);
-    final plan = _voucherMode == 'subscription' ? _selectedPlan : '';
+    final plan = _voucherMode == 'points' ? '' : _selectedPlan;
     final points = _voucherMode == 'points' ? (_pointsController.text) : '';
     list.insert(0, '$type|||$code|||$now|||$_businessType|||$plan|||$points');
     if (list.length > 50) list.removeLast();
@@ -75,19 +78,29 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
   }
 
   void _generateVoucher() {
-    final businessId = _businessIdController.text.trim();
-    if (businessId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
-      );
-      return;
-    }
-
     String code;
-    if (_voucherMode == 'subscription') {
+
+    if (_voucherMode == 'online') {
+      code = VoucherGeneratorService.generateOnlineVoucher();
+      _saveToHistory('YAB', code);
+    } else if (_voucherMode == 'subscription') {
+      final businessId = _businessIdController.text.trim();
+      if (businessId.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
+        );
+        return;
+      }
       code = VoucherGeneratorService.generateOfflineVoucher(_businessType, businessId, _selectedPlan);
       _saveToHistory('OFF', code);
     } else {
+      final businessId = _businessIdController.text.trim();
+      if (businessId.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
+        );
+        return;
+      }
       final pointsText = _pointsController.text.trim();
       if (pointsText.isEmpty || int.tryParse(pointsText) == null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -163,10 +176,20 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
             _buildBusinessTypeSelector(),
             const SizedBox(height: 20),
             _buildBusinessIdInput(),
+            const SizedBox(height: 16),
+            _buildPrestataireIdInput(),
             const SizedBox(height: 20),
             _buildVoucherModeToggle(),
             const SizedBox(height: 16),
-            if (_voucherMode == 'subscription') _buildPlanSelector() else _buildPointsInput(),
+            if (_voucherMode == 'online') ...[
+              _buildPlanSelector(),
+              const SizedBox(height: 16),
+              _buildDurationSelector(),
+            ] else if (_voucherMode == 'subscription') ...[
+              _buildPlanSelector(),
+            ] else ...[
+              _buildPointsInput(),
+            ],
             const SizedBox(height: 16),
             _buildGenerateButton(businessColor),
             const SizedBox(height: 16),
@@ -278,14 +301,14 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('ID du commerce', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+        Text(_voucherMode == 'online' ? 'ID Boutique (optionnel)' : 'ID du commerce', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
         const SizedBox(height: 10),
         TextField(
           controller: _businessIdController,
           textCapitalization: TextCapitalization.characters,
           decoration: InputDecoration(
             hintText: hint,
-            helperText: helper,
+            helperText: _voucherMode == 'online' ? 'Pas obligatoire pour les vouchers en ligne' : helper,
             helperStyle: TextStyle(color: Colors.grey[500], fontSize: 12),
             filled: true,
             fillColor: Colors.white,
@@ -319,13 +342,59 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     );
   }
 
+  Widget _buildPrestataireIdInput() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('ID Prestataire (optionnel)', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 10),
+        TextField(
+          controller: _prestataireIdController,
+          textCapitalization: TextCapitalization.characters,
+          decoration: InputDecoration(
+            hintText: 'EMP-1234-JD',
+            helperText: 'ID du vendeur/commercial',
+            helperStyle: TextStyle(color: Colors.grey[500], fontSize: 12),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.border),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.border),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: AppColors.primaryBlue, width: 2),
+            ),
+            prefixIcon: Container(
+              margin: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppColors.primaryBlue.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text('E', style: TextStyle(
+                color: AppColors.primaryBlue, fontWeight: FontWeight.bold, fontSize: 14,
+              )),
+            ),
+          ),
+          onChanged: (_) => setState(() => _generatedCode = null),
+        ),
+      ],
+    );
+  }
+
   Widget _buildVoucherModeToggle() {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Row(
         children: [
-          _buildModeButton('Abonnement', 'subscription'),
+          _buildModeButton('En ligne', 'online'),
+          _buildModeButton('Hors ligne', 'subscription'),
           _buildModeButton('Points', 'points'),
         ],
       ),
@@ -400,6 +469,51 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
               style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 13),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDurationSelector() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Durée', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            _buildDurationOption('30', '30 jours'),
+            const SizedBox(width: 8),
+            _buildDurationOption('60', '60 jours'),
+            const SizedBox(width: 8),
+            _buildDurationOption('90', '90 jours'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDurationOption(String value, String label) {
+    final isActive = _selectedDuration == value;
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() {
+          _selectedDuration = value;
+          _generatedCode = null;
+        }),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: isActive ? _primary.withValues(alpha: 0.1) : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: isActive ? _primary : AppColors.border, width: isActive ? 2 : 1),
+          ),
+          child: Center(
+            child: Text(label, style: TextStyle(
+              fontWeight: FontWeight.w600, fontSize: 13,
+              color: isActive ? _primary : Colors.grey[600],
+            )),
+          ),
         ),
       ),
     );
@@ -526,7 +640,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              _voucherMode == 'subscription' ? 'VOUCHER ABONNEMENT' : 'VOUCHER POINTS',
+              _voucherMode == 'online' ? 'VOUCHER EN LIGNE' : (_voucherMode == 'subscription' ? 'VOUCHER HORS LIGNE' : 'VOUCHER POINTS'),
               style: TextStyle(color: businessColor, fontSize: 12, fontWeight: FontWeight.w700),
             ),
           ),
@@ -610,10 +724,12 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
   }
 
   Widget _buildHistoryItem(Map<String, dynamic> item) {
-    final isOff = item['type'] == 'OFF';
-    final color = isOff ? _primary : AppColors.primaryAmber;
-    final label = isOff ? 'Abonnement' : 'Points';
-    final detail = isOff ? (item['plan'] ?? '') : '${item['points'] ?? ''} pts';
+    final type = item['type'] ?? 'OFF';
+    final isYab = type == 'YAB';
+    final isPts = type == 'PTS';
+    final color = isYab ? AppColors.primaryBlue : (isPts ? AppColors.primaryAmber : _primary);
+    final label = isYab ? 'En ligne' : (isPts ? 'Points' : 'Hors ligne');
+    final detail = isYab ? '${item['plan'] ?? ''} • $_selectedDuration j' : (isPts ? '${item['points'] ?? ''} pts' : (item['plan'] ?? ''));
 
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -627,7 +743,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
-            child: Icon(isOff ? Icons.card_membership : Icons.stars, color: color, size: 18),
+            child: Icon(isYab ? Icons.language : (isPts ? Icons.stars : Icons.card_membership), color: color, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(

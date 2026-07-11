@@ -19,6 +19,7 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
   String _filterContact = 'all';
   String _filterPresentation = 'all';
   String _filterMeeting = 'all';
+  String _filterValidation = 'all';
 
   static const _contactLabels = {
     'all': 'Tous',
@@ -34,6 +35,11 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
     'all': 'Tous',
     'not_come': 'Pas venu',
     'come': 'Est venu',
+  };
+  static const _validationLabels = {
+    'all': 'Tous',
+    'validated': 'Validé',
+    'not_validated': 'Non validé',
   };
 
   @override
@@ -113,6 +119,11 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
       if (_filterContact != 'all' && c['contact_status'] != _filterContact) return false;
       if (_filterPresentation != 'all' && c['presentation_status'] != _filterPresentation) return false;
       if (_filterMeeting != 'all' && c['meeting_status'] != _filterMeeting) return false;
+      
+      final validationStatus = c['validation_status'] ?? 'not_validated';
+      if (_filterValidation == 'validated' && validationStatus != 'validated') return false;
+      if (_filterValidation == 'not_validated' && validationStatus == 'validated') return false;
+      
       return true;
     }).toList();
   }
@@ -152,6 +163,8 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
             _filterDropdown('Présentation', _presentationLabels, _filterPresentation, (v) => setState(() => _filterPresentation = v!)),
             const SizedBox(width: 8),
             _filterDropdown('Meeting', _meetingLabels, _filterMeeting, (v) => setState(() => _filterMeeting = v!)),
+            const SizedBox(width: 8),
+            _filterDropdown('Validation', _validationLabels, _filterValidation, (v) => setState(() => _filterValidation = v!)),
           ],
         ),
       ),
@@ -185,8 +198,10 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
     final presStatus = candidate['presentation_status'] ?? 'not_attended';
     final meetingStatus = candidate['meeting_status'] ?? 'not_come';
     final relanceStatus = candidate['relance_status'] ?? 'active';
+    final validationStatus = candidate['validation_status'] ?? 'not_validated';
     final hasCv = candidate['cv_path'] != null && (candidate['cv_path'] as String).isNotEmpty;
     final isRelance = relanceStatus == 'relance';
+    final isValidated = validationStatus == 'validated';
 
     return GestureDetector(
       onTap: () => _showCandidateDetail(candidate),
@@ -196,7 +211,11 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(14),
-          border: isRelance ? Border.all(color: AppColors.primaryAmber.withValues(alpha: 0.5), width: 1.5) : null,
+          border: isRelance 
+            ? Border.all(color: AppColors.primaryAmber.withValues(alpha: 0.5), width: 1.5)
+            : isValidated 
+              ? Border.all(color: AppColors.primaryGreen.withValues(alpha: 0.5), width: 1.5)
+              : null,
           boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8, offset: const Offset(0, 2))],
         ),
         child: Column(
@@ -208,7 +227,9 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
                   radius: 22,
                   backgroundColor: isRelance
                     ? AppColors.primaryAmber.withValues(alpha: 0.1)
-                    : AppColors.primaryGreen.withValues(alpha: 0.1),
+                    : isValidated
+                      ? AppColors.primaryGreen.withValues(alpha: 0.1)
+                      : AppColors.primaryGreen.withValues(alpha: 0.1),
                   child: Text(
                     name.isNotEmpty ? name[0].toUpperCase() : '?',
                     style: TextStyle(
@@ -230,6 +251,10 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
                             const SizedBox(width: 6),
                             Icon(Icons.attach_file, size: 14, color: AppColors.primaryBlue),
                           ],
+                          if (isValidated) ...[
+                            const SizedBox(width: 6),
+                            Icon(Icons.check_circle, size: 14, color: AppColors.primaryGreen),
+                          ],
                         ],
                       ),
                       if (phone.isNotEmpty) Text(phone, style: TextStyle(fontSize: 13, color: Colors.grey[600])),
@@ -241,6 +266,12 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(color: AppColors.primaryAmber.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(6)),
                     child: const Text('À relancer', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryAmber)),
+                  )
+                else if (isValidated)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(color: AppColors.primaryGreen.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(6)),
+                    child: const Text('Validé', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryGreen)),
                   )
                 else
                   Icon(Icons.arrow_forward_ios, color: Colors.grey[400], size: 14),
@@ -377,6 +408,16 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
                         data['id'] = const Uuid().v4();
                         data['created_at'] = now;
                         await db.insert('candidates', data);
+                        await db.insert('notifications', {
+                          'id': const Uuid().v4(),
+                          'title': 'Nouveau candidat',
+                          'body': '${nameController.text} a été ajouté comme candidat',
+                          'type': 'info',
+                          'reference_type': 'candidate',
+                          'reference_id': data['id'],
+                          'created_at': now,
+                        });
+                        await db.logActivity(null, 'candidate_created', nameController.text);
                       }
                       ref.invalidate(candidatesProvider);
                       if (mounted) Navigator.pop(ctx);
@@ -481,9 +522,12 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
     final presStatus = candidate['presentation_status'] ?? 'not_attended';
     final meetingStatus = candidate['meeting_status'] ?? 'not_come';
     final relanceStatus = candidate['relance_status'] ?? 'active';
+    final validationStatus = candidate['validation_status'] ?? 'not_validated';
     final notes = candidate['notes'] ?? '';
     final hasCv = candidate['cv_path'] != null && (candidate['cv_path'] as String).isNotEmpty;
     final isRelance = relanceStatus == 'relance';
+    final isValidated = validationStatus == 'validated';
+    final isAllPassed = contactStatus == 'contacted' && presStatus == 'attended' && meetingStatus == 'come';
 
     showModalBottomSheet(
       context: context,
@@ -651,6 +695,108 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
               ],
               const SizedBox(height: 20),
 
+              // Validation section
+              if (!isRelance && !isValidated) ...[
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: isAllPassed ? AppColors.primaryGreen.withValues(alpha: 0.05) : Colors.grey[100],
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isAllPassed ? AppColors.primaryGreen.withValues(alpha: 0.3) : Colors.grey.shade300,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            isAllPassed ? Icons.check_circle : Icons.info_outline,
+                            color: isAllPassed ? AppColors.primaryGreen : Colors.grey,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            isAllPassed ? 'Candidat éligible pour validation' : 'Étapes restantes pour validation',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: isAllPassed ? AppColors.primaryGreen : Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (!isAllPassed) ...[
+                        const SizedBox(height: 8),
+                        Text(
+                          'Contact: ${contactStatus == "contacted" ? "✓" : "✗"} | Présentation: ${presStatus == "attended" ? "✓" : "✗"} | Meeting: ${meetingStatus == "come" ? "✓" : "✗"}',
+                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        ),
+                      ],
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: isAllPassed ? () => _validateCandidate(candidate, ctx) : null,
+                          icon: const Icon(Icons.verified, size: 18),
+                          label: const Text('Valider ce candidat'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primaryGreen,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+
+              // Transform to employee section (only for validated candidates)
+              if (isValidated) ...[
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryGreen.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.primaryGreen.withValues(alpha: 0.3)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.check_circle, color: AppColors.primaryGreen, size: 20),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'Candidat validé',
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryGreen),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () => _transformToEmployee(candidate, ctx),
+                          icon: const Icon(Icons.person_add, size: 18),
+                          label: const Text('Transformer en employé'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primaryBlue,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              const SizedBox(height: 20),
+
               // Action buttons
               Row(
                 children: [
@@ -751,6 +897,177 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryAmber, foregroundColor: Colors.white),
             child: const Text('Confirmer'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _validateCandidate(Map<String, dynamic> candidate, BuildContext ctx) async {
+    final db = DatabaseHelper.instance;
+    final now = DateTime.now().toIso8601String();
+    final name = candidate['name'] ?? '';
+
+    await showDialog(
+      context: context,
+      builder: (dialogCtx) => AlertDialog(
+        title: const Text('Valider le candidat'),
+        content: Text('Valider $name comme candidat accepté ?\n\nIl pourra ensuite être transformé en employé.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogCtx), child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(dialogCtx);
+              await db.update('candidates', {
+                'validation_status': 'validated',
+                'validated_at': now,
+                'updated_at': now,
+              }, candidate['id']);
+              
+              final admin = ref.read(currentAdminProvider);
+              await db.logActivity(admin?.id, 'candidate_validated', 'Candidat validé: $name');
+              
+              // Auto notification for validation
+              await db.insert('notifications', {
+                'id': const Uuid().v4(),
+                'user_id': null,
+                'user_role': 'hr_manager',
+                'title': 'Candidat validé',
+                'body': 'Le candidat $name a été validé et peut être transformé en employé.',
+                'type': 'candidate_validated',
+                'is_read': 0,
+                'reference_id': candidate['id'],
+                'reference_type': 'candidate',
+                'created_at': now,
+              });
+              
+              ref.invalidate(candidatesProvider);
+              if (ctx.mounted) Navigator.pop(ctx);
+              
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$name validé avec succès'),
+                    backgroundColor: AppColors.primaryGreen,
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryGreen, foregroundColor: Colors.white),
+            child: const Text('Valider'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _transformToEmployee(Map<String, dynamic> candidate, BuildContext ctx) async {
+    final name = candidate['name'] ?? '';
+    final phone = candidate['phone'] ?? '';
+
+    final positionController = TextEditingController();
+    final departmentController = TextEditingController();
+    final salaryController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (dialogCtx) => AlertDialog(
+        title: const Text('Transformer en employé'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Créer un employé à partir de $name ?'),
+              const SizedBox(height: 16),
+              TextField(
+                controller: positionController,
+                decoration: const InputDecoration(
+                  labelText: 'Poste *',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: departmentController,
+                decoration: const InputDecoration(
+                  labelText: 'Département',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: salaryController,
+                decoration: const InputDecoration(
+                  labelText: 'Salaire (FCFA)',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogCtx), child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () async {
+              if (positionController.text.isEmpty) {
+                ScaffoldMessenger.of(dialogCtx).showSnackBar(
+                  const SnackBar(content: Text('Le poste est obligatoire')),
+                );
+                return;
+              }
+
+              Navigator.pop(dialogCtx);
+              final db = DatabaseHelper.instance;
+              final now = DateTime.now().toIso8601String();
+              final id = const Uuid().v4();
+              
+              final initials = name.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
+              
+              await db.insert('employees', {
+                'id': id,
+                'name': name,
+                'phone': phone,
+                'position': positionController.text,
+                'department': departmentController.text.isNotEmpty ? departmentController.text : null,
+                'salary': salaryController.text.isNotEmpty ? int.tryParse(salaryController.text) : null,
+                'status': 'actif',
+                'initials': initials,
+                'hired_at': now,
+                'created_at': now,
+                'updated_at': now,
+              });
+
+              await db.update('candidates', {
+                'transformed_to_employee': true,
+                'employee_id': id,
+                'transformed_at': now,
+                'updated_at': now,
+              }, candidate['id']);
+
+              final admin = ref.read(currentAdminProvider);
+              await db.logActivity(admin?.id, 'candidate_transformed', 'Candidat transformé en employé: $name');
+
+              ref.invalidate(candidatesProvider);
+              ref.invalidate(employeesProvider);
+              if (ctx.mounted) Navigator.pop(ctx);
+
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$name est maintenant un employé'),
+                    backgroundColor: AppColors.primaryGreen,
+                    action: SnackBarAction(
+                      label: 'Voir',
+                      textColor: Colors.white,
+                      onPressed: () => context.push('/employee-detail?id=$id'),
+                    ),
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryBlue, foregroundColor: Colors.white),
+            child: const Text('Transformer'),
           ),
         ],
       ),

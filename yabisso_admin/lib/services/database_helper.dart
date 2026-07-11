@@ -17,7 +17,7 @@ class DatabaseHelper {
   Future<Database> _initDB(String filePath) async {
     final dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, filePath);
-    return await openDatabase(path, version: 7, onCreate: _createDB, onUpgrade: _upgradeDB);
+    return await openDatabase(path, version: 13, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -119,6 +119,7 @@ class DatabaseHelper {
         employee_phone TEXT,
         date TEXT NOT NULL,
         check_in_time TEXT,
+        check_out_time TEXT,
         status TEXT DEFAULT 'pending',
         reviewed_by TEXT,
         reviewed_at TEXT,
@@ -158,6 +159,11 @@ class DatabaseHelper {
         relance_stage TEXT,
         last_contact_date TEXT,
         notes TEXT,
+        validation_status TEXT DEFAULT 'not_validated',
+        validated_at TEXT,
+        transformed_to_employee INTEGER DEFAULT 0,
+        employee_id TEXT,
+        transformed_at TEXT,
         created_at TEXT,
         updated_at TEXT
       )
@@ -374,6 +380,57 @@ class DatabaseHelper {
         created_at TEXT
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE contact_history (
+        id TEXT PRIMARY KEY,
+        shop_id TEXT NOT NULL,
+        shop_name TEXT NOT NULL,
+        agent_name TEXT DEFAULT '',
+        channel TEXT DEFAULT 'appel',
+        result TEXT DEFAULT 'relance_necessaire',
+        notes TEXT DEFAULT '',
+        created_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE employee_tasks (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        task_type TEXT DEFAULT 'demarchage',
+        priority TEXT DEFAULT 'medium',
+        due_date TEXT,
+        status TEXT DEFAULT 'pending',
+        started_at TEXT,
+        completed_at TEXT,
+        comment TEXT,
+        proof_path TEXT,
+        assigned_by TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE shared_prospections_reports (
+        id TEXT PRIMARY KEY,
+        employee_id TEXT NOT NULL,
+        employee_name TEXT NOT NULL,
+        employee_phone TEXT,
+        date TEXT NOT NULL,
+        total INTEGER DEFAULT 0,
+        interesses INTEGER DEFAULT 0,
+        pas_interesses INTEGER DEFAULT 0,
+        a_rappeler INTEGER DEFAULT 0,
+        prospections_json TEXT,
+        status TEXT DEFAULT 'imported',
+        created_at TEXT
+      )
+    ''');
   }
 
   Future<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
@@ -522,6 +579,53 @@ class DatabaseHelper {
         is_late INTEGER DEFAULT 0, early_departure INTEGER DEFAULT 0, overtime_hours REAL DEFAULT 0,
         notes TEXT, created_at TEXT
       )''');
+    }
+    if (oldVersion < 8) {
+      await db.execute('''CREATE TABLE IF NOT EXISTS contact_history (
+        id TEXT PRIMARY KEY, shop_id TEXT NOT NULL, shop_name TEXT NOT NULL,
+        agent_name TEXT DEFAULT '', channel TEXT DEFAULT 'appel',
+        result TEXT DEFAULT 'relance_necessaire', notes TEXT DEFAULT '', created_at TEXT
+      )''');
+    }
+    if (oldVersion < 9) {
+      await db.execute('''CREATE TABLE IF NOT EXISTS employee_tasks (
+        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
+        title TEXT NOT NULL, description TEXT, task_type TEXT DEFAULT 'demarchage',
+        priority TEXT DEFAULT 'medium', due_date TEXT, status TEXT DEFAULT 'pending',
+        started_at TEXT, completed_at TEXT, comment TEXT, proof_path TEXT,
+        assigned_by TEXT, created_at TEXT, updated_at TEXT
+      )''');
+    }
+    if (oldVersion < 10) {
+      await db.execute("ALTER TABLE candidates ADD COLUMN validation_status TEXT DEFAULT 'not_validated'");
+      await db.execute("ALTER TABLE candidates ADD COLUMN validated_at TEXT");
+      await db.execute("ALTER TABLE candidates ADD COLUMN transformed_to_employee INTEGER DEFAULT 0");
+      await db.execute("ALTER TABLE candidates ADD COLUMN employee_id TEXT");
+      await db.execute("ALTER TABLE candidates ADD COLUMN transformed_at TEXT");
+    }
+    if (oldVersion < 11) {
+      await db.execute("ALTER TABLE checkin_requests ADD COLUMN check_out_time TEXT");
+    }
+    if (oldVersion < 12) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS shared_prospections_reports (
+          id TEXT PRIMARY KEY,
+          employee_id TEXT NOT NULL,
+          employee_name TEXT NOT NULL,
+          employee_phone TEXT,
+          date TEXT NOT NULL,
+          total INTEGER DEFAULT 0,
+          interesses INTEGER DEFAULT 0,
+          pas_interesses INTEGER DEFAULT 0,
+          a_rappeler INTEGER DEFAULT 0,
+          prospections_json TEXT,
+          status TEXT DEFAULT 'imported',
+          created_at TEXT
+        )
+      ''');
+    }
+    if (oldVersion < 13) {
+      try { await db.execute("ALTER TABLE checkin_requests ADD COLUMN check_out_time TEXT"); } catch (_) {}
     }
   }
 

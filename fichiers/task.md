@@ -24,6 +24,11 @@
 | GitHub Actions iOS + macOS | 26/06/2026 | build.yml: macos-15, IPA + DMG, cache Flutter + CocoaPods |
 | Entitlements macOS (network.client) | 26/06/2026 | DebugProfile + Release: network.client + files.user-selected |
 | Build APK v1.4.6 | 27/06/2026 | 111.4 MB, scanner fix + help section |
+| Fix DB Employés — tables manquantes (_createDB) | 11/07/2026 | prospections + daily_reports ajoutés à _createDB + migration v6/v7 |
+| Fix DB Admin — check_out_time column (v13 migration) | 11/07/2026 | ALTER TABLE safe pour installs existantes v12 |
+| Fix shops prestataire_id + subscription_type | 11/07/2026 | Ajouté au CREATE TABLE shops + migration v7 |
+| Fix historique démarchage infinite loading | 11/07/2026 | error handling _loadProspections + _loadTodayReport |
+| Verify Admin Import/Export Pack | 11/07/2026 | PackScreen + PackService confirmés OK, 0 erreurs |
 
 | Tâche | Complétée le | Notes |
 |-------|--------------|-------|

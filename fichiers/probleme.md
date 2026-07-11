@@ -37,7 +37,14 @@
 | 26/06/2026 | `sheet.maxRow` pas défini dans excel v4 (6 erreurs analyze) | Remplacer `sheet.maxRow` par `sheet.rows.length` | ✅ Résolu |
 | 26/06/2026 | `.toDouble()` / `.toInt()` sur `CellValue?` null-safe | Pattern matching avec `DoubleCellValue` / `IntCellValue` au lieu de `val is num` | ✅ Résolu |
 | 26/06/2026 | Imports inutilisés après refactoring Excel | Supprimé `dart:typed_data`, `category.dart`, `supplier.dart`, `isSelected` variables | ✅ Résolu |
+| 11/07/2026 | `table shops has no column named prestataire_id` (fresh install) | `_createDB` ne créait pas `shops` avec `prestataire_id`/`subscription_type` — ajouté au CREATE TABLE + migration v7 | ✅ Résolu |
+| 11/07/2026 | `table checkin_requests has no column named check_out_time` (Admin) | installs existantes en DB v12 sans la colonne — bump v13 + migration safe ALTER TABLE | ✅ Résolu |
+| 11/07/2026 | `table prospections` n'existe pas (fresh install) | `_createDB` ne créait pas `prospections` — ajouté + migration v6 | ✅ Résolu |
+| 11/07/2026 | `table daily_reports` n'existe pas (fresh install) | `_createDB` ne créait pas `daily_reports` — ajouté + migration v6 | ✅ Résolu |
+| 11/07/2026 | Historique démarchage infinite loading | `_loadProspections` sans try/catch + early return sans reset _loading — ajouté error handling | ✅ Résolu |
 
 ---
 
-*Dernière mise à jour: 26/06/2026*
+*Cause racine commune*: `_createDB()` ne créait pas toutes les tables nécessaires. Les tables `prospections`, `daily_reports`, et les colonnes `prestataire_id`/`subscription_type` sur `shops` n'étaient créées que dans `_upgradeDB()` (migrations v2/v3), jamais appelé pour les fresh installs. Fix: ajout de toutes les tables/colonnes manquantes dans `_createDB` + bump de version DB + migrations safe pour installs existantes.
+
+*Dernière mise à jour: 11/07/2026*

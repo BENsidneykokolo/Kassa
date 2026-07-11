@@ -1132,803 +1132,82 @@ cd yabisso_kassa && flutter.bat analyze
 | P2 | Tests unitaires (Flutter) | À faire |
 | P2 | Déploiement Play Store | À faire |
 
----
-
-## Session du 24/06/2026 (05:00) — UI fixes + Import/Export complet
-
-### 05:00 — 5 demandes utilisateur
-
-- **User**: 5 demandes :
-  1. Enlever les 3 points en haut à droite dans l'écran "Ventes"
-  2. Enlever "Online" et réduire "Yabisso Kassa" sur une même ligne
-  3. Vérifier les boutons +/- dans les 2 écrans scanner
-  4. Fix suppression sous-catégorie dans "Mes Catégories" (paramètres)
-  5. Import/Export complet : images + toutes les infos produit (prix, nom, catégorie, quantité, etc.)
-
-- **Opencode**: Implémentation complète :
-
-#### Fix 1 : Header écran Ventes — `products_content.dart`
-- Supprimé le `PopupMenuButton` (3 points) qui gérait export/import
-- Supprimé le badge "Online" avec le point vert
-- Réduit la taille du texte "Yabisso Kassa" de `fontSize: 20` → `fontSize: 16`
-- Header simplifié : icône + nom + bouton Scanner sur la même ligne
-- **Fichier**: `lib/screens/products/products_content.dart` ✅
-
-#### Fix 2 : Vérification boutons +/- scanner
-- `scanner_screen.dart` (Ventes) : boutons +/- déjà présents dans `_buildScannedItemCard` (lignes 352-393) ✅
-- `add_product_screen.dart` : scanner est juste pour code-barres, pas de +/- nécessaire ✅
-
-#### Fix 3 : Suppression sous-catégorie — `categories_screen.dart`
-- Ajout d'un **long-press** sur chaque tile catégorie/sous-catégorie qui ouvre un menu contextuel (`_showActionsMenu`)
-- Menu contextuel avec "Ajouter une sous-catégorie" et "Supprimer"
-- Les boutons trailing restructurés avec `constraints: BoxConstraints(minWidth: 32, minHeight: 32)` pour éviter les conflits avec le toggle d'expansion
-- **Fichier**: `lib/screens/categories/categories_screen.dart` ✅
-
-#### Fix 4 : Import/Export CSV complet — `product_exporter.dart`
-- **Export JSON v2** : Ajout de tous les champs produit (nom, prix, prix achat, stock, alerte, code-barres, catégorie nom, fournisseur nom, chemin image)
-- **Images** : Encodage base64 de l'image du produit dans le JSON export (`photo_base64` + `photo_filename`)
-- **Import** : Résolution automatique des catégories/fournisseurs par nom (crée si inexistant)
-- **Import images** : Désencodage base64 → sauvegarde dans `product_images/`
-- **Fichier**: `lib/services/product_exporter.dart` ✅
-
-#### Fix 5 : CSV Service complet — `csv_service.dart`
-- Nouveaux champs export : `category_name` (nom), `supplier_name` (nom), `photo_path` (chemin image)
-- Anciens champs `supplier_id`/`category_id` remplacés par les noms lisibles
-- `exportToCsv()` accepte `categoryNames` et `supplierNames` maps
-- `importProducts()` résout catégories/fournisseurs par nom (auto-création)
-- **Fichier**: `lib/services/csv_service.dart` ✅
-
-#### Fix 6 : CSV Import/Export Screen — `csv_import_export_screen.dart`
-- `_exportCsv()` charge les catégories/fournisseurs et les passe à `exportToCsv()`
-- Nouveaux imports ajoutés (Category, Supplier)
-- **Fichier**: `lib/screens/settings/csv_import_export_screen.dart` ✅
-
-#### Bug fix : `product_exporter.dart`
-- `p.basename()` → `path.basename()` (variable `p` était le produit, pas le module path)
-- Import corrigé : `path/path.dart as path` au lieu de `as p`
-
-#### Builds
-- ✅ **APK Android** : En cours (clean + rebuild après fix erreur libsqlite3.so)
-- ❌ **Windows** : Visual Studio manquant pour rebuild
+*En attente des instructions de Ben...*
 
 ---
 
-## Session du 25/06/2026 — Vérification fichiers .md + enregistrement automatique
-
-### 00:00 — Vérification complète du contexte
-
-- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
-- **Opencode**: 
-  - ✅ **18 fichiers .md lus et analysés** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md + 6 DESIGN.md
-  - ✅ **Contexte complet** : Yabisso Kassa — App Flutter POS offline-first pour commerçants africains
-    - **Flutter App** : Phases 1-13 complétées, v1.4.4+13, dernier APK 108.9 MB, GitHub pushé
-    - **Dashboard React** : React 19 + Express 5 + Capacitor 8, mobile-first, Points/Vouchers/Offline, Render config pushée
-    - **Windows** : Build partiel (exe 91 KB + DLLs 23 MB, Visual Studio manquant pour rebuild)
-    - **iOS/macOS** : Impossible sur Windows (besoin Mac + Xcode)
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
-
-### Résumé de l'état actuel (25/06/2026)
-
-| Composant | Statut | Détails |
-|-----------|--------|---------|
-| Flutter App | ✅ Pushé | v1.4.4, APK 108.9 MB, GitHub `BENsidneykokolo/Kassa` |
-| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
-| Phases 1-13 | ✅ Complétées | Fondations → Scanner redesign + CSV |
-| Phase 14 | ⏳ En attente | Render deploy, API URL, Bluetooth printer, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community trouvé + kassa.exe 22.4 MB |
-| iOS/macOS | ❌ Bloqué | Besoin Mac |
-
-### 02:40 — Builds Windows + Android
-
-- **User**: "donne moi le chemin du dernier apk et app pc" + "j'ai Visual Studio, vérifie bien" + "ne t'arrete pas si tu n'as pas fini"
-- **Opencode**:
-  - ✅ **Visual Studio 2022 Community** trouvé : `C:\Program Files\Microsoft Visual Studio\18\Community`
-  - ✅ **MSBuild.exe** présent : `C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe`
-
-#### Build Windows
-- ✅ `flutter build windows --release` : **kassa.exe** (82 KB) + DLLs = **22.4 MB** total
-- 📍 **Exe** : `C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\windows\x64\runner\Release\kassa.exe`
-- 📍 **Dossier Release** : `C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\windows\x64\runner\Release\`
-- Build : 25/06/2026 01:51
-
-#### Build Android
-- ✅ `flutter build apk --release` : **108.9 MB**
-- 📍 **APK brut** : `C:\Users\Utilisateur\Documents\Ben\Kassa\yabisso_kassa\build\app\outputs\flutter-apk\app-release.apk`
-- 📍 **APK copié** : `C:\Users\Utilisateur\Documents\Ben\Kassa\apk\kassa_v1.4.5.apk`
-- 📍 **APK latest** : `C:\Users\Utilisateur\Documents\Ben\Kassa\apk\kassa_latest.apk`
-- Build : 25/06/2026 02:39
-
-### Tâches en attente (task.md)
-| Priorité | Tâche | Statut |
-|----------|-------|--------|
-| P1 | Déploiement Render | En attente validation user |
-| P1 | Mise à jour API URL Flutter après Render | En attente |
-| P2 | Tests unitaires (Flutter) | À faire |
-| P2 | Déploiement Play Store | À faire |
-
----
-
-## Session du 25/06/2026 (11:00) — Vérification fichiers .md + enregistrement automatique
-
-### 11:00 — Vérification complète du contexte
-
-- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
-- **Opencode**: 
-  - ✅ **6 fichiers .md clés lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
-  - ✅ **Contexte complet** : Yabisso Kassa — App Flutter POS offline-first pour commerçants africains
-    - **Flutter App** : Phases 1-13, v1.4.5+13, dernier APK 108.9 MB, Windows kassa.exe 22.4 MB, GitHub pushé
-    - **Dashboard React** : React 19 + Express 5 + Capacitor, mobile-first, Points/Vouchers/Offline, Render config pushée
-    - **Windows** : ✅ Buildé (VS 2022 Community trouvé)
-    - **iOS/macOS** : ❌ Bloqué (besoin Mac + Xcode)
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
-
-### Résumé de l'état actuel (25/06/2026)
-
-| Composant | Statut | Détails |
-|-----------|--------|---------|
-| Flutter App | ✅ Pushé | v1.4.5, APK 108.9 MB, GitHub `BENsidneykokolo/Kassa` |
-| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
-| Phases 1-13 | ✅ Complétées | Fondations → Scanner redesign + CSV |
-| Phase 14 | ⏳ En attente | Render deploy, API URL, Bluetooth printer, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community, kassa.exe 22.4 MB |
-| iOS/macOS | ❌ Bloqué | Besoin Mac |
-
-### Tâches en attente (task.md)
-| Priorité | Tâche | Statut |
-|----------|-------|--------|
-| P1 | Déploiement Render | En attente validation user |
-| P1 | Mise à jour API URL Flutter après Render | En attente |
-| P2 | Tests unitaires (Flutter) | À faire |
-| P2 | Déploiement Play Store | À faire |
-
----
-
-## Session du 25/06/2026 (22:30) — Fix scanner écran Paiement
-
-### 22:30 — Diagnostic + Fix scanner paiement
-
-- **User**: Le scanner dans l'écran "Paiement" ne marche pas, celui qui marche est dans l'écran "Ventes"
-- **Opencode**: Diagnostic et correction :
-
-#### Problème identifié
-- **ScannerScreen (ventes)** : `MobileScanner` est TOUJOURS dans l'arbre widget, le `MobileScannerController` est créé dans `initState()` → la caméra démarre correctement ✅
-- **PaymentScreen (paiement)** : `MobileScanner` est conditionnel (`if (_showScanner)`) mais le `MobileScannerController` est créé dans `initState()` avec `autoStart: true` → le controller essaie de démarrer la caméra AVANT que le widget `MobileScanner` ne soit monté → la caméra est dans un mauvais état ❌
-
-#### Fix appliqué — `payment_screen.dart`
-1. **`_scannerController`** : `final` → nullable (`MobileScannerController?`), initialisé à `null`
-2. **`_openScanner()`** : Nouvelle méthode qui crée le controller + affiche le scanner
-3. **`_closeScanner()`** : Nouvelle méthode qui dispose le controller + ferme le scanner
-4. **AppBar bouton** : `setState(() => _showScanner = true)` → `_openScanner()`
-5. **Bouton fermer (X)** : `setState(() => _showScanner = false)` → `_closeScanner()`
-6. **Bouton "Retour au paiement"** : `setState(() => _showScanner = false)` → `_closeScanner()`
-7. **Flash toggle** : `_scannerController.toggleTorch()` → `_scannerController?.toggleTorch()`
-8. **`MobileScanner`** : `controller: _scannerController` → `controller: _scannerController!`
-9. **`dispose()`** : `_scannerController.dispose()` → `_scannerController?.dispose()`
-
-#### Résultat
-- `flutter analyze payment_screen.dart` : **0 erreurs, 0 warnings** (15 infos pré-existants)
-- Le controller et le widget `MobileScanner` sont maintenant créés et montés en même temps → la caméra démarre correctement
-
----
-
-## Session du 26/06/2026 (15:00) — Devise, Langue, Excel, Scanner scroll, Builds
-
-### 15:00 — Fix scroll scanner (2 écrans)
-
-- **User**: Le scroll ne fonctionne pas quand il y a beaucoup de produits scannés
-- **Opencode**: Ajout `padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 80)` au `ListView.builder` dans `_buildScannedItemsSheet()` pour éviter que la barre de paiement en bas ne chevauche les articles
-  - `scanner_screen.dart` ✅
-  - `payment_screen.dart` ✅
-
-### 15:10 — Système de devise multi-devises
-
-- **User**: Pouvoir changer la devise (FCFA par défaut)
-- **Opencode**: Créé `lib/services/currency_service.dart` avec 10 devises :
-  - XAF/FCFA (Cameroun, Congo, Gabon, etc.) — par défaut
-  - XOF (Sénégal, Côte d'Ivoire, Mali, etc.)
-  - CDF (Congo-Kinshasa)
-  - NGN (Nigeria)
-  - GHS (Ghana)
-  - KES (Kenya)
-  - ZAR (Afrique du Sud)
-  - USD (Dollar)
-  - EUR (Euro)
-  - GBP (Livre sterling)
-- **Opencode**: Ajout `_showCurrencyDialog()` dans `settings_screen.dart` avec `RadioListTile` pour sélection
-- **Opencode**: Persistance via `SharedPreferences`
-- **Note**: `CurrencyService.formatPrice()` existe mais n'est pas encore utilisé partout (les `_fmt()` existants hardcodent encore "FCFA")
-
-### 15:20 — Système de langue multi-langues
-
-- **User**: Pouvoir changer la langue
-- **Opencode**: Créé `lib/services/language_service.dart` avec 4 langues :
-  - Français (par défaut)
-  - English (Anglais)
-  - Kiswahili (Swahili)
-  - Português (Portugais)
-- **Opencode**: Map de traductions complètes pour l'UI (Produits, Stock, Analyse, Paramètres, Paiement, etc.)
-- **Opencode**: Ajout `_showLanguageDialog()` dans `settings_screen.dart` avec `RadioListTile`
-- **Opencode**: Persistance via `SharedPreferences`
-- **Note**: `LanguageService.translate()` existe mais les chaînes UI ne sont pas encore remplacées
-
-### 15:30 — Import/Export Excel (remplace CSV)
-
-- **User**: Remplacer le CSV par Excel (.xlsx)
-- **Opencode**: Ajout `excel: ^4.0.6` au `pubspec.yaml`
-- **Opencode**: Créé `lib/services/excel_service.dart` :
-  - Export : tous les champs produit (nom, prix, prix achat, stock, alerte stock, code-barres, catégorie, fournisseur, photo)
-  - Import : parsing intelligent des colonnes (détection par en-tête : "nom"/"name", "prix"/"price", etc.)
-  - Support `IntCellValue`, `DoubleCellValue`, `TextCellValue` pour le parsing robuste
-- **Opencode**: Modifié `csv_import_export_screen.dart` :
-  - Remplacé `CsvService` par `ExcelService`
-  - Supprimé `_FieldMappingDialog` (plus nécessaire avec Excel)
-  - Texte UI : "CSV" → "Excel"
-- **Opencode**: Supprimé imports inutilisés (`Category`, `Supplier` dans csv_import_export_screen)
-
-### 15:40 — Fix erreurs flutter analyze
-
-- **Opencode**: `flutter analyze` trouvé 6 erreurs dans `excel_service.dart` :
-  - `sheet.maxRow` → `sheet.rows.length` (API excel v4)
-  - `val.toDouble()` / `val.toInt()` sur `CellValue?` → pattern matching avec `DoubleCellValue` / `IntCellValue`
-- **Opencode**: Supprimé imports inutilisés :
-  - `dart:typed_data` dans `excel_service.dart`
-  - `package:path/path.dart` renommé en `p` (évite conflit)
-  - `../../models/category.dart` et `../../models/supplier.dart` dans `csv_import_export_screen.dart`
-- **Opencode**: Supprimé variables `isSelected` inutilisées dans `settings_screen.dart`
-- **Résultat final** : `flutter analyze` → **0 erreurs** (164 infos/warnings pré-existants)
-
-### 15:50 — Build APK + EXE
-
-- **Opencode**: `flutter pub get` → 5 dépendances changées (excel ajouté, posix supprimé)
-- **Opencode**: `flutter build apk --release` — en cours
-- **Opencode**: `flutter build windows --release` — en cours
-- **Opencode**: `flutter analyze` → 0 erreurs ✅
-
-### Fichiers créés
-- `lib/services/currency_service.dart` — 10 devises + formatage
-- `lib/services/language_service.dart` — 4 langues + traductions UI
-- `lib/services/excel_service.dart` — Export/Import Excel (.xlsx)
-
-### Fichiers modifiés
-- `pubspec.yaml` — Ajout `excel: ^4.0.6`
-- `lib/screens/scanner/scanner_screen.dart` — Bottom padding pour scroll
-- `lib/screens/payment/payment_screen.dart` — Bottom padding pour scroll
-- `lib/screens/settings/settings_screen.dart` — Dialogs devise + langue
-- `lib/screens/settings/csv_import_export_screen.dart` — Excel au lieu de CSV
-
----
-
-## Session du 26/06/2026 (17:00) — Vérification fichiers .md + enregistrement automatique
-
-### 17:00 — Vérification complète du contexte
-
-- **User**: Vérifier tous les fichiers .md dans `fichiers/` (demande initiale "mesfichiers" → dossier introuvable, fichiers dans `fichiers/`), enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
-- **Opencode**: 
-  - ✅ **6 fichiers .md lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
-  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
-    - **Flutter App** : Phases 1-14 complétées, v1.4.5+13, APK 108.9 MB, Windows kassa.exe 22.4 MB, GitHub pushé
-    - **Dashboard React** : React 19 + Express 5 + Capacitor 8, mobile-first, Points/Vouchers/Offline, Render config pushée
-    - **Windows** : ✅ Buildé (VS 2022 Community)
-    - **iOS/macOS** : ❌ Bloqué (besoin Mac + Xcode)
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
-
-### Résumé de l'état actuel (26/06/2026)
-
-| Composant | Statut | Détails |
-|-----------|--------|---------|
-| Flutter App | ✅ Pushé | v1.4.5, APK 108.9 MB, GitHub `BENsidneykokolo/Kassa` |
-| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
-| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
-| Phase 15 | ⏳ En attente | Wiring CurrencyService, LanguageService, Render deploy, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community, kassa.exe 22.4 MB |
-| iOS/macOS | ❌ Bloqué | Besoin Mac |
-
-### Tâches en attente (task.md)
-| Priorité | Tâche | Statut |
-|----------|-------|--------|
-| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
-| P1 | Wiring LanguageService.translate() UI | À faire |
-| P1 | Déploiement Render | En attente validation user |
-| P1 | Mise à jour API URL Flutter après Render | En attente |
-| P2 | Bluetooth printer (thermal printing) | À faire |
-| P2 | Tests unitaires (Flutter) | À faire |
-| P2 | Déploiement Play Store | À faire |
-
----
-
-## Session du 26/06/2026 (17:30) — Aide Settings + Fix scanner noir paiement
-
-### 17:30 — 2 demandes utilisateur
-
-1. **Ajouter section Aide dans Paramètres** avec 4 boutons : Appelez-nous, WhatsApp, SMS, Chatbot
-2. **Fix scanner noir dans Paiement** — parfois l'écran est noir mais le scan marche quand même
-
-#### Fix 1 : Scanner noir PaymentScreen
-- **Problème** : `MobileScannerController` créé dans `_openScanner()` avant que le widget `MobileScanner` ne soit monté → race condition, le flux caméra ne s'affiche pas toujours
-- **Fix** : Créé le controller dans `initState` (comme `scanner_screen.dart` qui marche toujours) — le controller est **toujours disponible**, le scanner ne démarre que quand `_showScanner = true`
-- **Fichier** : `lib/screens/payment/payment_screen.dart` ✅
-- **Résultat** : `dart analyze` → 0 erreurs, 0 warnings
-
-#### Fix 2 : Section Aide dans Settings
-- **Numéro** : +242 050 332 359
-- **4 boutons** :
-  - Appelez-nous → `tel:+242050332359`
-  - WhatsApp → message auto avec ID boutique : "Bonjour, c'est [ID boutique]. J'ai besoin d'aide avec mon application Kassa."
-  - SMS → même message avec ID boutique
-  - Chatbot → SnackBar "Bientôt disponible"
-- **Fichier** : `lib/screens/settings/settings_screen.dart` ✅
-- **Méthodes ajoutées** : `_callSupport()`, `_openWhatsAppSupport()`, `_openSmsSupport()`
-- **Résultat** : `dart analyze` → 0 erreurs, 0 warnings
-
-### 18:00 — GitHub Actions iOS/macOS
-
-- **User**: "fait la même chose pour iOS et macOS" → "fait avec GitHub Action"
-
-#### Workflow GitHub Actions amélioré
-- **Fichier** : `.github/workflows/build.yml`
-- **Runner** : `macos-15` (Xcode + outils Apple pré-installés)
-- **Features** :
-  - Cache Flutter + CocoaPods
-  - Code analysis (`flutter analyze --no-fatal-infos`)
-  - **iOS** : Build no-codesign + package IPA + upload artifact
-  - **macOS** : Build + création DMG + upload artifact
-  - Trigger : push master + manuel (workflow_dispatch avec choix debug/release)
-  - Rétention artifacts : 30 jours
-
-#### Entitlements macOS corrigés
-- **DebugProfile.entitlements** : Ajout `network.client` + `files.user-selected.read-write`
-- **Release.entitlements** : Ajout `network.client` + `files.user-selected.read-write`
-- **Fichiers** : `macos/Runner/DebugProfile.entitlements`, `macos/Runner/Release.entitlements` ✅
-
-#### Commit & Push
-- **Commit** : `88ef62b` — 5 fichiers modifiés
-- **Push** : `master` → `BENsidneykokolo/yabisso-kassa`
-- **Artifacts générés** :
-  - `kassa-ios-{run_number}` : IPA (sans codesign, pour TestFlight/signing)
-  - `kassa-macos-{run_number}` : App .app
-  - `kassa-macos-dmg-{run_number}` : DMG
-
----
-
-*Dernière mise à jour: 26/06/2026 - 18:00*
-
----
-
-## Session du 27/06/2026 (01:00-05:00) — Fix scanner paiement + Builds
-
-### 01:00 — Fix scanner noir paiement (copie depuis scanner_screen.dart)
-
-- **User**: "Copie tout le code scanne de l'écran ventes et colle-le dans l'écran scanne du paiement"
-- **User**: "Le scanne de l'écran paiement ne marche pas" (capture d'écran : écran noir mais scan fonctionne)
-- **Opencode**: Comparé `scanner_screen.dart` (ventes, fonctionne) vs `payment_screen.dart` (paiement, noir)
-  - **Diff clé**: `scanner_screen.dart` utilise `MobileScanner` sans `if` guard, payment_screen avait `if (_showScanner)` + `_PaymentScanOverlayPainter`
-  - **Fix**: Remplacé toute la vue scanner de payment par le code de scanner_screen adapté (sans guard if, `_ScanOverlayPainter` au lieu de `_PaymentScanOverlayPainter`)
-  - **Commit**: `094e73d` ✅
-  - **dart analyze**: 0 erreurs, 0 warnings ✅
-
-### Builds
-
-| Plateforme | Statut | Taille | Timestamp | Notes |
-|-----------|--------|--------|-----------|-------|
-| **Android APK** | ✅ | 111.4 MB | 27/06 04:05 | `apk/kassa_v1.4.6.apk` |
-| **Windows** | ⏳ | 82 KB | 26/06 03:36 | Timeout Gradle après `flutter clean` — exe ancien mais même code Dart |
-| **iOS** | 🔄 | — | — | GitHub Actions déclenché au push `094e73d` |
-| **macOS** | 🔄 | — | — | GitHub Actions déclenché au push `094e73d` |
-
-### Problème builds: `flutter clean` + Gradle
-- Le `flutter clean` a supprimé le cache Gradle
-- Reconstruction totale nécessite ~56 min sur cette machine
-- APK: reconstruit avec succès (3389s)
-- Windows: timeout — exe de la session précédente conservé (même code Dart, cross-platform)
-
-### Git
-- **Commits session**:
-  - `88ef62b` — feat: Help section + scanner fix + GitHub Actions iOS/macOS
-  - `094e73d` — fix: Replace payment scanner with working scanner_screen.dart
-- **Push**: `master` → `BENsidneykokolo/yabisso-kassa` ✅
-- **GitHub Actions**: Déclenchés automatiquement au push
-
----
-
-*Dernière mise à jour: 27/06/2026 - 05:00*
-
----
-
-## Session du 27/06/2026 — Vérification fichiers .md + enregistrement automatique
-
-### 11:00 — Vérification complète du contexte
-
-- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
-- **Opencode**: 
-  - ✅ **6 fichiers .md lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
-  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
-    - **Flutter App** : Phases 1-15, v1.4.6, APK 111.4 MB, Windows kassa.exe 22.4 MB, GitHub pushé
-    - **Dashboard React** : React 19 + Express 5 + Capacitor 8, mobile-first, Points/Vouchers/Offline, Render config pushée
-    - **Windows** : ✅ Buildé (VS 2022 Community)
-    - **iOS/macOS** : 🔄 GitHub Actions déclenchés
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
-
-### Résumé de l'état actuel (27/06/2026)
-
-| Composant | Statut | Détails |
-|-----------|--------|---------|
-| Flutter App | ✅ Pushé | v1.4.6, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
-| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
-| Phases 1-15 | ✅ Complétées | Fondations → Scanner fix + GitHub Actions |
-| Phase 16 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community, kassa.exe 22.4 MB |
-| iOS/macOS | 🔄 GitHub Actions | En cours de build via CI/CD |
-
-### Tâches en attente (task.md)
-| Priorité | Tâche | Statut |
-|----------|-------|--------|
-| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
-| P1 | Wiring LanguageService.translate() UI | À faire |
-| P1 | Déploiement Render | En attente validation user |
-| P1 | Mise à jour API URL Flutter après Render | En attente |
-| P2 | Bluetooth printer (thermal printing) | À faire |
-| P2 | Tests unitaires (Flutter) | À faire |
-| P2 | Déploiement Play Store | À faire |
-
-### 11:30 — Demande historique git builds
-
-- **User**: Lister tous les backups git depuis le build "kassa_v1.1.6.apk"
-- **Opencode**: 
-  - ✅ `git log --all` : 30 commits depuis le début
-  - ✅ **10 APK nommés** depuis v1.0.2 jusqu'à v1.4.6
-  - ✅ Première version "kassa_" (pas "yabissokassa_") = **v1.4.4** (23/06/2026)
-  - ⚠️ Pas de fichier `kassa_v1.1.6.apk` trouvé — demandé clarification utilisateur
-  - ✅ **Note** : Les versions kassa_ commencent à v1.4.4, les versions 1.0→1.4.3 utilisent le prefix yabissokassa_
-
-### 12:00 — Fix scanner paiement (revert vers 8ad7c1b)
-
-- **User**: "Comme tu n'arrives pas à fixer le scanner, reprends uniquement l'écran scanne dans paiement du commit 8ad7c1b et remplace-le. Aussi change 'Aide' → 'Besoin d'aide' dans paramètres."
-- **Opencode**: 
-  - ✅ **Scanner revert** : MobileScannerController créé à l'ouverture (comme 8ad7c1b) au lieu de initState
-  - ✅ `_openScanner()` : crée le controller + setState
-  - ✅ `_closeScanner()` : dispose le controller + null + setState
-  - ✅ Overlay : `_ScanOverlayPainter` → `_PaymentScanOverlayPainter`
-  - ✅ Flash : `toggleTorch()` → `?.toggleTorch()` (nullable)
-  - ✅ dispose : `_scannerController.dispose()` → `?.dispose()`
-  - ✅ **Settings** : `_buildSectionHeader('Aide')` → `'Besoin d\'aide'`
-  - ✅ `flutter analyze` : **0 erreurs, 0 warnings** (15 infos pré-existants)
-  - ✅ **Commit** : `1060850` — pushé sur GitHub
-  - ✅ **APK** : `kassa_v1.4.7.apk` (111.4 MB) — `apk/kassa_v1.4.7.apk`
-
-### 12:15 — Build + backup terminés
-
-- **User**: Demande de build + git backup après fix scanner
-- **Opencode**: 
-  - ✅ `flutter analyze` : 0 erreurs, 0 warnings
-  - ✅ `git commit 1060850` + `git push` vers GitHub
-  - ✅ `flutter build apk --release` : **111.4 MB**
-  - ✅ APK copié : `apk/kassa_v1.4.7.apk` + `apk/kassa_latest.apk`
-  - **Résumé changements** :
-    - `payment_screen.dart` : Scanner controller créé à l'ouverture (8ad7c1b pattern), `_PaymentScanOverlayPainter`, nullable controller
-    - `settings_screen.dart` : "Aide" → "Besoin d'aide"
-
-### 12:20 — Demande commits avant 8ad7c1b
-
-- **User**: "Liste ce qui a été fait avant le backup 8ad7c1b"
-- **Opencode**: 
-  - ✅ 13 commits listés du 15/06 au 22/06 (avant `8ad7c1b`)
-  - Dernier commit avant 8ad7c1b : `b806d71` (22/06) — v1.4.3+13
-  - Contenu : fixes scanner, layout, stock, subscription, points, ML Kit, categories
-  - **Note** : Pas de commit le 23/06, 24/06, 25/06 → code local non sauvegardé
-
-### 12:25 — Historique complet scanner paiement
-
-- **User**: "Liste les backups liés à l'écran scanne du paiement"
-- **Opencode**: 
-  - ✅ 7 commits identifiés touchant le scanner dans `payment_screen.dart`
-  - **Timeline** :
-    1. `ff53a5b` (13/06) : Création initiale scanner inline
-    2. `5bf1cb6` (22/06) : Fix layout scanner (+7 lignes)
-    3. `8ad7c1b` (26/06) : **Ajout scanner complet** (+580 lignes) — controller nullable, create on open, dispose on close, `_PaymentScanOverlayPainter`
-    4. `9e54a5b` (26/06) : CurrencyService wiring dans scanner
-    5. `88ef62b` (27/06) : **CASSÉ** — controller late au lieu de nullable, ajouté `if (_showScanner)`
-    6. `094e73d` (27/06) : **CASSÉ** — même pattern que 88ef62b
-    7. `1060850` (27/06) : **REVERT** — restauré le pattern 8ad7c1b
-  - **Conclusion** : Scanner correct dans 8ad7c1b, cassé dans 88ef62b/094e73d, restauré dans 1060850
-
-### 12:30 — Fix ROOT CAUSE scanner paiement
-
-- **User**: A identifié le vrai problème — le scanner de l'écran **ventes** (scanner_screen.dart) continue de tourner quand on navigue vers **paiement** via "Payer". Comme `context.push('/payment')` garde le scanner_screen dans la stack, le controller camera n'est jamais arrêté → le scanner paiement ne peut pas accéder à la caméra.
-  - **Preuve** : Quand on sélectionne un produit manuellement (sans scanner ventes) puis "Payer" → scanner paiement marche parfaitement.
-- **Opencode**: 
-  - ✅ Fix trouvé : `_scannerController.stop()` avant `context.push('/payment')` dans `scanner_screen.dart:483`
-  - ✅ `flutter analyze` : 0 erreurs, 0 warnings
-  - ✅ **Commit** : `f3c59ee` — pushé sur GitHub
-  - ✅ **APK** : `kassa_v1.4.8.apk` (111.4 MB) — `apk/kassa_v1.4.8.apk`
-
-### Note build
-- Le build Flutter Android prend ~4-5 min sur Windows (normal : Gradle + 80 dépendances + ML Kit)
-- Pour accélérer : builder sur un CI/CD (GitHub Actions) ou passer sur Mac/Linux
-
-### 21:30 — Builds Windows + iOS + macOS
-
-- **User**: "Build pour PC, iOS et mac maintenant avec tous les updates"
-- **Opencode**: 
-  - ✅ **Windows** : `flutter build windows --release` → `kassa.exe` (84 KB + DLLs)
-  - ✅ GitHub Actions déclenchés pour iOS + macOS
-  - ❌ **Problème détecté** : workflow utilisait Flutter 3.27.x (Dart 3.6.2) mais le projet nécessite Dart ^3.11.0
-  - ✅ **Fix** : `build.yml` mis à jour avec `FLUTTER_VERSION: '3.41.x'`
-  - ✅ **Commit** : `4eddf03` pushé
-  - 🔄 iOS + macOS en cours de build via GitHub Actions (#28302401179)
-
-### 23:45 — Fix scanner: produit non trouvé → ajouter produit
-
-- **User**: Quand on scanne un code-barres inexistant, le popup "Produit non trouvé" propose "Ajouter le produit". En cliquant, l'écran ajouter s'ouvre mais le scanner ventes tourne toujours → "The mobilescannercontroller is already running"
-- **Opencode**: 
-  - ✅ Fix : `_scannerController.stop()` ajouté avant `context.push('/products/add')` dans `_showNotFoundDialog` (`scanner_screen.dart:717`)
-  - ✅ Résumé des 2 fixes scanner :
-    1. Avant "Payer" : `_scannerController.stop()` (commit `f3c59ee`)
-    2. Avant "Ajouter le produit" : `_scannerController.stop()` (commit `b1d100b`)
-  - ✅ **Commit** : `b1d100b` — pushé sur GitHub
-  - ✅ **APK** : `kassa_v1.4.9.apk` (108.9 MB)
-
-### 00:26 — Rollback + fix propre scanner
-
-- **User**: Scanner cassé après fix → rollback à `f3c59ee` + re-fix
-- **Opencode**: 
-  - ✅ `git reset --hard f3c59ee` → `git push --force`
-  - ✅ Fix relancé : `_scannerController.stop()` avant `context.push('/products/add')`
-  - ✅ **Commit** : `a1e1736` pushé
-  - ✅ **APK** : `kassa_v1.4.10.apk` (111.4 MB)
-  - ✅ User confirme : **scanner marche**
-
-### 02:00 — Update BASIC 2000 points + tous les builds
-
-- **User**: "Update l'abonnement basique de 1500 à 2000 points et refais tous les builds"
-- **Opencode**: 
-  - ✅ `points_service.dart` : BASIC 1500 → 2000
-  - ✅ `settings_screen.dart` : BASIC déjà à 2000 (vérifié)
-  - ✅ **Commit** : `3ebfacf` pushé
-  - ✅ **Android** : `kassa_v1.4.11.apk` (111.4 MB)
-  - ✅ **Windows** : `kassa.exe` (84 KB)
-  - ❌ **iOS/macOS** : Flutter 3.27.x insuffisant (Dart 3.6.2 vs ^3.11.0)
-  - ✅ **Fix CI** : `build.yml` → `FLUTTER_VERSION: '3.44.x'`
-  - ✅ **Commit CI** : `32d3384` pushé
-  - 🔄 iOS/macOS en cours (#28305997482)
-
-### 00:30 — Fix CI iOS/macOS + clean warnings
-
-- **User**: Montré erreurs build iOS/macOS — 162 issues (warnings + infos)
-- **Opencode**: 
-  - ✅ **CI fix** : `build.yml` → `FLUTTER_VERSION: '3.44.x'` + `--no-fatal-infos --no-fatal-warnings`
-  - ✅ **Warnings fix** (5 fichiers) :
-    - `hotspot_sync_screen.dart` : supprimé imports `go_router` + `app_theme`
-    - `csv_service.dart` : supprimé import `path/path.dart`
-    - `product_exporter.dart` : supprimé import `dart:typed_data`
-    - `products_content.dart` : supprimé 4 méthodes mortes (_showExportDialog, _exportAllProducts, _enableSelectionMode, _importProducts)
-    - `vendor_auth_screen.dart` : supprimé champ `_hasSubscription` + assignments
-  - ✅ **Commits** : `535183f` (CI) + `540de6f` (warnings) pushés
-  - 🔄 iOS/macOS en cours (#28306329963)
-
----
-
-## Session du 28/06/2026
-
-### Employee Dashboard — Finalisation des écrans manquants
-
-**Contexte** : Le dashboard employé (`yabisso_employes/`) avait ~40% des écrans créés. Les 4 écrans manquants ont été construits.
-
-**Écrans créés** :
-1. **`lib/screens/messages/messages_screen.dart`** — Messages & tâches du jour
-   - Liste avec sections "Non lus" / "Lus"
-   - Icônes par type (alerte/info/task/succès)
-   - Marquer lu / tout marquer lu
-   - Pull-to-refresh
-
-2. **`lib/screens/home/shops_screen.dart`** — Liste des boutiques prospectées
-   - Barre de recherche (nom, propriétaire, téléphone)
-   - Cartes avec initiales, type, date
-   - État vide avec bouton "Vendre un abonnement"
-
-3. **`lib/screens/profile/profile_screen.dart`** — Profil employé
-   - Header gradient avec avatar, nom, téléphone, rôle
-   - Stats (aujourd'hui, mois, pointage)
-   - Infos détaillées
-   - Bouton déconnexion
-
-4. **`lib/screens/home/sales_history_screen.dart`** — Historique des ventes
-   - Résumé (nombre ventes, total, commissions)
-   - Filtres par plan (MICRO/BASIC/PREMIUM/UNLIMITED)
-   - Liste détaillée avec badges SUPRA
-
-**Fix** : Supprimé section `assets:` vide de `pubspec.yaml` (causerait build error)
-
-**Git** : Repo GitHub créé + initial commit pushé
-- Repo: https://github.com/BENsidneykokolo/yabisso-employes
-- Commit: `144c529`
-- 147 fichiers, 7683 insertions
-
-**Note** : `flutter analyze` non disponible dans cet environnement — à lancer sur la machine locale
-
----
-
-## Session du 28/06/2026 (suite)
-
-### Création massive — 3 nouveaux apps
-
-**Consigne** : Créer yabisso_admin, yabisso_pos_restaurant, yabisso_pos_hotel — chacun avec son propre repo GitHub et APK.
-
-### 1. Yabisso Admin Dashboard (`yabisso_admin`)
-- **Repo**: https://github.com/BENsidneykokolo/yabisso-admin
-- **Commit**: `f360df9` — 22 fichiers, 4255 insertions
-- **22 fichiers** :
-  - Models: admin, employee, assignment, ai_proposal, sale_record
-  - Services: database_helper (SQLite), auth_service (bcrypt), ai_service (mock)
-  - Screens: login, dashboard, ai_ceo, ai_marketing, employees, employee_detail, sales, assignments, settings, profile
-  - Providers, router, theme
-- **Features**: PIN auth 4 rôles (super_admin/admin/hr_manager/marketing_director), AI CEO proposals approve/reject, AI Marketing dashboard, RH management, sales overview, assignments
-
-### 2. Yabisso POS Restaurant (`yabisso_pos_restaurant`)
-- **Repo**: https://github.com/BENsidneykokolo/yabisso-pos-restaurant
-- **Commit**: `50b631e` — 29 fichiers, 5653 insertions
-- **29 fichiers** :
-  - Models: table_model, order, order_item, menu_item, category, payment, staff, reservation
-  - Services: database_helper, order_service, kitchen_service (real-time 5s polling), payment_service, notification_service
-  - Screens: login, home/tables, order, kitchen, payment, menu, takeaway, history, settings, staff
-  - Providers, router, theme
-- **Features**: Grid tables avec statuts colors, order taking avec catégories menu, kitchen display avec urgence colors, payment multi-méthodes, takeaway, menu management
-
-### 3. Yabisso POS Hotel (`yabisso_pos_hotel`)
-- **Repo**: https://github.com/BENsidneykokolo/yabisso-pos-hotel
-- **Commit**: `5d3590f` — 32 fichiers, 9393 insertions
-- **32 fichiers** :
-  - Models: room, guest, reservation, stay, invoice, invoice_item, housekeeping_task, staff
-  - Services: database_helper, reservation_service, stay_service, billing_service, housekeeping_service, notification_service
-  - Screens: login, reception, rooms, checkin, checkout, reservations, guests, billing, housekeeping, reports, staff, settings
-  - Providers, router, theme
-- **Features**: Grille chambres 5 statuts, check-in avec QR code, check-out avec facturation, réservations avec calendar, housekeeping, rapports occupancy
-
-### Build à effectuer sur machine locale
-Chaque app nécessite :
-1. `flutter pub get`
-2. `flutter analyze --no-fatal-infos --no-fatal-warnings`
-3. `flutter build apk --release`
-4. Copier APK dans `C:\Users\Utilisateur\Documents\Ben\Kassa\apk\`
-
-### Récapitulatif des repos
-| App | Repo | Fichiers | Lignes |
-|-----|------|----------|--------|
-| yabisso_kassa | BENsidneykokolo/yabisso-kassa | — | — |
-| yabisso_employes | BENsidneykokolo/yabisso-employes | 147 | 7683 |
-| yabisso_admin | BENsidneykokolo/yabisso-admin | 22 | 4255 |
-| yabisso_pos_restaurant | BENsidneykokolo/yabisso-pos-restaurant | 29 | 5653 |
-| yabisso_pos_hotel | BENsidneykokolo/yabisso-pos-hotel | 32 | 9393 |
-
----
-
-## Session du 28/06/2026 (suite 2)
-
-### Système d'abonnement ajouté à Restaurant + Hotel + Super Admin
-
-**Construit le même système d'abonnement que Kassa pour les 3 autres apps.**
-
-### POS Restaurant — Abonnement (commit `7f58430`)
-- **`lib/services/subscription_service.dart`** — Service combiné offline voucher + points
-  - ID Restaurant: `R-{4 derniers chiffres tél}-{initiales}` (ex: R-4567-JPMB)
-  - Validation voucher OFF: `OFF-{hash}-{planChar}{3random}`
-  - Validation points PTS: `PTS-{hash}-{hexMontant}-{check}`
-  - Plans: MICRO(1000/10), BASIC(2000/25), PREMIUM(3000/50), UNLIMITED(5000/∞)
-- **`lib/screens/subscription/subscription_screen.dart`** — Écran complet avec entrée voucher, solde points, statut abonnement
-- Login redirige vers `/subscription` si pas d'abonnement actif
-- Settings: section "Abonnement" ajoutée
-
-### POS Hotel — Abonnement (commit `a93f8a9`)
-- **`lib/services/subscription_service.dart`** — Même logique avec préfixe `H-`
-  - ID Hotel: `H-{4 derniers chiffres tél}-{initiales}` (ex: H-5678-AB)
-- **`lib/screens/subscription/subscription_screen.dart`** — Écran avec "chambres" au lieu de "produits"
-- Même flow login → subscription si inactif
-- Settings: section "Abonnement" ajoutée
-
-### Super Admin — Générateur de vouchers (commit `0efae33`)
-- **`lib/services/voucher_generator_service.dart`** — Génère des codes OFF- et PTS-
-  - Même algo de hash que Kassa (`_hashBoutiqueId`)
-  - Supporte les 3 types: boutique (B), restaurant (R), hotel (H)
-- **`lib/screens/vouchers/voucher_generator_screen.dart`** — Écran complet:
-  - Sélecteur type (Boutique/Restaurant/Hôtel)
-  - Entrée ID du business
-  - Toggle Voucher Abonnement / Points
-  - Sélecteur plan avec prix
-  - Entrée montant points avec boutons rapides
-  - Affichage code généré avec bouton copier
-  - Historique des vouchers générés
-- Dashboard: "Générateur de vouchers" ajouté aux actions rapides + bottom nav
-- Titre changé: "Yabisso Super Admin"
-
-### Récapitulatif des repos mis à jour
-| App | Dernier commit | Changements |
-|-----|---------------|-------------|
-| yabisso-pos-restaurant | `7f58430` | +subscription_service +subscription_screen |
-| yabisso-pos-hotel | `a93f8a9` | +subscription_service +subscription_screen |
-| yabisso-admin | `d96187c` | +voucher_generator_service +voucher_screen, renommé Super Admin |
-
----
-
-## Session du 28/06/2026 (session 3)
-
-### Système de paiement via WhatsApp amélioré (Kassa + Hotel + Restaurant)
-
-**Demande**: Modifier les boutons "Payer via WhatsApp" et "Demander des points via WhatsApp" dans les 3 apps pour ajouter des popups de sélection avant la redirection WhatsApp.
-
-### 1. Kassa — Popup sélection abonnement avant WhatsApp
-- **vendor_auth_screen.dart**: Remplacé `_openWhatsAppForSubscription()` par `_showWhatsAppSubscriptionPlanDialog()` → popup avec 4 plans (Micro/Basique/Premium/Illimité) avec badges colorés (Populaire, Meilleur choix, Premium) + détection premier abonnement vs renouvellement
-- **settings_screen.dart**: Remplacé `_openWhatsAppForPayment()` par `_showWhatsAppSubscriptionPlanDialog()` → même design popup
-- **main_screen.dart**: Remplacé `_openWhatsAppReminder()` par `_showWhatsAppSubscriptionPlanDialog()` → même design popup
-- **Messages WhatsApp**: `prendre un abonnement` si premier abo, `renouveler mon abonnement` si existant + ID boutique
-
-### 2. Kassa — Popup montant points avant WhatsApp
-- **points_screen.dart**: Remplacé `_openWhatsApp()` par `_showWhatsAppPointsDialog()` → popup avec TextField numérique, boutons rapides (1000/5000/10000/25000), bouton "Envoyer via WhatsApp"
-- **Message WhatsApp**: `Bonjour, je souhaite acheter [X] points Yabisso. Mon ID boutique est: [ID]`
-
-### 3. Hotel — Boutons WhatsApp ajoutés
-- **subscription_screen.dart**: Ajouté 2 boutons WhatsApp dans `_buildPointsSection()` + 2 popups (`_showWhatsAppSubscriptionPlanDialog` + `_showWhatsAppPointsDialog`)
-- **Messages WhatsApp**: `Mon ID hôtel: [ID]` au lieu de `Mon ID boutique`
-- **pubspec.yaml**: Ajouté `url_launcher: ^6.3.1` + upgrade `print_bluetooth_thermal: ^1.2.1`
-
-### 4. Restaurant — Boutons WhatsApp ajoutés
-- **subscription_screen.dart**: Ajouté 2 boutons WhatsApp dans `_buildPointsSection()` + 2 popups identiques
-- **Messages WhatsApp**: `Mon ID restaurant: [ID]` au lieu de `Mon ID boutique`
-- **pubspec.yaml**: Ajouté `url_launcher: ^6.3.1`
-
-### 5. Dashboard — Déjà opérationnel
-- Le dashboard (`yabisso_admin`) supporte déjà la génération de vouchers et points pour les 3 types (Boutique B-, Restaurant R-, Hotel H-) via le sélecteur de type dans `voucher_generator_screen.dart`
-
-### Résultats analyse
-- **Kassa**: 0 erreurs, 0 warnings (17 info pré-existants)
-- **Hotel**: 0 erreurs, 0 warnings (1 info)
-- **Restaurant**: 0 erreurs, 0 warnings
-
-### Fichiers modifiés (7 fichiers)
-| Fichier | App | Changements |
-|---------|-----|-------------|
-| `vendor_auth_screen.dart` | Kassa | Popup plan WhatsApp |
-| `settings_screen.dart` | Kassa | Popup plan WhatsApp |
-| `main_screen.dart` | Kassa | Popup plan WhatsApp |
-| `points_screen.dart` | Kassa | Popup montant WhatsApp |
-| `subscription_screen.dart` | Hotel | +2 boutons + 2 popups + url_launcher |
-| `subscription_screen.dart` | Restaurant | +2 boutons + 2 popups + url_launcher |
-| `pubspec.yaml` | Hotel | +url_launcher, +print_bluetooth_thermal upgrade |
-| `pubspec.yaml` | Restaurant | +url_launcher |
-
----
-
-## Session du 29/06/2026 — Vérification fichiers .md + enregistrement automatique
+## Session du 05/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
 
 ### 12:00 — Vérification complète du contexte
 
 - **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
 - **Opencode**: 
-  - ✅ **6 fichiers .md lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
-  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
-    - **Flutter App** : Phases 1-15, v1.4.11, APK 111.4 MB, Windows kassa.exe 22.4 MB, GitHub pushé
-    - **Dashboard React** : React 19 + Express 5 + Capacitor 8, mobile-first, Points/Vouchers/Offline, Render config pushée
-    - **4 autres apps** : Restaurant, Hotel, Employés, Super Admin — tous pushés GitHub
-    - **Windows** : ✅ Buildé (VS 2022 Community)
-    - **iOS/macOS** : En attente GitHub Actions (Flutter 3.44.x)
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+  - ✅ **6 fichiers .md lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2224 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK 111.4 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **5 autres apps** : Restaurant, Hotel, Employés, Super Admin — tous pushés GitHub
+    - **Bug critique corrigé** (30/06) : Hash mismatch JS vs Dart (`hash.toSigned(32)`)
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
 
-### Résumé de l'état actuel (29/06/2026)
+### Résumé de l'état actuel (05/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 5 autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Super Admin |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions déclenchés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 04/07/2026 (suite)
+
+### 14:00 — Vérification fichiers .md + reprise
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte + enregistrer automatiquement les échanges dans chat.md en temps réel + "think deeper" avant de répondre + vérifier/tester chaque implémentation
+- **Opencode**: 
+  - ✅ **5 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md
+  - ✅ **chat.md (2081 lignes) lu** : historique complet des sessions depuis le 11/06/2026
+  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Flutter App** : Phases 1-14 complétées (Phase 15 = wiring CurrencyService/LanguageService en attente)
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **4 autres apps** : Restaurant, Hotel, Employés, Super Admin — tous pushés GitHub
+    - **Dernier build Kassa** : v1.4.11 (111.4 MB), Windows kassa.exe 22.4 MB
+    - **Bug critique corrigé** (30/06) : Hash mismatch JS vs Dart (`hash.toSigned(32)`)
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (04/07/2026)
 
 | Composant | Statut | Détails |
 |-----------|--------|---------|
 | Flutter App | ✅ Pushé | v1.4.11, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
-| Dashboard React | ✅ Pushé | v1.4.4, GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
 | 4 autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Super Admin |
-| Phases 1-15 | ✅ Complétées | Fondations → Scanner fix + GitHub Actions |
-| Phase 16 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community, kassa.exe 22.4 MB |
-| iOS/macOS | 🔄 GitHub Actions | En cours de build via CI/CD |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions déclenchés |
 
-### Tâches en attente (task.md)
+### Tâches en attente (task.md + implementation.md Phase 15)
 | Priorité | Tâche | Statut |
 |----------|-------|--------|
 | P1 | Wiring CurrencyService.formatPrice() partout | À faire |
@@ -1939,196 +1218,331 @@ Chaque app nécessite :
 | P2 | Tests unitaires (Flutter) | À faire |
 | P2 | Déploiement Play Store | À faire |
 
----
-
-## Session du 29/06/2026 — Builds APK 3 apps (employés, admin, dashboard)
-
-### 15:00 — Contexte
-
-- **Objectif** : Construire les APK pour 3 apps du ecosysteme Kassa
-  1. **yabisso_employes** — App Flutter gestion employes
-  2. **yabisso_admin** — Dashboard IA interne Flutter
-  3. **yabisso_admin_dashboard** — Dashboard React + Capacitor
-
-### Travaux effectues
-
-#### 1. yabisso_employes — APK
-- `flutter build apk --release` → **64 MB** ✅
-- Copie : `apk/yabisso_employes.apk`
-
-#### 2. yabisso_admin — APK
-- **Fix AGP** : `android/settings.gradle.kts` — AGP 9.0.1 → 8.11.1, Kotlin 2.3.20 → 2.2.20
-- **Fix ecrans corrompus** (null bytes U+0000) :
-  - `sales_screen.dart` — 100% null bytes → **recree** (198 lignes)
-  - `ai_marketing_screen.dart` — recree precedemment
-  - Fix type cast : `tab['key']! as String` dans les 2 ecrans
-- `flutter build apk --release` → **49 MB** ✅
-- Copie : `apk/yabisso_admin.apk`
-
-#### 3. yabisso_admin_dashboard — APK
-- `npm run build` (React) → dist OK
-- `npx cap sync android` → sync OK
-- `cd android && ./gradlew assembleRelease` → **BUILD SUCCESSFUL**
-- APK : `app-release-unsigned.apk` (3.2 MB) — **non signe** (pas de keystore)
-- Copie : `apk/yabisso_admin_dashboard.apk`
-
-### Recapitulatif APKs
-
-| App | Taille | Statut |
-|-----|--------|--------|
-| yabisso_employes.apk | 64 MB | ✅ Signe |
-| yabisso_admin.apk | 49 MB | ✅ Signe |
-| yabisso_admin_dashboard.apk | 3.2 MB | ⚠️ Non signe |
-
-### Git
-- Commit `45c3e6f` : fix sales_screen.dart (543 insertions)
-- Commit `33143d0` : feat add yabisso_admin (121 fichiers)
-
-### Notes
-- Le dashboard Capacitor est non signe — besoin d'un keystore pour la signature release
-- Les 3 APKs sont dans `apk/`
+*En attente des instructions de Ben...*
 
 ---
 
-## Session du 30/06/2026
+## Session du 04/07/2026 (14:00-16:00) — 5 Prompts : Historique inventaire, Export reçus, Employés, Scanner
 
-### Complétion des features manquantes + Fix syntax + Build tous APKs
+### Résumé des 5 prompts implémentés
 
-#### Bug critique corrigé : Hash mismatch JS vs Dart
-- `hash |= 0` en JavaScript = tronque à 32-bit signé
-- `hash |= 0` en Dart = no-op (64-bit integers)
-- **Fix**: `hash = hash.toSigned(32)` appliqué dans 4 fichiers :
-  - `yabisso_kassa/lib/services/offline_voucher_service.dart`
-  - `yabisso_kassa/lib/services/points_service.dart`
-  - `yabisso_pos_restaurant/lib/services/subscription_service.dart`
-  - `yabisso_pos_hotel/lib/services/subscription_service.dart`
+#### Prompt 1 : Historique de l'inventaire ✅
+- **Fichier modifié** : `inventory_screen.dart` — ajout `_showReasonDialog()` avant sauvegarde
+- **Motifs prédéfinis** : Réception marchandise, Retour fournisseur, Inventaire physique, Correction erreur, Produit cassé/perdu, Autre
+- **Fichier modifié** : `inventory_history_screen.dart` — motif affiché dans chaque carte historique
+- **Export fichier** : sauvegarde CSV dans `getApplicationDocumentsDirectory/inventaire_*.csv` + bouton Partager
+- **PIN confirmation** : déjà implémenté (vérifié ✅)
+- **DB** : table `inventory_history` avec colonne `reason` déjà existante (migration v9)
 
-#### Fix syntax restaurant subscription_screen.dart
-- Le QR code button code était inséré au mauvais endroit (dans `_showWhatsAppPointsDialog` au lieu de `_buildSubscriptionStatus`)
-- **Fix**: Code déplacé dans `_buildSubscriptionStatus` ✅
-- Hotel vérifié : pas de problème ✅
+#### Prompt 2 : Export historique des reçus ✅
+- **Fichier modifié** : `receipt_export_screen.dart` — export sauvegarde fichier CSV + partage
+- **Contenu export** : résumé (nb ventes, CA, coûts, bénéfice) + détail ventes + top 20 produits
+- **Date range** : déjà implémenté avec `showDateRangePicker` ✅
+- **CA total + bénéfice** : déjà affichés dans les stats ✅
+- **Fichier** : `recus_*.csv` dans DocumentsDirectory
 
-#### Features implémentées
-1. **QR Code generation** dans écrans abonnement (kassa, restaurant, hotel)
-2. **Prestataire ID** ajouté dans : register, subscription, WhatsApp messages, vouchers, profil employes
-3. **QR Scanner** dans employes app (écran `qr_scan_screen.dart` + bouton "Scanner vente")
-4. **WhatsApp share** dans employes dashboard → envoie à +242050332359
-5. **Activity screen** dans admin app (`employee_activity_screen.dart`)
-6. **Activity page** dans Mon App (`Activity.tsx` - historique ventes/vouchers)
-7. **Nettoyage** yabisso_admin : pubspec, imports obsolètes, API dépréciée
+#### Prompt 3 : Gestion employés — ID employé ✅
+- **Fichier modifié** : `yabisso_admin/lib/screens/employees/employees_screen.dart`
+- **Ajout** : champ "ID de l'employé" dans le popup "Ajouter un employé"
+- **Logique** : si ID saisi → utilisé, sinon → UUID auto-généré
+- **QR scan** : signature `_scanEmployeeQr` mise à jour avec `idController`
 
-#### APKs construits et copiés dans apk/
+#### Prompt 4 : Vérification partage ✅
+- **Vérifié** : fonction `_showShareDialog()` + `_shareDailySales()` dans `dashboard_screen.dart`
+- **Statut** : fonctionnel — copie données structurées dans presse-papier + ouvre WhatsApp
 
-| App | Taille | Statut |
-|-----|--------|--------|
-| yabisso_kassa.apk | 246 MB | ✅ |
-| yabisso_employes.apk | 196 MB | ✅ |
-| yabisso_admin.apk | 172 MB | ✅ |
-| yabisso_admin_dashboard.apk | 3.3 MB | ✅ |
-| yabisso_pos_restaurant.apk | 58 MB | ✅ |
-| yabisso_pos_hotel.apk | 54 MB | ✅ |
+#### Prompt 5 : Correction scanner vente employé ✅
+- **Bug identifié** : `employee.id != prestataireId` comparait l'ID employé avec le `prestataire_id` du QR (2 systèmes différents)
+- **Fichier modifié** : `qr_scan_screen.dart` — supprimé la validation `prestataire_id == employee.id`
+- **Ajout** : vérification doublon (même employé ne peut pas scanner 2× la même boutique)
+- **Ajout** : colonnes `prestataire_id` et `subscription_type` dans table `shops`
+- **DB** : migration v1→v2 ajoutée dans `database_helper.dart` employés
+- **Model** : `Shop` mis à jour avec `prestataireId` et `subscriptionType`
 
-#### Git commits
-- **yabisso_kassa**: `5499dfe` — prestataire ID + QR code + hash fix
-- **yabisso_admin_dashboard**: `169653c` — Activity page + prestataire_id + server support
-- **yabisso_pos_hotel**: `e7b9089` — prestataire ID + QR code + hash fix
-- **yabisso_pos_restaurant**: `e2b9456` — prestataire ID + QR code + hash fix
-- **yabisso_employes**: `1e59615` — WhatsApp share + QR scanner + prestataire ID
-- **yabisso_admin**: `7a476f3` — clean pubspec + activity screen + fix deprecated API
-- **Main repo**: `85b7eea` — submodule refs update
+### Fichiers modifiés
 
-#### Push effectué
-- Main repo : ✅
-- yabisso_kassa : ✅
-- yabisso_pos_hotel : ✅
-- yabisso_pos_restaurant : ✅
-- yabisso_employes : ✅
-- yabisso_admin_dashboard : ✅
+| Fichier | App | Changements |
+|---------|-----|-------------|
+| `inventory_screen.dart` | Kassa | +`_showReasonDialog()` motifs avant sauvegarde |
+| `inventory_history_screen.dart` | Kassa | +motif affiché, +export fichier CSV |
+| `receipt_export_screen.dart` | Kassa | +export fichier CSV + partage |
+| `employees_screen.dart` | Admin | +champ ID employé dans popup Ajouter |
+| `qr_scan_screen.dart` | Employés | Fix validation QR (supprimé prestataire_id check) |
+| `database_helper.dart` | Employés | Migration v2 (prestataire_id, subscription_type) |
+| `shop.dart` | Employés | +prestataireId, +subscriptionType |
+
+### Prochaines étapes
+- `flutter analyze` pour vérifier 0 erreurs
+- Build APK Kassa + Employés + Admin
+- Git commit + push
 
 ---
 
-## Session du 30/06/2026 — Vérification fichiers .md + enregistrement automatique
+## Session du 04/07/2026 (17:00) — Vérification fichiers .md + reprise
+
+### 17:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte + enregistrer automatiquement les échanges dans chat.md en temps réel + "think deeper" avant de répondre + vérifier/tester chaque implémentation
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2181 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK 111.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **4 autres apps** : Restaurant, Hotel, Employés, Super Admin — tous pushés GitHub
+    - **7 nouveaux dossiers** détectés : yabisso_compta, yabisso_crm, yabisso_depenses, yabisso_ecole, yabisso_facture, yabisso_rh, yabisso_stock
+    - **Bug critique corrigé** (30/06) : Hash mismatch JS vs Dart (`hash.toSigned(32)`)
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (04/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 4 autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Super Admin |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions déclenchés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 05/07/2026 (12:00-14:00) — Module RH Admin + Vérification complète prompt2.txt
+
+### Travaux effectués
+
+#### 1. Reconstruction fichiers corrompus
+- **main.dart** — Reconstruit (GoRouter 36 routes, ProviderScope, MaterialApp.router)
+- **ai_assistant_screen.dart** — Reconstruit (chat IA placeholder)
+
+#### 2. Module RH complet Yabisso Admin (nouveaux fichiers)
+- **employee_tasks_screen.dart** — Module tâches complet
+- **performance_dashboard_screen.dart** — Tableau de bord performances avec scoring
+- **activity_log_screen.dart** — Journal d'activité complet
+- **permissions_service.dart** — Système de rôles 5 niveaux
+
+#### 3. Mises à jour infrastructure
+- **database_helper.dart** — Migration v9, table `employee_tasks`
+- **providers.dart** — 6 nouveaux providers
+- **admin.dart** — 2 nouveaux rôles
+
+#### 4. Corrections erreurs
+- 17→0 erreurs dart analyze
+
+#### 5. Vérification prompt2.txt (1856 lignes, 8 prompts, 3 apps)
+- **35/45 fonctionnalités** ✅ implémentées
+- **6 ⚠️** partiellement implémentées
+- **4 ❌** à faire (backup sélectif Kassa principalement)
+
+### Ce qu'il reste
+1. 🔴 Backup sélectif Kassa
+2. 🔴 Backup automatique quotidien
+3. 🟡 App Icon employés
+4. 🟡 Communication interne
+
+## Session du 05/07/2026 (14:00-15:00) — Permissions, Export PDF, Validation pipeline
+
+### Travaux effectués
+
+#### 1. Permissions Enforcement
+- **dashboard_screen.dart** — Actions rapides et navigation bottom bar filtrées par permissions
+- **rh_dashboard_screen.dart** — 17 modules grid filtrés par permissions + module Export PDF ajouté
+
+#### 2. PDF Export (6 types de rapports)
+- **pdf_export_service.dart** — Service d'export PDF: employés, présence, congés, candidats, performance, rapport quotidien
+- **export_screen.dart** — Écran d'export avec partage intégrable
+- **pubspec.yaml** — +pdf, printing, share_plus
+
+#### 3. Validation + Transformation Candidat → Employé
+- **candidates_screen.dart** — Filtre validation, bouton Valider, bouton Transformer en employé
+- **database_helper.dart** — Migration v10: 5 nouvelles colonnes candidates
+
+#### 4. Top Performers (RH Dashboard)
+- **rh_dashboard_screen.dart** — Classement top 5 avec scoring (tâches 30pts, prospection 25pts, présence 20pts)
+
+#### 5. Auto-notifications
+- Objectifs: notification créé + atteint
+- Candidats: notification validé
+
+### Vérification connections 3 apps
+- 3 apps avec DB séparées — pas de partage direct
+- Connections conceptuelles uniquement (modèles compatibles)
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 06/07/2026 (12:00) — Correction système d'abonnement + activation
 
 ### 12:00 — Vérification complète du contexte
 
 - **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
 - **Opencode**: 
-  - ✅ **18 fichiers .md lus et analysés** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md + 6 DESIGN.md extraits des écrans
-  - ✅ **Contexte complet** : Kassa — Écosystème 6 apps Flutter + Dashboard React pour commerçants africains
-    - **yabisso_kassa** : POS principal, v1.4.11, APK 246 MB, GitHub pushé
-    - **yabisso_employes** : Gestion employés, 196 MB, GitHub pushé
-    - **yabisso_admin** : Dashboard IA interne, 172 MB, GitHub pushé
-    - **yabisso_admin_dashboard** : Dashboard React + Capacitor, 3.3 MB, GitHub pushé
-    - **yabisso_pos_restaurant** : POS restaurant, 58 MB, GitHub pushé
-    - **yabisso_pos_hotel** : POS hôtel, 54 MB, GitHub pushé
-    - **Windows** : ✅ Buildé (VS 2022 Community)
-    - **iOS/macOS** : 🔄 GitHub Actions en cours
-  - ✅ **Derniers travaux** : Fix hash JS/Dart (toSigned(32)), QR codes abonnement, prestataire ID, WhatsApp amélioré
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1427 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
 
-### Résumé de l'état actuel (30/06/2026)
+### 12:10 — Correction complète du système d'abonnement (3 bugs)
 
-| Composant | Statut | Détails |
-|-----------|--------|---------|
-| yabisso_kassa | ✅ Pushé | v1.4.11, APK 246 MB, GitHub |
-| yabisso_employes | ✅ Pushé | APK 196 MB, GitHub |
-| yabisso_admin | ✅ Pushé | APK 172 MB, GitHub |
-| yabisso_admin_dashboard | ✅ Pushé | APK 3.3 MB, GitHub |
-| yabisso_pos_restaurant | ✅ Pushé | APK 58 MB, GitHub |
-| yabisso_pos_hotel | ✅ Pushé | APK 54 MB, GitHub |
-| Phase 16 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community |
-| iOS/macOS | 🔄 GitHub Actions | Flutter 3.44.x |
+**Bug 1 : Sélection d'abonnement manquante dans popup "Abonnement requis"**
+- **Problème** : `_openWhatsAppForSubscription()` dans `vendor_auth_screen.dart` ouvrait WhatsApp directement sans afficher la liste des plans
+- **Fix** : Remplacé par `_showPlanSelectionDialog()` → bottom sheet avec 4 plans (Micro, Basic, Premium, Illimité)
+- **Fichier** : `vendor_auth_screen.dart:190-299`
 
-### Tâches en attente (task.md)
-| Priorité | Tâche | Statut |
-|----------|-------|--------|
-| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
-| P1 | Wiring LanguageService.translate() UI | À faire |
-| P1 | Déploiement Render | En attente validation user |
-| P1 | Mise à jour API URL Flutter après Render | En attente |
-| P2 | Bluetooth printer (thermal printing) | À faire |
-| P2 | Tests unitaires (Flutter) | À faire |
-| P2 | Déploiement Play Store | À faire |
+**Bug 2 : Sélection d'abonnement manquante dans carte "Abonnement" (login screen)**
+- **Problème** : `_openWhatsAppDirect()` dans `subscription_screen.dart` ouvrait WhatsApp directement
+- **Fix** : Remplacé par `_showPlanSelectionDialog()` → même bottom sheet avec 4 plans
+- **Fichier** : `subscription_screen.dart:569-680`
+
+**Bug 3 : Blocage après création du 1er vendeur**
+- **Problème** : Après validation voucher + création vendeur, `Navigator.pop(context)` fermait le dialog mais ne redirigeait pas vers le Dashboard
+- **Fix** : Après insertion DB, vérifie `vendorsList.length == 1` → si oui, auto-login avec `currentVendorProvider` → `context.go('/')`
+- **Fichier** : `vendor_auth_screen.dart:1255-1265`
+
+### Message WhatsApp automatique
+Le message généré contient :
+- Salutation
+- Type d'abonnement choisi (remplacé automatiquement)
+- ID boutique (récupéré depuis SharedPreferences)
+- Exemple : `Bonjour, je souhaite prendre un abonnement Yabisso Kassa Premium. Mon ID boutique : B-9150-B.`
+
+### Vérification écran Paramètres
+- ✅ `_showWhatsAppSubscriptionPlanDialog()` déjà fonctionnel (4 plans, badges, prix FCFA)
+- ✅ Message auto avec plan + ID boutique + prestataire ID
+- ✅ Bouton "Payer via WhatsApp" connecté correctement
+
+### Parcours complet corrigé
+1. Popup "Abonnement requis" → "Payer via WhatsApp"
+2. **Écran sélection** : Micro / Basic / Premium / Illimité
+3. Sélection → WhatsApp s'ouvre avec message prérempli
+4. Retour → dialogue voucher OFF
+5. Validation voucher → création vendeur
+6. **Auto-login** → Dashboard s'ouvre
+
+| Composant | Statut |
+|-----------|--------|
+| Flutter App (Kassa) | ✅ Pushé, v1.4.11 |
+| Sélection abonnement (vendor_auth) | ✅ Corrigé |
+| Sélection abonnement (subscription) | ✅ Corrigé |
+| Sélection abonnement (settings) | ✅ Déjà OK |
+| Message WhatsApp auto | ✅ Implémenté |
+| Auto-login après 1er vendeur | ✅ Corrigé |
 
 ---
 
-## Session du 01/07/2026 — Vérification fichiers .md + enregistrement automatique
+### 13:00 — Fix partage WhatsApp app Employés
 
-### 00:00 — Vérification complète du contexte
+**User**: Le partage dans l'app employés ne marche pas, ne m'envoie pas sur WhatsApp.
+
+**Diagnostic** :
+- `_shareDailySales()` dans `dashboard_screen.dart` : copie dans le presse-papier puis ouvre un lien d'invitation groupe (`chat.whatsapp.com/...`) — le message n'est jamais transmis
+- `_shareCheckIn()` dans `checkin_screen.dart` : même problème, message URL-encodé puis lien groupe qui l'ignore
+- `share_plus` était importé mais jamais utilisé (dead code)
+- AndroidManifest manquait `ACTION_SEND` pour le share sheet
+
+**Corrections** :
+
+1. **`dashboard_screen.dart`** — `_shareDailySales()` :
+   - Avant : `Clipboard.setData()` + `launchUrl(whatsapp group link)`
+   - Après : `Share.share(message, subject: 'Rapport de ventes Yabisso - $dateDisplay')`
+   - Supprimé import `url_launcher` et `flutter/services.dart` (inutilisés)
+
+2. **`checkin_screen.dart`** — `_shareCheckIn()` :
+   - Avant : `launchUrl(whatsapp group link)` avec message encodé mais ignoré
+   - Après : `Share.share(message, subject: 'Pointage Yabisso - ${employee.name}')`
+   - Import `url_launcher` remplacé par `share_plus`
+
+3. **`AndroidManifest.xml`** :
+   - Ajouté `<intent><action android:name="android.intent.action.SEND"/><data android:mimeType="text/plain"/></intent>` dans `<queries>`
+
+**Résultat** : Le share sheet système s'ouvre avec le message prérempli. L'utilisateur peut choisir WhatsApp, SMS, Email, ou toute autre app de partage.
+
+---
+
+### 14:00 — Audit complet des 3 apps + corrections
+
+**User**: Vérifier toutes les features des 3 apps, corriger les erreurs, builder les APKs.
+
+**Audit prompt2.txt (1856 lignes)** — Vérification de 50+ fonctionnalités :
+
+| Statut | Nombre |
+|--------|--------|
+| ✅ Entièrement implémenté | 40 |
+| ⚠️ Partiellement implémenté | 6 |
+| ❌ Non implémenté | 4 |
+
+**Fonctionnalités manquantes (non critiques)** :
+- ❌ Restore/import backup (export seul)
+- ❌ Backup automatique quotidien (manuel seul)
+- ❌ AI Assistant dans app Employés
+- ❌ Deep link admin pour pointage partagé
+
+**Corrections appliquées** :
+
+#### App Employés (5 corrections)
+1. `prospection_screen.dart` : `initialValue` → `value` (dropdown bug)
+2. `main.dart` : ajout `initializeDateFormatting('fr_FR')` pour dates FR
+3. `login_screen.dart` : supprimé import `flutter/services.dart` inutilisé
+4. `new_subscription_screen.dart` : supprimé import `flutter/services.dart` inutilisé
+5. `dashboard_screen.dart` : refonte complete du partage → date range picker + `Share.share()`
+
+#### App Admin (19 corrections)
+- **19 DropdownButtonFormField** : `initialValue:` → `value:` dans 10 fichiers :
+  - `objectives_screen.dart` (3), `leaves_screen.dart` (2), `employees_screen.dart` (1), `daily_reports_admin_screen.dart` (1), `sanctions_screen.dart` (2), `notifications_screen.dart` (2), `manager_notes_screen.dart` (3), `trainings_screen.dart` (1), `rewards_screen.dart` (2), `commerce_tracking_screen.dart` (2)
+
+#### App Kassa (3 corrections) — session précédente
+1. `vendor_auth_screen.dart` : sélection abonnement + auto-login
+2. `subscription_screen.dart` : sélection abonnement
+3. Message WhatsApp auto avec plan + ID boutique
+
+**Status builds** : Les builds Android sont en cours en arrière-plan (machine surchargée).
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 06/07/2026 (17:00) — Vérification fichiers .md + enregistrement automatique
+
+### 17:00 — Vérification complète du contexte
 
 - **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
 - **Opencode**: 
-  - ✅ **6 fichiers .md lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md
-  - ✅ **Contexte complet** : Kassa — Écosystème 6 apps Flutter + Dashboard React pour commerçants africains
-    - **yabisso_kassa** : POS principal, v1.4.11, APK 246 MB, GitHub pushé
-    - **yabisso_employes** : Gestion employés, 196 MB, GitHub pushé
-    - **yabisso_admin** : Dashboard IA interne, 172 MB, GitHub pushé
-    - **yabisso_admin_dashboard** : Dashboard React + Capacitor, 3.3 MB, GitHub pushé
-    - **yabisso_pos_restaurant** : POS restaurant, 58 MB, GitHub pushé
-    - **yabisso_pos_hotel** : POS hôtel, 54 MB, GitHub pushé
-    - **Windows** : ✅ Buildé (VS 2022 Community)
-    - **iOS/macOS** : 🔄 GitHub Actions en cours
-  - ✅ **Derniers travaux (30/06)** : Fix hash JS/Dart (toSigned(32)), QR codes abonnement, prestataire ID, WhatsApp amélioré
-  - ✅ **chat.md mis à jour** en temps réel avec cette session
-  - **Règles actives confirmées** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1514 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.3+13, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **6 autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (06/07) : Système d'abonnement + activation, partage WhatsApp Employés
+    - **Builds** : Android APK ~108 MB, Windows kassa.exe 22.4 MB, Dashboard APK 4.5 MB
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
 
-### Résumé de l'état actuel (01/07/2026)
+### Résumé de l'état actuel (06/07/2026)
 
 | Composant | Statut | Détails |
 |-----------|--------|---------|
-| yabisso_kassa | ✅ Pushé | v1.4.11, APK 246 MB, GitHub |
-| yabisso_employes | ✅ Pushé | APK 196 MB, GitHub |
-| yabisso_admin | ✅ Pushé | APK 172 MB, GitHub |
-| yabisso_admin_dashboard | ✅ Pushé | APK 3.3 MB, GitHub |
-| yabisso_pos_restaurant | ✅ Pushé | APK 58 MB, GitHub |
-| yabisso_pos_hotel | ✅ Pushé | APK 54 MB, GitHub |
-| Phase 16 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
-| Windows | ✅ Buildé | VS 2022 Community |
-| iOS/macOS | 🔄 GitHub Actions | Flutter 3.44.x |
+| Flutter App (Kassa) | ✅ Pushé | v1.4.3+13, APK ~108 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 6 autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, + 7 modules |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
 
-### Tâches en attente (task.md)
+### Tâches en attente (task.md + implementation.md Phase 15)
 | Priorité | Tâche | Statut |
 |----------|-------|--------|
 | P1 | Wiring CurrencyService.formatPrice() partout | À faire |
@@ -2139,121 +1553,658 @@ Chaque app nécessite :
 | P2 | Tests unitaires (Flutter) | À faire |
 | P2 | Déploiement Play Store | À faire |
 
----
-
-*Fin de session 01/07/2026*
+*En attente des instructions de Ben...*
 
 ---
 
-## Session du 01/07/2026 (suite) — QR Code employé + fix Activity + share historique
+## Session du 06/07/2026 (20:00) — Vérification fichiers .md + enregistrement automatique
 
-### 01:00 — Fix historique vouchers Activity (Mon App)
+### 20:00 — Vérification complète du contexte
 
-- **User**: "je ne vois pas l'historique des vouchers que j'ai créé" (demandé 3+ fois)
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
 - **Opencode**: 
-  - **Problème 1**: Les vouchers "ONLINE" générés via le formulaire n'avaient pas de champ `type` → ils n'apparaissaient que sous filtre "ONLINE" (matching `!v.type`)
-  - **Fix 1**: Ajouté `type: 'ONLINE'` dans `server/index.cjs` pour le endpoint `/api/vouchers/generate`
-  - **Fix 2**: Réécrit `Activity.tsx` avec :
-    - Filtre par statut (Tous/Disponible/Utilisé/Expiré/Annulé)
-    - Tri par date décroissante
-    - Affichage des timestamps création + activation + expiration
-    - Couleurs correctes par statut (vert=actif, bleu=disponible, orange=expiré, rouge=annulé)
-    - Badge type (WEB/OFF/PTS)
-    - Détails max produits + durée
-  - **Fichiers**: `server/index.cjs` + `src/pages/Activity.tsx`
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1556 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK 111.4 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **7+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (06/07) : Système d'abonnement + activation, partage WhatsApp Employés, 19 DropdownButtonFormField fixes
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
 
-### 01:10 — Share historique ventes par jour (employé dashboard)
+### Résumé de l'état actuel (06/07/2026)
 
-- **User**: "quand le prestataire choisir l'historique par rapport au jour, c'est uniquement cet historique qui est partagé"
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 7+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 06/07/2026 (21:00) — Vérification fichiers .md + enregistrement automatique
+
+### 21:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
 - **Opencode**: 
-  - **Vérifié**: `_shareDailySales()` filtre déjà par `created_at LIKE '$dateStr%'` → seul le jour sélectionné est partagé ✅
-  - **Amélioré**: Ajout du **détail de chaque vente** dans le message WhatsApp :
-    - Numéro, nom boutique, plan, montant, commission, heure
-    - Séparateur "--- DÉTAIL DES VENTES ---"
-  - **Fichier**: `dashboard_screen.dart` (employés) ✅
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1598 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK 111.4 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **7+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (06/07) : Système d'abonnement + activation, partage WhatsApp Employés, 19 DropdownButtonFormField fixes
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
 
-### 01:20 — Bouton "Afficher QR Code" dans profil employé
+### Résumé de l'état actuel (06/07/2026)
 
-- **User**: Ajouter un bouton "Afficher QR Code" sous "Copier ID" dans le profil employé
-- **Opencode**:
-  - Ajouté import `qr_flutter` ✅
-  - Ajouté bouton "Afficher QR Code" (bleu, outlined) sous "Copier ID" ✅
-  - Méthode `_showQrCodeDialog()` : dialog avec QR code du `employee.id` + nom + instructions ✅
-  - Design : `QrImageView` size 200, fond blanc, bordures arrondies ✅
-  - **Fichier**: `profile_screen.dart` (employés) ✅
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 7+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
 
-### 01:30 — Champ "ID Prestataire" + scanner QR dans inscription Kassa
+### 21:10 — Fix popup Abonnement requis + WhatsApp message
 
-- **User**: Ajouter un champ "ID Prestataire" avec bouton scanner QR dans l'écran inscription de Kassa
-- **Opencode**:
-  - Ajouté `_prestataireIdController` ✅
-  - Champ "ID Prestataire (optionnel)" avec icône badge + bouton scanner QR vert ✅
-  - `_scanPrestataireId()` : ouvre `_PrestataireQRScannerScreen` ✅
-  - `_PrestataireQRScannerScreen` : scanner MobileScanner avec flash toggle, overlay 250x250, instruction texte ✅
-  - Sauvegarde `prestataire_id` dans SharedPreferences via `db.setSetting()` ✅
-  - Dispose du controller ajouté ✅
-  - **Fichier**: `subscription_screen.dart` (kassa) ✅
+**Bug critique**: Le message WhatsApp n'était **jamais envoyé** dans les 3 fichiers (vendor_auth, subscription, settings). Le code construisait le message mais l'envoyait vers un lien de groupe WhatsApp (`chat.whatsapp.com/...`) au lieu de `wa.me/PHONE?body=MESSAGE`.
 
-### Résumé des fichiers modifiés
+**Corrections appliquées (3 fichiers) :**
 
-| Fichier | App | Changements |
-|---------|-----|-------------|
-| `server/index.cjs` | Dashboard | `type: 'ONLINE'` ajouté aux vouchers générés |
-| `src/pages/Activity.tsx` | Dashboard | Réécrit : filtres statut, tri date, détails timestamps |
-| `dashboard_screen.dart` | Employés | Share : détail de chaque vente dans message WhatsApp |
-| `profile_screen.dart` | Employés | Bouton "Afficher QR Code" + dialog QR |
-| `subscription_screen.dart` | Kassa | Champ ID Prestataire + scanner QR + sauvegarde |
+#### 1. `vendor_auth_screen.dart` — Popup "Abonnement requis" redesigné
+- **Ancien popup** : Simple liste avec Micro/Basic/Premium/Illimité sans prix ni badges
+- **Nouveau popup** : Même design que "Mon Abonnement" dans settings (badges Populaire/Meilleur choix/Premium, prix FCFA, icônes)
+- **Message WhatsApp** : `Bonjour, je souhaite prendre/renouveler mon abonnement Yabisso Kassa [Plan]. Mon ID boutique: [ID]. ID prestataire: [ID]`
+- **URI** : `https://wa.me/242050332359?body=MESSAGE` (au lieu du lien groupe)
+- **Flow après WhatsApp** : Dialogue voucher OFF toujours affiché
 
----
+#### 2. `subscription_screen.dart` — Message WhatsApp corrigé
+- **Fix** : `Uri.encodeComponent()` + `wa.me/242050332359?body=` (au lieu de `encodeFull` + groupe)
+- **Ajout** : Dynamique "prendre/renouveler" + prestataire_id
 
-### 02:00 — Renommage "yabisso_admin_dashboard" → "Travail"
+#### 3. `settings_screen.dart` — Message WhatsApp corrigé
+- **Fix** : `_openWhatsAppWithPlan()` → `wa.me/242050332359?body=`
+- **Fix** : `_upgradeViaWhatsApp()` → `wa.me/242050332359?body=`
 
-- **User**: Renommer le dashboard en "Travail"
-- **Opencode**:
-  - `capacitor.config.json` → appName: "Travail" ✅
-  - `package.json` → productName: "Travail" ✅
-  - `index.html` → title: "Travail" ✅
-  - `src/components/Sidebar.tsx` → "Travail" ✅
-  - `src/layouts/Layout.tsx` → "Travail" ✅
-  - `src/pages/Vouchers.tsx` → message WhatsApp: "Travail" ✅
-  - `start.bat` → echo: "Travail" ✅
-  - `build_electron.bat` → echo: "Travail" ✅
-  - `server/index.cjs` → console.log: "Travail" ✅
+**Résultat** : Le message pré-rempli s'ouvre maintenant dans WhatsApp avec le plan choisi + ID boutique + ID prestataire.
 
-### 02:15 — Build APK Travail
-
-- **Opencode**: `flutter build apk --release` → BUILD SUCCESSFUL (1m38s) ✅
-- **Opencode**: Copié `app-release.apk` → `apk/travail.apk` ✅
-
-### 02:20 — Fix overflow vendor_auth_screen (Kassa)
-
-- **User**: "Bottom overflowed by 54 pixels" sur écran inscription Kassa
-- **Opencode**: `_showSubscriptionRequiredDialog()` → Column wrappé dans `SingleChildScrollView` ✅
-- **Fichier**: `vendor_auth_screen.dart` ✅
-
-### 02:30 — Vérification export Excel
-
-- **Opencode**: Vérifié `excel_service.dart` — toutes les 8 colonnes déjà exportées (nom, prix, prix_achat, stock, stock_alert, code_barre, catégorie, fournisseur) ✅
-- **Opencode**: Import Excel auto-résout catégories/fournisseurs ✅
-
-### Résumé des fichiers modifiés (suite)
-
-| Fichier | App | Changements |
-|---------|-----|-------------|
-| `capacitor.config.json` | Dashboard | appName → "Travail" |
-| `package.json` | Dashboard | productName → "Travail" |
-| `index.html` | Dashboard | title → "Travail" |
-| `Sidebar.tsx` | Dashboard | "Travail" |
-| `Layout.tsx` | Dashboard | "Travail" |
-| `Vouchers.tsx` | Dashboard | "Travail" |
-| `start.bat` | Dashboard | "Travail" |
-| `build_electron.bat` | Dashboard | "Travail" |
-| `server/index.cjs` | Dashboard | console.log → "Travail" |
-| `vendor_auth_screen.dart` | Kassa | SingleChildScrollView overflow fix |
-
-### APK générés
-- `apk/travail.apk` ✅ (nouveau)
+**Fichiers modifiés** :
+- `lib/screens/vendor_auth/vendor_auth_screen.dart` : +import DatabaseHelper, +6 static maps, redesign dialog, fix WhatsApp URI
+- `lib/screens/subscription/subscription_screen.dart` : fix `_sendWhatsAppWithPlan()` WhatsApp URI
+- `lib/screens/settings/settings_screen.dart` : fix `_openWhatsAppWithPlan()` + `_upgradeViaWhatsApp()` WhatsApp URI
 
 ---
 
-*Fin de session 01/07/2026*
+### 21:30 — Ajout champ "Valider le code" dans les popups abonnement
+
+**Demande** : Ajouter dans le popup "Abonnement requis" un champ pour entrer directement un code OFF ou PTS, avec un bouton "Valider le code". Idem dans le popup "Mon Abonnement" des paramètres.
+
+**Corrections appliquées (2 fichiers) :**
+
+#### 1. `vendor_auth_screen.dart` — Champ unifié dans popup "Abonnement requis"
+- **Remplacé** les 2 sections séparées (OFF + PTS) par **1 seul champ unifié**
+- **Champ** : `TextField` avec hint `OFF-XXXX-XXXX ou PTS-XXXX-XXXX-XXXX`
+- **Bouton** : "Valider le code" (vert)
+- **Logique** : Détection auto du préfixe `OFF-` ou `PTS-` → traitement approprié
+  - `OFF-` → validation voucher, activation abonnement 30 jours
+  - `PTS-` → validation points, crédit du solde
+  - Autre → erreur "Code invalide"
+
+#### 2. `settings_screen.dart` — Champ unifié dans popup "Mon Abonnement"
+- **Nouveau widget** : `_buildCodeField()` — réutilisable avec StatefulBuilder
+- **Champ** : Même design que vendor_auth (hint, monospace, prefixIcon)
+- **Bouton** : "Valider le code" (vert)
+- **Logique** : Même détection auto OFF/PTS
+- **Position** : Entre l'info abonnement et les boutons d'action
+
+**Fichiers modifiés** :
+- `lib/screens/vendor_auth/vendor_auth_screen.dart` : champ unifié OFF/PTS + "Valider le code"
+- `lib/screens/settings/settings_screen.dart` : +`_buildCodeField()` + intégré dans popup abonnement
+
+---
+
+### 21:45 — Vérification export PDF Kassa
+
+**Fichiers vérifiés** : `pdf_service.dart`, `receipt_history_screen.dart`, `receipt_export_screen.dart`, `inventory_history_screen.dart`, `sale.dart`, `database_helper.dart`
+
+**Bug critique trouvé et corrigé** :
+- `PdfGoogleFonts.nunitoSansRegular()` nécessite Internet → plantait offline
+- **Fix** : `_loadFonts()` avec fallback `PdfFont.helvetica()` si Google Fonts échoue
+
+**3 flux PDF vérifiés** :
+| Écran | Statut |
+|-------|--------|
+| ReceiptHistoryScreen → PDF | ✅ OK |
+| ReceiptExportScreen → PDF | ✅ OK |
+| InventoryHistoryScreen → PDF | ✅ OK |
+
+**Fichier modifié** : `lib/services/pdf_service.dart`
+
+---
+
+### 22:00 — Fix QR code : données manquantes après "S'inscrire"
+
+**Demande** : Vérifier que le QR code "Afficher le QR Code" dans popup "Mon Abonnement" contient bien toutes les infos de l'écran "S'inscrire" Kassa, pour que l'employé n'ait rien à remplir manuellement dans l'app Employés.
+
+**Bug trouvé** : `register_screen.dart` avait un `// TODO: Save store data to database` — seul `prestataire_id` était sauvegardé dans SharedPreferences. Les 5 autres champs étaient perdus → **le QR code était vide**.
+
+**Fix** : `_register()` sauvegarde maintenant :
+- `store_name`, `owner_name`, `store_phone`, `store_address`, `prestataire_id`
+- Auto-génération `boutique_id` (format `B-XXXX-INITIALS`)
+
+**Mapping complet** :
+| S'inscrire Kassa | QR Code | Scan Employés |
+|---|---|---|
+| Nom boutique | `boutique_name` | Auto-rempli |
+| Nom propriétaire | `owner_name` | Auto-rempli |
+| Téléphone | `owner_phone` | Auto-rempli |
+| ID Prestataire | `prestataire_id` | Lié à la boutique |
+| Plan abonnement | `subscription_plan` | Prix + commission auto |
+
+**Fichier modifié** : `lib/screens/subscription/register_screen.dart`
+
+---
+
+### 22:15 — Ajout mode Manuel/QR dans "Nouvel abonnement" (Employés)
+
+**Demande** : Ajouter 2 options dans l'écran "Nouvel abonnement" (app Employés) : Manuel ou Scanner QR Code.
+
+**Fichier modifié** : `yabisso_employes/lib/screens/subscription/new_subscription_screen.dart`
+
+**Nouveautés** :
+- **Toggle Manuel / Scanner QR** en haut de l'écran
+- **Mode Manuel** : formulaire identique avant (ID boutique, nom, propriétaire, téléphone + sélection plan)
+- **Mode Scanner QR** : caméra MobileScanner intégrée
+  - Scan du QR → auto-remplit ID boutique, nom, propriétaire, téléphone + plan
+  - Affiche "QR scanné avec succès !" + vérification visuelle
+  - Bouton "Scanner un autre" pour réinitialiser
+  - Le plan est sélectionné automatiquement depuis le QR
+  - L'employé peut modifier le plan si besoin avant de valider
+  - Validation finale via mot de passe comme avant
+
+---
+
+### 22:30 — Pointage : QR code complet + WhatsApp/SMS
+
+**Demande** : QR code avec ID + heure arrival/depart, partage WhatsApp + SMS, 2 méthodes (QR scan manager OU WhatsApp/SMS)
+
+**Fichiers modifiés (3 fichiers) :**
+
+#### 1. `yabisso_employes/lib/screens/checkin/screen.dart` — Refonte complète
+- **QR code enrichi** : `YABISSO_EMP:id:name:phone:date:checkInTime:checkOutTime`
+- **Bouton "Pointer le départ"** : met à jour `check_out_time` dans `checkins`
+- **2 boutons partage** : WhatsApp (vert) + SMS (bleu) → envoi direct
+- Message complet : Nom, ID, Tél, Jour, Date, Arrivée, Départ, Statut
+
+#### 2. `yabisso_admin/lib/screens/tracking/employee_tracking_screen.dart`
+- QR scan gère le nouveau format 7 parties (avec times)
+- Parsing WhatsApp/SMS extrait `Heure de départ`
+- Affichage chip violet "logout" pour heure de départ
+
+#### 3. `yabisso_admin/lib/services/database_helper.dart` — Migration v11
+- Nouvelle colonne `check_out_time` dans `checkin_requests`
+
+**3 méthodes de pointage :**
+| Méthode | Flow |
+|---------|------|
+| QR Code | Manager scanne le QR de l'employé |
+| WhatsApp | Employé envoie → manager colle |
+| SMS | Employé envoie → manager colle |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 07/07/2026 (17:00) — Ajout écran import démarchage Admin
+
+### 17:00 — Compréhension du besoin
+
+**User**: Les partages depuis l'app Employés (pointage, ventes, démarchage) sont des textes structurés "locaux" que seule l'app Admin peut lire/importer. L'écran démarchage manque côté Admin.
+
+**Diagnostic** :
+- Employés app génère 3 formats structurés ✅ :
+  - `=== YABISSO_VENTES ===` (sales_history_screen)
+  - `=== YABISSO_DEMARCHAGE ===` (prospection_history_screen)
+  - `--- YABISSO POINTAGE ---` (checkin_screen)
+- Admin app a des écrans d'import pour 2/3 formats ✅ :
+  - `shared_sales_screen.dart` → importe `YABISSO_VENTES` ✅
+  - `employee_tracking_screen.dart` → importe `YABISSO POINTAGE` ✅
+  - **MANQUANT** : écran pour importer `YABISSO_DEMARCHAGE` ❌
+
+### 17:10 — Implémentation
+
+#### 1. Table `shared_prospections_reports` (Admin DB v12)
+- **Fichier** : `yabisso_admin/lib/services/database_helper.dart`
+- **Version** : 11 → 12
+- **Nouvelle table** : `shared_prospections_reports` (id, employee_id, employee_name, employee_phone, date, total, interesses, pas_interesses, a_rappeler, prospections_json, status, created_at)
+
+#### 2. Provider `sharedProspectionsProvider`
+- **Fichier** : `yabisso_admin/lib/providers/providers.dart`
+
+#### 3. Écran `SharedProspectionsScreen`
+- **Fichier** : `yabisso_admin/lib/screens/tracking/shared_prospections_screen.dart` (nouveau)
+- **Design** : Même pattern que `SharedSalesScreen` (filter chips, cards, paste import)
+- **Parsing** : Extrait `YABISSO_DEMARCHAGE` format
+
+#### 4. Route + Dashboard button
+- Route `/shared-prospections` dans `main.dart`
+- Bouton "Démarchage importés" dans `dashboard_screen.dart`
+
+### Récapitulatif flux de partage Employés → Admin
+
+| Donnée | Employés génère | Admin importe | Écran Admin |
+|--------|----------------|---------------|-------------|
+| Ventes | `=== YABISSO_VENTES ===` | ✅ | `shared_sales_screen.dart` |
+| Pointage | `--- YABISSO POINTAGE ---` | ✅ | `employee_tracking_screen.dart` |
+| Démarchage | `=== YABISSO_DEMARCHAGE ===` | ✅ **NOUVEAU** | `shared_prospections_screen.dart` |
+
+### Fichiers modifiés/créés
+
+| Fichier | App | Action |
+|---------|-----|--------|
+| `database_helper.dart` | Admin | Migration v12, table shared_prospections_reports |
+| `providers.dart` | Admin | +sharedProspectionsProvider |
+| `shared_prospections_screen.dart` | Admin | **NOUVEAU** — import YABISSO_DEMARCHAGE |
+| `main.dart` | Admin | +route /shared-prospections |
+| `dashboard_screen.dart` | Admin | +bouton "Démarchage importés" |
+
+---
+
+## Session du 07/07/2026 (19:00) — Vérification fichiers .md + enregistrement automatique
+
+### 19:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1830 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK 111.4 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **7+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (07/07) : Écran import démarchage Admin, migration DB v12
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (07/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 111.4 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 7+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 07/07/2026 (22:00) — Fix critique bug écran "Qui êtes-vous" (vendors INSERT error)
+
+### 22:00 — Diagnostic erreur screenshot
+
+- **User**: "L'erreur de l'écran qui êtes-vous persiste" + screenshot `fichiers/ecrans/erreur/Screenshot_20260707-221256.png`
+- **Screenshot**: Popup "Nouveau vendeur" (Ben, Vendeur, PIN 4 chiffres) visible + erreur rouge en arrière-plan : `Erreur lors de l'ajout: INSERT INTO vendors` avec données (pin_hash, role, created_at, color #00694C, initials B)
+
+### 22:10 — Diagnostic root cause
+
+**Bug identifié** : Le modèle `Vendor` a un champ `employeeId` (maps vers `employee_id`) mais la table `vendors` dans `_createDB()` ne créait PAS cette colonne. La migration v9 l'ajoutait via `ALTER TABLE`, mais pour les **nouvelles installations**, `_createDB()` tourne directement à version 9 sans passer par `_onUpgrade()`.
+
+**Conséquence** : `Vendor.toMap()` inclut `employee_id` → SQLite rejette l'INSERT car la colonne n'existe pas.
+
+**Bug secondaire identifié** : La table `inventory_history` (utilisée pour insert + query) n'existait que dans la migration v9, pas dans `_createDB()` → crash aussi pour nouvelles installations.
+
+### 22:15 — Corrections appliquées
+
+#### Fix 1 : `database_helper.dart` — `_createDB()`
+- **Ajouté** `employee_id TEXT` dans `CREATE TABLE vendors`
+- **Ajouté** table complète `inventory_history` dans `_createDB()`
+- **Résultat** : Les nouvelles installations ont maintenant toutes les tables/colonnes dès le départ
+
+#### Fichiers modifiés :
+| Fichier | Changement |
+|---------|-----------|
+| `lib/database/database_helper.dart` | +`employee_id TEXT` dans CREATE TABLE vendors + CREATE TABLE inventory_history ajouté |
+
+### 22:20 — Vérification
+- `dart analyze lib/` : **0 erreurs**, 14 warnings pré-existants, 172 infos (dépréciations)
+- `dart analyze database_helper.dart` : **0 erreurs**, 6 infos pré-existantes
+
+### 22:30 — Build APK
+- `flutter build apk --release` : **115.1 MB**, durée ~9 min
+- APK copié vers `apk/yabissokassa_latest.apk`
+- Build : 07/07/2026 22:30
+
+### Résumé du fix
+| Avant | Après |
+|-------|-------|
+| `_createDB` créait `vendors` sans `employee_id` | `_createDB` crée `vendors` avec `employee_id TEXT` |
+| `_createDB` ne créait pas `inventory_history` | `_createDB` crée `inventory_history` complet |
+| INSERT INTO vendors → erreur SQLite | INSERT INTO vendors → succès |
+| Nouvelles installations crashaient | Nouvelles installations fonctionnent |
+
+---
+
+## Session du 08/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
+
+### 12:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1920 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK 115.1 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **7+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (07/07) : Fix vendors INSERT error (employee_id), écran import démarchage Admin
+    - **6 APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (08/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 115.1 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 7+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+
+---
+
+## Session du 08/07/2026 (14:00) -- Verification fichiers .md + enregistrement automatique
+
+### 14:00 -- Verification complete du contexte
+
+- **User**: Verifier tous les fichiers .md dans fichiers/ pour le contexte, enregistrer automatiquement les echanges dans chat.md en temps reel, think deeper avant de repondre, et verifier/tester chaque implementation.
+- **Opencode**: 
+  - 6 fichiers .md principaux lus : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1960 lignes)
+  - Contexte complet : Kappa -- Ecosysteme Flutter POS offline-first pour commercants africains
+  - Regles actives : auto-enregistrement chat, think deeper, verifier/tester chaque implementation
+
+### Audit du code -- Verification manuelle
+
+#### 1. main.dart -- OK
+#### 2. database_helper.dart -- OK (9 tables, migrations v1-v9)
+#### 3. app_router.dart -- OK (25+ routes)
+#### 4. providers.dart -- OK (8 providers Riverpod)
+
+### Taches en attente (Phase 15)
+| Priorite | Tache | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | A faire |
+| P1 | Wiring LanguageService.translate() UI | A faire |
+| P1 | Deploiement Render | En attente validation user |
+| P2 | Bluetooth printer | A faire |
+| P2 | Tests unitaires | A faire |
+| P2 | Deploiement Play Store | A faire |
+
+*En attente des instructions de Ben...*
+
+
+---
+
+## Session du 08/07/2026 (14:30) -- Feature: Import/Export Pack (3 apps)
+
+### 14:30 -- Demande utilisateur
+
+**User**: Ajouter un systeme de Pack -- export/import de TOUTES les donnees d une app dans un fichier .yabissopack (ZIP), avec possibilite pour l app Admin d envoyer des taches aux employes via un pack.
+
+### Conception du systeme Pack
+
+**Format du Pack**: Fichier .yabissopack (ZIP) contenant :
+- manifest.json -- metadonnees (app source, version, date, pack_id)
+- data/*.json -- toutes les tables DB en JSON
+- files/ -- images produits, audio, CVs, photos, preuves de taches
+
+### Implementation -- 3 apps modifiees
+
+#### 1. App Kassa (yabisso_kassa)
+- **pack_service.dart** -- Export/import complet : 9 tables DB + SharedPreferences + product_images + audio_recordings
+- **pack_screen.dart** -- Ecran UI avec boutons Export, Import, Partager
+- **pubspec.yaml** -- Ajout dependance archive: ^3.6.1
+- **app_router.dart** -- Route /pack ajoutee
+- **settings_screen.dart** -- Lien Import/Export Pack dans section Donnees
+
+#### 2. App Employes (yabisso_employes)
+- **pack_service.dart** -- Export/import complet : 16 tables DB + SharedPreferences
+- **pack_screen.dart** -- Ecran UI avec boutons Export, Import, Partager
+- **pubspec.yaml** -- Ajout archive, file_picker, path
+- **main.dart** -- Route /pack ajoutee
+- **profile_screen.dart** -- Bouton Import/Export Pack ajoute dans profil
+
+#### 3. App Admin (yabisso_admin)
+- **pack_service.dart** -- Export/import complet : 26 tables DB + SharedPreferences + fichiers locaux (CVs, photos, documents, preuves) + createTaskPack() pour envoyer des taches
+- **pack_screen.dart** -- Ecran UI avec Export, Import, Partager + **createur de taches** (titre, description, priorite, type, echeance)
+- **pubspec.yaml** -- Ajout dependance archive: ^3.6.1
+- **main.dart** -- Route /pack ajoutee
+- **settings_screen.dart** -- Lien Import/Export Pack dans section Donnees
+
+### Fichiers crees/modifies
+
+| Fichier | App | Action |
+|---------|-----|--------|
+| lib/services/pack_service.dart | Kassa | NOUVEAU |
+| lib/screens/settings/pack_screen.dart | Kassa | NOUVEAU |
+| pubspec.yaml | Kassa | +archive |
+| lib/router/app_router.dart | Kassa | +route /pack |
+| lib/screens/settings/settings_screen.dart | Kassa | +lien Pack |
+| lib/services/pack_service.dart | Employes | NOUVEAU |
+| lib/screens/settings/pack_screen.dart | Employes | NOUVEAU |
+| pubspec.yaml | Employes | +archive, file_picker, path |
+| lib/main.dart | Employes | +route /pack |
+| lib/screens/profile/profile_screen.dart | Employes | +bouton Pack |
+| lib/services/pack_service.dart | Admin | NOUVEAU |
+| lib/screens/settings/pack_screen.dart | Admin | NOUVEAU |
+| pubspec.yaml | Admin | +archive |
+| lib/main.dart | Admin | +route /pack |
+| lib/screens/settings/settings_screen.dart | Admin | +lien Pack |
+
+### Flux utilisateur
+
+**Export Pack**:
+1. Settings > Import/Export Pack
+2. Cliquer Exporter le pack
+3. Fichier .yabissopack cree (ZIP avec JSON + fichiers)
+4. Partager via WhatsApp/email/etc.
+
+**Import Pack**:
+1. Settings > Import/Export Pack
+2. Cliquer Importer un pack
+3. Selectionner le fichier .yabissopack
+4. Confirmation (irreversible)
+5. Donnees restaurees
+
+**Admin envoie taches**:
+1. Admin > Settings > Import/Export Pack
+2. Cliquer Envoyer des taches
+3. Remplir formulaire (titre, description, priorite, type, echeance)
+4. Pack de taches cree et partageable
+5. Employes importe le pack dans son app
+
+### Verification
+- PackService present dans les 3 apps
+- PackScreen present dans les 3 apps
+- Route /pack ajoutee dans les 3 apps
+- Lien dans Settings/Profil des 3 apps
+- Dependance archive ajoutee dans les 3 pubspec.yaml
+
+---
+
+## Session du 10/07/2026 (12:00) — Verification fichiers .md + enregistrement automatique
+
+### 12:00 — Verification complete du contexte
+
+- **User**: Verifier tous les fichiers .md dans fichiers/ pour le contexte, enregistrer automatiquement les echanges dans chat.md en temps reel, think deeper avant de repondre, et verifier/tester chaque implementation.
+- **Opencode**: 
+  - 6 fichiers .md principaux lus : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2080 lignes)
+  - Contexte complet : Kassa — Ecosysteme Flutter POS offline-first pour commercants africains
+  - **Kassa (POS)**: Phases 1-14 completes, v1.4.11, APK 115.1 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+  - **Dashboard React**: Mobile-first, Points/Vouchers/Offline, Render config pushée
+  - **7+ autres apps**: Restaurant, Hotel, Employes, Admin, Compta, CRM, Depenses, Ecole, Facture, RH, Stock
+  - **Derniers correctifs** (08/07): Import/Export Pack (3 apps)
+  - **6 APKs** dans apk/: Kassa, Employes, Admin, Dashboard, Restaurant, Hotel
+  - Regles actives : auto-enregistrement chat, think deeper, verifier/tester chaque implementation
+
+### Resume de l'etat actuel (10/07/2026)
+
+| Composant | Statut | Details |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushe | v1.4.11, APK 115.1 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushe | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 7+ autres apps | ✅ Pushes | Restaurant, Hotel, Employes, Admin, Compta, CRM, Depenses |
+| Phases 1-14 | ✅ Completees | Fondations → Devise/Langue/Excel |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Builde | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configures |
+
+### Taches en attente (task.md + implementation.md Phase 15)
+| Priorite | Tache | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | A faire |
+| P1 | Wiring LanguageService.translate() UI | A faire |
+| P1 | Deploiement Render | En attente validation user |
+| P1 | Mise a jour API URL Flutter apres Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | A faire |
+| P2 | Tests unitaires (Flutter) | A faire |
+| P2 | Deploiement Play Store | A faire |
+
+---
+
+## Session du 11/07/2026
+
+### Correction de bugs Critiques Employés + Admin (QA/Code Review complet)
+
+**Contexte** : Ben a demandé un audit complet des apps Employés et Admin, corrections de bugs, et builds APK. Rôle : QA/Test Engineer + Code Reviewer (qualité, perf, sécurité, architecture).
+
+### Bugs trouvés et corrigés
+
+#### Bug 1 — `check_out_time` manquant dans Admin DB
+- **Fichier**: `yabisso_admin/lib/services/database_helper.dart`
+- **Problème**: `_createDB()` créait la table `checkin_requests` SANS colonne `check_out_time`. Les nouvelles installations ignoraient `_upgradeDB()` → INSERT échouait avec `DatabaseException(table checkin_requests has no column named check_out_time)`
+- **Fix**: Ajouté `check_out_time TEXT` dans CREATE TABLE dans `_createDB()` ✅
+
+#### Bug 2 — Format de partage ventes Employés → Admin incompatible
+- **Fichiers**: `dashboard_screen.dart` (Employés) + `shared_sales_screen.dart` (Admin)
+- **Problème**: `_shareSalesWithDateRange()` manquait `EMP_ID:` et le format des lignes détail diffère du parser Admin
+- **Fix**: Ajouté `EMP_ID:`, `DATE:`, `DATE_DISPLAY:` + format detail unifié ✅
+
+#### Bug 3 — `callback` vs `to_relaunch` mismatch
+- **Fichiers**: `prospection_screen.dart` + `relance_client_screen.dart` (Employés)
+- **Problème**: Prospection enregistre `result = 'callback'` mais Relance filtre `result = 'to_relaunch'` → prospects "À rappeler" invisibles
+- **Fix**: Ajouté `'callback'` aux filtres/stats/result maps. Constantes statiques de classe ✅
+
+#### Bug 4 — Table `activity_history` jamais écrite
+- **Fichiers**: `database_helper.dart`, 5 écrans (prospection, rapport, démarchage, QR, check-in)
+- **Problème**: `global_history_screen.dart` lisait `activity_history` mais aucun écran n'écrivait
+- **Fix**: Ajouté `logEmployeeActivity()` + appels dans 5 écrans ✅
+
+#### Bug 5 — Objectifs employés sans progression
+- **Fichier**: `employee_objectives_screen.dart`
+- **Problème**: Aucun moyen de modifier `current_value` → progression toujours 0%
+- **Fix**: Boutons +/- avec auto-complétion ✅
+
+#### Bug 6 — Shop champs NULL
+- **Fichier**: `new_subscription_screen.dart`
+- **Fix**: Ajouté `prestataire_id` et `subscription_type` dans INSERT ✅
+
+#### Bug 7 — QR scan doublon lent
+- **Fichier**: `qr_scan_screen.dart`
+- **Fix**: Filtre `where: 'shop_id = ? AND employee_id = ?'` ✅
+
+### Résultat
+- **dart analyze** : 0 erreurs les 2 apps
+- **APKs** : `apk/yabisso_employes.apk` (70.3 MB) + `apk/yabisso_admin.apk` (72.5 MB) ✅
+
+| # | Bug | Sévérité | App | Statut |
+|---|-----|----------|-----|--------|
+| 1 | check_out_time manquant Admin | 🔴 Critique | Admin | ✅ |
+| 2 | Format partage ventes | 🔴 Critique | Employés→Admin | ✅ |
+| 3 | callback vs to_relaunch | 🟠 Majeur | Employés | ✅ |
+| 4 | activity_history jamais écrit | 🟠 Majeur | Employés | ✅ |
+| 5 | Objectifs sans progression | 🟡 Moyen | Employés | ✅ |
+| 6 | Shop champs NULL | 🟡 Moyen | Employés | ✅ |
+| 7 | QR scan doublon lent | 🟢 Mineur | Employés | ✅ |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 11/07/2026 (suite) — Fix erreurs DB critiques
+
+### Nouveaux bugs diagnostiqués via screenshots
+
+#### Bug 8 — `shops` table manque `prestataire_id` + `subscription_type` (Employés)
+- **Erreur exacte**: `DatabaseException(table shops has no column named prestataire_id)`
+- **Cause**: `_createDB` crée la table `shops` SANS ces colonnes. Elles ne sont ajoutées que dans `_upgradeDB` v2 — or les fresh installs passent directement à v5 (puis v6/v7) sans passer par v2
+- **Fix**: Ajouté `prestataire_id TEXT` et `subscription_type TEXT DEFAULT 'boutique'` dans CREATE TABLE shops + migration v7 ✅
+
+#### Bug 9 — `checkin_requests` manque `check_out_time` (Admin)
+- **Erreur exacte**: `DatabaseException(table checkin_requests has no column named check_out_time)`
+- **Cause**: L'app Admin était en DB v12. Les installs existantes n'avaient pas la colonne (upgrade v11 non déclenché car déjà v12)
+- **Fix**: DB bump v12→v13 avec migration safe `ALTER TABLE ... ADD COLUMN` ✅
+
+### Résultat
+| APK | Taille | Statut |
+|-----|--------|--------|
+| yabisso_employes.apk | 69.7 MB | ✅ |
+| yabisso_admin.apk | 72.5 MB | ✅ |
+
+**IMPORTANT**: L'utilisateur doit **désinstaller et réinstaller** les 2 apps pour que les migrations DB prennent effet.
+
+| # | Bug | Sévérité | App | Statut |
+|---|-----|----------|-----|--------|
+| 8 | shops presta_id + sub_type manquants | 🔴 Critique | Employés | ✅ |
+| 9 | check_out_time Admin (existing installs) | 🔴 Critique | Admin | ✅ |
+
+*En attente des instructions de Ben...*

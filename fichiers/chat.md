@@ -2386,6 +2386,32 @@ Dashboard → [Profil] → [Paramètres] → [Import / Export Pack]
 
 ---
 
+## Session du 17/07/2026 (12:00) — Backup Git + GitHub Push
+
+### 12:00 — Backup complet
+
+**Commits créés :**
+| Repo | Commit | Contenu |
+|------|--------|---------|
+| Main (Kassa) | `c9bf8ff` | yabisso_eglise + UI screens + diff patches + icon_gen + chat.md |
+| yabisso_kassa | `c63257a` | Loyalty card system + pack service + customer model |
+| yabisso_admin | `c24e80b` | Dashboard profil nav + DB migration v12 |
+| yabisso_admin_dashboard | `3c9a613` | Sidebar + vouchers + activity pages |
+| yabisso_pos_hotel | `87432fb` | POS screens + models |
+| yabisso_pos_restaurant | `bbefe01` | Order + payment + reservation screens |
+
+**Push GitHub :**
+| Repo | Statut |
+|------|--------|
+| Main Kassa | ✅ Pushé |
+| yabisso_kassa | ✅ Pushé |
+| yabisso_admin | ✅ Pushé |
+| yabisso_admin_dashboard | ✅ Up-to-date |
+| yabisso_pos_hotel | ✅ Pushé |
+| yabisso_pos_restaurant | ✅ Pushé |
+
+---
+
 ## Session du 17/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
 
 ### 12:00 — Vérification complète du contexte

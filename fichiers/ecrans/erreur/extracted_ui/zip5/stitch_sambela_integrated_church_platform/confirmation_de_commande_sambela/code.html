@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Confirmation de Commande - Sambela</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .success-checkmark-glow {
+            filter: drop-shadow(0 0 15px rgba(233, 193, 118, 0.4));
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#1b1c19",
+                      "on-secondary": "#ffffff",
+                      "background": "#fbf9f8",
+                      "inverse-primary": "#bec6dd",
+                      "on-primary-fixed": "#131b2c",
+                      "secondary": "#775a19",
+                      "secondary-fixed-dim": "#e9c176",
+                      "surface-bright": "#fbf9f8",
+                      "surface-container-highest": "#e4e2e2",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#22221f",
+                      "secondary-container": "#fed488",
+                      "primary-fixed": "#dae2fa",
+                      "primary": "#040c1c",
+                      "surface": "#fbf9f8",
+                      "primary-fixed-dim": "#bec6dd",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#0b0c09",
+                      "on-surface-variant": "#45474c",
+                      "on-background": "#1b1c1c",
+                      "surface-variant": "#e4e2e2",
+                      "surface-dim": "#dbd9d9",
+                      "secondary-fixed": "#ffdea5",
+                      "inverse-on-surface": "#f2f0f0",
+                      "primary-container": "#1a2233",
+                      "inverse-surface": "#303030",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "tertiary-fixed-dim": "#c8c6c2",
+                      "on-primary-fixed-variant": "#3f4759",
+                      "surface-container-high": "#eae8e7",
+                      "on-surface": "#1b1c1c",
+                      "on-secondary-container": "#785a1a",
+                      "surface-tint": "#565e72",
+                      "surface-container-low": "#f5f3f3",
+                      "outline": "#76777d",
+                      "on-secondary-fixed": "#261900",
+                      "on-primary-container": "#81899e",
+                      "on-tertiary-fixed-variant": "#474744",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#efeded",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#e4e2dd",
+                      "on-secondary-fixed-variant": "#5d4201",
+                      "on-tertiary-container": "#8a8985"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "gutter": "24px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "lg": "48px",
+                      "md": "24px",
+                      "margin-mobile": "20px",
+                      "xs": "4px",
+                      "container-max": "1200px"
+              },
+              "fontFamily": {
+                      "caption": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "headline-sm": ["Libre Caslon Text"],
+                      "headline-md": ["Libre Caslon Text"],
+                      "display-lg": ["Libre Caslon Text"],
+                      "display-lg-mobile": ["Libre Caslon Text"],
+                      "body-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen pb-40">
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<button class="text-primary hover:opacity-80 transition-opacity p-2">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Sambela</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A portrait of a kind, smiling person in their late 20s wearing a simple white linen shirt. The lighting is soft and natural, suggesting a peaceful morning in a clean, minimalist interior with warm cream-toned walls. The aesthetic is high-end, contemporary, and spiritual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_yNVYV2m4ryZHUoWjjglo3JenTs2vpUdJ8UVCw46yQn-cWNIfTDVsTf3A_5zKAupk9qgCEx1L4cdHw1-hSoDhUoyoSnVjdwKZ7JCJJ3JLhw7PDy2y2wcpDLJmyiq3KgfDEj1CuZuP9_HEGAzcXmE6datSa487N5_BSnBX6waL0re9DQ01LiL3ZlYKd5nRTX31A7nXXAL1zzy_MjHhe7OKrZ4gpjHU29OAu61JCxuy7_ZffsMp1O0nZg"/>
+</div>
+</header>
+<main class="pt-24 px-margin-mobile max-w-container-max mx-auto">
+<!-- Success State -->
+<section class="flex flex-col items-center text-center mb-lg">
+<div class="w-24 h-24 bg-secondary-container/30 rounded-full flex items-center justify-center mb-md animate-float success-checkmark-glow">
+<span class="material-symbols-outlined text-secondary text-5xl" style="font-variation-settings: 'wght' 700;">check_circle</span>
+</div>
+<h2 class="font-display-lg-mobile text-display-lg-mobile text-primary mb-xs">Merci pour votre commande !</h2>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest">Commande #SB-82934</p>
+</section>
+<!-- Bento Layout for Order Details -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Items Purchased Summary -->
+<section class="md:col-span-8 bg-surface-container-low rounded-xl p-md shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant/50">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md">Détails de l'achat</h3>
+<div class="space-y-base">
+<!-- Item 1 -->
+<div class="flex items-center gap-md p-sm hover:bg-surface-container transition-colors rounded-lg">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A high-quality studio shot of a minimalist, luxury oversized T-shirt made from heavy-weight cream organic cotton. The shirt features a small, elegant embroidered navy cross on the chest. The lighting is editorial and soft, highlighting the rich fabric texture against a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAABe4XrTor5ilgIy7CHZRE7TtiF5i4FXwBSB2ZZyMj4jMw_VjHzKo1LnW5cNWrgRCLWtzknR8dq2rShVTWy5XC1ydxNrtd38_gE988pb9NwLQQtqoOSarlbtx5YgzzydQ-AWnPB98VHYetDfwIyvo5t3q9YcsHgtsLWLlXjR0FzLZRgbpom1QvBVnok_bALXaEVpC4lECFRwTHLkgTcA3GDadd3P5vzgtkkZlx_DNHAhzDY8gm2tmldA"/>
+</div>
+<div class="flex-grow">
+<p class="font-body-lg text-body-lg font-bold text-primary">Sacred Thread T-Shirt</p>
+<p class="font-caption text-caption text-on-surface-variant">Taille: L | Quantité: 1</p>
+</div>
+<p class="font-body-md text-body-md font-bold text-secondary">35,00 €</p>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Item 2 -->
+<div class="flex items-center gap-md p-sm hover:bg-surface-container transition-colors rounded-lg">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A beautifully designed digital event ticket for a 'Night of Worship'. The design features dark navy backgrounds with gold ethereal light streaks and elegant serif typography. The aesthetic is modern, sacred, and premium, evoking a sense of reverence and high-quality production." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUlSFkgK6G9Rf463qZKZd-rB6KVZN2FbrwEXhNYkUIcO4MbGEdV1n7tTobSj6vLj7VUx1XKD0YeWxLMDqMZqcJ7C_AJYePZUl_RMZpWvHuNtaU7A_XZWOdI9f_G6jjROMKhIEq3zBAF_0F1ddWxRnt3Lga5CoaJNG_Q-9wo82xeTqBwltZZl1qA95T58ZZWsJECtxfNXEICakh3lKtSC0B6jd_IdmnuomN9th_7o01Ly1LKPFWGbEYrQ"/>
+</div>
+<div class="flex-grow">
+<p class="font-body-lg text-body-lg font-bold text-primary">Night of Worship ticket</p>
+<p class="font-caption text-caption text-on-surface-variant">Entrée Standard | 15 Janvier</p>
+</div>
+<p class="font-body-md text-body-md font-bold text-secondary">15,00 €</p>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/50 flex justify-between items-center">
+<span class="font-body-lg text-body-lg text-on-surface-variant">Total</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">50,00 €</span>
+</div>
+</section>
+<!-- Delivery & Payment Sidebar -->
+<div class="md:col-span-4 space-y-gutter">
+<section class="bg-surface-container-lowest rounded-xl p-md border border-surface-variant/50 shadow-sm">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">Méthode de Paiement</h4>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">payments</span>
+<p class="font-body-md text-body-md font-bold text-primary">Paiement à la livraison</p>
+</div>
+</section>
+<section class="bg-primary-container text-on-primary-container rounded-xl p-md shadow-lg">
+<h4 class="font-headline-sm text-headline-sm text-white mb-sm">Prochaines étapes</h4>
+<ul class="space-y-sm">
+<li class="flex gap-sm">
+<span class="material-symbols-outlined text-secondary-container">mail</span>
+<p class="font-body-md text-body-md text-on-primary-container">Vous recevrez un email de confirmation d'ici quelques minutes.</p>
+</li>
+<li class="flex gap-sm">
+<span class="material-symbols-outlined text-secondary-container">local_shipping</span>
+<p class="font-body-md text-body-md text-on-primary-container">Suivez l'état de votre commande dans votre profil utilisateur.</p>
+</li>
+</ul>
+</section>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-lg flex flex-col md:flex-row gap-sm justify-center">
+<button class="bg-primary text-white font-body-lg text-body-lg font-bold px-lg py-sm rounded-lg hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-sm shadow-xl">
+<span>Retour à l'accueil</span>
+</button>
+<button class="border-2 border-secondary text-secondary font-body-lg text-body-lg font-bold px-lg py-sm rounded-lg hover:bg-secondary-container/10 transition-all active:scale-95 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span>Voir mes billets/achats</span>
+</button>
+</div>
+</main>
+<!-- Mini Audio Player (Persistent Anchor) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-surface-container-highest/90 backdrop-blur-xl rounded-full px-sm py-xs flex items-center gap-md shadow-2xl z-40 border border-white/20">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 animate-spin-slow">
+<img class="w-full h-full object-cover" data-alt="Cover art for a contemporary worship album. The design is abstract with warm gold, deep indigo, and soft cream gradients swirling together. The mood is tranquil and meditative, styled like a modern fine art piece." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2C-h99YOFNMOhCXXkXUO1lsgzFlJEw2xii2fY-RVZ6RWe0HlyXxNWv7ge8qz1J9NM2bDubreJkd43xzpUXBem_mW4AvkM2XsHII9oS1WQveHABJg-W1v6GU_BRyOWZFNCbhZFEr8aWEQl7yBlVoHJgFF72hV-js3RIoJsLT2R-b86QcZgHU6JiQ5sNQDvcq_hsZlToL2ClH_TRvjVfCAz0h-ShRA2af0IxDAhP3-R7QNQV2h2JxeLsw"/>
+</div>
+<div class="flex-grow min-w-0">
+<p class="font-caption text-caption font-bold text-primary truncate">Le Chant de l'Âme</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Sambela Worship</p>
+</div>
+<div class="flex items-center gap-sm pr-xs">
+<button class="text-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-2xl">skip_previous</span>
+</button>
+<button class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="text-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-2xl">skip_next</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+        
+        // Add style for spinning animation for player cover
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin-slow {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .animate-spin-slow {
+                animation: spin-slow 12s linear infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>

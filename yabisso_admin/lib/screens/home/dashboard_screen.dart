@@ -544,6 +544,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     items.add(_buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')));
 
+    items.add(_buildNavItem(Icons.person_outline, 'Profil', false, () => context.push('/profile')));
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(

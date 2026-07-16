@@ -1,0 +1,498 @@
+diff --git a/lib/main.dart b/lib/main.dart
+index 05161f1..1592945 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -14,6 +14,14 @@ import 'screens/scan/qr_scan_screen.dart';
+ import 'screens/home/daily_report_screen.dart';
+ import 'screens/home/prospection_screen.dart';
+ import 'screens/home/prospection_history_screen.dart';
++import 'screens/tasks/tasks_screen.dart';
++import 'screens/attendance/attendance_screen.dart';
++import 'screens/objectives/employee_objectives_screen.dart';
++import 'screens/performance/performance_screen.dart';
++import 'screens/notifs/employee_notifications_screen.dart';
++import 'screens/notifs/employee_messages_screen.dart';
++import 'screens/training/employee_training_screen.dart';
++import 'screens/history/global_history_screen.dart';
+ 
+ final goRouterProvider = Provider<GoRouter>((ref) {
+   return GoRouter(
+@@ -31,6 +39,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
+       GoRoute(path: '/daily-report', builder: (ctx, state) => const DailyReportScreen()),
+       GoRoute(path: '/prospection', builder: (ctx, state) => const ProspectionScreen()),
+       GoRoute(path: '/prospection-history', builder: (ctx, state) => const ProspectionHistoryScreen()),
++      GoRoute(path: '/tasks', builder: (ctx, state) => const TasksScreen()),
++      GoRoute(path: '/attendance', builder: (ctx, state) => const AttendanceScreen()),
++      GoRoute(path: '/objectives', builder: (ctx, state) => const EmployeeObjectivesScreen()),
++      GoRoute(path: '/performance', builder: (ctx, state) => const PerformanceScreen()),
++      GoRoute(path: '/notifications', builder: (ctx, state) => const EmployeeNotificationsScreen()),
++      GoRoute(path: '/employee-messages', builder: (ctx, state) => const EmployeeMessagesScreen()),
++      GoRoute(path: '/training', builder: (ctx, state) => const EmployeeTrainingScreen()),
++      GoRoute(path: '/global-history', builder: (ctx, state) => const GlobalHistoryScreen()),
+     ],
+   );
+ });
+diff --git a/lib/screens/auth/login_screen.dart b/lib/screens/auth/login_screen.dart
+index a866419..8d14a51 100644
+--- a/lib/screens/auth/login_screen.dart
++++ b/lib/screens/auth/login_screen.dart
+@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
+ import 'package:go_router/go_router.dart';
+ import 'package:bcrypt/bcrypt.dart';
+ import 'package:uuid/uuid.dart';
++import 'package:flutter_svg/flutter_svg.dart';
+ import '../../core/app_theme.dart';
+ import '../../models/employee.dart';
+ import '../../providers/providers.dart';
+@@ -149,14 +150,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
+   }
+ 
+   Widget _buildLogo() {
+-    return Container(
+-      width: 80, height: 80,
+-      decoration: BoxDecoration(
+-        color: Colors.white,
+-        borderRadius: BorderRadius.circular(20),
+-        border: Border.all(color: _primary, width: 3),
++    return ClipRRect(
++      borderRadius: BorderRadius.circular(20),
++      child: SvgPicture.asset(
++        'assets/logo_E_monogramme.svg',
++        width: 80,
++        height: 80,
+       ),
+-      child: const Icon(Icons.badge_outlined, size: 40, color: _primary),
+     );
+   }
+ 
+diff --git a/lib/screens/checkin/checkin_screen.dart b/lib/screens/checkin/checkin_screen.dart
+index 5350c15..55a11a9 100644
+--- a/lib/screens/checkin/checkin_screen.dart
++++ b/lib/screens/checkin/checkin_screen.dart
+@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
+ import 'package:go_router/go_router.dart';
+ import 'package:uuid/uuid.dart';
+ import 'package:qr_flutter/qr_flutter.dart';
++import 'package:url_launcher/url_launcher.dart';
+ import '../../core/app_theme.dart';
+ import '../../models/checkin.dart';
+ import '../../providers/providers.dart';
+@@ -60,6 +61,8 @@ class _CheckInScreenState extends ConsumerState<CheckInScreen> {
+               const SizedBox(height: 24),
+               if (!currentCheckIn.managerValidated)
+                 _buildValidationPending(),
++              const SizedBox(height: 16),
++              _buildShareCheckInButton(employee, currentCheckIn!, today),
+             ],
+             const SizedBox(height: 24),
+             if (!isCheckedIn) _buildSickButton(employee.id),
+@@ -163,7 +166,7 @@ class _CheckInScreenState extends ConsumerState<CheckInScreen> {
+   }
+ 
+   Widget _buildQRCode(dynamic employee, String today) {
+-    final qrData = 'YABISSO_EMP:${employee.id}:$today';
++    final qrData = 'YABISSO_EMP:${employee.id}:${employee.name}:${employee.phone}:$today';
+     return Container(
+       padding: const EdgeInsets.all(20),
+       decoration: BoxDecoration(
+@@ -321,6 +324,46 @@ class _CheckInScreenState extends ConsumerState<CheckInScreen> {
+     }
+   }
+ 
++  Widget _buildShareCheckInButton(dynamic employee, CheckIn checkIn, String today) {
++    return SizedBox(
++      width: double.infinity, height: 48,
++      child: OutlinedButton.icon(
++        onPressed: () => _shareCheckIn(employee, checkIn, today),
++        icon: const Icon(Icons.share, size: 18),
++        label: const Text('Partager pointage', style: TextStyle(fontWeight: FontWeight.w600)),
++        style: OutlinedButton.styleFrom(
++          foregroundColor: AppColors.primaryBlue,
++          side: const BorderSide(color: AppColors.primaryBlue),
++          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
++        ),
++      ),
++    );
++  }
++
++  Future<void> _shareCheckIn(dynamic employee, CheckIn checkIn, String today) async {
++    final buffer = StringBuffer();
++    buffer.writeln('--- YABISSO POINTAGE ---');
++    buffer.writeln('Nom: ${employee.name}');
++    buffer.writeln('ID: ${employee.id}');
++    buffer.writeln('Téléphone: ${employee.phone}');
++    buffer.writeln('Date: $today');
++    buffer.writeln('Heure d\'arrivée: ${checkIn.checkInTime}');
++    buffer.writeln('Statut: ${checkIn.isSick ? "Maladie" : (checkIn.managerValidated ? "Validé" : "En attente")}');
++    buffer.writeln('--- Yabisso ---');
++
++    final message = Uri.encodeFull(buffer.toString());
++    final uri = Uri.parse('https://chat.whatsapp.com/DVIbhM22bnDE84kQgHpkqT');
++    try {
++      await launchUrl(uri, mode: LaunchMode.externalApplication);
++    } catch (_) {
++      if (mounted) {
++        ScaffoldMessenger.of(context).showSnackBar(
++          const SnackBar(content: Text('Impossible d\'ouvrir WhatsApp'), backgroundColor: Colors.red),
++        );
++      }
++    }
++  }
++
+   Future<String?> _showSickDialog() {
+     final controller = TextEditingController();
+     return showDialog<String>(
+diff --git a/lib/screens/home/daily_report_screen.dart b/lib/screens/home/daily_report_screen.dart
+index 4ef9dcd..fb06b84 100644
+--- a/lib/screens/home/daily_report_screen.dart
++++ b/lib/screens/home/daily_report_screen.dart
+@@ -16,6 +16,7 @@ class _DailyReportScreenState extends ConsumerState<DailyReportScreen> {
+   final _shopsVisitedController = TextEditingController(text: '0');
+   final _demonstrationsController = TextEditingController(text: '0');
+   final _subscriptionsController = TextEditingController(text: '0');
++  final _objectivesReachedController = TextEditingController(text: '0');
+   final _difficultiesController = TextEditingController();
+   final _suggestionsController = TextEditingController();
+   bool _loading = false;
+@@ -43,6 +44,7 @@ class _DailyReportScreenState extends ConsumerState<DailyReportScreen> {
+         _shopsVisitedController.text = (reports.first['shops_visited'] ?? 0).toString();
+         _demonstrationsController.text = (reports.first['demonstrations'] ?? 0).toString();
+         _subscriptionsController.text = (reports.first['subscriptions'] ?? 0).toString();
++        _objectivesReachedController.text = (reports.first['objectives_reached'] ?? 0).toString();
+         _difficultiesController.text = reports.first['difficulties'] ?? '';
+         _suggestionsController.text = reports.first['suggestions'] ?? '';
+       });
+@@ -64,6 +66,7 @@ class _DailyReportScreenState extends ConsumerState<DailyReportScreen> {
+       'shops_visited': int.tryParse(_shopsVisitedController.text) ?? 0,
+       'demonstrations': int.tryParse(_demonstrationsController.text) ?? 0,
+       'subscriptions': int.tryParse(_subscriptionsController.text) ?? 0,
++      'objectives_reached': int.tryParse(_objectivesReachedController.text) ?? 0,
+       'difficulties': _difficultiesController.text,
+       'suggestions': _suggestionsController.text,
+       'updated_at': now,
+@@ -137,6 +140,8 @@ class _DailyReportScreenState extends ConsumerState<DailyReportScreen> {
+             _buildNumberField('Démonstrations effectuées', _demonstrationsController, Icons.slideshow, const Color(0xFFF5A623)),
+             const SizedBox(height: 12),
+             _buildNumberField('Inscriptions réalisées', _subscriptionsController, Icons.person_add, const Color(0xFF1D9E75)),
++            const SizedBox(height: 12),
++            _buildNumberField('Objectifs atteints', _objectivesReachedController, Icons.flag, const Color(0xFF9C27B0)),
+             const SizedBox(height: 24),
+ 
+             // Text fields
+diff --git a/lib/screens/home/dashboard_screen.dart b/lib/screens/home/dashboard_screen.dart
+index 14b9341..656821d 100644
+--- a/lib/screens/home/dashboard_screen.dart
++++ b/lib/screens/home/dashboard_screen.dart
+@@ -244,6 +244,38 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+             Expanded(child: _buildActionCard('Historique démarchage', Icons.history_edu, const Color(0xFF378ADD), () => context.push('/prospection-history'))),
+           ],
+         ),
++        const SizedBox(height: 12),
++        Row(
++          children: [
++            Expanded(child: _buildActionCard('Mes tâches', Icons.task_alt, AppColors.primaryGreen, () => context.push('/tasks'))),
++            const SizedBox(width: 12),
++            Expanded(child: _buildActionCard('Pointage avancé', Icons.access_time, const Color(0xFF378ADD), () => context.push('/attendance'))),
++          ],
++        ),
++        const SizedBox(height: 12),
++        Row(
++          children: [
++            Expanded(child: _buildActionCard('Mes objectifs', Icons.flag, AppColors.primaryAmber, () => context.push('/objectives'))),
++            const SizedBox(width: 12),
++            Expanded(child: _buildActionCard('Ma performance', Icons.trending_up, AppColors.primaryGreen, () => context.push('/performance'))),
++          ],
++        ),
++        const SizedBox(height: 12),
++        Row(
++          children: [
++            Expanded(child: _buildActionCard('Notifications', Icons.notifications, AppColors.primaryRed, () => context.push('/notifications'))),
++            const SizedBox(width: 12),
++            Expanded(child: _buildActionCard('Messages', Icons.mail, const Color(0xFF378ADD), () => context.push('/employee-messages'))),
++          ],
++        ),
++        const SizedBox(height: 12),
++        Row(
++          children: [
++            Expanded(child: _buildActionCard('Formations', Icons.school, AppColors.primaryGreen, () => context.push('/training'))),
++            const SizedBox(width: 12),
++            Expanded(child: _buildActionCard('Historique', Icons.history_edu, AppColors.primaryAmber, () => context.push('/global-history'))),
++          ],
++        ),
+       ],
+     );
+   }
+diff --git a/lib/screens/profile/profile_screen.dart b/lib/screens/profile/profile_screen.dart
+index 9ee9eac..a0f07ee 100644
+--- a/lib/screens/profile/profile_screen.dart
++++ b/lib/screens/profile/profile_screen.dart
+@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
+ import 'package:flutter/services.dart';
+ import 'package:flutter_riverpod/flutter_riverpod.dart';
+ import 'package:go_router/go_router.dart';
++import 'package:qr_flutter/qr_flutter.dart';
++import 'package:url_launcher/url_launcher.dart';
+ import '../../core/app_theme.dart';
+ import '../../providers/providers.dart';
+ import '../../services/salary_service.dart';
+@@ -164,6 +166,45 @@ class ProfileScreen extends ConsumerWidget {
+               ),
+             ),
+           ),
++          const SizedBox(height: 10),
++          SizedBox(
++            width: double.infinity,
++            child: OutlinedButton.icon(
++              onPressed: () => _showQrCodeDialog(context, employee.id, employee.name),
++              icon: const Icon(Icons.qr_code, size: 18),
++              label: const Text('Afficher QR Code'),
++              style: OutlinedButton.styleFrom(
++                foregroundColor: AppColors.primaryBlue,
++                side: const BorderSide(color: AppColors.primaryBlue),
++                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
++              ),
++            ),
++          ),
++          const SizedBox(height: 10),
++          SizedBox(
++            width: double.infinity,
++            child: OutlinedButton.icon(
++              onPressed: () async {
++                final uri = Uri.parse('https://chat.whatsapp.com/GvRQsNoA8xGJlXeiEiiInc');
++                try {
++                  await launchUrl(uri, mode: LaunchMode.externalApplication);
++                } catch (_) {
++                  if (context.mounted) {
++                    ScaffoldMessenger.of(context).showSnackBar(
++                      const SnackBar(content: Text('Impossible d\'ouvrir WhatsApp'), backgroundColor: Colors.red),
++                    );
++                  }
++                }
++              },
++              icon: const Icon(Icons.help_outline, size: 18),
++              label: const Text('Aide'),
++              style: OutlinedButton.styleFrom(
++                foregroundColor: AppColors.primaryAmber,
++                side: const BorderSide(color: AppColors.primaryAmber),
++                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
++              ),
++            ),
++          ),
+         ],
+       ),
+     );
+@@ -183,6 +224,52 @@ class ProfileScreen extends ConsumerWidget {
+     );
+   }
+ 
++  void _showQrCodeDialog(BuildContext context, String employeeId, String employeeName) {
++    showDialog(
++      context: context,
++      builder: (ctx) => AlertDialog(
++        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
++        title: const Text('QR Code Prestataire', textAlign: TextAlign.center),
++        content: Column(
++          mainAxisSize: MainAxisSize.min,
++          children: [
++            Text(employeeName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
++            const SizedBox(height: 4),
++            Text(employeeId, style: TextStyle(fontSize: 13, color: Colors.grey[600])),
++            const SizedBox(height: 16),
++            Container(
++              padding: const EdgeInsets.all(16),
++              decoration: BoxDecoration(
++                color: Colors.white,
++                borderRadius: BorderRadius.circular(16),
++                border: Border.all(color: Colors.grey.shade200),
++              ),
++              child: QrImageView(
++                data: employeeId,
++                version: QrVersions.auto,
++                size: 200,
++                backgroundColor: Colors.white,
++                foregroundColor: const Color(0xFF111111),
++              ),
++            ),
++            const SizedBox(height: 12),
++            const Text(
++              'Scannez ce code dans l\'app Kassa\npour remplir l\'ID prestataire',
++              textAlign: TextAlign.center,
++              style: TextStyle(fontSize: 12, color: Colors.grey),
++            ),
++          ],
++        ),
++        actions: [
++          TextButton(
++            onPressed: () => Navigator.pop(ctx),
++            child: const Text('Fermer'),
++          ),
++        ],
++      ),
++    );
++  }
++
+   Widget _buildLogoutButton(WidgetRef ref, BuildContext context) {
+     return SizedBox(
+       width: double.infinity, height: 48,
+diff --git a/lib/services/database_helper.dart b/lib/services/database_helper.dart
+index 94eb192..d2beba2 100644
+--- a/lib/services/database_helper.dart
++++ b/lib/services/database_helper.dart
+@@ -17,7 +17,7 @@ class DatabaseHelper {
+   Future<Database> _initDB(String filePath) async {
+     final dir = await getApplicationDocumentsDirectory();
+     final path = join(dir.path, filePath);
+-    return await openDatabase(path, version: 3, onCreate: _createDB, onUpgrade: _upgradeDB);
++    return await openDatabase(path, version: 5, onCreate: _createDB, onUpgrade: _upgradeDB);
+   }
+ 
+   Future<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
+@@ -34,6 +34,7 @@ class DatabaseHelper {
+           shops_visited INTEGER DEFAULT 0,
+           demonstrations INTEGER DEFAULT 0,
+           subscriptions INTEGER DEFAULT 0,
++          objectives_reached INTEGER DEFAULT 0,
+           difficulties TEXT,
+           suggestions TEXT,
+           created_at TEXT,
+@@ -59,6 +60,54 @@ class DatabaseHelper {
+         )
+       ''');
+     }
++    if (oldVersion < 4) {
++      await db.execute('''CREATE TABLE IF NOT EXISTS tasks (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, title TEXT NOT NULL,
++        description TEXT, task_type TEXT DEFAULT 'general', priority TEXT DEFAULT 'medium',
++        due_date TEXT, status TEXT DEFAULT 'todo', started_at TEXT, completed_at TEXT,
++        comment TEXT, proof_path TEXT, assigned_by TEXT, created_at TEXT, updated_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS attendance (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, date TEXT NOT NULL,
++        check_in TEXT, check_out TEXT, pause_start TEXT, pause_end TEXT,
++        status TEXT DEFAULT 'present', is_late INTEGER DEFAULT 0,
++        early_departure INTEGER DEFAULT 0, overtime_hours REAL DEFAULT 0,
++        notes TEXT, created_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS employee_objectives (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, title TEXT NOT NULL,
++        description TEXT, target_value INTEGER DEFAULT 0, current_value INTEGER DEFAULT 0,
++        unit TEXT DEFAULT '', period TEXT DEFAULT 'daily', start_date TEXT, end_date TEXT,
++        status TEXT DEFAULT 'active', created_at TEXT, updated_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS notifications (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, title TEXT NOT NULL,
++        body TEXT, type TEXT DEFAULT 'info', is_read INTEGER DEFAULT 0,
++        reference_id TEXT, reference_type TEXT, created_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS internal_messages (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, sender_name TEXT NOT NULL,
++        sender_role TEXT DEFAULT 'admin', title TEXT NOT NULL, body TEXT,
++        is_read INTEGER DEFAULT 0, created_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS employee_trainings (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, training_id TEXT,
++        training_title TEXT NOT NULL, description TEXT, trainer TEXT,
++        status TEXT DEFAULT 'available', completion_date TEXT, score INTEGER,
++        created_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS activity_history (
++        id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id TEXT NOT NULL,
++        action TEXT NOT NULL, details TEXT, created_at TEXT
++      )''');
++      await db.execute('''CREATE TABLE IF NOT EXISTS offline_queue (
++        id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT NOT NULL,
++        payload TEXT NOT NULL, status TEXT DEFAULT 'pending', created_at TEXT
++      )''');
++    }
++    if (oldVersion < 5) {
++      try { await db.execute("ALTER TABLE daily_reports ADD COLUMN objectives_reached INTEGER DEFAULT 0"); } catch (_) {}
++    }
+   }
+ 
+   Future _createDB(Database db, int version) async {
+@@ -142,6 +191,50 @@ class DatabaseHelper {
+         value TEXT
+       )
+     ''');
++
++    await db.execute('''CREATE TABLE tasks (
++      id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, title TEXT NOT NULL,
++      description TEXT, task_type TEXT DEFAULT 'general', priority TEXT DEFAULT 'medium',
++      due_date TEXT, status TEXT DEFAULT 'todo', started_at TEXT, completed_at TEXT,
++      comment TEXT, proof_path TEXT, assigned_by TEXT, created_at TEXT, updated_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE attendance (
++      id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, date TEXT NOT NULL,
++      check_in TEXT, check_out TEXT, pause_start TEXT, pause_end TEXT,
++      status TEXT DEFAULT 'present', is_late INTEGER DEFAULT 0,
++      early_departure INTEGER DEFAULT 0, overtime_hours REAL DEFAULT 0,
++      notes TEXT, created_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE employee_objectives (
++      id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, title TEXT NOT NULL,
++      description TEXT, target_value INTEGER DEFAULT 0, current_value INTEGER DEFAULT 0,
++      unit TEXT DEFAULT '', period TEXT DEFAULT 'daily', start_date TEXT, end_date TEXT,
++      status TEXT DEFAULT 'active', created_at TEXT, updated_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE notifications (
++      id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, title TEXT NOT NULL,
++      body TEXT, type TEXT DEFAULT 'info', is_read INTEGER DEFAULT 0,
++      reference_id TEXT, reference_type TEXT, created_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE internal_messages (
++      id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, sender_name TEXT NOT NULL,
++      sender_role TEXT DEFAULT 'admin', title TEXT NOT NULL, body TEXT,
++      is_read INTEGER DEFAULT 0, created_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE employee_trainings (
++      id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, training_id TEXT,
++      training_title TEXT NOT NULL, description TEXT, trainer TEXT,
++      status TEXT DEFAULT 'available', completion_date TEXT, score INTEGER,
++      created_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE activity_history (
++      id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id TEXT NOT NULL,
++      action TEXT NOT NULL, details TEXT, created_at TEXT
++    )''');
++    await db.execute('''CREATE TABLE offline_queue (
++      id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT NOT NULL,
++      payload TEXT NOT NULL, status TEXT DEFAULT 'pending', created_at TEXT
++    )''');
+   }
+ 
+   Future<void> insert(String table, Map<String, dynamic> data) async {
+@@ -173,4 +266,16 @@ class DatabaseHelper {
+     final result = await db.query('settings', where: 'key = ?', whereArgs: [key]);
+     return result.isNotEmpty ? result.first['value'] as String? : null;
+   }
++
++  Future<int> count(String table, {String? where, List<dynamic>? whereArgs}) async {
++    final db = await database;
++    final result = await db.rawQuery('SELECT COUNT(*) as count FROM $table${where != null ? ' WHERE $where' : ''}', whereArgs);
++    return Sqflite.firstIntValue(result) ?? 0;
++  }
++
++  Future<int> sum(String table, String column, {String? where, List<dynamic>? whereArgs}) async {
++    final db = await database;
++    final result = await db.rawQuery('SELECT COALESCE(SUM($column), 0) as total FROM $table${where != null ? ' WHERE $where' : ''}', whereArgs);
++    return (result.first['total'] as int?) ?? 0;
++  }
+ }
+diff --git a/pubspec.yaml b/pubspec.yaml
+index 94f8aa7..719486c 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -25,6 +25,7 @@ dependencies:
+   image_picker: ^1.1.2
+   share_plus: ^10.1.4
+   url_launcher: ^6.3.1
++  flutter_svg: ^2.0.17
+ 
+ dev_dependencies:
+   flutter_test:
+@@ -33,3 +34,5 @@ dev_dependencies:
+ 
+ flutter:
+   uses-material-design: true
++  assets:
++    - assets/logo_E_monogramme.svg

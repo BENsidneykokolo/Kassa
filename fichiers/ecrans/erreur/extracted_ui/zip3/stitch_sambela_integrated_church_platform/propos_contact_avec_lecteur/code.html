@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela - À Propos &amp; Contact</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#1a2233",
+                    "on-surface-variant": "#45474c",
+                    "surface-container-low": "#f5f3f3",
+                    "primary-fixed": "#dae2fa",
+                    "surface-variant": "#e4e2e2",
+                    "on-primary-fixed": "#131b2c",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "surface-dim": "#dbd9d9",
+                    "on-primary-container": "#81899e",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#22221f",
+                    "on-secondary-fixed": "#261900",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "on-tertiary-container": "#8a8985",
+                    "surface-tint": "#565e72",
+                    "on-surface": "#1b1c1c",
+                    "primary": "#040c1c",
+                    "on-primary-fixed-variant": "#3f4759",
+                    "inverse-primary": "#bec6dd",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#ffdea5",
+                    "primary-fixed-dim": "#bec6dd",
+                    "outline-variant": "#c6c6cd",
+                    "surface-bright": "#fbf9f8",
+                    "on-tertiary-fixed": "#1b1c19",
+                    "background": "#fbf9f8",
+                    "inverse-on-surface": "#f2f0f0",
+                    "surface-container-high": "#eae8e7",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#785a1a",
+                    "surface-container": "#efeded",
+                    "secondary-container": "#fed488",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#76777d",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fbf9f8",
+                    "on-tertiary-fixed-variant": "#474744",
+                    "tertiary": "#0b0c09",
+                    "secondary-fixed-dim": "#e9c176",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "tertiary-fixed": "#e4e2dd",
+                    "on-background": "#1b1c1c",
+                    "error": "#ba1a1a",
+                    "secondary": "#775a19",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e4e2e2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Libre Caslon Text"],
+                    "caption": ["Plus Jakarta Sans"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-player {
+            background: rgba(4, 12, 28, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        body {
+            background-color: #fbf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .input-mimic:focus-within {
+            border-bottom-width: 2px;
+            border-color: #775a19;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md pb-40">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity active:scale-95" data-icon="menu">menu</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tight">Sambela</h1>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden active:scale-95 transition-transform cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a diverse church member with a warm smile, captured in soft, natural morning light. The background is a blurred ivory wall, maintaining a clean and minimalist aesthetic that aligns with the light mode UI. The photo style is editorial and high-quality, reflecting the peaceful and reverent mood of the Sambela digital sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJQnPtKrf9naYuInWuYegMU2BC4iAiE4QwELCbKnjhpM65kZutt0qzg0WkyuDdXppyloMTIovW8x4jveFv3cNmyIm3YjcFhHKO6E4Yf5X_jP2rSURetCOn1RpSFh92XU_-PihrGQC-rHwvn7KxFUBa8KenKYOxv0DC9j1ELYHzI_dYPOy95cWooqq7LGhyJENl_YHwuHBCKgQcs3HWy22UI_GBFWtfkfBAcsnUniKC_bH94c0gpUp9rQ"/>
+</div>
+</header>
+<main class="mt-16 overflow-x-hidden">
+<!-- Hero Section -->
+<section class="relative w-full h-[442px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A wide-angle, serene shot of a modern minimalist sanctuary with high ceilings and warm oak wood accents. Sunlight streams through tall, narrow windows, creating rhythmic patterns of light and shadow on the cream-colored stone floor. A small group of people are gathered in quiet conversation, embodying a sense of peaceful community and spiritual belonging. The lighting is ethereal and bright, using a palette of soft gold, ivory, and deep navy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Z8N7oID8EogDeO-4EH1Bk5vqa7tAkQx7vH8pnrK3XYmUxqw9YfvFrIOfztBg0O0ZarhiMXFyNhLD-1eftyeQO8JeYbSA1a3KAXucVPYMI3KrstWMi6bJRejw_KHy9_RKmuBbs5lYZtZkuImKpQeVY_QnA0NKlQbC9WvrbLIgiSrTUI6GevFygBSllWXpzQkjh_Tw_DgFuE_pm_wv9ULnUSLXEMHsEjfMVGEKwLnS7JgjfDhBRh3qaA"/>
+<div class="absolute inset-0 bg-primary/20"></div>
+</div>
+<div class="relative z-10 text-center px-6">
+<h2 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-white drop-shadow-lg">Notre Sanctuaire Digital</h2>
+<div class="w-16 h-1 bg-secondary-fixed mx-auto mt-4 rounded-full"></div>
+</div>
+</section>
+<!-- Notre Mission -->
+<section class="max-w-container-max mx-auto px-margin-mobile py-xl text-center">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest block mb-4">Héritage &amp; Vision</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-md">Notre Mission</h3>
+<div class="max-w-2xl mx-auto space-y-md">
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed italic">
+                    "Sambela est né d'un désir profond de tisser des liens entre la tradition spirituelle et la modernité numérique."
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Fondée sur les principes de paix, de révérence et d'appartenance, notre communauté s'efforce d'être un phare de lumière dans le monde digital. Depuis nos débuts, nous cultivons un espace où chacun peut trouver refuge, inspiration et connexion, quel que soit l'endroit où il se trouve sur son chemin de foi.
+                </p>
+</div>
+</section>
+<!-- Informations Pratiques (Bento Grid Style) -->
+<section class="bg-surface-container-low py-xl">
+<div class="max-w-container-max mx-auto px-margin-mobile">
+<h3 class="font-headline-md text-headline-md text-primary mb-lg text-center">Informations Pratiques</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Address Card -->
+<div class="bg-surface p-md rounded-xl shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary mb-2">Notre Siège</h4>
+<p class="text-on-surface-variant">12 Avenue de la Paix<br/>75008 Paris, France</p>
+<button class="mt-md text-secondary font-label-md hover:underline flex items-center gap-xs">
+                            Voir sur la carte <span class="material-symbols-outlined text-[16px]" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+<!-- Hours Card -->
+<div class="bg-surface p-md rounded-xl shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="schedule">schedule</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary mb-2">Heures de Service</h4>
+<ul class="text-on-surface-variant space-y-1">
+<li><span class="font-bold">Dimanche:</span> 10h00 - 12h00</li>
+<li><span class="font-bold">Mercredi:</span> 19h00 - 20h30</li>
+<li><span class="font-bold">Vendredi:</span> 18h00 - 19h30</li>
+</ul>
+</div>
+<!-- Contact Card -->
+<div class="bg-surface p-md rounded-xl shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="call">call</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary mb-2">Nous Joindre</h4>
+<p class="text-on-surface-variant">+33 (0) 1 23 45 67 89</p>
+<p class="text-on-surface-variant">contact@sambela.org</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Form -->
+<section class="max-w-container-max mx-auto px-margin-mobile py-xl">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-md">Contactez-nous</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg leading-relaxed">
+                        Vous avez une question, une intention de prière ou souhaitez simplement échanger ? Notre équipe est à votre écoute. Remplissez le formulaire et nous vous répondrons dans les plus brefs délais.
+                    </p>
+<div class="flex gap-md">
+<a class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="brand_awareness">face_nod</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="photo_camera">photo_camera</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="play_circle">play_circle</span>
+</a>
+</div>
+</div>
+<form class="space-y-lg bg-white p-lg rounded-2xl shadow-sm border border-surface-variant/50">
+<div class="input-mimic group border-b border-outline-variant pb-2 transition-all">
+<label class="block font-label-md text-caption text-secondary uppercase mb-1">Nom Complet</label>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-body-md text-primary placeholder:text-on-primary-container" placeholder="Votre nom" type="text"/>
+</div>
+<div class="input-mimic group border-b border-outline-variant pb-2 transition-all">
+<label class="block font-label-md text-caption text-secondary uppercase mb-1">Email</label>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-body-md text-primary placeholder:text-on-primary-container" placeholder="votre@email.com" type="email"/>
+</div>
+<div class="input-mimic group border-b border-outline-variant pb-2 transition-all">
+<label class="block font-label-md text-caption text-secondary uppercase mb-1">Message</label>
+<textarea class="w-full bg-transparent border-none p-0 focus:ring-0 text-body-md text-primary placeholder:text-on-primary-container resize-none" placeholder="Comment pouvons-nous vous aider ?" rows="4"></textarea>
+</div>
+<button class="w-full py-4 bg-primary text-white font-label-md rounded-lg hover:bg-primary-container active:scale-[0.98] transition-all flex justify-center items-center gap-sm shadow-md" type="button">
+                        Envoyer le message
+                        <span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Mini Audio Player -->
+<div class="fixed bottom-20 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-40 glass-player rounded-2xl p-sm flex items-center gap-sm shadow-xl animate-in slide-in-from-bottom-4 duration-500">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A soft, abstract visual representation of peace and meditation, featuring blurred gradients of dawn-light gold and twilight indigo. Thin, ethereal glowing lines pulse gently, mimicking a heartbeat or breathing rhythm. The style is minimalist and spiritual, evoking the sound of a calming prayer or hymn in the Sambela sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmbsTd2selZscTOi7sBgpDAexwmiVYSokOsFGcsyrtjFs32j0aPDq2P1rxdxzHiWubpbFCIPRW7YU_beZrKJEey-W-l5wdSXh-aVRrcRE76Cvpo_eUoNukVY2rQzqCFJRANrF6lfcDM3H7Z4QunNh6HEnfUubMc2GdGRlO7TeWvx38FPv_pzuGtrbDPXZLD_FxDh_f3rMOz442ArXKVDsyMqWyMCIJG4kZ049OudCYwGPXBgu7u_Xv6A"/>
+</div>
+<div class="flex-grow min-w-0">
+<h5 class="text-white font-label-md text-[13px] truncate">Veille avec moi - Marie-Lise</h5>
+<div class="flex items-center gap-2 mt-1">
+<div class="h-1 bg-secondary rounded-full flex-grow relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-[45%] bg-secondary-fixed"></div>
+</div>
+<span class="text-[10px] text-primary-fixed/60 font-label-md">02:45 / 05:30</span>
+</div>
+</div>
+<div class="flex items-center gap-xs shrink-0">
+<button class="material-symbols-outlined text-white text-[28px] hover:text-secondary-fixed transition-colors" data-icon="play_arrow">play_arrow</button>
+<button class="material-symbols-outlined text-white text-[20px] opacity-60" data-icon="close">close</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-md text-label-md mt-1">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md mt-1">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md mt-1">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md mt-1">Give</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Not preventing default to allow navigation, just visual feedback
+                this.classList.add('scale-90');
+                setTimeout(() => this.classList.remove('scale-90'), 200);
+            });
+        });
+
+        const player = document.querySelector('.glass-player');
+        if(player) {
+            const closeBtn = player.querySelector('[data-icon="close"]');
+            closeBtn.addEventListener('click', () => {
+                player.style.opacity = '0';
+                player.style.transform = 'translate(-50%, 20px)';
+                setTimeout(() => player.remove(), 300);
+            });
+        }
+    </script>
+</body></html>

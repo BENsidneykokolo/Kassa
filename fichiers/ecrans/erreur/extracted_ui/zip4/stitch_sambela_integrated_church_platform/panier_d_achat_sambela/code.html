@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Votre Panier - Sambela</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fbf9f8",
+                        "surface-bright": "#fbf9f8",
+                        "surface-variant": "#e4e2e2",
+                        "inverse-surface": "#303030",
+                        "primary": "#040c1c",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#261900",
+                        "secondary-fixed": "#ffdea5",
+                        "on-secondary-container": "#785a1a",
+                        "primary-fixed-dim": "#bec6dd",
+                        "surface-container-high": "#eae8e7",
+                        "primary-fixed": "#dae2fa",
+                        "surface-container-highest": "#e4e2e2",
+                        "primary-container": "#1a2233",
+                        "on-primary-fixed": "#131b2c",
+                        "outline-variant": "#c6c6cd",
+                        "inverse-primary": "#bec6dd",
+                        "tertiary-container": "#22221f",
+                        "surface-container": "#efeded",
+                        "on-surface": "#1b1c1c",
+                        "surface": "#fbf9f8",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f5f3f3",
+                        "on-tertiary-container": "#8a8985",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "on-primary-fixed-variant": "#3f4759",
+                        "secondary-container": "#fed488",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dbd9d9",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "surface-tint": "#565e72",
+                        "secondary-fixed-dim": "#e9c176",
+                        "outline": "#76777d",
+                        "error": "#ba1a1a",
+                        "tertiary": "#0b0c09",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#e4e2dd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#45474c",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "secondary": "#775a19",
+                        "on-primary-container": "#81899e",
+                        "on-background": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "container-max": "1200px",
+                        "xs": "4px",
+                        "xl": "80px",
+                        "margin-mobile": "20px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "caption": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Libre Caslon Text"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Libre Caslon Text"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f8;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background">
+<!-- Top AppBar (Back Action + Title) -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<button aria-label="Retour" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="flex-grow text-center font-headline-sm text-headline-sm text-primary pr-10">Votre Panier</h1>
+</header>
+<main class="pt-20 pb-64 px-margin-mobile max-w-container-max mx-auto">
+<!-- Cart Items List -->
+<section class="space-y-6">
+<!-- Item 1: T-Shirt -->
+<div class="flex gap-4 p-4 bg-white rounded-xl shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant/50 group transition-all">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A minimalist, high-quality photograph of a deep navy premium cotton t-shirt with a subtle gold embroidered sacred geometry symbol on the chest. The shirt is displayed against a warm cream background with soft, editorial lighting that highlights the fabric texture. The aesthetic is modern, sacred, and serene, fitting the Sambela brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcP24gTQtFuH7OW_6w8IssDt3laOV01UWC57J5iPCm87vWee-M57PlhyYGPfI5_aQHeT_-n0gq0gFT6HA7-NqVpNr6gMJQWum74E9YP7_NRJ6-RzUxsvCiDXo8zC4f0AlqiFdqZiTbXJtQQhFB8k7_9P3jvwSA-izb4S3RuGb5TpBSCSUoNfugSmul9hRVhf1O6_0fogUUu0gYuLePyuCiDn5TCebvWGRc1vXRdFZepRFyQLogKShL0g"/>
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-lg text-primary leading-tight">Sacred Thread T-Shirt</h3>
+<p class="text-label-md font-label-md text-on-surface-variant mt-1">Taille: M • Couleur: Marine</p>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-bold text-primary font-body-lg text-body-lg">35,00 €</span>
+<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+<button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition-all active:scale-90">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="px-3 font-bold text-sm">1</span>
+<button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition-all active:scale-90">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2: Event Ticket -->
+<div class="flex gap-4 p-4 bg-white rounded-xl shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant/50 group transition-all">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="An artistic event graphic for Night of Worship, featuring atmospheric golden light rays piercing through a dark, architectural sanctuary. The style is moody and spiritual, with soft bokeh effects and a sophisticated navy and gold color palette. Professional high-end digital design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaKThDKuKLWq9dxsacH-VShkk8pBJUDzYLyq9lESFeIfXQBhAw5yb87RTTE3uZMRwd7rqXaajfDU23sErJewkZDgPYudUTO550EKNCAnnvORVLJ0JvXOOWqhT_02OTjfNKP7KwjLZ75fd-VkeU5kYBrXj5Fi-WHuGLCYNvb71sggedEoun_tOLtGcp11Qe-il7tp8fqA6VlaH31ZRFfxpHPX2zYVh2fKaWG5wb19n8DIeNb4OWHS1BZA"/>
+<div class="absolute top-1 left-1 bg-secondary text-on-secondary text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Événement</div>
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-lg text-primary leading-tight">Night of Worship</h3>
+<p class="text-label-md font-label-md text-on-surface-variant mt-1">15 Juin, 20:00 • Paris</p>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-bold text-primary font-body-lg text-body-lg">15,00 €</span>
+<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+<button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition-all active:scale-90">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="px-3 font-bold text-sm">2</span>
+<button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition-all active:scale-90">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3: Tote Bag -->
+<div class="flex gap-4 p-4 bg-white rounded-xl shadow-[0_4px_20px_rgba(4,12,28,0.03)] border border-surface-variant/50 group transition-all">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A premium heavy-canvas tote bag in natural cream color with an elegant, minimalist gold silk-screened botanical illustration. The bag is placed on a sun-drenched wooden table next to a Bible and a small candle. The lighting is soft and airy, creating a sense of sanctuary and intentionality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC26lXqz-p4EgA2gUNsG57RNiyWJrZ-ON7Hp3F05PnoPy5cbAVLep6if5PMhP9EaMj7F-oktT0_OJWdA2gFK_TDXasbOOmkUXZWNUP0zC6wmAhv8NVhRIiDN7gtY3-1J-7PRs9wyHj5HCLke5gKWEPQ5IWQjkyFIMRrfeOk-jsycAD7DxqcnWULNDu7SqGpY_-ld4M1DdlItB8PMESJQKjK79qwittDStwkx6ahLPJ-IKaeG6zqxNjBqA"/>
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-lg text-primary leading-tight">Sanctuary Tote</h3>
+<p class="text-label-md font-label-md text-on-surface-variant mt-1">Coton Bio • Naturel</p>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-bold text-primary font-body-lg text-body-lg">22,00 €</span>
+<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+<button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition-all active:scale-90">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="px-3 font-bold text-sm">1</span>
+<button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition-all active:scale-90">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Promocode / Gift -->
+<section class="mt-8">
+<div class="flex items-center gap-3 p-4 bg-surface-container-low rounded-xl border border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-secondary">sell</span>
+<span class="flex-grow font-body-md text-body-md text-on-surface-variant italic">Ajouter un code promo...</span>
+<button class="text-secondary font-bold text-sm uppercase tracking-widest">Appliquer</button>
+</div>
+</section>
+</main>
+<!-- Floating Footer Section (Summary + Button + Mini Player) -->
+<div class="fixed bottom-0 left-0 w-full z-40 bg-surface/95 backdrop-blur-xl border-t border-surface-variant/30 px-margin-mobile pt-4">
+<!-- Order Summary -->
+<div class="max-w-container-max mx-auto mb-4 space-y-2">
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Sous-total</span>
+<span>87,00 €</span>
+</div>
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Frais de livraison</span>
+<span>4,50 €</span>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-surface-variant/50">
+<span class="font-headline-sm text-xl text-primary">Total</span>
+<span class="font-bold text-2xl text-primary">91,50 €</span>
+</div>
+</div>
+<!-- Checkout Button -->
+<div class="max-w-container-max mx-auto mb-4">
+<button class="w-full h-14 bg-primary text-white rounded-lg font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all shadow-lg">
+                Finaliser la commande
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Mini Audio Player (Contextual Overlay) -->
+<div class="max-w-container-max mx-auto mb-4 bg-primary-container text-white rounded-xl p-2 flex items-center gap-3 shadow-xl overflow-hidden relative group">
+<div class="absolute inset-0 bg-gradient-to-r from-secondary/10 to-transparent pointer-events-none"></div>
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Album art for a spiritual meditation track, showing a golden horizon at dawn over a calm sea, blurred and ethereal. Deep midnight navy and warm gold tones. High-end sacred aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3J_nbuLeZg2EHQ69IEzQQYNplFUZe104KoguvvbCKKmcnSVN89BmucKChXA8ybmxTkFmjfyXeiOisl9qBBb3ZdmmIbhZYwGJ_3o2zCaIVqc6WheEZIJi0f45BG28JXZ2ucY5mtxSps28mf1XDT2ZbWyHExfbk9U3FF9o2NApIPNl3n3immDt8Z2b2E-CqmoGaPUpBYfpZFWI_skYjeMrcswOOpQzwwnxZr-QB9Ztuao_mMnqEdbxvLg"/>
+</div>
+<div class="flex-grow overflow-hidden">
+<h4 class="text-xs font-bold truncate">Psaume de Paix</h4>
+<p class="text-[10px] text-primary-fixed-dim truncate">Sambela Worship • 04:20</p>
+</div>
+<div class="flex items-center gap-1 pr-2">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-full">
+<span class="material-symbols-outlined text-[20px]">skip_previous</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-secondary text-on-secondary rounded-full shadow-inner">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-full">
+<span class="material-symbols-outlined text-[20px]">skip_next</span>
+</button>
+</div>
+<!-- Progress Bar -->
+<div class="absolute bottom-0 left-0 h-0.5 bg-secondary-fixed/30 w-full">
+<div class="h-full bg-secondary" style="width: 45%;"></div>
+</div>
+</div>
+<!-- Bottom NavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<div class="h-16"></div> <!-- Spacer for NavBar -->
+</div>
+<script>
+        // Simple logic for the quantity selectors
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const span = this.parentElement.querySelector('span');
+                if (this.innerText === 'add') {
+                    span.innerText = parseInt(span.innerText) + 1;
+                } else if (this.innerText === 'remove') {
+                    const current = parseInt(span.innerText);
+                    if (current > 1) span.innerText = current - 1;
+                }
+            });
+        });
+
+        // Toggle mini player pause icon
+        const playBtn = document.querySelector('.bg-secondary.text-on-secondary');
+        if (playBtn) {
+            playBtn.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                if (icon.innerText === 'pause') {
+                    icon.innerText = 'play_arrow';
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                } else {
+                    icon.innerText = 'pause';
+                }
+            });
+        }
+    </script>
+</body></html>

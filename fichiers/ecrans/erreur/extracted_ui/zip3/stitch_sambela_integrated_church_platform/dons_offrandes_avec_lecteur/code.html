@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela - Soutenir notre Mission</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdea5",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c6c6cd",
+                        "primary-fixed-dim": "#bec6dd",
+                        "on-surface": "#1b1c1c",
+                        "surface-tint": "#565e72",
+                        "on-tertiary-container": "#8a8985",
+                        "on-primary-fixed-variant": "#3f4759",
+                        "inverse-primary": "#bec6dd",
+                        "primary": "#040c1c",
+                        "tertiary-container": "#22221f",
+                        "on-secondary-fixed": "#261900",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "primary-fixed": "#dae2fa",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-variant": "#e4e2e2",
+                        "on-surface-variant": "#45474c",
+                        "primary-container": "#1a2233",
+                        "surface-dim": "#dbd9d9",
+                        "on-primary-container": "#81899e",
+                        "on-primary-fixed": "#131b2c",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e4e2dd",
+                        "on-background": "#1b1c1c",
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary": "#775a19",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#0b0c09",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "on-secondary-container": "#785a1a",
+                        "secondary-container": "#fed488",
+                        "surface-container": "#efeded",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "background": "#fbf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "headline-sm": ["Libre Caslon Text"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "caption": ["Plus Jakarta Sans"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .active-amount {
+            background-color: #040c1c !important;
+            color: #ffffff !important;
+        }
+        .glass-card {
+            background: rgba(251, 249, 248, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #fbf9f8;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #c8c6c2;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Sambela</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A sophisticated user profile avatar showing a kind person in a professional portrait. The image follows a high-key, bright light-mode aesthetic with soft cream backgrounds and elegant navy accents. The photography style is modern and editorial, reflecting the peaceful and trustworthy atmosphere of the Sambela digital sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5J0-nfvdfOrek2XtPwVL50IpIobSUKNCTuJM3aPh-Cjk9LiVOPrh5eKeDkNRAJylaLyNVDWG3dlYwVw01ZtAke43SozQA9NdSda1nFOACQQAlMaB35gAXPwgw9TP_T8EcMXgoUcQFTIwqJeUDjahqlBVj9ujiyzVRqsrNJcjIxA3uf9T7eCY1BPIZMSJSK8DpMJSV8AtZUAZBIygoKwBAGOLPY64dnKgbJ7b6eqP69B0qk23vzkJ_wA"/>
+</div>
+</header>
+<main class="pt-24 px-margin-mobile max-w-container-max mx-auto">
+<!-- Hero Section -->
+<section class="mb-lg">
+<div class="max-w-2xl">
+<h2 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-md">Soutenir notre Mission</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Donner est un acte de reconnaissance et de foi. Votre générosité permet à Sambela de continuer à être un sanctuaire digital, de soutenir les plus démunis et de bâtir un avenir ancré dans la compassion. Chaque don contribue directement à la vie de notre communauté et à nos projets de construction.
+                </p>
+</div>
+</section>
+<!-- Donation Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Form Column -->
+<div class="lg:col-span-7 space-y-md">
+<!-- Donation Category Selection -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md">Type de Don</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-sm">
+<label class="relative flex items-center p-md border-2 border-surface-variant rounded-xl cursor-pointer hover:border-secondary transition-colors group">
+<input checked="" class="peer hidden" name="category" type="radio" value="offrande"/>
+<div class="peer-checked:text-secondary">
+<span class="material-symbols-outlined block mb-xs" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md block">Offrande</span>
+</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-secondary rounded-xl"></div>
+</label>
+<label class="relative flex items-center p-md border-2 border-surface-variant rounded-xl cursor-pointer hover:border-secondary transition-colors group">
+<input class="peer hidden" name="category" type="radio" value="dime"/>
+<div class="peer-checked:text-secondary">
+<span class="material-symbols-outlined block mb-xs" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md block">Dîme</span>
+</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-secondary rounded-xl"></div>
+</label>
+<label class="relative flex items-center p-md border-2 border-surface-variant rounded-xl cursor-pointer hover:border-secondary transition-colors group">
+<input class="peer hidden" name="category" type="radio" value="construction"/>
+<div class="peer-checked:text-secondary">
+<span class="material-symbols-outlined block mb-xs" data-icon="architecture">architecture</span>
+<span class="font-label-md text-label-md block">Construction</span>
+</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-secondary rounded-xl"></div>
+</label>
+</div>
+</div>
+<!-- Amount Selection -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md">Montant du Don</h3>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-sm mb-md">
+<button class="amount-btn py-md px-4 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-all" onclick="selectAmount(10, this)">10€</button>
+<button class="amount-btn py-md px-4 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-all" onclick="selectAmount(20, this)">20€</button>
+<button class="amount-btn py-md px-4 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-all active-amount" onclick="selectAmount(50, this)">50€</button>
+<button class="amount-btn py-md px-4 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-all" onclick="toggleCustomAmount(true)">Autre</button>
+</div>
+<div class="hidden animate-fade-in" id="custom-amount-wrapper">
+<div class="relative">
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-secondary focus:ring-0 px-4 py-3 font-body-lg text-body-lg outline-none transition-all rounded-t-lg" placeholder="Entrez le montant" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold">€</span>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-md bg-primary text-on-primary rounded-lg font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 transition-opacity active:scale-95 shadow-lg">
+<span class="material-symbols-outlined" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+                    Donner Maintenant
+                </button>
+<p class="text-center font-caption text-caption text-on-surface-variant">Paiement 100% sécurisé via SSL</p>
+</div>
+<!-- Contextual Info Column -->
+<div class="lg:col-span-5 space-y-md">
+<div class="relative h-64 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A peaceful image of light streaming through a modern glass church window, illuminating the space with soft golden tones. The aesthetic is minimalist and serene, emphasizing a digital sanctuary atmosphere with warm primary navy and soft gold color palettes. High editorial quality, shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQto_FFfDrhpIc1M5ceT8SF23ZAQCSsJl_lH50Dp3yGdxzAzUndkulDuV1bEi1Jyx50hH6yuHNinrIi5_nnTt_Hodh1dBgwgQwR3Gv_lm7QS2JqEhBJ-e6zY6yaYCew3drqYbb2Dpz5B8l9zWgQzFFrzlk_XDVQzC1bEIZ1uwN_YdcCo7rT1DRYdyhXDQfwOS8F_2nP7bMl-LFATCSFeTcZs1JnTXRbkha4O59_ADK1ZeC-9fVeG4j1A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-end items-end p-md">
+<p class="text-on-primary font-label-md text-label-md">Projet en cours: Nouveau Centre de Jeunesse</p>
+</div>
+</div>
+<div class="bg-secondary-container/30 p-md rounded-xl border border-secondary/10">
+<h4 class="font-label-md text-label-md text-secondary mb-xs">Impact de votre don</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Grâce à vos dons, nous avons pu distribuer plus de 500 repas le mois dernier et lancer les travaux de rénovation de notre salle communautaire. Merci de faire partie de ce voyage.
+                    </p>
+</div>
+<div class="bg-surface-container p-md rounded-xl space-y-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="history">history</span>
+<div>
+<p class="font-label-md text-label-md text-primary">Historique des Dons</p>
+<p class="font-caption text-caption text-on-surface-variant">Accédez à vos reçus fiscaux</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) -->
+<div class="fixed bottom-[72px] left-4 right-4 z-40 bg-primary/90 backdrop-blur-md rounded-xl p-3 flex items-center gap-sm shadow-lg border border-white/10 md:left-24 md:right-auto md:w-80 md:bottom-6">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden flex-shrink-0">
+<img alt="Album Art" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCXzi4rQWlUEH7N6hEiclshsk9TfF_LqE4yrQh_ibAfRN2VqwnpZ5SKB8OsayaM2-WmrxDs-4ZakSAxsDmlE0HH4bieuUIHdjYHnKfZFO2fIjWv5iZMeEv5YiGG0rUG4q6Y6fpTdaV6NopIYg9eE-njZmy-tNuvn0KlC7ysI1Gvh7vFoxWbY_WfRf85fsG48WsO7NF9DekF8wzW-O_I51O_Y3swdnQaHnKhniiSGtlD0OPoZfvyzrkxA"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-on-primary font-label-md text-label-md truncate">Veille avec moi</p>
+<p class="text-on-primary/60 text-caption font-caption truncate">Marie-Lise</p>
+<div class="w-full bg-white/20 h-1 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full w-1/3"></div>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<button class="text-on-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="text-on-primary/60 hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div><nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<!-- Desktop Sidebar Suggestion (NavDrawer Logic) -->
+<aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-20 flex-col items-center py-md bg-surface border-r border-surface-variant">
+<div class="space-y-lg flex flex-col items-center">
+<button class="p-3 text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined" data-icon="home_max">home_max</span></button>
+<button class="p-3 text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span></button>
+<button class="p-3 text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span></button>
+<button class="p-3 text-secondary bg-secondary-container rounded-xl shadow-sm"><span class="material-symbols-outlined" data-icon="volunteer_activism" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span></button>
+</div>
+</aside>
+<script>
+        function selectAmount(val, el) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active-amount'));
+            // Add to current
+            el.classList.add('active-amount');
+            // Hide custom field if showing
+            document.getElementById('custom-amount-wrapper').classList.add('hidden');
+        }
+
+        function toggleCustomAmount(show) {
+            document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active-amount'));
+            const wrapper = document.getElementById('custom-amount-wrapper');
+            wrapper.classList.remove('hidden');
+            wrapper.querySelector('input').focus();
+        }
+
+        // Simple animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('translate-y-4');
+                }
+            });
+        });
+
+        document.querySelectorAll('section, .grid > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

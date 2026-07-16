@@ -1,0 +1,1010 @@
+diff --git a/lib/database/database_helper.dart b/lib/database/database_helper.dart
+index f66f5dc..9dd7d8c 100644
+--- a/lib/database/database_helper.dart
++++ b/lib/database/database_helper.dart
+@@ -39,7 +39,7 @@ class DatabaseHelper {
+ 
+     return await openDatabase(
+       newPath,
+-      version: 8,
++      version: 9,
+       onCreate: _createDB,
+       onUpgrade: _onUpgrade,
+     );
+@@ -89,6 +89,25 @@ class DatabaseHelper {
+     if (oldVersion < 8) {
+       await _addUpdatedAtToAllTables(db);
+     }
++    if (oldVersion < 9) {
++      await db.execute('''
++        CREATE TABLE inventory_history (
++          id TEXT PRIMARY KEY,
++          product_id TEXT,
++          product_name TEXT,
++          old_quantity INTEGER,
++          new_quantity INTEGER,
++          difference INTEGER,
++          vendor_id TEXT,
++          vendor_name TEXT,
++          reason TEXT,
++          created_at TEXT
++        )
++      ''');
++      try {
++        await db.execute('ALTER TABLE vendors ADD COLUMN employee_id TEXT');
++      } catch (_) {}
++    }
+   }
+ 
+   Future<void> _addUpdatedAtToAllTables(Database db) async {
+@@ -343,7 +362,7 @@ class DatabaseHelper {
+   Future<List<Map<String, dynamic>>> getSaleItemsWithProducts(String saleId) async {
+     final db = await database;
+     return await db.rawQuery('''
+-      SELECT si.*, p.name as product_name, p.photo_path, p.price as current_price
++      SELECT si.*, p.name as product_name, p.photo_path, p.price as current_price, p.cost_price
+       FROM sale_items si
+       INNER JOIN products p ON p.id = si.product_id
+       WHERE si.sale_id = ?
+@@ -620,7 +639,44 @@ class DatabaseHelper {
+     return maps.first['value'] as String?;
+   }
+ 
+-  // ============ PROCESS SALE ============
++  // ============ INVENTORY HISTORY ============
++
++  Future<void> insertInventoryHistory({
++    required String productId,
++    required String productName,
++    required int oldQuantity,
++    required int newQuantity,
++    required int difference,
++    String? vendorId,
++    String? vendorName,
++    String? reason,
++  }) async {
++    final db = await database;
++    final id = '${DateTime.now().millisecondsSinceEpoch}_${productId.substring(0, productId.length > 6 ? 6 : productId.length)}';
++    await db.insert('inventory_history', {
++      'id': id,
++      'product_id': productId,
++      'product_name': productName,
++      'old_quantity': oldQuantity,
++      'new_quantity': newQuantity,
++      'difference': difference,
++      'vendor_id': vendorId,
++      'vendor_name': vendorName,
++      'reason': reason,
++      'created_at': DateTime.now().toIso8601String(),
++    });
++  }
++
++  Future<List<Map<String, dynamic>>> getInventoryHistory({String? startDate, String? endDate}) async {
++    final db = await database;
++    String? where;
++    List<dynamic>? whereArgs;
++    if (startDate != null && endDate != null) {
++      where = 'created_at >= ? AND created_at <= ?';
++      whereArgs = [startDate, '$endDate 23:59:59'];
++    }
++    return await db.query('inventory_history', where: where, whereArgs: whereArgs, orderBy: 'created_at DESC');
++  }
+ 
+   Future<String> processSale({
+     required Sale sale,
+@@ -892,6 +948,20 @@ class DatabaseHelper {
+     }).toList();
+   }
+ 
++  Future<List<Map<String, dynamic>>> getTopProductsByDateRange(String startDate, String endDate, {int limit = 20}) async {
++    final db = await database;
++    return await db.rawQuery('''
++      SELECT p.name, p.photo_path, SUM(si.quantity) as total_quantity, SUM(si.unit_price * si.quantity) as total_amount
++      FROM sale_items si
++      INNER JOIN sales s ON s.id = si.sale_id
++      INNER JOIN products p ON p.id = si.product_id
++      WHERE s.created_at >= ? AND s.created_at <= ?
++      GROUP BY si.product_id
++      ORDER BY total_quantity DESC
++      LIMIT $limit
++    ''', [startDate, '$endDate 23:59:59']);
++  }
++
+   // ============ TODAY'S SALE ITEMS (flat list) ============
+ 
+   Future<List<Map<String, dynamic>>> getTodaySaleItemsFlat() async {
+diff --git a/lib/models/vendor.dart b/lib/models/vendor.dart
+index 9ebf235..326c47e 100644
+--- a/lib/models/vendor.dart
++++ b/lib/models/vendor.dart
+@@ -5,6 +5,7 @@ class Vendor {
+   final String? pinHash;
+   final String? color;
+   final String? initials;
++  final String? employeeId;
+   final String createdAt;
+ 
+   Vendor({
+@@ -14,6 +15,7 @@ class Vendor {
+     this.pinHash,
+     this.color,
+     this.initials,
++    this.employeeId,
+     required this.createdAt,
+   });
+ 
+@@ -25,6 +27,7 @@ class Vendor {
+       'pin_hash': pinHash,
+       'color': color,
+       'initials': initials,
++      'employee_id': employeeId,
+       'created_at': createdAt,
+     };
+   }
+@@ -37,6 +40,7 @@ class Vendor {
+       pinHash: map['pin_hash'],
+       color: map['color'],
+       initials: map['initials'],
++      employeeId: map['employee_id'],
+       createdAt: map['created_at'],
+     );
+   }
+diff --git a/lib/router/app_router.dart b/lib/router/app_router.dart
+index 4e5d6e3..993c547 100644
+--- a/lib/router/app_router.dart
++++ b/lib/router/app_router.dart
+@@ -10,12 +10,14 @@ import '../screens/receipt/receipt_screen.dart';
+ import '../screens/stock_purchase/stock_purchase_screen.dart';
+ import '../screens/suppliers/suppliers_screen.dart';
+ import '../screens/inventory/inventory_screen.dart';
++import '../screens/inventory/inventory_history_screen.dart';
+ import '../screens/subscription/subscription_screen.dart';
+ import '../screens/subscription/register_screen.dart';
+ import '../screens/categories/categories_screen.dart';
+ import '../screens/vendors/vendors_screen.dart';
+ import '../screens/sync/sync_settings_screen.dart';
+ import '../screens/receipt_history/receipt_history_screen.dart';
++import '../screens/receipt_history/receipt_export_screen.dart';
+ import '../screens/settings/points_screen.dart';
+ import '../screens/scanner/scanner_screen.dart';
+ import '../screens/settings/hotspot_sync_screen.dart';
+@@ -96,6 +98,11 @@ class AppRouter {
+         name: 'inventory',
+         builder: (context, state) => const InventoryScreen(),
+       ),
++      GoRoute(
++        path: '/inventory-history',
++        name: 'inventory-history',
++        builder: (context, state) => const InventoryHistoryScreen(),
++      ),
+       GoRoute(
+         path: '/vendors',
+         name: 'vendors',
+@@ -116,6 +123,11 @@ class AppRouter {
+         name: 'receipt-history',
+         builder: (context, state) => const ReceiptHistoryScreen(),
+       ),
++      GoRoute(
++        path: '/receipt-export',
++        name: 'receipt-export',
++        builder: (context, state) => const ReceiptExportScreen(),
++      ),
+       GoRoute(
+         path: '/points',
+         name: 'points',
+diff --git a/lib/screens/inventory/inventory_history_screen.dart b/lib/screens/inventory/inventory_history_screen.dart
+index 7baaaf0..1766e43 100644
+--- a/lib/screens/inventory/inventory_history_screen.dart
++++ b/lib/screens/inventory/inventory_history_screen.dart
+@@ -263,6 +263,8 @@ class _InventoryHistoryScreenState extends State<InventoryHistoryScreen> {
+     final dateStr = h['created_at']?.toString() ?? '';
+     DateTime? date;
+     try { date = DateTime.parse(dateStr); } catch (_) {}
++    final typeLabel = isPositive ? 'Ajout' : 'Retrait';
++    final typeColor = isPositive ? const Color(0xFF00694C) : const Color(0xFFE24B4A);
+ 
+     return Container(
+       margin: const EdgeInsets.only(bottom: 8),
+@@ -274,24 +276,50 @@ class _InventoryHistoryScreenState extends State<InventoryHistoryScreen> {
+       ),
+       child: Row(
+         children: [
+-          Container(
+-            width: 42, height: 42,
+-            decoration: BoxDecoration(
+-              color: isPositive ? const Color(0xFFE8F5E9) : const Color(0xFFFCE4EC),
+-              borderRadius: BorderRadius.circular(10),
+-            ),
+-            child: Icon(
+-              isPositive ? Icons.add : Icons.remove,
+-              color: isPositive ? const Color(0xFF00694C) : const Color(0xFFE24B4A),
+-              size: 20,
+-            ),
++          FutureBuilder<String?>(
++            future: _getProductImage(h['product_id']),
++            builder: (ctx, snap) {
++              final img = snap.data;
++              if (img != null && img.isNotEmpty) {
++                return ClipRRect(
++                  borderRadius: BorderRadius.circular(10),
++                  child: Image.file(File(img), width: 42, height: 42, fit: BoxFit.cover),
++                );
++              }
++              return Container(
++                width: 42, height: 42,
++                decoration: BoxDecoration(
++                  color: isPositive ? const Color(0xFFE8F5E9) : const Color(0xFFFCE4EC),
++                  borderRadius: BorderRadius.circular(10),
++                ),
++                child: Icon(
++                  isPositive ? Icons.add : Icons.remove,
++                  color: typeColor,
++                  size: 20,
++                ),
++              );
++            },
+           ),
+           const SizedBox(width: 12),
+           Expanded(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+-                Text(h['product_name'] ?? '', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
++                Row(
++                  children: [
++                    Expanded(
++                      child: Text(h['product_name'] ?? '', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
++                    ),
++                    Container(
++                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
++                      decoration: BoxDecoration(
++                        color: typeColor.withOpacity(0.1),
++                        borderRadius: BorderRadius.circular(4),
++                      ),
++                      child: Text(typeLabel, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: typeColor)),
++                    ),
++                  ],
++                ),
+                 const SizedBox(height: 2),
+                 Text(
+                   '${h['old_quantity'] ?? 0} → ${h['new_quantity'] ?? 0}',
+@@ -310,7 +338,7 @@ class _InventoryHistoryScreenState extends State<InventoryHistoryScreen> {
+               Container(
+                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                 decoration: BoxDecoration(
+-                  color: isPositive ? const Color(0xFF00694C) : const Color(0xFFE24B4A),
++                  color: typeColor,
+                   borderRadius: BorderRadius.circular(6),
+                 ),
+                 child: Text(
+@@ -332,4 +360,11 @@ class _InventoryHistoryScreenState extends State<InventoryHistoryScreen> {
+       ),
+     );
+   }
++
++  Future<String?> _getProductImage(String? productId) async {
++    if (productId == null || productId.isEmpty) return null;
++    final products = await DatabaseHelper.instance.getAll('products', where: 'id = ?', whereArgs: [productId]);
++    if (products.isEmpty) return null;
++    return products.first['photo_path']?.toString();
++  }
+ }
+diff --git a/lib/screens/inventory/inventory_screen.dart b/lib/screens/inventory/inventory_screen.dart
+index 4b858de..4f37049 100644
+--- a/lib/screens/inventory/inventory_screen.dart
++++ b/lib/screens/inventory/inventory_screen.dart
+@@ -11,6 +11,8 @@ import '../../models/product.dart';
+ import '../../providers/providers.dart';
+ import '../../database/database_helper.dart';
+ import '../../services/currency_service.dart';
++import '../../models/vendor.dart';
++import 'package:bcrypt/bcrypt.dart';
+ 
+ const Color _primary = Color(0xFF00694C);
+ const Color _bg = Color(0xFFFCF9F8);
+@@ -817,14 +819,34 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
+   // ── SAVE ─────────────────────────────────────────────────────────────────
+ 
+   Future<void> _saveAllChanges() async {
++    // Demander confirmation PIN vendeur
++    final confirmed = await _showPinConfirmationDialog();
++    if (confirmed != true) return;
++
++    // Demander le motif de la modification
++    final reason = await _showReasonDialog();
++    if (reason == null) return; // Annulé
++
+     final entries = Map<String, int>.from(_quantityChanges);
++    final db = DatabaseHelper.instance;
++
+     for (final entry in entries.entries) {
+-      final product = await DatabaseHelper.instance.getProductById(entry.key);
++      final product = await db.getProductById(entry.key);
+       if (product != null) {
+-        final newStock = product.stock + entry.value;
+-        await DatabaseHelper.instance.updateStock(
+-          entry.key,
+-          newStock.clamp(0, 999999),
++        final oldStock = product.stock;
++        final newStock = (product.stock + entry.value).clamp(0, 999999);
++        await db.updateStock(entry.key, newStock);
++
++        // Enregistrer dans l'historique
++        await db.insertInventoryHistory(
++          productId: product.id,
++          productName: product.name,
++          oldQuantity: oldStock,
++          newQuantity: newStock,
++          difference: newStock - oldStock,
++          vendorId: _confirmedVendorId,
++          vendorName: _confirmedVendorName,
++          reason: reason,
+         );
+       }
+     }
+@@ -840,6 +862,239 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
+     }
+   }
+ 
++  Future<String?> _showReasonDialog() async {
++    final controller = TextEditingController();
++    String selectedReason = 'Réception marchandise';
++    final reasons = [
++      'Réception marchandise',
++      'Retour fournisseur',
++      'Inventaire physique',
++      'Correction erreur',
++      'Produit cassé/perdu',
++      'Autre',
++    ];
++
++    return showDialog<String>(
++      context: context,
++      builder: (ctx) => StatefulBuilder(
++        builder: (ctx, setDialogState) => AlertDialog(
++          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++          title: const Text('Motif de la modification', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
++          content: Column(
++            mainAxisSize: MainAxisSize.min,
++            children: [
++              const Text('Sélectionnez ou saisissez le motif :', style: TextStyle(fontSize: 13, color: Colors.grey)),
++              const SizedBox(height: 12),
++              Wrap(
++                spacing: 8,
++                runSpacing: 8,
++                children: reasons.map((r) => ChoiceChip(
++                  label: Text(r, style: TextStyle(fontSize: 12, color: selectedReason == r ? Colors.white : Colors.grey[700])),
++                  selected: selectedReason == r,
++                  selectedColor: const Color(0xFF00694C),
++                  onSelected: (_) => setDialogState(() {
++                    selectedReason = r;
++                    if (r != 'Autre') controller.clear();
++                  }),
++                )).toList(),
++              ),
++              if (selectedReason == 'Autre') ...[
++                const SizedBox(height: 12),
++                TextField(
++                  controller: controller,
++                  decoration: InputDecoration(
++                    hintText: 'Saisissez le motif...',
++                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
++                  ),
++                  autofocus: true,
++                ),
++              ],
++            ],
++          ),
++          actions: [
++            TextButton(
++              onPressed: () => Navigator.pop(ctx, null),
++              child: const Text('Annuler', style: TextStyle(color: Colors.grey)),
++            ),
++            ElevatedButton(
++              onPressed: () {
++                final finalReason = selectedReason == 'Autre' && controller.text.isNotEmpty
++                    ? controller.text
++                    : selectedReason;
++                Navigator.pop(ctx, finalReason);
++              },
++              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00694C)),
++              child: const Text('Confirmer', style: TextStyle(color: Colors.white)),
++            ),
++          ],
++        ),
++      ),
++    );
++  }
++
++  String? _confirmedVendorId;
++  String? _confirmedVendorName;
++
++  Future<bool?> _showPinConfirmationDialog() async {
++    final vendors = await DatabaseHelper.instance.getAllVendors();
++    if (vendors.isEmpty || !mounted) return null;
++
++    String? selectedVendorId;
++    String? selectedVendorName;
++    String pin = '';
++    String error = '';
++
++    return showDialog<bool>(
++      context: context,
++      barrierDismissible: false,
++      builder: (ctx) => StatefulBuilder(
++        builder: (ctx, setDialogState) {
++          return AlertDialog(
++            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
++            title: const Text('Confirmer l\'inventaire', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
++            content: SingleChildScrollView(
++              child: Column(
++                mainAxisSize: MainAxisSize.min,
++                children: [
++                  const Text('Sélectionnez votre profil et entrez votre PIN :', style: TextStyle(fontSize: 13, color: Colors.grey)),
++                  const SizedBox(height: 12),
++                  // Sélection vendeur
++                  Container(
++                    decoration: BoxDecoration(
++                      border: Border.all(color: const Color(0xFFE0E0E0)),
++                      borderRadius: BorderRadius.circular(12),
++                    ),
++                    child: DropdownButtonHideUnderline(
++                      child: DropdownButton<String>(
++                        isExpanded: true,
++                        value: selectedVendorId,
++                        hint: const Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('Choisir un vendeur')),
++                        items: vendors.map((v) => DropdownMenuItem(
++                          value: v.id,
++                          child: Padding(
++                            padding: const EdgeInsets.symmetric(horizontal: 12),
++                            child: Row(
++                              children: [
++                                CircleAvatar(
++                                  radius: 12,
++                                  backgroundColor: Color(int.parse(v.color?.replaceFirst('#', '0xFF') ?? '0xFF00694C')),
++                                  child: Text(v.initials ?? v.name[0], style: const TextStyle(color: Colors.white, fontSize: 10)),
++                                ),
++                                const SizedBox(width: 8),
++                                Text(v.name),
++                              ],
++                            ),
++                          ),
++                        )).toList(),
++                        onChanged: (val) {
++                          setDialogState(() {
++                            selectedVendorId = val;
++                            selectedVendorName = vendors.firstWhere((v) => v.id == val).name;
++                            pin = '';
++                            error = '';
++                          });
++                        },
++                      ),
++                    ),
++                  ),
++                  const SizedBox(height: 16),
++                  // PIN numpad
++                  if (selectedVendorId != null) ...[
++                    // Affichage PIN
++                    Row(
++                      mainAxisAlignment: MainAxisAlignment.center,
++                      children: List.generate(4, (i) => Container(
++                        width: 16, height: 16,
++                        margin: const EdgeInsets.symmetric(horizontal: 4),
++                        decoration: BoxDecoration(
++                          shape: BoxShape.circle,
++                          color: i < pin.length ? _primary : const Color(0xFFE0E0E0),
++                        ),
++                      )),
++                    ),
++                    const SizedBox(height: 12),
++                    // Numpad
++                    for (var row in [[1,2,3],[4,5,6],[7,8,9],['⌫',0,'OK']]) ...[
++                      Row(
++                        mainAxisAlignment: MainAxisAlignment.center,
++                        children: row.map((key) {
++                          if (key == '⌫') return _buildPinButton('⌫', () {
++                            setDialogState(() { if (pin.isNotEmpty) pin = pin.substring(0, pin.length - 1); error = ''; });
++                          });
++                          if (key == 'OK') return _buildPinButton('OK', () async {
++                            if (pin.isEmpty || selectedVendorId == null) return;
++                            final vendor = vendors.firstWhere((v) => v.id == selectedVendorId);
++                            if (vendor.pinHash != null && vendor.pinHash!.isNotEmpty) {
++                              final valid = await _verifyPin(pin, vendor.pinHash!);
++                              if (valid) {
++                                _confirmedVendorId = selectedVendorId;
++                                _confirmedVendorName = selectedVendorName;
++                                Navigator.pop(ctx, true);
++                              } else {
++                                setDialogState(() { error = 'PIN incorrect'; pin = ''; });
++                              }
++                            } else {
++                              // Pas de PIN = accès libre
++                              _confirmedVendorId = selectedVendorId;
++                              _confirmedVendorName = selectedVendorName;
++                              Navigator.pop(ctx, true);
++                            }
++                          });
++                          return _buildPinButton('$key', () {
++                            if (pin.length < 4) setDialogState(() { pin += '$key'; error = ''; });
++                          });
++                        }).toList(),
++                      ),
++                      const SizedBox(height: 8),
++                    ],
++                    if (error.isNotEmpty)
++                      Padding(
++                        padding: const EdgeInsets.only(top: 8),
++                        child: Text(error, style: const TextStyle(color: Colors.red, fontSize: 12)),
++                      ),
++                  ],
++                ],
++              ),
++            ),
++            actions: [
++              TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
++            ],
++          );
++        },
++      ),
++    );
++  }
++
++  Widget _buildPinButton(String label, VoidCallback onTap) {
++    return Padding(
++      padding: const EdgeInsets.all(3),
++      child: GestureDetector(
++        onTap: onTap,
++        child: Container(
++          width: 56, height: 48,
++          decoration: BoxDecoration(
++            color: label == 'OK' ? _primary : const Color(0xFFF5F5F5),
++            borderRadius: BorderRadius.circular(10),
++          ),
++          alignment: Alignment.center,
++          child: Text(label, style: TextStyle(
++            fontSize: 18,
++            fontWeight: FontWeight.w600,
++            color: label == 'OK' ? Colors.white : Colors.black87,
++          )),
++        ),
++      ),
++    );
++  }
++
++  Future<bool> _verifyPin(String pin, String hash) async {
++    try {
++      return BCrypt.checkpw(pin, hash);
++    } catch (_) {
++      return false;
++    }
++  }
++
+   void _showSuccessModal() async {
+     final db = DatabaseHelper.instance;
+     final products = await db.getAllProducts();
+diff --git a/lib/screens/main_screen.dart b/lib/screens/main_screen.dart
+index 4b7acb3..bba9998 100644
+--- a/lib/screens/main_screen.dart
++++ b/lib/screens/main_screen.dart
+@@ -335,7 +335,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
+     final action = hasSub ? 'renouveler mon abonnement' : 'prendre un abonnement';
+     final message = Uri.encodeFull(
+         'Bonjour, je souhaite $action Yabisso Kassa $planName.$idText');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (_) {}
+@@ -349,7 +349,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
+ 
+   Future<void> _openPointsReminder() async {
+     final message = Uri.encodeFull('Bonjour, je souhaite recharger mes points Yabisso Kassa.');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (_) {}
+diff --git a/lib/screens/receipt_history/receipt_history_screen.dart b/lib/screens/receipt_history/receipt_history_screen.dart
+index dc91964..d926121 100644
+--- a/lib/screens/receipt_history/receipt_history_screen.dart
++++ b/lib/screens/receipt_history/receipt_history_screen.dart
+@@ -1,6 +1,7 @@
+ import 'dart:io';
+ import 'package:flutter/material.dart';
+ import 'package:intl/intl.dart';
++import 'package:go_router/go_router.dart';
+ import '../../core/theme/app_theme.dart';
+ import '../../database/database_helper.dart';
+ import '../../models/sale.dart';
+@@ -103,6 +104,13 @@ class _ReceiptHistoryScreenState extends State<ReceiptHistoryScreen>
+         title: const Text('Historique des Reçus',
+             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18)),
+         centerTitle: true,
++        actions: [
++          IconButton(
++            icon: const Icon(Icons.download, color: Colors.white),
++            onPressed: () => context.push('/receipt-export'),
++            tooltip: 'Exporter historique',
++          ),
++        ],
+         bottom: TabBar(
+           controller: _tabController,
+           indicatorColor: Colors.white,
+diff --git a/lib/screens/settings/points_screen.dart b/lib/screens/settings/points_screen.dart
+index c0b0677..fbc1c87 100644
+--- a/lib/screens/settings/points_screen.dart
++++ b/lib/screens/settings/points_screen.dart
+@@ -202,7 +202,7 @@ class _PointsScreenState extends State<PointsScreen> {
+     final formattedAmount = _formatNumber(amount);
+     final message = Uri.encodeFull(
+         'Bonjour, je souhaite acheter $formattedAmount points Yabisso.$idText');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (e) {
+diff --git a/lib/screens/settings/settings_screen.dart b/lib/screens/settings/settings_screen.dart
+index 950b0c7..f949ee2 100644
+--- a/lib/screens/settings/settings_screen.dart
++++ b/lib/screens/settings/settings_screen.dart
+@@ -13,6 +13,7 @@ import '../../core/theme/app_theme.dart';
+ import '../../services/sync_service.dart';
+ import '../../services/points_service.dart';
+ import '../../services/offline_voucher_service.dart';
++import '../../database/database_helper.dart';
+ import '../../services/currency_service.dart';
+ import '../../services/language_service.dart';
+ 
+@@ -114,6 +115,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
+             trailing: const Icon(Icons.chevron_right),
+             onTap: () => context.push('/inventory'),
+           ),
++          ListTile(
++            leading: const Icon(Icons.history),
++            title: const Text('Historique Inventaire'),
++            subtitle: const Text('Voir les modifications de stock'),
++            trailing: const Icon(Icons.chevron_right),
++            onTap: () => context.push('/inventory-history'),
++          ),
+           const Divider(),
+           _buildSectionHeader('Données'),
+           ListTile(
+@@ -563,13 +571,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
+ 
+   void _showQrCodeDialog(BuildContext context) async {
+     final prefs = await SharedPreferences.getInstance();
++    final db = DatabaseHelper.instance;
++    
++    // Lire depuis SharedPreferences, fallback SQLite settings
++    String pref(String key, [String? fallbackKey]) {
++      return prefs.getString(key) ?? prefs.getString(fallbackKey ?? key) ?? '';
++    }
++    
++    String prefOrDb(String prefKey, String dbKey) {
++      return prefs.getString(prefKey) ?? '';
++    }
++    
++    // Charger les données avec fallback DB
++    var prestataireId = prefs.getString('prestataire_id') ?? '';
++    var boutiqueId = prefs.getString('boutique_id') ?? '';
++    var storeName = prefs.getString('store_name') ?? '';
++    var ownerName = prefs.getString('owner_name') ?? '';
++    var storePhone = prefs.getString('store_phone') ?? '';
++    var plan = prefs.getString('subscription_plan') ?? '';
++    
++    // Fallback SQLite si SharedPreferences vide
++    try {
++      if (prestataireId.isEmpty) prestataireId = (await db.getSetting('prestataire_id')) ?? '';
++      if (boutiqueId.isEmpty) boutiqueId = (await OfflineVoucherService.getOrCreateBoutiqueId()) ?? '';
++      if (storeName.isEmpty) storeName = (await db.getSetting('store_name')) ?? '';
++      if (ownerName.isEmpty) ownerName = (await db.getSetting('owner_name')) ?? '';
++      if (storePhone.isEmpty) storePhone = (await db.getSetting('store_phone')) ?? '';
++      if (plan.isEmpty) plan = (await db.getSetting('subscription_plan')) ?? '';
++    } catch (_) {}
++    
+     final data = {
+-      'prestataire_id': prefs.getString('prestataire_id') ?? '',
+-      'boutique_id': prefs.getString('boutique_id') ?? '',
+-      'boutique_name': prefs.getString('store_name') ?? '',
+-      'owner_name': prefs.getString('owner_name') ?? '',
+-      'owner_phone': prefs.getString('store_phone') ?? '',
+-      'subscription_plan': prefs.getString('subscription_plan') ?? '',
++      'prestataire_id': prestataireId,
++      'boutique_id': boutiqueId,
++      'boutique_name': storeName,
++      'owner_name': ownerName,
++      'owner_phone': storePhone,
++      'subscription_plan': plan,
+     };
+     
+     if (!context.mounted) return;
+@@ -629,7 +666,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
+     final message = Uri.encodeComponent(
+       'Bonjour, c\'est $boutiqueId. J\'ai besoin d\'aide avec mon application Kassa.',
+     );
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/ETMMkpkg36OGFqi1BQzpAR');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (e) {
+@@ -826,11 +863,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
+     final prefs = await SharedPreferences.getInstance();
+     final hasSub = prefs.getBool('has_subscription') ?? false;
+     final action = hasSub ? 'renouveler mon abonnement' : 'prendre un abonnement';
+-    final prestataireId = prefs.getString('prestataire_id') ?? '';
++    var prestataireId = prefs.getString('prestataire_id') ?? '';
++    if (prestataireId.isEmpty) {
++      try { prestataireId = (await DatabaseHelper.instance.getSetting('prestataire_id')) ?? ''; } catch (_) {}
++    }
+     final prestataireText = prestataireId.isNotEmpty ? ' ID prestataire: $prestataireId' : '';
+     final message = Uri.encodeFull(
+         'Bonjour, je souhaite $action Yabisso Kassa $planName.$idText$prestataireText');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (e) {
+@@ -1147,7 +1187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
+     final message = Uri.encodeComponent(
+         'Bonjour, je souhaite migrer de $currentPlan vers $newPlan (Yabisso Kassa).$idText\n'
+         'Solde à payer: ${fmtPrice(toPay)} (après déduction du crédit).');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (e) {
+diff --git a/lib/screens/subscription/subscription_screen.dart b/lib/screens/subscription/subscription_screen.dart
+index a5d662c..ad853d8 100644
+--- a/lib/screens/subscription/subscription_screen.dart
++++ b/lib/screens/subscription/subscription_screen.dart
+@@ -30,6 +30,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
+   final _phoneController = TextEditingController();
+   final _passwordController = TextEditingController();
+   final _confirmPasswordController = TextEditingController();
++  final _prestataireIdController = TextEditingController();
+ 
+   String? _error;
+   bool _loading = false;
+@@ -337,6 +338,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
+         keyboardType: TextInputType.phone,
+       ),
+       const SizedBox(height: 20),
++      _buildPrestataireIdField(),
++      const SizedBox(height: 20),
+       _buildTextField(
+         controller: _passwordController,
+         label: 'Créer un mot de passe',
+@@ -484,12 +487,19 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
+       await prefs.setString('store_name', storeName);
+       await prefs.setBool('is_logged_in', true);
+ 
+-      // Sauvegarder le nom de la boutique dans la DB settings
++      // Sauvegarder le nom de la boutique dans la DB settings + SharedPreferences
+       try {
+         final db = DatabaseHelper.instance;
+         await db.setSetting('store_name', storeName);
+         await db.setSetting('owner_name', ownerName);
+         await db.setSetting('store_phone', phone);
++        await prefs.setString('store_phone', phone);
++        await prefs.setString('owner_name', ownerName);
++        final prestataireId = _prestataireIdController.text.trim();
++        if (prestataireId.isNotEmpty) {
++          await db.setSetting('prestataire_id', prestataireId);
++          await prefs.setString('prestataire_id', prestataireId);
++        }
+       } catch (_) {}
+ 
+       // Générer et sauvegarder l'ID boutique (offline)
+@@ -561,7 +571,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
+     final idText = boutiqueId != null ? ' Mon ID boutique: $boutiqueId' : '';
+     final message = Uri.encodeFull(
+         'Bonjour, je souhaite renouveler mon abonnement Yabisso Kassa.$idText');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (e) {
+@@ -977,8 +987,144 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
+     _phoneController.dispose();
+     _passwordController.dispose();
+     _confirmPasswordController.dispose();
++    _prestataireIdController.dispose();
+     super.dispose();
+   }
++
++  Widget _buildPrestataireIdField() {
++    return Column(
++      crossAxisAlignment: CrossAxisAlignment.start,
++      children: [
++        const Text(
++          'ID Prestataire (optionnel)',
++          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textDark),
++        ),
++        const SizedBox(height: 8),
++        TextField(
++          controller: _prestataireIdController,
++          decoration: InputDecoration(
++            hintText: 'Ex: PREST-001 ou scannez le QR',
++            prefixIcon: const Icon(Icons.badge_outlined, color: AppColors.grey),
++            suffixIcon: IconButton(
++              icon: const Icon(Icons.qr_code_scanner, color: AppColors.primaryGreen),
++              onPressed: _scanPrestataireId,
++            ),
++            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
++            enabledBorder: OutlineInputBorder(
++              borderRadius: BorderRadius.circular(14),
++              borderSide: BorderSide(color: Colors.grey.shade300),
++            ),
++            focusedBorder: OutlineInputBorder(
++              borderRadius: BorderRadius.circular(14),
++              borderSide: const BorderSide(color: AppColors.primaryGreen, width: 2),
++            ),
++          ),
++        ),
++      ],
++    );
++  }
++
++  void _scanPrestataireId() {
++    Navigator.push(
++      context,
++      MaterialPageRoute(
++        builder: (_) => _PrestataireQRScannerScreen(
++          onPrestataireIdFound: (id) {
++            setState(() => _prestataireIdController.text = id);
++            ScaffoldMessenger.of(context).showSnackBar(
++              SnackBar(content: Text('ID prestataire scanné: $id'), backgroundColor: AppColors.primaryGreen),
++            );
++          },
++        ),
++      ),
++    );
++  }
++}
++
++class _PrestataireQRScannerScreen extends StatefulWidget {
++  final Function(String prestataireId) onPrestataireIdFound;
++
++  const _PrestataireQRScannerScreen({required this.onPrestataireIdFound});
++
++  @override
++  State<_PrestataireQRScannerScreen> createState() => _PrestataireQRScannerScreenState();
++}
++
++class _PrestataireQRScannerScreenState extends State<_PrestataireQRScannerScreen> {
++  MobileScannerController? _controller;
++  bool _scanned = false;
++  bool _flashOn = false;
++
++  @override
++  void initState() {
++    super.initState();
++    _controller = MobileScannerController();
++  }
++
++  @override
++  void dispose() {
++    _controller?.dispose();
++    super.dispose();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return Scaffold(
++      backgroundColor: Colors.black,
++      appBar: AppBar(
++        backgroundColor: Colors.black,
++        title: const Text('Scanner ID Prestataire', style: TextStyle(color: Colors.white)),
++        leading: IconButton(
++          icon: const Icon(Icons.close, color: Colors.white),
++          onPressed: () => Navigator.pop(context),
++        ),
++        actions: [
++          IconButton(
++            icon: Icon(_flashOn ? Icons.flash_on : Icons.flash_off, color: Colors.white),
++            onPressed: () async {
++              await _controller?.toggleTorch();
++              setState(() => _flashOn = !_flashOn);
++            },
++          ),
++        ],
++      ),
++      body: Stack(
++        children: [
++          MobileScanner(
++            controller: _controller,
++            onDetect: (capture) {
++              if (_scanned) return;
++              final barcode = capture.barcodes.firstOrNull;
++              if (barcode != null && barcode.rawValue != null) {
++                final code = barcode.rawValue!;
++                _scanned = true;
++                widget.onPrestataireIdFound(code);
++                Navigator.pop(context);
++              }
++            },
++          ),
++          Center(
++            child: Container(
++              width: 250, height: 250,
++              decoration: BoxDecoration(
++                border: Border.all(color: Colors.white70, width: 3),
++                borderRadius: BorderRadius.circular(20),
++              ),
++            ),
++          ),
++          Positioned(
++            bottom: 60,
++            left: 0, right: 0,
++            child: Text(
++              'Placez le QR code du prestataire dans le cadre',
++              textAlign: TextAlign.center,
++              style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 16),
++            ),
++          ),
++        ],
++      ),
++    );
++  }
+ }
+ 
+ class _StoreQRScannerScreen extends StatefulWidget {
+diff --git a/lib/screens/vendor_auth/vendor_auth_screen.dart b/lib/screens/vendor_auth/vendor_auth_screen.dart
+index 6203a0c..ada991a 100644
+--- a/lib/screens/vendor_auth/vendor_auth_screen.dart
++++ b/lib/screens/vendor_auth/vendor_auth_screen.dart
+@@ -192,7 +192,7 @@ class _VendorAuthScreenState extends ConsumerState<VendorAuthScreen>
+     final idText = boutiqueId != null ? ' Mon ID boutique: $boutiqueId' : '';
+     final message = Uri.encodeFull(
+         'Bonjour, je souhaite souscrire à un abonnement Yabisso Kassa.$idText');
+-    final uri = Uri.parse('https://wa.me/242050332359?text=$message');
++    final uri = Uri.parse('https://chat.whatsapp.com/DgT5723rLABBg9tyvm4RZo');
+     try {
+       await launchUrl(uri, mode: LaunchMode.externalApplication);
+     } catch (_) {
+diff --git a/lib/screens/vendors/vendors_screen.dart b/lib/screens/vendors/vendors_screen.dart
+index cf0a89d..ff11df9 100644
+--- a/lib/screens/vendors/vendors_screen.dart
++++ b/lib/screens/vendors/vendors_screen.dart
+@@ -241,6 +241,7 @@ class _VendorsScreenState extends ConsumerState<VendorsScreen> {
+     final roleController = TextEditingController(text: vendor?.role ?? 'Vendeur');
+     final pinController = TextEditingController();
+     final confirmPinController = TextEditingController();
++    final employeeIdController = TextEditingController(text: vendor?.employeeId ?? '');
+     String selectedColor = vendor?.color ?? '#00694C';
+ 
+     final colors = [
+@@ -311,6 +312,17 @@ class _VendorsScreenState extends ConsumerState<VendorsScreen> {
+                       ),
+                     ),
+                   ),
++                const SizedBox(height: 12),
++                TextField(
++                  controller: employeeIdController,
++                  decoration: InputDecoration(
++                    hintText: 'ID Employé (optionnel)',
++                    border: const OutlineInputBorder(),
++                    focusedBorder: const OutlineInputBorder(
++                      borderSide: BorderSide(color: _primary),
++                    ),
++                  ),
++                ),
+                 const SizedBox(height: 16),
+                 const Text(
+                   'Couleur',
+@@ -381,6 +393,7 @@ class _VendorsScreenState extends ConsumerState<VendorsScreen> {
+                     pinHash: pin.isNotEmpty ? BCrypt.hashpw(pin, BCrypt.gensalt()) : vendor.pinHash,
+                     color: selectedColor,
+                     initials: initials,
++                    employeeId: employeeIdController.text.trim().isNotEmpty ? employeeIdController.text.trim() : vendor.employeeId,
+                     createdAt: vendor.createdAt,
+                   );
+                   await DatabaseHelper.instance.updateVendor(updated);
+@@ -392,6 +405,7 @@ class _VendorsScreenState extends ConsumerState<VendorsScreen> {
+                     pinHash: pin.isNotEmpty ? BCrypt.hashpw(pin, BCrypt.gensalt()) : null,
+                     color: selectedColor,
+                     initials: initials,
++                    employeeId: employeeIdController.text.trim().isNotEmpty ? employeeIdController.text.trim() : null,
+                     createdAt: DateTime.now().toIso8601String(),
+                   );
+                   await DatabaseHelper.instance.insertVendor(newVendor);

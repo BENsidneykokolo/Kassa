@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela Music Shop</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#dae2fa", // Lightened for dark mode visibility from design system
+                    "secondary": "#e9c176", // Using secondary-fixed-dim for better contrast on dark
+                    "background": "#121212", // Spotify-like black
+                    "surface": "#181818", // Spotify-like card background
+                    "surface-container": "#282828", // Spotify-like elevated background
+                    "on-surface": "#ffffff",
+                    "on-surface-variant": "#b3b3b3",
+                    "outline": "#76777d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "32px",
+                    "md": "20px",
+                    "margin-mobile": "16px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "xl": "64px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "caption": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .spotify-gradient {
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-32">
+<!-- Header -->
+<header class="sticky top-0 z-50 px-margin-mobile h-16 flex items-center justify-between bg-background/95 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center">
+<img alt="Profile" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj3unGxbQ88Tr48616XtGKEugymiIme8_IvRkumW2C4ifmP8xrBljFASbLks26pp6lUaI9cRY89oRQ6QvqYV-ooO378rBD2XuEuhNMuipmo55fEl6xoaHppzcgAWoMfQEVBkq5BlCfU7Hoc-_3r35NgKlsBaQd7XEtCZusjNT7IqWT1fk33iQ8dX1CXyCHkzbK6oQPyoxihXSSm50dEf2vPtlnwheXUt6Pkm9A9J2ZMX8Mnj7Ji1yl0w"/>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container px-4 py-1.5 rounded-full text-label-md font-label-md">All</button>
+<button class="bg-surface-container/50 px-4 py-1.5 rounded-full text-label-md font-label-md">Music</button>
+<button class="bg-surface-container/50 px-4 py-1.5 rounded-full text-label-md font-label-md">Sheet Music</button>
+</div>
+</div>
+</header>
+<main class="space-y-lg pb-10">
+<!-- Search -->
+<div class="px-margin-mobile">
+<div class="flex items-center bg-white/10 rounded-lg px-3 py-2.5 gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 w-full font-body-md text-body-md placeholder-on-surface-variant" placeholder="What do you want to listen to?" type="text"/>
+</div>
+</div>
+<!-- Featured Section (Spotify Compact Grid) -->
+<section class="px-margin-mobile">
+<h2 class="font-headline-md text-headline-md mb-4">Featured Releases</h2>
+<div class="grid grid-cols-2 gap-3">
+<!-- Featured Card 1 -->
+<div class="flex items-center bg-surface-container rounded-lg overflow-hidden group relative">
+<div class="w-16 h-16 flex-none">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjwZZRs3v_yZYe-68Tg2DJd09gNS4ZP25V6dpak95qnNmRXFicyt1YzfI4_cl6Q0rnPYpfJBOK1zbYORnCrGy557rh8jsb9PqTKzJuuiavhoL2RroMGH8Cs7Vib2Y-Q8DfuwDx3-h25EXvoolfKUpW1qGtZXfjfbaAJkzoDK1hbZzJt67sk-AL0WmgScdw2lwPboSI6MZRsnrx8AsWhlYE-oxEdeSZlSPWQwYvKAyGlM6u67xxbEbwVw"/>
+</div>
+<div class="px-3 flex-grow min-w-0">
+<p class="font-label-md text-on-surface truncate">Au Cœur de la Grâce</p>
+</div>
+<button class="absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-secondary text-background w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined fill-1" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Featured Card 2 -->
+<div class="flex items-center bg-surface-container rounded-lg overflow-hidden group relative">
+<div class="w-16 h-16 flex-none">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7XATWUQm1HFJ2k5krnAxzTQZT2aRJq5HjEwsywHlGML2yX3gCBvvXRrdrld_Ak308ovzElpwBM79YpOP70J2UNomDzgQeVn0UJcAu_D4ar59OiVt36fsX9-wH00hl8ll9dCyzvTxglamCz79All5131bsjYruTITSMEDpj65GCgf4kXcw5PH-je2R2-adNx1I0tAAH3ifGheQ1GbW4x8YHQ1Yr0q-hxbD4IkwJeiDcIj_H_y9DsPgPw"/>
+</div>
+<div class="px-3 flex-grow min-w-0">
+<p class="font-label-md text-on-surface truncate">Veille avec moi</p>
+</div>
+<button class="absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-secondary text-background w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined fill-1" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+</section>
+<!-- New Releases (Carousel) -->
+<section>
+<div class="px-margin-mobile flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md">New Releases</h2>
+</div>
+<div class="flex gap-md overflow-x-auto no-scrollbar px-margin-mobile pb-2">
+<!-- Item 1 -->
+<div class="flex-none w-40 space-y-2 group">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden card-shadow">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADDk7D_ztLDloiZY88QQxFPAQ4CtsK5OSjUk1D4bYanAgF7GavRyoR4Uv3EefkbqbmTBz_r0ou_zXtoua3v5vPGebVbXA1HUpSDSopFu3H3mDH9yvY1zFNxrv1rSXWbCa4veMeFCvRf8kU62ikLdHABaD5p0KKyjMl6joTtg_pUESvp3rGL5OTr2Rp0CLV6dVds7Ox3vsqjZggmGoBQM0SRZz2XZDut7-zW9Xkd3rfE6yzAIKLOdMnnA"/>
+<button class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-all translate-y-1 group-hover:translate-y-0 bg-secondary text-background w-10 h-10 rounded-full flex items-center justify-center shadow-2xl">
+<span class="material-symbols-outlined fill-1" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div>
+<h5 class="font-label-md text-on-surface truncate">Le Chant des Psaumes</h5>
+<p class="text-on-surface-variant font-caption truncate">Pst. Emmanuel • EP • 5,50€</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex-none w-40 space-y-2 group">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden card-shadow">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi6B1KivBKn7dKD2J7vS95vIxMnMBQa4m1c9576Juce9oFG0Y1KU5TbT6oIKm952-oIq8at-iB7cDh-y0oYmmKlhL89V8JTj8ip7njuytbPOHzHTyHn78zUwYfE2y1nZu7lLkaHgaScGXatCswe_noOs6pohlCd87iIzc7p9QyPBosNDtNy5TLTs0bmL7ZeUv_sBjbmL9FuwuAjfHslZYoBYu0VMAmWMsA-r0HrtsL_fsQyUbBNiLhdQ"/>
+<button class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-all translate-y-1 group-hover:translate-y-0 bg-secondary text-background w-10 h-10 rounded-full flex items-center justify-center shadow-2xl">
+<span class="material-symbols-outlined fill-1" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div>
+<h5 class="font-label-md text-on-surface truncate">Symphonie du Matin</h5>
+<p class="text-on-surface-variant font-caption truncate">Church Orchestra • 8,99€</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex-none w-40 space-y-2 group">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden card-shadow">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh1BA7k-3hxLVf7_yEXT1QgoFXfk_TH5V8DBLHAWGvnSlSd8g4fWWsR621IZUUPZr4H5CUunvc1f_qQZB8JgWNlLuwyeFoDKB7oZ4mYrCo1P78jUEHvR6xKjFIlY-tuY0P7qh8d0XklQjmAghaRFlY28FNXKjHtnP37EjCmu9ARGI2pcVE73kZHCeTSc8ZJXhLAQMUbnyhb_17xq-uYbcmChmobVZBL81WHJ0GWvJWYO7lknovwgVHIQ"/>
+<button class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-all translate-y-1 group-hover:translate-y-0 bg-secondary text-background w-10 h-10 rounded-full flex items-center justify-center shadow-2xl">
+<span class="material-symbols-outlined fill-1" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div>
+<h5 class="font-label-md text-on-surface truncate">Vers les Sommets</h5>
+<p class="text-on-surface-variant font-caption truncate">Choeur Sambela • 0,99€</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Downloads (Carousel) -->
+<section>
+<div class="px-margin-mobile flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md">Top Downloads</h2>
+</div>
+<div class="flex gap-md overflow-x-auto no-scrollbar px-margin-mobile pb-2">
+<!-- Card 1 -->
+<div class="flex-none w-36 space-y-2">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACsAGq-JdyU6hWzG8WoBipbOQV7uJBoGqNX0NT_HFszSoJzAg5fdSYukwfpiQWWTtOtRfpWUheMur9nighSqcjMvvkJ1k1lMyeaGgiKiaxtZjUS_aDegcAcX1I_cl7GfznfsjOzLvlzezgsgpOZCPs51zmKIApcob-ciTd9hKkhZ7KyUdBDqhhYi2YjXYdCtFUve5CuauqJmfnhpPSQK7HAL2bsgzllQLBkBymMnnJ-FyrnGcl5L7ZxA"/>
+</div>
+<h6 class="font-label-md text-on-surface truncate">Alleluia Eternel</h6>
+<p class="font-caption text-on-surface-variant">1,29€ • Single</p>
+</div>
+<!-- Card 2 -->
+<div class="flex-none w-36 space-y-2">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img alt="Album" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE4RmP77FozbICCEo08OcpgPe-zyVZxoS49nukgC5brISPqrIAjHl_-M_87IexMSkBYvroJm-MPlk3vnNPjUex2_rwJeR8M5b9Os4wGxo_F0DsPykUAe0kPbwOW-8Qja8z5IEc3ORrxWEUlorh42v1EbNycLRNKPdtMYNfwLZpzhnNOHKv1Yn9EyzUFjDykglXQVASX72ZJZj9Y9wTuhQJbsjWCDONZjwNVnuUsvGYZrV1PF-BBHZ24A"/>
+</div>
+<h6 class="font-label-md text-on-surface truncate">Feu de l'Esprit</h6>
+<p class="font-caption text-on-surface-variant">1,49€ • Single</p>
+</div>
+<!-- Card 3 -->
+<div class="flex-none w-36 space-y-2">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img alt="Sheet Music" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARQBAyqTcArPhub1eI1reGUuw-N90qMCzo1pijYodNOyinmDZ3EfZsQD6aMPcHExL9UIFN8BtGxJHG4GUW3ED8ruIfaOdsUiq4QyoprpcchIuqXR_lSM2_p0MSqWUdXceCjq6AAfweLpNgDCiSpaj5cHfRgpf2nQ57AghCVAtk_F1UhIs8Zv-AM_320xGv76I51ne2lWo74fRuEISsucP8unMWnybVLnHmm_-i0ByNLXj5VnWrecDyeQ"/>
+</div>
+<h6 class="font-label-md text-on-surface truncate">Partitions: Vol. 1</h6>
+<p class="font-caption text-on-surface-variant">4,99€ • PDF</p>
+</div>
+</div>
+</section>
+<!-- Artists (Circular Layout) -->
+<section>
+<div class="px-margin-mobile flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md">Favorite Artists</h2>
+</div>
+<div class="flex gap-md overflow-x-auto no-scrollbar px-margin-mobile">
+<div class="flex-none w-28 text-center space-y-2">
+<div class="aspect-square w-full rounded-full overflow-hidden border-2 border-transparent hover:border-secondary transition-colors">
+<img alt="Artist" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj3unGxbQ88Tr48616XtGKEugymiIme8_IvRkumW2C4ifmP8xrBljFASbLks26pp6lUaI9cRY89oRQ6QvqYV-ooO378rBD2XuEuhNMuipmo55fEl6xoaHppzcgAWoMfQEVBkq5BlCfU7Hoc-_3r35NgKlsBaQd7XEtCZusjNT7IqWT1fk33iQ8dX1CXyCHkzbK6oQPyoxihXSSm50dEf2vPtlnwheXUt6Pkm9A9J2ZMX8Mnj7Ji1yl0w"/>
+</div>
+<p class="font-label-md text-on-surface truncate px-1">Marie-Lise</p>
+</div>
+<div class="flex-none w-28 text-center space-y-2">
+<div class="aspect-square w-full rounded-full overflow-hidden border-2 border-transparent hover:border-secondary transition-colors bg-surface-container">
+<div class="w-full h-full flex items-center justify-center bg-primary/10">
+<span class="material-symbols-outlined text-4xl" data-icon="person">person</span>
+</div>
+</div>
+<p class="font-label-md text-on-surface truncate px-1">Emmanuel</p>
+</div>
+<div class="flex-none w-28 text-center space-y-2">
+<div class="aspect-square w-full rounded-full overflow-hidden border-2 border-transparent hover:border-secondary transition-colors bg-surface-container">
+<div class="w-full h-full flex items-center justify-center bg-primary/10">
+<span class="material-symbols-outlined text-4xl" data-icon="group">group</span>
+</div>
+</div>
+<p class="font-label-md text-on-surface truncate px-1">Sambela Collective</p>
+</div>
+</div>
+</section>
+<!-- Promotion -->
+<section class="px-margin-mobile">
+<div class="bg-gradient-to-br from-secondary/20 to-surface-container p-6 rounded-xl border border-white/5">
+<h3 class="font-display-lg-mobile text-[24px] leading-tight mb-2">Sambela Music Circle</h3>
+<p class="text-on-surface-variant font-body-md mb-6">Unlimited access to all scores and early releases.</p>
+<button class="w-full bg-secondary text-background font-label-md py-3 rounded-full hover:scale-105 transition-transform">
+                Get Premium • 9,99€/mo
+            </button>
+</div>
+</section>
+</main>
+<!-- Navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-background/95 backdrop-blur-lg border-t border-white/5">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-[10px] font-medium">Explore</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined fill-1 text-secondary" data-icon="shopping_bag" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="text-[10px] font-medium">Shop</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="text-[10px] font-medium">Library</span>
+</div>
+</nav>
+<script>
+    // Ripple and micro-interactions
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mousedown', function() {
+            this.classList.add('scale-95', 'opacity-80');
+        });
+        btn.addEventListener('mouseup', function() {
+            this.classList.remove('scale-95', 'opacity-80');
+        });
+        btn.addEventListener('mouseleave', function() {
+            this.classList.remove('scale-95', 'opacity-80');
+        });
+    });
+</script>
+</body></html>

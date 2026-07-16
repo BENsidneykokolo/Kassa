@@ -1,0 +1,1856 @@
+Voici une version beaucoup plus claire, structurée et complète de ton prompt, prête à être utilisée avec une IA de développement.
+
+---
+
+# Prompt : Amélioration des fonctionnalités de Yabisso Kassa et de l'application Employé
+
+## 1. Historique de l'inventaire
+
+Je souhaite améliorer complètement la gestion de l'inventaire.
+
+### Validation des modifications
+
+Chaque fois qu'un utilisateur souhaite modifier l'inventaire (ajouter du stock, retirer du stock ou modifier une quantité), l'application doit obligatoirement demander une confirmation.
+
+Cette confirmation doit se faire en saisissant le **mot de passe (PIN) du vendeur**, c'est-à-dire exactement le même code utilisé pour se connecter à son profil.
+
+Aucune modification ne doit être enregistrée sans cette validation.
+
+---
+
+## 2. Historique complet des modifications
+
+Créer un écran **Historique de l'inventaire**.
+
+Chaque modification doit être enregistrée automatiquement avec les informations suivantes :
+
+* Date
+* Heure
+* Nom du vendeur
+* ID du vendeur
+* Produit concerné
+* Image du produit
+* Ancienne quantité
+* Nouvelle quantité
+* Différence (+ ou -)
+* Type de modification (Ajout ou Retrait)
+* Motif (si disponible)
+
+L'historique doit être permanent afin de permettre un audit complet des mouvements de stock.
+
+---
+
+## 3. Recherche par période
+
+Dans l'écran Historique de l'inventaire, ajouter un filtre par période.
+
+Le vendeur doit pouvoir sélectionner :
+
+* une date de début ;
+* une date de fin.
+
+Exemple :
+
+15 janvier → 20 janvier
+
+L'application doit afficher uniquement les modifications effectuées pendant cette période.
+
+La période peut être de quelques jours, d'un mois ou de plusieurs mois.
+
+---
+
+## 4. Exportation et impression
+
+Depuis l'écran Historique de l'inventaire, ajouter deux actions :
+
+* Imprimer
+* Exporter en PDF
+
+Le PDF doit contenir toutes les informations de chaque modification, notamment :
+
+* image du produit ;
+* nom du produit ;
+* quantité avant ;
+* quantité après ;
+* différence ;
+* vendeur ;
+* date ;
+* heure.
+
+Le document doit être présenté de manière professionnelle.
+
+---
+
+# 5. Historique des reçus
+
+Améliorer l'écran **Historique des reçus**.
+
+Ajouter la possibilité de filtrer les ventes :
+
+* par période ;
+* par vendeur.
+
+---
+
+## Filtre vendeur
+
+Le filtre doit proposer :
+
+* Tous les vendeurs
+* ou un vendeur spécifique.
+
+Par exemple :
+
+Tous
+
+ou
+
+Jean
+
+ou
+
+Patrick
+
+ou
+
+Marie
+
+---
+
+## Filtre période
+
+Le vendeur pourra choisir :
+
+15 janvier → 20 janvier
+
+ou
+
+1er janvier → 1er février
+
+ou toute autre période.
+
+---
+
+## Résultats
+
+Une fois les filtres appliqués, afficher :
+
+* tous les reçus de cette période ;
+* le chiffre d'affaires total ;
+* le bénéfice total ;
+* le nombre total de ventes.
+
+Si le filtre est appliqué à un vendeur, les statistiques doivent concerner uniquement ce vendeur.
+
+Si le filtre est réglé sur **Tous**, les statistiques doivent concerner tous les vendeurs.
+
+---
+
+## Impression et export PDF
+
+Ajouter deux boutons :
+
+* Imprimer
+* Exporter en PDF
+
+Le PDF doit contenir :
+
+* tous les reçus ;
+* les images des produits ;
+* les quantités vendues ;
+* les prix unitaires ;
+* les montants ;
+* le vendeur ;
+* la date ;
+* l'heure ;
+* le chiffre d'affaires total ;
+* le bénéfice total.
+
+---
+
+# 6. Icône de l'application Employé
+
+Ajouter l'**App Icon** officielle de l'application Employé.
+
+L'icône doit apparaître correctement sur l'écran d'accueil du téléphone avant l'ouverture de l'application.
+
+---
+
+# 7. Pointage par partage (mode hors ligne)
+
+Je souhaite ajouter une nouvelle méthode de pointage lorsque le manager n'est pas présent pour scanner le QR Code.
+
+Le système doit fonctionner sans serveur (mode offline).
+
+## Étape 1 : Envoi du pointage
+
+Depuis l'application Employé, ajouter un bouton **Partager mon pointage**.
+
+Lorsque l'employé arrive au travail, il peut partager son pointage via **WhatsApp**.
+
+Le partage peut être réalisé sous forme de :
+
+* lien profond (Deep Link) ;
+* fichier sécurisé ;
+* ou toute autre solution fiable fonctionnant hors ligne.
+
+Le partage doit contenir :
+
+* ID de l'employé ;
+* Nom de l'employé ;
+* Heure d'arrivée ;
+* Date ;
+* ID de la boutique.
+
+---
+
+## Étape 2 : Réception par le manager
+
+Le manager reçoit le message WhatsApp.
+
+Il clique simplement sur le lien.
+
+Le lien ouvre automatiquement l'application **Yabisso Admin**.
+
+L'application affiche directement la demande de pointage avec :
+
+* Nom de l'employé ;
+* ID de l'employé ;
+* Boutique ;
+* Heure d'arrivée ;
+* Date.
+
+Le manager dispose de deux boutons :
+
+* ✅ Approuver
+* ❌ Refuser
+
+---
+
+## Étape 3 : Validation
+
+Si le manager approuve :
+
+* un nouveau lien est généré automatiquement ;
+* ce lien est renvoyé à l'employé via WhatsApp.
+
+---
+
+## Étape 4 : Validation côté employé
+
+L'employé clique simplement sur le lien reçu.
+
+L'application Employé s'ouvre automatiquement.
+
+Le pointage est validé et enregistré dans l'historique.
+
+---
+
+## Contraintes techniques
+
+Cette fonctionnalité doit être conçue pour fonctionner **sans serveur**, afin de rester compatible avec l'architecture actuelle du projet. La solution doit utiliser des mécanismes adaptés au mode hors ligne (par exemple des liens profonds, des échanges de fichiers signés ou tout autre mécanisme local sécurisé), tout en garantissant que les données ne puissent pas être falsifiées facilement. Le système devra être évolutif afin de pouvoir être migré vers une synchronisation serveur lorsque l'infrastructure backend sera disponible.
+
+
+
+Voici une version claire, complète et structurée de tes nouveaux prompts.
+
+---
+
+# Prompt : Ajout des fonctionnalités RH, Démarchage, Suivi des commerces et Sauvegarde
+
+## 1. Rapport quotidien des employés
+
+Je souhaite renforcer le suivi quotidien des employés.
+
+Chaque employé doit pouvoir remplir un **rapport journalier** directement depuis son application.
+
+Le rapport devra être enregistré afin que les Ressources Humaines puissent consulter les informations avant d'appeler les employés.
+
+Le rapport peut contenir notamment :
+
+* Date
+* Heure
+* Nom de l'employé
+* Nombre de commerces visités
+* Nombre de démonstrations effectuées
+* Nombre d'inscriptions réalisées
+* Difficultés rencontrées
+* Commentaires de l'employé
+* Suggestions éventuelles
+
+L'objectif est que les RH disposent d'un résumé complet de la journée avant d'échanger avec l'employé.
+
+---
+
+# 2. Nouvel écran : Démarchage (Application Employé)
+
+Créer un nouvel écran **Démarchage** dans l'application Employé.
+
+Après chaque visite commerciale, l'employé devra enregistrer les informations suivantes :
+
+* Nom du commerce
+* Catégorie du commerce (Restaurant, Boutique, Quincaillerie, Pharmacie, Salon de coiffure, Hôtel, Bar, etc.)
+* Nom du propriétaire
+* Numéro de téléphone
+* Adresse (facultatif)
+* Date de la visite
+* Heure de la visite
+* Résultat de la visite :
+
+  * ✅ Intéressé
+  * ❌ Pas intéressé
+  * ⏳ À rappeler
+* Commentaire de l'employé
+
+Toutes ces informations devront être sauvegardées.
+
+---
+
+# 3. Historique du démarchage
+
+Ajouter un écran **Historique** dans la section Démarchage.
+
+L'historique devra être organisé par catégorie de commerce.
+
+Exemple :
+
+* Quincailleries
+* Restaurants
+* Hôtels
+* Boutiques
+* Pharmacies
+* Bars
+* Salons de coiffure
+* etc.
+
+En entrant dans une catégorie, l'utilisateur verra tous les commerces enregistrés appartenant à cette catégorie.
+
+---
+
+## Écran "Tous"
+
+Ajouter également une catégorie **Tous**.
+
+Cette vue devra afficher :
+
+* l'ensemble des commerces démarchés ;
+* le nombre total de commerces enregistrés ;
+* le nombre de commerces intéressés ;
+* le nombre de commerces non intéressés ;
+* le nombre de commerces à recontacter.
+
+---
+
+# 4. Application Admin : Suivi des commerces
+
+Ajouter un nouveau menu dans l'application **Admin** nommé :
+
+**Suivi des commerces**
+
+Dans cet écran, afficher tous les commerces enregistrés par les employés.
+
+Pour chaque commerce, afficher :
+
+* Nom du commerce
+* Catégorie
+* Nom de l'employé ayant effectué le démarchage
+* Date de la visite
+* Statut actuel
+
+Ajouter deux boutons :
+
+* **Contacter**
+* **Pas encore contacté**
+
+Le manager pourra ainsi suivre facilement les commerces déjà rappelés.
+
+Ajouter également une grande zone de texte (Notes) permettant au manager de saisir librement ses commentaires après avoir contacté le commerce.
+
+Par exemple :
+
+* Résumé de l'appel
+* Décision prise
+* Date de rappel
+* Observations diverses
+
+Toutes ces notes devront être sauvegardées.
+
+---
+
+# 5. Vérification des fonctionnalités d'impression et d'export PDF
+
+Avant d'ajouter de nouvelles fonctionnalités, vérifie si les fonctionnalités suivantes existent déjà, car nous en avons déjà discuté précédemment.
+
+### Gestion de l'inventaire
+
+Vérifier que l'écran **Gestion de l'inventaire** permet bien :
+
+* d'imprimer l'historique des modifications ;
+* d'exporter l'historique en PDF.
+
+### Historique des reçus
+
+Vérifier que l'écran **Historique des reçus** permet bien :
+
+* d'imprimer les ventes ;
+* d'exporter les ventes en PDF.
+
+Si ces fonctionnalités sont absentes ou incomplètes, les implémenter conformément aux spécifications précédemment définies.
+
+---
+
+# 6. Amélioration du système de sauvegarde (Backup)
+
+Dans l'écran **Backup par e-mail**, ajouter un système de sauvegarde beaucoup plus complet.
+
+L'utilisateur doit pouvoir choisir précisément ce qu'il souhaite sauvegarder.
+
+Ajouter les options suivantes :
+
+* **Sauvegarder toute la boutique**
+* Sauvegarder uniquement les produits
+* Sauvegarder uniquement le stock
+* Sauvegarder uniquement les ventes
+* Sauvegarder uniquement les employés
+* Sauvegarder uniquement les clients
+* Sauvegarder uniquement les fournisseurs
+* Sauvegarder uniquement les paramètres
+* Sauvegarder uniquement les catégories
+* Sauvegarder uniquement les historiques
+
+### Fonctionnement
+
+Si l'utilisateur sélectionne **Sauvegarder toute la boutique**, l'application doit générer une sauvegarde complète contenant toutes les données de la boutique.
+
+Si l'utilisateur sélectionne uniquement **Stock**, la sauvegarde ne doit contenir que les informations relatives au stock.
+
+Le même principe s'applique à chacune des autres options.
+
+Les sauvegardes devront pouvoir être envoyées par e-mail et être facilement restaurées ultérieurement afin de reconstruire totalement ou partiellement les données de la boutique.
+
+
+
+Voici une version professionnelle, claire et structurée de ton prompt.
+
+---
+
+# Prompt : Gestion complète des candidats (Application Admin)
+
+Je souhaite ajouter un nouveau module **Candidats** dans l'application **Admin** afin de suivre tout le processus de recrutement jusqu'à l'intégration de l'employé.
+
+Le système doit fonctionner comme un pipeline de recrutement où un candidat passe automatiquement d'une étape à la suivante après validation.
+
+---
+
+# 1. Nouveau menu : Candidats
+
+Ajouter un nouveau bouton **Candidats** dans le menu principal de l'application Admin.
+
+En entrant dans ce menu, afficher la liste de tous les candidats enregistrés.
+
+Chaque candidat doit afficher au minimum :
+
+* Nom complet
+* Numéro de téléphone
+* Date d'ajout
+* Statut actuel
+* Présence ou non d'un CV
+
+---
+
+# 2. Ajouter un candidat
+
+Ajouter un bouton **+** permettant d'ajouter un nouveau candidat.
+
+Lorsque l'utilisateur clique sur ce bouton, ouvrir une fenêtre (popup) contenant les champs suivants :
+
+* Nom complet (obligatoire)
+* Numéro de téléphone (obligatoire)
+* Importer le CV (optionnel)
+
+Le CV peut être au format PDF ou image.
+
+Si le candidat ne possède pas encore de CV, il doit être possible de créer son profil sans en importer un.
+
+Après validation, le candidat est enregistré automatiquement.
+
+---
+
+# 3. Première étape : Premier contact (Live)
+
+Une fois le candidat créé, son profil doit être automatiquement déplacé vers une nouvelle étape intitulée :
+
+**Premier contact (Live)**
+
+Dans cet écran, chaque candidat doit apparaître avec le statut :
+
+**En attente**
+
+Pour chaque candidat, afficher :
+
+* Nom complet
+* Numéro de téléphone
+* CV (si disponible)
+* Date d'ajout
+* Statut : En attente
+
+Le manager dispose de deux actions :
+
+* ✅ Approuver (le candidat a bien participé au Live)
+* ❌ Refuser (optionnel si vous souhaitez gérer les candidatures rejetées)
+
+Si le candidat n'a pas encore participé au Live, son statut reste **En attente**.
+
+Lorsque le manager clique sur **Approuver**, le candidat passe automatiquement à l'étape suivante.
+
+---
+
+# 4. Deuxième étape : Premier meeting
+
+Créer un nouvel écran intitulé :
+
+**Premier Meeting**
+
+Tous les candidats validés lors de l'étape **Premier contact (Live)** doivent apparaître automatiquement dans cette liste.
+
+Chaque candidat arrive avec le statut :
+
+**En attente**
+
+Afficher les informations suivantes :
+
+* Nom complet
+* Numéro de téléphone
+* CV (si disponible)
+* Date du Live validé
+* Statut
+
+Le manager peut :
+
+* ✅ Approuver (le candidat a bien participé au premier meeting)
+* ❌ Refuser
+
+Si le candidat n'a pas encore participé au meeting, il reste en attente.
+
+---
+
+# 5. Intégration comme employé
+
+Lorsque le manager approuve le candidat dans l'étape **Premier Meeting**, son profil doit être automatiquement transféré vers le module **Employés**, déjà existant dans l'application Admin.
+
+Toutes les informations du candidat doivent être conservées :
+
+* Nom complet
+* Numéro de téléphone
+* CV
+* Date d'entrée dans l'entreprise
+* Historique des validations
+
+À partir de ce moment, le candidat devient officiellement un employé et disparaît de la liste des candidats en cours de recrutement.
+
+---
+
+# 6. Workflow complet
+
+Le processus doit suivre automatiquement le parcours suivant :
+
+**Ajout du candidat**
+→ **Premier contact (Live)**
+→ **Validation du Live**
+→ **Premier Meeting**
+→ **Validation du Meeting**
+→ **Création automatique du profil Employé**
+
+Chaque validation fait progresser automatiquement le candidat vers l'étape suivante.
+
+---
+
+# 7. Objectif
+
+Ce module doit permettre aux managers et aux RH de suivre facilement l'évolution de chaque candidat, depuis son enregistrement jusqu'à son intégration officielle dans l'entreprise, avec un historique clair et un processus simple, fluide et structuré.
+
+
+
+Voici un prompt beaucoup plus complet que tu peux donner à l'IA afin qu'elle transforme **Yabisso Admin** en une véritable application RH professionnelle.
+
+---
+
+# Prompt : Ajouter un module RH complet dans Yabisso Admin
+
+Je souhaite que **Yabisso Admin** intègre les principales fonctionnalités que l'on retrouve dans les applications modernes de gestion des Ressources Humaines (RH), tout en restant adaptées au fonctionnement de Yabisso.
+
+L'objectif est de permettre aux managers et aux RH de gérer efficacement le recrutement, les employés, leur suivi quotidien, leurs performances et leur évolution.
+
+## 1. Tableau de bord RH
+
+Créer un tableau de bord affichant notamment :
+
+* Nombre total d'employés
+* Nombre de candidats
+* Employés présents aujourd'hui
+* Employés absents
+* Employés en retard
+* Nombre de commerces démarchés aujourd'hui
+* Nombre de démonstrations réalisées
+* Nombre de nouvelles boutiques inscrites
+* Nombre de ventes réalisées
+* Statistiques par employé
+* Statistiques par équipe
+
+---
+
+## 2. Gestion des candidats
+
+Conserver le système déjà défini :
+
+* Ajout d'un candidat
+* Upload du CV
+* Premier Contact (Live)
+* Premier Meeting
+* Relance
+* Validation
+* Transformation automatique en employé
+
+---
+
+## 3. Gestion des employés
+
+Pour chaque employé, afficher :
+
+* Photo
+* Nom complet
+* ID employé
+* Téléphone
+* Email
+* Poste
+* Département
+* Manager
+* Date d'embauche
+* Statut (Actif, Suspendu, En congé, Démissionnaire, etc.)
+* Historique des performances
+
+---
+
+## 4. Dossier complet de l'employé
+
+Chaque employé doit disposer d'une fiche complète contenant :
+
+* Informations personnelles
+* Documents
+* Contrat
+* CV
+* Diplômes
+* Historique des postes
+* Historique des formations
+* Historique des promotions
+* Historique des sanctions
+* Historique des récompenses
+* Historique des objectifs
+* Notes du manager
+
+---
+
+## 5. Présence et pointage
+
+Permettre de consulter :
+
+* Présences
+* Retards
+* Absences
+* Départs anticipés
+* Heures supplémentaires
+* Historique complet des pointages
+
+---
+
+## 6. Gestion des congés
+
+Créer un module permettant de :
+
+* Demander un congé
+* Approuver ou refuser un congé
+* Consulter le calendrier des congés
+* Voir le solde de congés (si applicable)
+* Afficher l'historique des congés
+
+---
+
+## 7. Rapports journaliers
+
+Chaque employé doit pouvoir remplir un rapport quotidien.
+
+Les RH doivent pouvoir consulter tous les rapports.
+
+Ajouter des filtres :
+
+* par employé
+* par date
+* par équipe
+* par manager
+
+---
+
+## 8. Gestion du démarchage
+
+Conserver le système déjà défini :
+
+* Enregistrer les commerces visités
+* Catégoriser les commerces
+* Historique
+* Relances
+* Statistiques
+* Suivi dans l'application Admin
+
+---
+
+## 9. Suivi des performances
+
+Créer un tableau de performance avec des indicateurs tels que :
+
+* Nombre de commerces visités
+* Nombre de démonstrations
+* Nombre d'inscriptions
+* Nombre de ventes
+* Taux de conversion
+* Objectifs atteints
+* Progression mensuelle
+
+---
+
+## 10. Objectifs
+
+Le manager doit pouvoir attribuer des objectifs.
+
+Exemples :
+
+* Visiter 20 commerces
+* Obtenir 10 inscriptions
+* Réaliser 15 démonstrations
+
+L'application doit afficher :
+
+* progression ;
+* pourcentage atteint ;
+* objectif terminé ou non.
+
+---
+
+## 11. Récompenses
+
+Ajouter un module permettant :
+
+* d'attribuer des récompenses ;
+* de consulter l'historique des récompenses.
+
+---
+
+## 12. Sanctions
+
+Ajouter un module permettant :
+
+* avertissement ;
+* blâme ;
+* suspension ;
+* autres sanctions internes.
+
+Toutes les sanctions doivent être historisées.
+
+---
+
+## 13. Formations
+
+Créer un espace permettant :
+
+* d'ajouter une formation ;
+* de suivre les formations suivies par chaque employé ;
+* de marquer une formation comme terminée.
+
+---
+
+## 14. Notes du manager
+
+Chaque employé doit disposer d'un espace privé où le manager peut enregistrer des observations.
+
+Exemples :
+
+* Excellent travail
+* Doit améliorer sa ponctualité
+* Très bonne relation client
+* À suivre de près
+
+Ces notes doivent rester visibles uniquement par les responsables autorisés.
+
+---
+
+## 15. Notifications
+
+Ajouter un système de notifications pour informer les employés et les managers des événements importants :
+
+* nouveau candidat ;
+* validation d'une étape ;
+* demande de congé ;
+* approbation ou refus ;
+* nouvel objectif ;
+* nouveau rapport ;
+* nouveau commerce à suivre ;
+* rappel de réunion ;
+* etc.
+
+---
+
+## 16. Recherche et filtres
+
+Dans tous les modules, permettre une recherche et des filtres par :
+
+* nom ;
+* ID ;
+* téléphone ;
+* date ;
+* équipe ;
+* manager ;
+* statut.
+
+---
+
+## 17. Exportation
+
+Tous les modules importants doivent permettre :
+
+* l'impression ;
+* l'export en PDF ;
+* l'export des données filtrées (par date, employé, équipe, etc.).
+
+---
+
+## 18. Historique complet
+
+Chaque action importante doit être enregistrée dans un journal d'activité :
+
+* création ;
+* modification ;
+* suppression ;
+* validation ;
+* refus ;
+* approbation ;
+* connexion ;
+* déconnexion.
+
+Pour chaque action, enregistrer :
+
+* la date ;
+* l'heure ;
+* l'utilisateur ayant réalisé l'action.
+
+---
+
+## 19. Permissions
+
+Mettre en place un système de rôles et de permissions afin de limiter l'accès aux fonctionnalités selon le profil de l'utilisateur.
+
+Par exemple :
+
+* Administrateur
+* Directeur
+* RH
+* Manager
+* Superviseur
+
+Chaque rôle doit avoir uniquement les autorisations qui lui sont nécessaires.
+
+---
+
+## 20. Évolutivité
+
+Concevoir toute cette architecture de manière modulaire et évolutive afin qu'elle puisse être facilement synchronisée avec un serveur lorsque l'infrastructure backend de Yabisso sera disponible. L'application doit également continuer à fonctionner correctement en mode hors ligne, avec une synchronisation ultérieure des données.
+
+
+
+OK — là on va passer de “fonctionnalités ajoutées” à **une vraie application métier côté employé**, structurée comme un cockpit de travail quotidien.
+
+Voici un **prompt complet, propre et exploitable** pour définir *tout ce que doit contenir l’application Employé Yabisso*.
+
+---
+
+# Prompt : Application Employé – Centre de travail complet (Yabisso)
+
+Je souhaite transformer l’application **Employé Yabisso** en une application centrale de travail quotidien.
+
+L’objectif est que chaque employé sache exactement :
+
+* quoi faire aujourd’hui
+* quelles tâches sont en attente
+* quelles tâches sont terminées
+* ses performances
+* ses objectifs
+* ses validations
+* et ses interactions avec l’Admin / RH
+
+L’application doit devenir un **assistant de travail complet**.
+
+---
+
+# 1. Écran principal : Dashboard Employé
+
+Créer un tableau de bord affichant :
+
+* Tâches du jour
+* Tâches en retard
+* Objectifs du jour
+* Commerces à démarcher
+* Rapports à remplir
+* Pointage (arrivée / sortie)
+* Statut de présence
+* Performance du jour
+
+Ajouter des indicateurs :
+
+* Nombre de tâches complétées
+* Nombre de commerces visités
+* Nombre de ventes ou inscriptions
+* Taux de réussite du jour
+
+---
+
+# 2. Module : Mes tâches (core de l’app)
+
+Créer un écran **“Mes tâches”**.
+
+Chaque employé doit recevoir automatiquement ses tâches assignées.
+
+## Types de tâches :
+
+* Démarchage de commerces
+* Suivi de clients
+* Appels de relance
+* Présentation produit
+* Inscription boutique
+* Mise à jour de stock (si responsable)
+* Rapports journaliers
+* Participation meeting / live
+* Formation interne
+
+## Chaque tâche doit contenir :
+
+* Titre
+* Description
+* Priorité (Haute / Moyenne / Basse)
+* Date limite
+* Statut (À faire / En cours / Terminé)
+* Bouton “Commencer”
+* Bouton “Terminer”
+* Commentaire employé
+* Preuve (optionnel : photo / capture / note)
+
+---
+
+# 3. Module : Démarchage (terrain)
+
+Créer un écran dédié :
+
+## Ajout de commerce démarché :
+
+* Nom du commerce
+* Catégorie
+* Nom du responsable
+* Téléphone
+* Adresse (optionnel)
+* Résultat :
+
+  * Intéressé
+  * Pas intéressé
+  * À relancer
+* Commentaire
+* Position GPS (si possible)
+
+## Historique :
+
+* Tous les commerces visités
+* Filtrage par catégorie
+* Filtrage par date
+* Filtrage par statut
+
+## Actions rapides :
+
+* Appeler
+* WhatsApp
+* Modifier
+* Relancer
+
+---
+
+# 4. Module : Rapports journaliers
+
+Chaque employé doit remplir un rapport quotidien obligatoire :
+
+* Nombre de commerces visités
+* Nombre de démonstrations
+* Nombre de ventes / inscriptions
+* Difficultés rencontrées
+* Commentaires
+* Objectifs atteints ou non
+
+Les RH doivent pouvoir consulter et filtrer ces rapports.
+
+---
+
+# 5. Module : Pointage (présence)
+
+Ajouter un système complet de présence :
+
+* Arrivée
+* Pause
+* Retour pause
+* Départ
+
+Fonctionnalités :
+
+* Scan QR
+* Pointage manuel (avec validation admin)
+* Partage WhatsApp (mode offline déjà défini)
+* Historique complet des heures
+
+---
+
+# 6. Module : Notifications et alertes
+
+L’employé doit recevoir :
+
+* nouvelles tâches
+* rappels de tâches
+* relances clients
+* validations/rejets
+* rappels de pointage
+* objectifs non atteints
+* messages RH / Admin
+
+---
+
+# 7. Module : Objectifs
+
+Afficher les objectifs attribués :
+
+* Objectifs journaliers
+* Objectifs hebdomadaires
+* Objectifs mensuels
+
+Exemples :
+
+* visiter 20 commerces
+* obtenir 5 inscriptions
+* faire 10 démonstrations
+
+Afficher :
+
+* progression en %
+* objectif atteint / non atteint
+* récompenses liées
+
+---
+
+# 8. Module : Performance employé
+
+Afficher un tableau personnel :
+
+* nombre de tâches réalisées
+* nombre de commerces visités
+* taux de conversion
+* ventes / inscriptions
+* ponctualité
+* activité globale
+
+---
+
+# 9. Module : Formation
+
+L’employé doit pouvoir :
+
+* voir les formations disponibles
+* suivre une formation
+* marquer formation terminée
+* passer des tests simples (optionnel)
+
+---
+
+# 10. Module : Relance client
+
+Lister tous les commerces ou contacts :
+
+* non intéressés mais à recontacter
+* sans réponse
+* en attente
+
+Avec actions rapides :
+
+* appeler
+* WhatsApp
+* marquer comme relancé
+
+---
+
+# 11. Module : Communication interne
+
+Ajouter :
+
+* messages Admin → Employé
+* messages RH → Employé
+* annonces globales
+
+---
+
+# 12. Module : Historique global employé
+
+L’employé doit voir :
+
+* toutes ses tâches passées
+* ses démarchages
+* ses pointages
+* ses rapports
+* ses validations
+
+---
+
+# 13. Mode offline intelligent
+
+L’application doit fonctionner même sans internet :
+
+* sauvegarde locale des tâches
+* synchronisation plus tard
+* files d’attente pour actions (pointage, démarchage, etc.)
+
+---
+
+# 14. Objectif global
+
+Cette application doit permettre à chaque employé de :
+
+* savoir exactement quoi faire chaque jour
+* être guidé dans son travail
+* être évalué automatiquement
+* communiquer facilement avec Admin / RH
+* suivre ses performances en temps réel
+
+---
+
+## Résultat attendu
+
+L’application Employé devient un **outil de travail complet**, pas juste une app de saisie :
+
+👉 un assistant de terrain
+👉 un système de productivité
+👉 un outil de suivi RH
+👉 un outil de performance
+
+---
+
+Voici ton prompt réécrit de manière structurée, claire et exploitable pour l’équipe produit / dev.
+
+---
+
+# Prompt : Écran de suivi des commerces + relance intelligente (Application Admin)
+
+Je souhaite ajouter dans l’application **Admin Yabisso** un module complet de **suivi et relance des commerces utilisant notre application**.
+
+L’objectif est de garantir un **suivi commercial régulier**, avec un contact minimum **une fois par mois** pour chaque commerce.
+
+---
+
+# 1. Nouvel écran : Suivi des commerces (CRM interne)
+
+Créer un écran appelé :
+
+**“Suivi des commerces”**
+
+Cet écran doit afficher **toutes les boutiques / commerces utilisant l’application Yabisso**.
+
+---
+
+## 1.1 Informations affichées pour chaque commerce
+
+Pour chaque commerce, afficher :
+
+* Nom du commerce
+* Catégorie (restaurant, boutique, hôtel, etc.)
+* Nom du propriétaire
+* Numéro de téléphone
+* ID boutique
+* Type d’abonnement
+* Date du dernier contact
+* Nombre de jours depuis le dernier contact (important)
+* Statut de contact :
+
+  * Contacté récemment
+  * À relancer
+  * Urgent (longtemps sans contact)
+
+---
+
+# 2. Système intelligent de priorité (relance automatique)
+
+Le système doit automatiquement classer les commerces selon leur niveau d’inactivité.
+
+## Logique :
+
+* 0 à 15 jours → normal
+* 16 à 30 jours → à surveiller
+* 31 à 45 jours → prioritaire
+* +45 jours → **urgent (remonte en haut de la liste)**
+
+Les commerces les plus anciens sans contact doivent apparaître **en haut de la liste automatiquement**.
+
+---
+
+# 3. Statut de contact
+
+Ajouter deux statuts principaux :
+
+* ✅ Déjà contacté
+* ❌ Pas encore contacté
+
+Chaque commerce doit obligatoirement avoir un historique de contact.
+
+---
+
+# 4. Historique de contact (très important)
+
+Pour chaque commerce, ajouter un **historique complet des appels / contacts**.
+
+Chaque entrée doit contenir :
+
+* Date du contact
+* Nom de l’agent (employé ou manager)
+* Canal utilisé (appel / WhatsApp / autre)
+* Résultat du contact :
+
+  * problème signalé
+  * client satisfait
+  * demande d’aide
+  * relance nécessaire
+* Notes détaillées (texte libre)
+
+---
+
+# 5. Zone de commentaire après contact
+
+Après chaque interaction, l’utilisateur doit pouvoir écrire un commentaire :
+
+* problème rencontré
+* feedback du client
+* demande spécifique
+* opportunité commerciale
+* observation générale
+
+Ce champ est obligatoire ou fortement encouragé.
+
+---
+
+# 6. Actions rapides
+
+Pour chaque commerce, ajouter des boutons :
+
+* 📞 Appeler (ouvre directement le téléphone)
+* 💬 WhatsApp (ouvre WhatsApp avec numéro pré-rempli)
+* 📝 Ajouter une note
+* ✅ Marquer comme contacté
+
+---
+
+# 7. Objectif de suivi mensuel
+
+Le système doit garantir que :
+
+👉 chaque commerce est contacté au moins **1 fois par mois**
+
+Ajouter un indicateur :
+
+* “Dernier contact il y a X jours”
+* Alerte si dépassement de 30 jours
+
+---
+
+# 8. Vue intelligente (priorité commerciale)
+
+Ajouter une vue spéciale :
+
+## “À relancer en priorité”
+
+Cette vue affiche uniquement :
+
+* commerces non contactés depuis longtemps
+* commerces avec problème non résolu
+* commerces VIP ou gros clients
+* commerces avec abonnement actif mais inactifs
+
+---
+
+# 9. Analyse par intelligence artificielle (IA)
+
+Toutes les notes et historiques doivent être stockés pour permettre une analyse IA future.
+
+L’IA devra pouvoir :
+
+* détecter les problèmes récurrents
+* analyser la satisfaction des clients
+* identifier les risques de perte de clients
+* proposer des actions de relance
+* améliorer le script des commerciaux
+
+---
+
+# 10. Objectif global
+
+Ce module doit transformer l’application Admin en un **mini CRM intelligent**, permettant :
+
+* suivi des clients en temps réel
+* relance automatique des commerces
+* optimisation des relations clients
+* amélioration continue basée sur les données
+* réduction des clients inactifs
+
+---
+
+
+
+Voici une version **claire, structurée et exploitable** de ton idée d’IA globale dans Yabisso (Admin + Employé + Super Admin).
+
+---
+
+# Prompt : IA centrale omniprésente dans Yabisso (Admin + Employé + Super Admin)
+
+Je souhaite intégrer une **intelligence artificielle centrale** dans tout l’écosystème Yabisso (Application Admin + Application Employé + Super Admin).
+
+Cette IA doit avoir accès à toutes les données du système afin de :
+
+* analyser en continu les activités
+* détecter les problèmes
+* proposer des améliorations
+* optimiser la performance des employés
+* améliorer la rentabilité des commerces
+* assister les managers et RH dans leurs décisions
+
+---
+
+# 1. IA dans l’Application Admin (analyse & décision)
+
+Dans l’application Admin, l’IA doit fonctionner comme un **assistant de direction intelligent**.
+
+## 1.1 Accès aux données
+
+L’IA doit pouvoir analyser :
+
+* ventes
+* abonnements
+* commerces
+* employés
+* performances commerciales
+* démarchage
+* relances clients
+* historique des appels
+* retards / absences
+* conversions
+* revenus et bénéfices
+
+---
+
+## 1.2 Fonctions de l’IA Admin
+
+L’IA doit :
+
+* détecter les commerces à risque (perte d’abonnement ou inactivité)
+* identifier les employés faibles en performance
+* détecter les tendances de ventes
+* repérer les problèmes récurrents dans les commerces
+* proposer des actions concrètes d’amélioration
+* suggérer des stratégies commerciales
+
+---
+
+## 1.3 Assistant IA intégré
+
+Dans l’Admin, ajouter une section :
+
+**“Assistant IA”**
+
+L’utilisateur peut poser des questions comme :
+
+* Quels sont les commerces à relancer ?
+* Quels employés performent le moins ?
+* Quels sont les produits les plus rentables ?
+* Quels clients risquent de partir ?
+
+L’IA répond avec des analyses et recommandations.
+
+---
+
+# 2. IA dans l’application Employé (coach de performance)
+
+Dans l’application Employé, l’IA devient un **coach intelligent de productivité**.
+
+---
+
+## 2.1 Rôle de l’IA Employé
+
+L’IA doit :
+
+* motiver l’employé
+* analyser ses performances quotidiennes
+* lui rappeler ses objectifs
+* l’alerter sur les tâches en retard
+* l’aider à améliorer ses résultats
+
+---
+
+## 2.2 Messages intelligents automatiques
+
+Exemples de messages IA :
+
+* “Il te reste 2 commerces à visiter pour atteindre ton objectif du jour.”
+* “Ton taux de conversion a baissé de 15%, essaie d’améliorer ton discours.”
+* “Tu es en retard sur tes relances clients.”
+* “Excellent travail aujourd’hui, continue comme ça.”
+
+---
+
+## 2.3 Suivi des objectifs
+
+L’IA doit suivre :
+
+* nombre de commerces visités
+* inscriptions réalisées
+* ventes effectuées
+* tâches complétées
+* performance journalière
+
+---
+
+# 3. IA Super Admin (niveau stratégique global)
+
+Créer un niveau spécial :
+
+**Super Admin AI Dashboard**
+
+---
+
+## 3.1 Rôle du Super Admin
+
+Le Super Admin reçoit :
+
+* résumé global de toute l’activité
+* analyse de performance globale
+* problèmes critiques du système
+* opportunités de croissance
+* alertes importantes
+
+---
+
+## 3.2 Rapport IA automatique
+
+L’IA génère automatiquement :
+
+* rapport quotidien
+* rapport hebdomadaire
+* rapport mensuel
+
+Contenu :
+
+* croissance des commerces
+* revenus globaux
+* performance des employés
+* taux d’abonnement
+* risques de churn (perte clients)
+* recommandations stratégiques
+
+---
+
+## 3.3 Validation du Super Admin
+
+Le Super Admin doit pouvoir :
+
+* valider le rapport IA
+* modifier le rapport si nécessaire
+* rejeter certaines analyses
+
+---
+
+## 3.4 Diffusion du rapport
+
+Une fois validé :
+
+* le rapport est envoyé à tous les Admins
+* via notification interne
+* ou message système
+
+---
+
+# 4. IA comme système de recommandation global
+
+L’IA doit fonctionner comme un cerveau central :
+
+* elle observe tout le système
+* elle apprend des données
+* elle améliore les processus
+* elle propose des décisions
+
+---
+
+# 5. Objectif global
+
+Cette IA doit transformer Yabisso en :
+
+* une application intelligente
+* un système de gestion autonome
+* un outil de pilotage stratégique
+* un coach pour les employés
+* un assistant pour les managers
+* un cerveau central pour le Super Admin
+
+---
+
+# Résultat final attendu
+
+👉 L’IA n’est pas un simple chatbot
+👉 C’est un **système de pilotage intelligent complet** intégré partout dans l’écosystème
+
+---
+
+Voici ton prompt réécrit de façon **claire, structurée et exploitable** pour développement.
+
+---
+
+# Prompt : Système complet de Backup / Export / Import par email (Application Casa / Kassa)
+
+Je souhaite mettre en place un système avancé de **backup par email** dans l’application **Casa / Kassa**, permettant une sauvegarde complète ou partielle des données de la boutique, avec possibilité de restauration complète.
+
+---
+
+# 1. Écran : Backup par email
+
+Créer un écran **“Backup par email”** permettant à l’utilisateur de choisir précisément ce qu’il souhaite sauvegarder.
+
+---
+
+## 1.1 Options de backup
+
+L’utilisateur doit pouvoir sélectionner :
+
+### 🔴 Backup complet
+
+* Toute la boutique
+* Produits
+* Stocks
+* Prix
+* Catégories
+* Clients
+* Ventes
+* Images
+* Paramètres
+* Historique complet
+
+👉 Si l’utilisateur choisit **“Toute la boutique”**, alors tout est inclus automatiquement sans exception.
+
+---
+
+### 🟠 Backup partiel
+
+Permettre de choisir uniquement :
+
+* Produits uniquement
+* Stock uniquement
+* Prix uniquement
+* Ventes uniquement
+* Clients uniquement
+* Catégories uniquement
+* Historique uniquement
+* Paramètres uniquement
+
+---
+
+# 2. Format du backup
+
+Le backup doit être généré dans un **format standard unique et structuré**.
+
+## Exigences :
+
+* format compatible import/export
+* contient toutes les données liées
+* inclut les images (produits, boutiques)
+* conserve les relations entre données (produit ↔ stock ↔ prix ↔ vente)
+* doit être compressé (type ZIP ou équivalent)
+
+---
+
+# 3. Envoi par email
+
+Une fois le backup généré :
+
+* envoyer automatiquement le fichier par email
+* inclure le nom de la boutique
+* inclure la date du backup
+* inclure le type de backup (complet ou partiel)
+
+---
+
+# 4. Écran Import (restauration)
+
+Dans l’écran **Import**, permettre de :
+
+* importer un backup reçu par email
+* sélectionner un fichier backup
+* restaurer les données
+
+---
+
+## 4.1 Fonctionnement de l’import
+
+Lors de l’import :
+
+* restaurer exactement les mêmes données exportées
+* recréer :
+
+  * produits
+  * stocks
+  * prix
+  * images
+  * ventes
+  * historique
+  * paramètres
+
+👉 Le système doit garantir une **restauration fidèle à 100%**
+
+---
+
+# 5. Cohérence Export / Import
+
+Le système doit garantir que :
+
+* tout backup exporté peut être importé sans perte de données
+* le format est identique entre export et import
+* aucune donnée ne doit être modifiée ou perdue lors du transfert
+
+---
+
+# 6. Cas d’utilisation
+
+## Cas 1 : Backup complet
+
+* L’utilisateur sauvegarde toute sa boutique
+* Reçoit un email avec le fichier
+* Peut restaurer toute la boutique plus tard
+
+## Cas 2 : Backup partiel (ex : stock)
+
+* Sauvegarde uniquement le stock
+* Peut restaurer uniquement le stock sans toucher aux ventes ou produits
+
+---
+
+# 7. Objectif global
+
+Ce système doit permettre :
+
+* sécurité totale des données
+* restauration rapide en cas de problème
+* migration facile d’une boutique à une autre
+* sauvegarde flexible selon les besoins
+
+---
+
+# Résultat attendu
+
+👉 Un système de backup professionnel type ERP :
+
+* flexible
+* sécurisé
+* complet
+* fiable
+* compatible import/export total
+
+---
+
+
+Bonne idée sur le principe, mais il faut être clair : **sans serveur, tu ne peux pas faire un vrai “backup automatique fiable côté cloud”** comme les grandes apps. Par contre, tu peux construire un système **très solide en mode offline + semi-automatique via WhatsApp / email / stockage local**.
+
+Je te propose un système réaliste, robuste et compatible avec ton architecture actuelle.
+
+---
+
+# Prompt : Système de backup automatique quotidien (mode offline + WhatsApp / Email)
+
+Je souhaite mettre en place un système de **backup automatique quotidien** dans l’application Casa / Kassa, sans serveur backend.
+
+L’objectif est de sécuriser toutes les données de la boutique chaque jour automatiquement, avec possibilité d’envoi via WhatsApp ou email.
+
+---
+
+# 1. Backup automatique quotidien (local)
+
+L’application doit générer automatiquement un backup :
+
+## Fréquence :
+
+* 1 fois par jour
+* heure configurable (ex : 23h00 ou fermeture de la boutique)
+
+## Contenu du backup :
+
+* produits
+* stock
+* prix
+* ventes
+* clients
+* employés
+* historiques
+* paramètres
+* images (si possible compressées)
+
+---
+
+## Stockage local obligatoire :
+
+Chaque backup doit être :
+
+* enregistré dans le téléphone
+* stocké dans un dossier interne sécurisé
+* horodaté (ex : backup_2026_01_23.zip)
+
+👉 Les 7 à 30 derniers backups doivent être conservés automatiquement.
+
+---
+
+# 2. Génération du fichier backup
+
+Le système doit :
+
+* compresser toutes les données (ZIP ou format équivalent)
+* structurer les données de manière importable
+* inclure les relations entre données (produits ↔ ventes ↔ stock)
+
+---
+
+# 3. Envoi automatique (sans serveur)
+
+Comme il n’y a pas de backend, l’envoi doit être “assisté utilisateur”.
+
+## Option A : WhatsApp (recommandé)
+
+Chaque jour, après génération du backup :
+
+* ouvrir automatiquement WhatsApp
+* proposer un message pré-rempli :
+
+> "Backup automatique du jour - Boutique X - Date : XX/XX/XXXX"
+
+* joindre le fichier backup
+* proposer envoi vers :
+
+  * numéro du propriétaire
+  * ou groupe Admin
+
+👉 L’utilisateur doit juste cliquer sur “Envoyer”
+
+---
+
+## Option B : Email
+
+Alternative :
+
+* ouvrir application email
+* joindre automatiquement le fichier
+* remplir sujet :
+
+  * “Backup quotidien - Boutique X”
+
+---
+
+# 4. Mode semi-automatique intelligent
+
+L’application doit :
+
+* générer le backup automatiquement en arrière-plan
+* afficher une notification :
+
+> “Backup du jour prêt à être envoyé”
+
+Avec 2 boutons :
+
+* 📤 Envoyer WhatsApp
+* 📧 Envoyer Email
+* 💾 Ignorer
+
+---
+
+# 5. Sécurité des backups
+
+Chaque backup doit être :
+
+* compressé
+* éventuellement chiffré (optionnel mais recommandé)
+* protégé par ID boutique + signature interne
+
+---
+
+# 6. Historique des backups
+
+Créer un écran :
+
+## “Historique des backups”
+
+Afficher :
+
+* date du backup
+* taille du fichier
+* statut (envoyé / non envoyé)
+* bouton :
+
+  * restaurer
+  * partager
+  * supprimer
+
+---
+
+# 7. Restauration
+
+L’utilisateur doit pouvoir :
+
+* importer un backup
+* restaurer totalement la boutique
+* ou restaurer partiellement :
+
+  * stock
+  * produits
+  * ventes
+
+---
+
+# 8. Gestion intelligente de stockage
+
+Le système doit :
+
+* supprimer automatiquement les backups anciens (ex : +30 jours)
+* garder les plus récents
+* éviter saturation du téléphone
+
+---
+
+# 9. Objectif global
+
+Ce système doit permettre :
+
+* sécurité quotidienne des données
+* zéro perte de données même sans serveur
+* récupération rapide en cas de problème
+* partage facile via WhatsApp ou email
+* fonctionnement 100% offline-first
+
+---
+
+# Résultat final attendu
+
+👉 Une solution type “mini cloud personnel local” :
+
+* automatique
+* fiable
+* sans serveur
+* compatible WhatsApp / email
+* restaurable à tout moment
+
+---

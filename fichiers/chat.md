@@ -2208,3 +2208,220 @@ Le message généré contient :
 | 9 | check_out_time Admin (existing installs) | 🔴 Critique | Admin | ✅ |
 
 *En attente des instructions de Ben...*
+
+---
+
+## Session du 11/07/2026 (17:40) — Ajout bouton "Profil" dans bottom nav Dashboard Admin
+
+### 17:40 — Fix navigation vers Paramètres/Pack
+
+**Demande** : Ajouter un accès "Paramètres" ou "Profil" dans la bottom nav du Dashboard Admin.
+
+**Diagnostic** :
+- Route `/profile` existante dans `main.dart:83` → `ProfileScreen`
+- `ProfileScreen` a un bouton "Paramètres" qui navigue vers `/settings`
+- `/settings` a le tile "Import / Export Pack" dans la section "Données"
+- **Bug** : Aucun lien depuis le Dashboard vers `/profile` — la route était orpheline
+
+**Fix** :
+- Ajouté `_buildNavItem(Icons.person_outline, 'Profil', false, () => context.push('/profile'))` dans `_buildBottomNav()`
+- Bottom nav : Dashboard → Employés → Ventes → Analyse → IA → **Profil** (nouveau)
+
+**Fichier modifié** : `yabisso_admin/lib/screens/home/dashboard_screen.dart:547`
+
+**Parcours corrigé** :
+```
+Dashboard → [Profil] → [Paramètres] → [Import / Export Pack]
+```
+
+**Vérification** :
+- `Icons.person_outline` disponible via `material.dart` ✅
+- Route `/profile` enregistrée dans GoRouter ✅
+- Vérifié manuellement ✅
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 15/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
+
+### 12:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2242 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK ~115 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **10+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (11/07) : Fix DB Admin/Employés (shops prestataire_id, check_out_time), bouton Profil Dashboard Admin
+    - **6+ APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (15/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK ~115 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 10+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel/Import-Export Pack |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 15/07/2026 (12:30) — Système Carte de Fidélité Complet
+
+### 12:30 — Demande utilisateur
+
+**User**: Créer un écran "Carte de fidélité" dans les Paramètres avec :
+- Enregistrer client (nom, téléphone, adresse optionnelle)
+- Liste des clients
+- Détail client avec carte virtuelle
+- QR code sur la carte
+- Télécharger/partager la carte PDF via WhatsApp
+- Système de bonus points fidélité
+
+### 12:45 — Implémentation complète
+
+#### 1. Modèle Customer (`lib/models/customer.dart`) ✅
+- **Customer** : id, name, phone, address, photoPath, loyaltyPoints, totalVisits, totalSpent, cardNumber, createdAt, updatedAt
+- **CustomerBonus** : id, customerId, points, reason, type (earned/spent), saleId, createdAt
+- **CustomerTransaction** : id, customerId, saleId, amount, pointsEarned, pointsSpent, description, createdAt
+
+#### 2. Service PDF Carte Fidélité (`lib/services/loyalty_card_service.dart`) ✅
+- `generateCardPdf()` : Carte format crédit (85.6×53.98mm) avec gradient vert, QR code, nom, points
+- `shareCardPdf()` : Partage via WhatsApp/share_plus
+- `printCard()` : Impression via printing package
+- `generateCardNumber()` : Format `FID-YYMMDDHHmmss`
+
+#### 3. Base de données — Migration v10 (`lib/database/database_helper.dart`) ✅
+- 3 nouvelles tables : `customers`, `customer_bonuses`, `customer_transactions`
+- 12+ méthodes CRUD ajoutées
+
+#### 4. Écrans (4 fichiers) (`lib/screens/loyalty/`) ✅
+- `loyalty_settings_screen.dart` : KPIs, gestion, actions rapides, aide
+- `add_customer_screen.dart` : Formulaire ajout/modif client
+- `customer_list_screen.dart` : Liste avec recherche et pull-to-refresh
+- `customer_detail_screen.dart` : Carte virtuelle, QR, bonus, transactions, partage PDF
+
+#### 5. Routes + Settings ✅
+- 5 routes ajoutées dans `app_router.dart`
+- Tile "Carte de Fidélité" dans `settings_screen.dart`
+
+### 13:00 — Vérification dart analyze : **0 erreurs** ✅
+
+### Fichiers créés/modifiés
+
+| Fichier | Action |
+|---------|--------|
+| `lib/models/customer.dart` | **NOUVEAU** |
+| `lib/services/loyalty_card_service.dart` | **NOUVEAU** |
+| `lib/screens/loyalty/loyalty_settings_screen.dart` | **NOUVEAU** |
+| `lib/screens/loyalty/add_customer_screen.dart` | **NOUVEAU** |
+| `lib/screens/loyalty/customer_list_screen.dart` | **NOUVEAU** |
+| `lib/screens/loyalty/customer_detail_screen.dart` | **NOUVEAU** |
+| `lib/database/database_helper.dart` | MODIFIÉ — Migration v10 |
+| `lib/router/app_router.dart` | MODIFIÉ — 5 routes |
+| `lib/screens/settings/settings_screen.dart` | MODIFIÉ — Tile ajouté |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 16/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
+
+### 12:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2343 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK ~115 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **10+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (15/07) : Système Carte de Fidélité complet (Customer model, loyalty_card_service, 4 écrans, migration DB v10)
+    - **6+ APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (16/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK ~115 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 10+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel/Import-Export Pack/Carte Fidélité |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 17/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
+
+### 12:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2385 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK ~115 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **10+ autres apps** : Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Derniers correctifs** (15/07) : Système Carte de Fidélité complet
+    - **6+ APKs** dans `apk/` : Kassa, Employés, Admin, Dashboard, Restaurant, Hotel
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (17/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK ~115 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| 10+ autres apps | ✅ Pushés | Restaurant, Hotel, Employés, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock |
+| Phases 1-14 | ✅ Complétées | Fondations → Devise/Langue/Excel/Import-Export Pack/Carte Fidélité |
+| Phase 15 | ⏳ En attente | Wiring CurrencyService/LanguageService, Render deploy, tests, Play Store |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | Wiring CurrencyService.formatPrice() partout | À faire |
+| P1 | Wiring LanguageService.translate() UI | À faire |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela - Bibliothèque Médias</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .media-card-hover {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        
+        .media-card-hover:hover {
+            transform: translateY(-8px);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #fed488;
+            border-radius: 10px;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdea5",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c6c6cd",
+                        "primary-fixed-dim": "#bec6dd",
+                        "on-surface": "#1b1c1c",
+                        "surface-tint": "#565e72",
+                        "on-tertiary-container": "#8a8985",
+                        "on-primary-fixed-variant": "#3f4759",
+                        "inverse-primary": "#bec6dd",
+                        "primary": "#040c1c",
+                        "tertiary-container": "#22221f",
+                        "on-secondary-fixed": "#261900",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "primary-fixed": "#dae2fa",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-variant": "#e4e2e2",
+                        "on-surface-variant": "#45474c",
+                        "primary-container": "#1a2233",
+                        "surface-dim": "#dbd9d9",
+                        "on-primary-container": "#81899e",
+                        "on-primary-fixed": "#131b2c",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e4e2dd",
+                        "on-background": "#1b1c1c",
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary": "#775a19",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#0b0c09",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "on-secondary-container": "#785a1a",
+                        "secondary-container": "#fed488",
+                        "surface-container": "#efeded",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "background": "#fbf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "headline-sm": ["Libre Caslon Text"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "caption": ["Plus Jakarta Sans"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Sambela</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a serene woman in a minimalist architectural space, soft natural light illuminating her face from the side. The aesthetic is clean and modern, following a light-mode color palette of creams and soft golds, reflecting a sense of peace and spiritual focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-tg4rf4YSXsq8mdZPGKVFiE41IpjWeSicxNoq5ZaNgDh2JIoIPJRNsEZnUfdA0SKrjcUfHDj7AQLshUearcRijZaygGWZLiKTyehVEe0Z2B9LzxnM7WuAGsuK0B4cuys2rTYc1cQY9xk5py0c-g5kRaaPWTqY6KT23yqIjQqtt_M3BoyMf3vLmUeUCvWQsl0UBBmJ63WjRte4e26XWpzGJcOC_pXcoAPFhWOgDRdPiliyon9sWZa3pg"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-container-max mx-auto">
+<!-- Search Bar Section -->
+<div class="mb-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-secondary transition-colors" data-icon="search">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-low border-b-2 border-outline-variant focus:border-secondary focus:ring-0 text-body-lg font-body-lg rounded-t-lg transition-all outline-none" placeholder="Rechercher des sermons, louanges..." type="text"/>
+</div>
+</div>
+<!-- Media Categories Chips -->
+<section class="mb-lg overflow-x-auto no-scrollbar flex gap-sm py-2">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md whitespace-nowrap shadow-md active:scale-95 transition-transform">
+                Tous les Médias
+            </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container font-label-md text-label-md whitespace-nowrap active:scale-95 transition-all">
+                Vidéos
+            </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container font-label-md text-label-md whitespace-nowrap active:scale-95 transition-all">
+                Audios
+            </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container font-label-md text-label-md whitespace-nowrap active:scale-95 transition-all">
+                Podcasts
+            </button>
+</section>
+<!-- Featured Media (Bento Grid Style) -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-xl">
+<!-- Video Feature (Large) -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container-low shadow-sm media-card-hover">
+<div class="aspect-video w-full relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A wide cinematic shot of a modern church altar during a Sunday service, featuring high-quality editorial lighting with soft golden highlights. The scene is serene and sacred, showing a large screen and minimal floral arrangements in a contemporary architectural setting with a premium midnight navy and cream color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXKzGeI1yyo4AWkyOPUJKAFa7E8Z3N_N4BIbMlbWaUQCCOb7DWX3ovcg-1tx09oTCOMknkOKAzO78n67pKamA0gCvte8ASkt3slPBNyGMerfn0VfKjiYUQ7FfvYLdUQLVyqdk1mg1Kd9IzEcJ4DYhnq6LE5gFmdb-zRVu7EYIHNIyYjfdf0z1GU4NdEnMW3pRd7e6nq9bgb2VyfJUSrvV1OalTJkPzpZwaWlgKpEVJ0sWM3UCVRVsNaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<button class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-secondary text-on-secondary rounded-full flex items-center justify-center glass-effect shadow-xl active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-4xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary text-caption font-label-md px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="videocam">videocam</span> VIDÉO
+                    </span>
+</div>
+<div class="p-md">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-2">Sermons de Dimanche</h3>
+<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2">Retrouvez les messages inspirants de nos cultes dominicaux pour nourrir votre foi durant toute la semaine.</p>
+</div>
+</div>
+<!-- Audio Feature (Small) -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl bg-surface-container-low shadow-sm media-card-hover">
+<div class="h-full flex flex-col">
+<div class="aspect-square w-full relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="An artistic, minimalist close-up of a high-end acoustic guitar leaning against a textured cream wall. Soft shadows and warm, low-opacity golden light create a peaceful, tactile atmosphere. The image feels elegant and acoustic, representing worship and praise in a contemporary, spiritual way." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAALQev7E1zVgFCv41CYHkhIJL8_sqn5telOAPVjU7ezVwm2eHZRpUCRMzlJH4U3Jt_iR4Y2u0Vh5qMh6TMInvMPu1_rMJFIBawsuY5BpDXARZSQqwIAKamCkPjzxypWUYmoKQjE9GwBvUH1jbNZn_yEYMiFYNrlub-vQ1Xnz6sg7qHaHqRi_KkVC16M5ix8ok0uCBjEMk6v5lp8paETKfCc-uzIBz8CAGaK9OkBccBXWP1nc-BMsHwOw"/>
+<div class="absolute inset-0 bg-secondary/20 group-hover:bg-transparent transition-colors"></div>
+<button class="absolute bottom-4 right-4 w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="music_note" style="font-variation-settings: 'FILL' 1;">music_note</span>
+</button>
+</div>
+<div class="p-md flex-grow flex flex-col justify-between">
+<div>
+<span class="text-secondary font-label-md text-caption uppercase tracking-wider">Audio Album</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mt-1">Louange &amp; Adoration</h3>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md mt-2">Une sélection de chants pour vos moments de prière personnels.</p>
+</div>
+</div>
+</div>
+<!-- Podcast Feature (Full Width) -->
+<div class="md:col-span-12 group flex flex-col md:flex-row bg-surface-container-low rounded-xl overflow-hidden shadow-sm media-card-hover border border-surface-container-high">
+<div class="md:w-1/3 aspect-video md:aspect-square relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A professional podcast recording setup in a modern, brightly lit studio. Two high-quality microphones are positioned in front of comfortable, neutral-toned chairs. The background features a blurred bookshelf and soft accent lighting in deep navy and gold, creating an atmosphere of intellectual and spiritual inquiry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6NsnbxUf8IZvd-lMnl6g2sjFJWd36ESW848bnIp78qf-Pd-L9C3GNX21s4mnAZ5_v5QM7QBm25rcRe8kW6S_0h9GFUI8frH9RYD2llYrM_HnTLTMDldy98YRXUSLF_vB_kYEpeceTcyp5TZZrM6UVSg94dMV4eZLeoZho8xMxdB0KwB0XL1rhqqijeNBRiGZdApOsvEr45WQ8fXOgJXBrtMnU4CBrRl7IYg9mbh3LpGWuMTlnj_AOwg"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40">
+<span class="material-symbols-outlined text-white" data-icon="mic">mic</span>
+</div>
+</div>
+</div>
+<div class="p-md md:p-lg flex flex-col justify-center md:w-2/3">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="text-on-surface-variant font-label-md text-caption">DERNIER ÉPISODE</span>
+</div>
+<h3 class="font-display-lg-mobile text-display-lg-mobile text-primary mb-4 md:font-display-lg md:text-display-lg">Enseignements Bibliques</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6 max-w-2xl">Plongez dans les profondeurs de la Parole avec nos podcasts hebdomadaires. Des réflexions théologiques accessibles pour la vie quotidienne.</p>
+<div class="flex flex-wrap gap-4">
+<button class="px-6 py-3 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md flex items-center gap-2 active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined" data-icon="play_circle">play_circle</span> ÉCOUTER MAINTENANT
+                        </button>
+<button class="px-6 py-3 border border-secondary text-secondary rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-secondary-container/20 transition-colors">
+<span class="material-symbols-outlined" data-icon="playlist_add">playlist_add</span> VOIR LA SÉRIE
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Media List Section -->
+<section class="mb-xl">
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Récemment Ajoutés</h2>
+<p class="text-on-surface-variant">Ne manquez pas nos dernières publications</p>
+</div>
+<button class="text-secondary font-label-md hover:underline">Tout voir</button>
+</div>
+<div class="space-y-sm">
+<!-- List Item 1 -->
+<div class="flex items-center gap-md p-sm rounded-xl hover:bg-surface-container transition-colors group cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A small, stylized thumbnail featuring a golden sunset over a peaceful mountain range, representing a 'Hope' theme. The colors are muted and sophisticated, fitting a high-end digital sanctuary app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAel5nLuWvVU-Ep6mxG0T9itLbWXNg-z9se4arrRNu9b5U8rCGV1xwoUYWIg3550QLjFoFoK3WIDKcd71R9p-yim6hp_MNzyb8UutHHUJKGjDJBBFZVln_pAFNYqcD-EEaEktEAJA7mS3dT-yxnQ8enkSLC8jELgh4qeIqwfn8vqFyoix4q7PObaiaXztt5uVEM94_MZHG-FHUGTz9F5aUfqcD6bvscGgR2yEqmUKFgUPVgwXCO_QaytQ"/>
+<span class="material-symbols-outlined absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity bg-black/20" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-body-lg font-bold text-primary">Trouver la paix dans la tempête</h4>
+<p class="text-caption text-on-surface-variant">Sermons • Il y a 2 jours • 42:15</p>
+</div>
+<button class="text-on-surface-variant hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center gap-md p-sm rounded-xl hover:bg-surface-container transition-colors group cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A small, stylized thumbnail showing close-up textures of old paper and ink, suggesting ancient biblical wisdom. Minimalist and refined, with warm tonal layering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRGZhbpAn75T0uvKA8cDeiL9E6p60EP9tSw8zggPAXV_emhlJRlUc_CLvOA9sPAxw0bZNlvtzu2o6ES7lfR1Zpc95UXFI_4hfDdHiUbSX3CPAqgM7IZaRhIkOQzs322XqDKPBD0wqtzvOvPLHSusG3Yo7vmZ3miDSSVWB8R5Xeao7oia_3Mwq1NSXK1Who-G0zIXKUosUZnnezcq-8k2Syn3Aom-nsU9I-xZKdWf6Vc9Ds9_maSRuoVg"/>
+<span class="material-symbols-outlined absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity bg-black/20" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-body-lg font-bold text-primary">Comprendre les Psaumes</h4>
+<p class="text-caption text-on-surface-variant">Podcasts • Il y a 5 jours • 28:00</p>
+</div>
+<button class="text-on-surface-variant hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- List Item 3 -->
+<div class="flex items-center gap-md p-sm rounded-xl hover:bg-surface-container transition-colors group cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A minimal abstract pattern of circular waves, symbolizing sound and worship. Elegant cream and midnight navy palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB86sWu6oApmlBFcRLHzvpIULMaBpFazs7Ss5Cq4H2TkLUtHCP_kvD064N1dOTpL7lvrJunY0jBJa_VRMozkl-sv4zZbScAo35e3fMYUC7y_A3WCiRUj7KoI7OW9njOojeniXGK20F6G_FxoovFO-T_bMTNYLW9j1Z-s6UnLiK4kc-gy5JfdcXQPWvisQ6xR0o1fRtvy8JC-P5gF0ogCMyaOC91KB57_O3wGzWG1OAj0DgVZ2aeGy8Hag"/>
+<span class="material-symbols-outlined absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity bg-black/20" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-body-lg font-bold text-primary">Cœur d'Adorateur (Vol 2)</h4>
+<p class="text-caption text-on-surface-variant">Audios • Il y a 1 semaine • 12 titres</p>
+</div>
+<button class="text-on-surface-variant hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions" style="font-variation-settings: 'FILL' 1;">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<!-- Floating Mini Player (Micro-interaction example) -->
+<div class="fixed bottom-24 right-margin-mobile left-margin-mobile md:left-auto md:w-96 bg-primary text-on-primary p-4 rounded-xl shadow-xl flex items-center gap-4 glass-effect transform translate-y-32 transition-transform duration-500 z-40 border border-white/10" id="miniPlayer">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A blurry artistic album cover showing a golden cross against a dark navy textured background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASEN2MylkHB14OOmGPgbo7maNKNLiYNuBzBfRDWVx2Z2y8lro2eiNgD7vtnF49GQhr4jRD5gj9UkwBCL9K6-eUXH4opUQebPYUTtWuU8NUh-YncNPZA6ixYtxI7Hm3zcMrJrYN0YA1woNeWWPnUIs19QvQBfebuQSWFPUrqhuAP0Ik5gyhphBlqFMKeLvBrHJY5XVI1yL0P4utIKXG2UFozupERCu5IIxhEzWIRarxEJhkzeUCSZdJ9A"/>
+</div>
+<div class="flex-grow overflow-hidden">
+<p class="text-caption font-bold truncate">En cours : Comprendre les Psaumes</p>
+<div class="w-full h-1 bg-white/20 mt-2 rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-secondary"></div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="pause" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="opacity-50 hover:opacity-100" onclick="closeMiniPlayer()">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+</div>
+<script>
+        // Simple logic to show player when clicking a media item
+        const cards = document.querySelectorAll('.media-card-hover, .p-sm');
+        const player = document.getElementById('miniPlayer');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                player.style.transform = 'translateY(0)';
+            });
+        });
+
+        function closeMiniPlayer() {
+            player.style.transform = 'translateY(160px)';
+        }
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('shadow-md');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('shadow-md');
+        });
+    </script>
+</body></html>

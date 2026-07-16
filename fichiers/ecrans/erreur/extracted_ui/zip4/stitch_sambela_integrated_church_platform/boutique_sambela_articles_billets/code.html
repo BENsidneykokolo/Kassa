@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela Shop - Sacred Modernity</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-player {
+            background: rgba(4, 12, 28, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .scrolling-touch {
+            -webkit-overflow-scrolling: touch;
+        }
+        /* Custom scrollbar hide */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#76777d",
+                        "on-secondary-container": "#785a1a",
+                        "on-tertiary-container": "#8a8985",
+                        "primary-fixed-dim": "#bec6dd",
+                        "on-primary-container": "#81899e",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#e9c176",
+                        "tertiary-container": "#22221f",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "secondary": "#775a19",
+                        "surface-variant": "#e4e2e2",
+                        "outline-variant": "#c6c6cd",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface-variant": "#45474c",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#bec6dd",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#eae8e7",
+                        "surface-tint": "#565e72",
+                        "tertiary": "#0b0c09",
+                        "secondary-fixed": "#ffdea5",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "primary": "#040c1c",
+                        "on-primary-fixed": "#131b2c",
+                        "primary-container": "#1a2233",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#efeded",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "on-background": "#1b1c1c",
+                        "tertiary-fixed": "#e4e2dd",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "secondary-container": "#fed488",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-highest": "#e4e2e2",
+                        "primary-fixed": "#dae2fa",
+                        "on-surface": "#1b1c1c",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "background": "#fbf9f8",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "on-primary-fixed-variant": "#3f4759",
+                        "surface-bright": "#fbf9f8",
+                        "on-secondary-fixed": "#261900"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "md": "24px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "80px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "caption": ["Plus Jakarta Sans"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Libre Caslon Text"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "display-lg": ["Libre Caslon Text"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-40">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<button class="p-2 text-primary hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Sambela</h1>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A serene portrait of a church member for a profile avatar. Soft, natural lighting on a warm, minimalist background that complements the Sacred Modernity aesthetic. High-quality editorial photography style with soft focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWZ1__FdDyq770Z9_SBXmXOymNBpCaqOQ7ujiuKYnVkxFXqE-nsjIa0dM0J-SDg9wNmVEuVNhetlA3d0TLcZIrKc7XmOSuWmbJRsrnKp03oGkriFQYWRrYrEHCgn6bdbVHJ6FCwgiazOWv__w9qX-eBFglnADxaWvftw8gqc4jE4AUro7_6Xk52eWMKpDUHq5ijGk4xT7ddm40Kyu6d6_tbrTcibshgFWg3oz6lDP4ZtPbP3kmNl0TzQ"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-20 px-margin-mobile">
+<!-- Search and Filters -->
+<section class="mt-4 space-y-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-low border-none rounded-xl font-body-md text-body-md focus:ring-2 focus:ring-secondary/20 transition-all outline-none" placeholder="Search products or events..." type="text"/>
+</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="px-6 py-2 bg-secondary-container text-on-secondary-container rounded-full font-label-md text-label-md transition-all active:scale-95">All</button>
+<button class="px-6 py-2 bg-surface-container-highest text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-secondary-container/50 transition-all active:scale-95">Apparel</button>
+<button class="px-6 py-2 bg-surface-container-highest text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-secondary-container/50 transition-all active:scale-95">Tickets</button>
+<button class="px-6 py-2 bg-surface-container-highest text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-secondary-container/50 transition-all active:scale-95">Accessories</button>
+</div>
+</section>
+<!-- Featured Items -->
+<section class="mt-10">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">Featured Items</h2>
+<div class="relative overflow-hidden rounded-2xl bg-primary aspect-[4/5] flex flex-col justify-end p-8 text-on-primary">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="A premium heavy-weight cotton t-shirt featuring a subtle, gold-embroidered Sambela minimalist logo on the chest. The t-shirt is displayed in an artistic, editorial way with soft shadows and organic textures. Warm studio lighting highlighting the fabric quality against a deep navy backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvILJAyJ0gHmzi0vy24JSr2BmL33BrsTlAWeLnBG-CRQ-DUXEi10Xd73qM_EqQ0WlmER_VJvqbAKFYXO5u7XKkdINhkkj7ONW1ZgOrBD2z3lT1iZ6-hyyKmejmpICJl3m-tmDlwR90sA_tvqC4ced3xPyilJnPNRBFsq1soCOc3cCtBT41sjYb8XdIMuH8L_UZHYf1eQG1FGzmKUquqS5CxvoqdR4J5mxROSk-qrL_prxqjmNsinRgwQ"/>
+</div>
+<div class="relative z-10 space-y-2">
+<span class="inline-block px-3 py-1 bg-secondary text-on-secondary rounded-full font-label-md text-label-md scale-90 -ml-1">NEW ARRIVAL</span>
+<h3 class="font-headline-md text-headline-md leading-tight">Sacred Thread T-Shirt</h3>
+<p class="font-body-md text-body-md opacity-90 mb-4">$45.00</p>
+<button class="w-full py-4 bg-white text-primary rounded-xl font-label-md text-label-md font-bold hover:bg-secondary-fixed transition-colors active:scale-[0.98]">
+                        Shop Now
+                    </button>
+</div>
+</div>
+</section>
+<!-- Event Tickets -->
+<section class="mt-12">
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline-sm text-headline-sm text-primary">Event Tickets</h2>
+<button class="text-secondary font-label-md text-label-md underline underline-offset-4">View Calendar</button>
+</div>
+<div class="space-y-4">
+<!-- Ticket Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_20px_rgba(4,12,28,0.05)] flex items-center gap-5 border border-surface-container">
+<div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up of atmospheric concert lighting at a spiritual event. Soft blues and golden glimmers reflecting off musical instruments. Artistic and peaceful mood. High quality editorial shot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvmCZTUxxVuyL4p5sQMAtrK9PRQmTX4Om2yMXFNwrPvBb2mh4YM_SFxV9QZqqkNZQetc8YeZhWHGF4SYvRGcL2iM0Q73U2fBZzZBogI3CvCHMOf_LHoyqcTDb_K6HIXnhtX8pkjHzCTK5CHAUyvW60zpwNTRItnGqmgrjUnQsxCBFRBGhZ4gGe2ZX7jUuniFZhyA1LZDfDxyEMHAj0rscSffE8nqRf6vtD1wqZRacXWwePNgu29d0EA"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline-sm text-[18px] text-primary mb-1">Night of Worship</h4>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> Oct 24 • 7:00 PM
+                        </p>
+</div>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md active:scale-95 transition-transform">Buy</button>
+</div>
+<!-- Ticket Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_20px_rgba(4,12,28,0.05)] flex items-center gap-5 border border-surface-container">
+<div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A group of people sitting in a circle in a sun-drenched, minimalist hall. Warm afternoon light creates long shadows and a sense of belonging and peace. High-end lifestyle photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-8JuRSQ6QwIhaKlhE4FV0pJO2pFyuA3pIk26wqqzbuSJ3tp8kvU27IJ5jQGhGBg7T7kK9uVq31y0k_GtYYWkcHvnYa7DwyVhLf1Xmur2_m93wXhzwAA23cFqrqF4gQG4d6F08XE3NwoOzQjB3-6lzWz0_Zj_79Fa2s57uwiOzyPQeS7cUWu29hjryDmKDSwmMPUDinj2032UDqSx8Lc7UuWQwej_vzfaLuqIjz6hqbI4XzOM5WYx_wQ"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline-sm text-[18px] text-primary mb-1">Community Brunch</h4>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> Oct 28 • 10:30 AM
+                        </p>
+</div>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md active:scale-95 transition-transform">Buy</button>
+</div>
+</div>
+</section>
+<!-- Apparel & More Grid -->
+<section class="mt-12">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">Apparel &amp; More</h2>
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<!-- Product 1 -->
+<div class="space-y-3 group">
+<div class="aspect-square bg-surface-container-low rounded-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist black hoodie with a discrete gold embroidered emblem. The fabric looks soft and high-quality, displayed against a cream architectural background with soft natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1mgl_0UiHzJzyYCv3Pr_d3eIvHwiH7Va1fDKdyWM0-x0e9pEORG5u6ooSPWKtibYKFrUFEVhE7FhEkFVDhSCJHKAvGYJGHoWA-YQ-njq7Y01vpy_j5VNKBC0doi_U0YbQWqyR6bfyVdPYSy7Bwb5RMUX-m-aQ3bVq8xODX1S6jdltckNeO_4ID-gf2iqE4uOAEeMMlJ8_iwwGufIJe6EJ_rdZqCzmTef2l8hMKJkThgoFbJmx4foRbw"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur shadow-md rounded-full flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Signature Hoodie</h4>
+<p class="font-label-md text-label-md text-secondary">$68.00</p>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="space-y-3 group">
+<div class="aspect-square bg-surface-container-low rounded-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An organic canvas tote bag featuring an elegant, thin-line illustration of a sunrise and the word 'Sambela'. Minimalist aesthetic, high-quality material texture, soft lighting on a neutral backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZR-peK4w8zP657Kolf4ZgHsj7v8BxqtWDd2xj5EpGJXufJidr7lD5UkTXQoCDiRT9U7tvN6Jtjr0rqBuC-eqcYMWgw1MFvvk15_hJWePz_LcHCGvCQWUNvmWzdo82Zy8DZ93EiCU0mvQ467Vr666CV0ScW-H-OWtHfGEp_nxbX5E_sTPPSCuQkA16UYSRho8iCU7T4QgwtX_iAKFlW0nw5olm3cZcOq9rRkOIaIs7XFjm9E_ShihZ4w"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur shadow-md rounded-full flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Sanctuary Tote</h4>
+<p class="font-label-md text-label-md text-secondary">$24.00</p>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="space-y-3 group">
+<div class="aspect-square bg-surface-container-low rounded-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A ceramic mug in a matte cream finish with a small navy Sambela logo. Shown in a cozy setting with a wooden table and a sprig of dried flowers. Warm, peaceful lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvzwEKI-_kvau9sTenoe0PrsJNd2CG8KfxGG5_sw1tLzixrPpWWgSu0dykiZ5Y6jjGXfpMAiq8BDUxVTCl2yaaOSAkEs1dMGlIA3TgmUR_Uy9eoSs2ZfjVCsJZbjVGpONj1rzmGobW9NAWcN1rtz5aXJXmu2mbAInTBxdewf0w_nQUlI7boZtivMZN75wEAJWlh7agtEX3nAIYQHE0GESzBQLi-n6XsZssXOQpSVg22TC8gIpGlu2KsA"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur shadow-md rounded-full flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Ceramic Vessel</h4>
+<p class="font-label-md text-label-md text-secondary">$18.00</p>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="space-y-3 group">
+<div class="aspect-square bg-surface-container-low rounded-2xl overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality linen-bound journal with gold foil lettering. Set on a marble surface with a elegant pen. High-key lighting, minimalist luxury style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMmzSVruMqnRLGGd34xICHSlc0IHPOyM7CFVRDRGuAoPksvJ65Qb5sIVYBXkicL8v5BBNqj0Q-r83LjNEOldURZEnv64nm0SmnzyyoZas9W8hg17ORjJLRQlYku3LwH_P661dlPcz-gNyIVo8G0Cri96LLnBlNn0qvRX6MeJlmF_NFyU5Y1KDf-cNY3LrR1N_RoOypqQCb-gyUh8bRh3CerCCHYnxwuG2OKIrHqAuKXYmUeMDYPaSk8g"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur shadow-md rounded-full flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Prayer Journal</h4>
+<p class="font-label-md text-label-md text-secondary">$32.00</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Persistent Mini Audio Player -->
+<div class="fixed bottom-20 left-4 right-4 z-40 h-16 glass-player rounded-2xl flex items-center px-4 gap-4 shadow-lg transition-transform" id="audioPlayer">
+<div class="w-10 h-10 rounded-lg bg-secondary flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Album art showing a soft, ethereal sunset over a calm ocean. Deep indigos and golds blending together. Peaceful and meditative mood for spiritual music." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkDLepLtTVrGVI-7vQAf0T3qUfKiA8yKYLtFw5WkPyBrGAzvIBI7xqD1m9E6IX_YhqR0J-tkGkBvab9E-GMIpvWOcmkrDPjkgsymduZAtWC20UIV4oWPrKaWCnTd6n14RMKZv3q11PIsLzDm9df6hkt_Z2TXRV3Ey5VH1VcmSbziTHhP9FBx6vJhsWFj8w__RxF7a8HYoHEiYP8rTRAC2pbQDAk-zxdAcsKQU6viZ7JVpm_UvL-TNV_w"/>
+</div>
+<div class="flex-grow overflow-hidden">
+<h5 class="text-on-secondary font-label-md text-[14px] truncate">Veille avec moi - Marie-Lise</h5>
+<div class="w-full h-1 bg-white/20 rounded-full mt-1.5 overflow-hidden">
+<div class="h-full bg-secondary w-1/3"></div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-white active:scale-90">
+<span class="material-symbols-outlined" data-icon="skip_previous">skip_previous</span>
+</button>
+<button class="w-10 h-10 bg-secondary text-on-secondary rounded-full flex items-center justify-center active:scale-90 shadow-sm">
+<span class="material-symbols-outlined" data-icon="pause" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="text-white active:scale-90">
+<span class="material-symbols-outlined" data-icon="skip_next">skip_next</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for scroll effects
+        let lastScrollTop = 0;
+        const player = document.getElementById('audioPlayer');
+        
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Scrolling down
+                player.style.transform = 'translateY(10px)';
+            } else {
+                // Scrolling up
+                player.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Simple cart counter simulation
+        const cartButtons = document.querySelectorAll('[data-icon="add_shopping_cart"]');
+        cartButtons.forEach(btn => {
+            btn.parentElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Minimal visual feedback
+                const ripple = document.createElement('div');
+                ripple.className = 'absolute inset-0 bg-secondary/20 rounded-full animate-ping';
+                btn.parentElement.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body></html>

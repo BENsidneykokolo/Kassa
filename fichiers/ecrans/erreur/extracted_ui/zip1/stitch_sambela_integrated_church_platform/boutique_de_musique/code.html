@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela Music Shop</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#1b1c19",
+                    "on-secondary": "#ffffff",
+                    "background": "#fbf9f8",
+                    "inverse-primary": "#bec6dd",
+                    "on-primary-fixed": "#131b2c",
+                    "secondary": "#775a19",
+                    "secondary-fixed-dim": "#e9c176",
+                    "surface-bright": "#fbf9f8",
+                    "surface-container-highest": "#e4e2e2",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#22221f",
+                    "secondary-container": "#fed488",
+                    "primary-fixed": "#dae2fa",
+                    "primary": "#040c1c",
+                    "surface": "#fbf9f8",
+                    "primary-fixed-dim": "#bec6dd",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#0b0c09",
+                    "on-surface-variant": "#45474c",
+                    "on-background": "#1b1c1c",
+                    "surface-variant": "#e4e2e2",
+                    "surface-dim": "#dbd9d9",
+                    "secondary-fixed": "#ffdea5",
+                    "inverse-on-surface": "#f2f0f0",
+                    "primary-container": "#1a2233",
+                    "inverse-surface": "#303030",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "on-primary-fixed-variant": "#3f4759",
+                    "surface-container-high": "#eae8e7",
+                    "on-surface": "#1b1c1c",
+                    "on-secondary-container": "#785a1a",
+                    "surface-tint": "#565e72",
+                    "surface-container-low": "#f5f3f3",
+                    "outline": "#76777d",
+                    "on-secondary-fixed": "#261900",
+                    "on-primary-container": "#81899e",
+                    "on-tertiary-fixed-variant": "#474744",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#efeded",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#e4e2dd",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "on-tertiary-container": "#8a8985"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "48px",
+                    "md": "24px",
+                    "margin-mobile": "20px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "xl": "80px",
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "caption": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(251, 249, 248, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        /* Custom smooth scroll */
+        html { scroll-behavior: smooth; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Sambela</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed overflow-hidden ring-1 ring-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A refined portrait of a church member for a user profile, captured with soft natural window lighting. The style is professional and warm, following the sacred modern aesthetic with a clean, minimalist background and muted earth tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj3unGxbQ88Tr48616XtGKEugymiIme8_IvRkumW2C4ifmP8xrBljFASbLks26pp6lUaI9cRY89oRQ6QvqYV-ooO378rBD2XuEuhNMuipmo55fEl6xoaHppzcgAWoMfQEVBkq5BlCfU7Hoc-_3r35NgKlsBaQd7XEtCZusjNT7IqWT1fk33iQ8dX1CXyCHkzbK6oQPyoxihXSSm50dEf2vPtlnwheXUt6Pkm9A9J2ZMX8Mnj7Ji1yl0w"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-margin-mobile max-w-container-max mx-auto space-y-lg">
+<!-- Search Section -->
+<section class="relative">
+<div class="flex items-center bg-surface-container-low rounded-xl px-4 py-3 gap-3 focus-within:ring-2 ring-secondary-container transition-all">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-md text-body-md placeholder-outline-variant" placeholder="Search for psalms, hymns, or artists..." type="text"/>
+<button class="text-secondary font-label-md text-label-md">Filter</button>
+</div>
+</section>
+<!-- Categories (Horizontal Scroll) -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-sm text-headline-sm text-primary">Explore</h2>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+<button class="flex-none px-6 py-2 rounded-full bg-secondary text-white font-label-md text-label-md shadow-md">Louange</button>
+<button class="flex-none px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">Adoration</button>
+<button class="flex-none px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">Gospel</button>
+<button class="flex-none px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">Partitions</button>
+<button class="flex-none px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">Instrumentals</button>
+</div>
+</section>
+<!-- Featured Section (Asymmetric Bento Style) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Featured Releases</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Large Featured Item -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-primary aspect-[16/9] md:aspect-auto">
+<div class="absolute inset-0 opacity-60">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="An ethereal and artistic album cover representing spiritual awakening. A soft golden light breaks through deep navy clouds, creating a sense of hope and divine presence. The photography is cinematic and high-contrast, perfectly aligning with a sacred modern music aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjwZZRs3v_yZYe-68Tg2DJd09gNS4ZP25V6dpak95qnNmRXFicyt1YzfI4_cl6Q0rnPYpfJBOK1zbYORnCrGy557rh8jsb9PqTKzJuuiavhoL2RroMGH8Cs7Vib2Y-Q8DfuwDx3-h25EXvoolfKUpW1qGtZXfjfbaAJkzoDK1hbZzJt67sk-AL0WmgScdw2lwPboSI6MZRsnrx8AsWhlYE-oxEdeSZlSPWQwYvKAyGlM6u67xxbEbwVw"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md space-y-2">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary text-white text-caption font-label-md uppercase tracking-widest">Editor's Choice</span>
+<h3 class="font-display-lg text-white">Au Cœur de la Grâce</h3>
+<p class="text-primary-fixed opacity-90 font-body-md text-body-md">By Sambela Collective • Album</p>
+<div class="flex items-center gap-4 mt-4">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-6 py-2 rounded-lg font-label-md text-label-md active:scale-95 transition-transform shadow-lg">Buy Album • 12,99€</button>
+<button class="p-2 rounded-lg bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Secondary Featured Item -->
+<div class="md:col-span-4 space-y-gutter">
+<div class="bg-surface-container-high rounded-xl p-md flex flex-col justify-between h-full group">
+<div class="w-full aspect-square rounded-lg overflow-hidden mb-4 shadow-sm">
+<img class="w-full h-full object-cover group-hover:rotate-2 transition-transform duration-500" data-alt="A minimalist and modern single cover design featuring a single lit candle on a textured charcoal surface. The lighting is intimate and moody with warm orange glows. Elegant serif typography is subtly integrated into the composition. High-end editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7XATWUQm1HFJ2k5krnAxzTQZT2aRJq5HjEwsywHlGML2yX3gCBvvXRrdrld_Ak308ovzElpwBM79YpOP70J2UNomDzgQeVn0UJcAu_D4ar59OiVt36fsX9-wH00hl8ll9dCyzvTxglamCz79All5131bsjYruTITSMEDpj65GCgf4kXcw5PH-je2R2-adNx1I0tAAH3ifGheQ1GbW4x8YHQ1Yr0q-hxbD4IkwJeiDcIj_H_y9DsPgPw"/>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-1">Veille avec moi</h4>
+<p class="text-on-surface-variant font-caption text-caption mb-4">Single • Marie-Lise</p>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-secondary">0,99€</span>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-label-md text-label-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="shopping_bag">shopping_bag</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- New Releases List -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-sm text-headline-sm text-primary">New Releases</h2>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1">
+                    See All <span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-none shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A clean and artistic music cover art showing an abstract watercolor texture in deep indigo and shimmering gold. The style is serene and meditative, suitable for high-quality gospel or worship music. Soft-edged, organic shapes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADDk7D_ztLDloiZY88QQxFPAQ4CtsK5OSjUk1D4bYanAgF7GavRyoR4Uv3EefkbqbmTBz_r0ou_zXtoua3v5vPGebVbXA1HUpSDSopFu3H3mDH9yvY1zFNxrv1rSXWbCa4veMeFCvRf8kU62ikLdHABaD5p0KKyjMl6joTtg_pUESvp3rGL5OTr2Rp0CLV6dVds7Ox3vsqjZggmGoBQM0SRZz2XZDut7-zW9Xkd3rfE6yzAIKLOdMnnA"/>
+</div>
+<div class="flex-grow min-w-0">
+<h5 class="font-label-md text-label-md text-primary truncate">Le Chant des Psaumes</h5>
+<p class="text-on-surface-variant font-caption text-caption truncate">Pst. Emmanuel • EP</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-label-md text-label-md text-primary">5,50€</span>
+<button class="text-secondary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-none shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A contemporary liturgical music cover featuring a sunburst motif in textured copper foil on a cream background. The design is sophisticated, minimalist, and deeply reverent. High-quality paper texture effect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi6B1KivBKn7dKD2J7vS95vIxMnMBQa4m1c9576Juce9oFG0Y1KU5TbT6oIKm952-oIq8at-iB7cDh-y0oYmmKlhL89V8JTj8ip7njuytbPOHzHTyHn78zUwYfE2y1nZu7lLkaHgaScGXatCswe_noOs6pohlCd87iIzc7p9QyPBosNDtNy5TLTs0bmL7ZeUv_sBjbmL9FuwuAjfHslZYoBYu0VMAmWMsA-r0HrtsL_fsQyUbBNiLhdQ"/>
+</div>
+<div class="flex-grow min-w-0">
+<h5 class="font-label-md text-label-md text-primary truncate">Symphonie du Matin</h5>
+<p class="text-on-surface-variant font-caption text-caption truncate">Church Orchestra • Instrumental</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-label-md text-label-md text-primary">8,99€</span>
+<button class="text-secondary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-none shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Music album artwork with a macro photograph of a mountain range at dawn, bathed in purple and rose light. The composition is peaceful and expansive. Modern serif typography for the title is subtle and elegant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh1BA7k-3hxLVf7_yEXT1QgoFXfk_TH5V8DBLHAWGvnSlSd8g4fWWsR621IZUUPZr4H5CUunvc1f_qQZB8JgWNlLuwyeFoDKB7oZ4mYrCo1P78jUEHvR6xKjFIlY-tuY0P7qh8d0XklQjmAghaRFlY28FNXKjHtnP37EjCmu9ARGI2pcVE73kZHCeTSc8ZJXhLAQMUbnyhb_17xq-uYbcmChmobVZBL81WHJ0GWvJWYO7lknovwgVHIQ"/>
+</div>
+<div class="flex-grow min-w-0">
+<h5 class="font-label-md text-label-md text-primary truncate">Vers les Sommets</h5>
+<p class="text-on-surface-variant font-caption text-caption truncate">Choeur Sambela • Single</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-label-md text-label-md text-primary">0,99€</span>
+<button class="text-secondary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Downloads Section (Cards) -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-sm text-headline-sm text-primary">Top Downloads</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="space-y-3 group">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-lg bg-surface-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylized music album cover featuring a white dove silhouette over a dark navy blue background with golden geometric line art. The aesthetic is clean, modern, and sacred. High-contrast and professional graphic design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACsAGq-JdyU6hWzG8WoBipbOQV7uJBoGqNX0NT_HFszSoJzAg5fdSYukwfpiQWWTtOtRfpWUheMur9nighSqcjMvvkJ1k1lMyeaGgiKiaxtZjUS_aDegcAcX1I_cl7GfznfsjOzLvlzezgsgpOZCPs51zmKIApcob-ciTd9hKkhZ7KyUdBDqhhYi2YjXYdCtFUve5CuauqJmfnhpPSQK7HAL2bsgzllQLBkBymMnnJ-FyrnGcl5L7ZxA"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<div>
+<h6 class="font-label-md text-label-md text-primary truncate">Alleluia Eternel</h6>
+<p class="font-caption text-caption text-on-surface-variant mb-2">Louange Collective</p>
+<button class="w-full py-2 rounded-lg border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary hover:text-white transition-all active:scale-95">1,29€</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="space-y-3 group">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-lg bg-surface-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Music cover art showing an abstract oil painting with thick strokes of amber, cream, and deep earth tones. The mood is warm and soulful, perfect for gospel music. The lighting feels like a sunset in a cathedral." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE4RmP77FozbICCEo08OcpgPe-zyVZxoS49nukgC5brISPqrIAjHl_-M_87IexMSkBYvroJm-MPlk3vnNPjUex2_rwJeR8M5b9Os4wGxo_F0DsPykUAe0kPbwOW-8Qja8z5IEc3ORrxWEUlorh42v1EbNycLRNKPdtMYNfwLZpzhnNOHKv1Yn9EyzUFjDykglXQVASX72ZJZj9Y9wTuhQJbsjWCDONZjwNVnuUsvGYZrV1PF-BBHZ24A"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<div>
+<h6 class="font-label-md text-label-md text-primary truncate">Feu de l'Esprit</h6>
+<p class="font-caption text-caption text-on-surface-variant mb-2">Gospel Power</p>
+<button class="w-full py-2 rounded-lg border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary hover:text-white transition-all active:scale-95">1,49€</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="space-y-3 group">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-lg bg-surface-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Sheet music cover design with elegant handwritten musical notes on aged parchment paper. The border features delicate gold leaf floral patterns. The aesthetic is traditional yet clean and high-end. Editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARQBAyqTcArPhub1eI1reGUuw-N90qMCzo1pijYodNOyinmDZ3EfZsQD6aMPcHExL9UIFN8BtGxJHG4GUW3ED8ruIfaOdsUiq4QyoprpcchIuqXR_lSM2_p0MSqWUdXceCjq6AAfweLpNgDCiSpaj5cHfRgpf2nQ57AghCVAtk_F1UhIs8Zv-AM_320xGv76I51ne2lWo74fRuEISsucP8unMWnybVLnHmm_-i0ByNLXj5VnWrecDyeQ"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="description">description</span>
+</div>
+</div>
+<div>
+<h6 class="font-label-md text-label-md text-primary truncate">Partitions: Vol. 1</h6>
+<p class="font-caption text-caption text-on-surface-variant mb-2">Sheet Music • PDF</p>
+<button class="w-full py-2 rounded-lg border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary hover:text-white transition-all active:scale-95">4,99€</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="space-y-3 group">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-lg bg-surface-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern worship album cover featuring a minimal photograph of a winding river in a lush green valley during the golden hour. The perspective is from above, emphasizing peace and a journey. Colors are natural and vibrant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-GyrUfmistizji4f9TCCnZWLouqZpw0s3GpV-aS7bdl5pTB-XoxWvlypPlYCls3mqZqUDqj2IWj7PSEog2SRVhesOb8aa-olmtcAeL2xtLDSDhrC3Ki_Y9yWsgRZ21NFcYRyuxVDj7Q-LqNSnoc_GwLvdnGsjp0Bl9N-LwLh85yiAl-ZRDnHvK4SueI7eVz8tG51F7vRgDfD_ImeF71OHuVdVfew67QHUvAf0Q7ybUwUmkHQbzTpf9w"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<div>
+<h6 class="font-label-md text-label-md text-primary truncate">Source de Vie</h6>
+<p class="font-caption text-caption text-on-surface-variant mb-2">Adoration Band</p>
+<button class="w-full py-2 rounded-lg border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary hover:text-white transition-all active:scale-95">0,99€</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Promotions -->
+<section class="bg-primary-container rounded-3xl p-lg relative overflow-hidden">
+<div class="relative z-10 text-center space-y-4 max-w-lg mx-auto">
+<span class="text-secondary-fixed font-label-md text-label-md tracking-widest uppercase">Member Exclusive</span>
+<h2 class="font-display-lg-mobile text-display-lg-mobile text-white">Join the Sambela Music Circle</h2>
+<p class="text-primary-fixed-dim font-body-md text-body-md">Get unlimited access to all sheet music and exclusive early releases of our monthly worship albums.</p>
+<div class="pt-4">
+<button class="bg-secondary text-white px-8 py-3 rounded-xl font-label-md text-label-md shadow-xl hover:scale-105 active:scale-95 transition-all">Subscribe Now • 9,99€/mo</button>
+</div>
+</div>
+<!-- Decorative abstract background element -->
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-secondary/10 rounded-full blur-3xl"></div>
+<div class="absolute -left-10 -top-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-md text-label-md mt-1">Media</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md mt-1">Events</span>
+</div>
+<!-- ACTIVE: Shop -->
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="shopping_bag" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-label-md text-label-md mt-1">Shop</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md mt-1">Give</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for buy buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>

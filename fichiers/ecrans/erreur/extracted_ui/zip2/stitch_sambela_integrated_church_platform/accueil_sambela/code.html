@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffdea5",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "primary-fixed-dim": "#bec6dd",
+                    "on-surface": "#1b1c1c",
+                    "surface-tint": "#565e72",
+                    "on-tertiary-container": "#8a8985",
+                    "on-primary-fixed-variant": "#3f4759",
+                    "inverse-primary": "#bec6dd",
+                    "primary": "#040c1c",
+                    "tertiary-container": "#22221f",
+                    "on-secondary-fixed": "#261900",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "primary-fixed": "#dae2fa",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-variant": "#e4e2e2",
+                    "on-surface-variant": "#45474c",
+                    "primary-container": "#1a2233",
+                    "surface-dim": "#dbd9d9",
+                    "on-primary-container": "#81899e",
+                    "on-primary-fixed": "#131b2c",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#e4e2dd",
+                    "on-background": "#1b1c1c",
+                    "surface-container-highest": "#e4e2e2",
+                    "secondary": "#775a19",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#0b0c09",
+                    "on-tertiary-fixed-variant": "#474744",
+                    "secondary-fixed-dim": "#e9c176",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "on-secondary-container": "#785a1a",
+                    "secondary-container": "#fed488",
+                    "surface-container": "#efeded",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface": "#fbf9f8",
+                    "on-secondary": "#ffffff",
+                    "outline": "#76777d",
+                    "inverse-on-surface": "#f2f0f0",
+                    "surface-container-high": "#eae8e7",
+                    "surface-bright": "#fbf9f8",
+                    "on-tertiary-fixed": "#1b1c19",
+                    "background": "#fbf9f8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "base": "8px",
+                    "xl": "80px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "margin-mobile": "20px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "headline-sm": ["Libre Caslon Text"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "caption": ["Plus Jakarta Sans"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(4,12,28,0.2) 0%, rgba(4,12,28,0.8) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Sambela</h1>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden active:scale-95 transition-transform">
+<img class="w-full h-full object-cover" data-alt="A warm, professional portrait of a smiling church member in soft natural lighting. The image has a gentle, spiritual aesthetic with warm highlights and a soft-focus background of a peaceful community space, aligning with the Sambela brand's serene and welcoming identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM6QgkiZG9AGC4fsQQneRIqZ91EVinCC27pQiZpem6bJ5PCOZvzEI7gfHR9az9QJTRYDSma7mFh_4qMoDj0-UCVTF60abrgX4T0sH0vb2c1di3OySmkJSBTbg1xKAjVrHBJDnzRf1kpwxYI1Eo-2_CZGmqv_FMngnxPfQc6py9P0LGr7fuWeKYVJNNFKtAR-jiqJSqAMbDPidmNYUaIESO3-td6X_EcmXJSS81hYzuBQXCKaWYtjIlog"/>
+</div>
+</header>
+<main class="pt-16 max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+<!-- Hero: Verset du Jour -->
+<section class="mt-md relative h-[420px] rounded-xl overflow-hidden shadow-xl">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A breathtaking landscape of a serene sunrise over a misty mountain valley. The lighting is golden and ethereal, creating a sense of divine peace and new beginnings. The visual style is editorial and cinematic, featuring a warm palette of soft golds, deep navies, and creamy whites to match the Sambela church app aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvEjiRaSwBM9GfC1FIO2QtyfSRUFNjHgT5UWg1_duJNAauF9PDqdCXisLR8wzhoBtuYr2gFuzK3gtdd9UQ1haqL_Q9J9CX1bou6njn_boXkaily9KZrji45Fk7Z2bUL2gElUFbFfBnzmM1p5Y6FjnjvyY7nyWjZQnh8MhyUaFGZB5VPV6yNkIAFJvkkibqs59Dx_5E-JYp19nrALJMra6ejh2mEPo5msAh9HNorHQfNjG1K4iIvMtDfQ')"></div>
+<div class="absolute inset-0 hero-gradient flex flex-col justify-end p-md text-white">
+<span class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed mb-xs">Verset du Jour</span>
+<p class="font-headline-sm text-headline-sm mb-sm leading-relaxed">"L'Éternel est mon berger: je ne manquerai de rien. Il me fait reposer dans de verts pâturages."</p>
+<p class="font-body-md text-body-md italic opacity-90">— Psaume 23:1-2</p>
+</div>
+</section>
+<!-- Paroles de Vie: Short Inspirational Text -->
+<section class="mt-lg py-md px-md bg-surface-container-low rounded-xl border-l-4 border-secondary">
+<h2 class="font-label-md text-label-md text-secondary mb-xs">Paroles de Vie</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant italic">
+                "La foi n'est pas l'absence de doute, mais la présence d'une confiance inébranlable en Celui qui a tout accompli."
+            </p>
+</section>
+<!-- Derniers Messages: Horizontal Scroll -->
+<section class="mt-lg">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Derniers Messages</h2>
+<button class="font-label-md text-label-md text-secondary hover:underline">Voir tout</button>
+</div>
+<div class="flex gap-md overflow-x-auto hide-scrollbar snap-x pb-sm">
+<!-- Video Card 1 -->
+<div class="flex-shrink-0 w-72 snap-start">
+<div class="relative aspect-video rounded-lg overflow-hidden mb-xs group shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A high-quality cinematic thumbnail of a pastor preaching with passion. The scene is lit with warm, dramatic stage lighting against a dark, minimalist background. The aesthetic is modern and spiritual, using deep midnight navy tones and soft golden highlights to convey reverence and contemporary church leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyaEKcHhV_qWJgLusY4jItW6fVKOZEGD-t0WKHQ64xloAKlwTWA4wIVt2bJj4rPQkdyhSM96feslrjaM8vqzlU94ByUsrB7Y28w3s_SN3q37hCfr57yZuIOPxAwX3kDET5ny72yjY0pIhXK7GCKbqpos8iuTCWV7WjkVm8qsdHkd7dQMAuOIACcQHlxyK7uNaHVPB_fzCDQ9aHHO3RjLlhSwbDeIdGSW1IXxf_5aj8F5eupyr0cNW_Jg"/>
+<div class="absolute inset-0 flex items-center justify-center bg-primary/20 group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-white text-5xl opacity-80" data-icon="play_circle">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">42:15</div>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-primary truncate">Marcher par la Foi</h3>
+<p class="font-caption text-caption text-on-surface-variant">Pasteur Samuel • Il y a 2 jours</p>
+</div>
+<!-- Video Card 2 -->
+<div class="flex-shrink-0 w-72 snap-start">
+<div class="relative aspect-video rounded-lg overflow-hidden mb-xs group shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="An atmospheric church interior during a worship session. The lighting is low and intimate with streaks of warm golden light catching floating dust particles. A worship leader is visible in silhouette against a soft background. The style is peaceful and tactile, emphasizing a sense of sanctuary and digital reverence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARBoD90AG69tzYhUwwkJC0sHAfNLxOhSoEs4GDhropmle1qChW3YLu_D6BbZgEEFAXgh1QKq70oVJqg5TVkLuViT5akBmvXKOxGDw-nrPT6lGsJF2ED3ogTK7H8GpTCcIEUD-4jD6_ntl5St2TWaCJ1PIHNNIte4djURYpipmZwyS5L0gamVpbGTcq8umzIyYBNdshlMfm6Ji3SHfLhis3ezSFlPHsee8qx0Dfjuzj5YnwSZydjCimXg"/>
+<div class="absolute inset-0 flex items-center justify-center bg-primary/20 group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-white text-5xl opacity-80" data-icon="play_circle">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">38:40</div>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-primary truncate">Le Cœur de l'Adoration</h3>
+<p class="font-caption text-caption text-on-surface-variant">Équipe de Louange • Il y a 1 semaine</p>
+</div>
+<!-- Video Card 3 -->
+<div class="flex-shrink-0 w-72 snap-start">
+<div class="relative aspect-video rounded-lg overflow-hidden mb-xs group shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up of an open Bible on a rustic wooden table, softly illuminated by candlelight. The scene conveys a deep sense of tradition and spiritual reflection. The color palette includes rich browns, warm golds, and deep shadows, maintaining the Sambela app's modern minimalist but layered aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAibOIBF3ErAPy5HvJJAP2U-mkyhW6NoGVNmKxBB8F03bySos4-X3e6lzivnaHjSVe_QEQNDCokSbs0InBL0L3pbnynZEb0-LrM5uL997en2Mtu1-qCSv5DZWW6EOnmukKAlJUzhGCP0ZkQQqRhN1AVcPfGIW9OlBIi4iO3SCIVZPkyX4Zuliu0KcmExGM4WvxtVgqpRjkPG3cv0aH0lBUTkYk99QDdfEtIEaFsvRWPvhXBODV_rheM8w"/>
+<div class="absolute inset-0 flex items-center justify-center bg-primary/20 group-hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-white text-5xl opacity-80" data-icon="play_circle">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">55:12</div>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-primary truncate">Étude: Les Paraboles</h3>
+<p class="font-caption text-caption text-on-surface-variant">Pasteur Marie • Il y a 2 semaines</p>
+</div>
+</div>
+</section>
+<!-- Événements à venir: Featured Card -->
+<section class="mt-lg mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-md">Événements à venir</h2>
+<div class="bg-surface-container-highest rounded-xl overflow-hidden shadow-sm flex flex-col md:flex-row hover:shadow-md transition-shadow">
+<div class="md:w-1/3 h-48 md:h-auto">
+<img class="w-full h-full object-cover" data-alt="A vibrant community gathering of diverse people sharing a meal outdoors at sunset. The lighting is golden and warm, capturing joyful expressions and a sense of belonging. The visual style is organic and high-end editorial, using the Sambela palette of cream, gold, and midnight navy to represent church community events." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbDT0_WLOeVOsrIWoh2gvPHnpT_Gv6zDPGQceeXHPMGRqjXPG3t1mLyoK0nhoC55tV6-ydhuC_cHwIVtVQdpNMcURuWIgiMxd82BNdlKxFJ0cYb4eWZArpVF_V2jL4COVfMnAK0B03rZdmUDxjvgRry4bhabVVGYNuzLAauSAgYsZy-OlpAIT4GOcDKJDKE07Os_XRbFaizfzmjLlT2487bK15aleh2WREOyFGt28tXTwakGB9rZG_7g"/>
+</div>
+<div class="p-md md:w-2/3 flex flex-col justify-center">
+<div class="flex items-center gap-sm mb-sm">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">Dimanche, 24 Mars</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-xs">Célébration Spéciale de Pâques</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Rejoignez-nous pour un moment unique de louange et de communion fraternelle. Un programme spécial pour toute la famille.</p>
+<div class="flex items-center gap-md text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="font-caption text-caption">10:00 AM</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span class="font-caption text-caption">Auditorium Principal</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-[0_-4px_20px_rgba(4,12,28,0.05)]">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-all duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home_max" style="font-variation-settings: 'FILL' 1;">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<!-- Media -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<!-- Events -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<!-- Shop -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<!-- Give -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for smooth scrolling header
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll <= 0) {
+                header.classList.remove('shadow-md');
+                return;
+            }
+            if (currentScroll > lastScroll) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
+                header.classList.add('shadow-md');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Add subtle entrance animations for cards
+        document.querySelectorAll('section').forEach((section, index) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = `all 0.6s ease-out ${index * 0.15}s`;
+            
+            setTimeout(() => {
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body></html>

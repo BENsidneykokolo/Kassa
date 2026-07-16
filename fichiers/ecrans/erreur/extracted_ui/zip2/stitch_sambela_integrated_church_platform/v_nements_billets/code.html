@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sambela - Événements et Billetterie</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffdea5",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "primary-fixed-dim": "#bec6dd",
+                    "on-surface": "#1b1c1c",
+                    "surface-tint": "#565e72",
+                    "on-tertiary-container": "#8a8985",
+                    "on-primary-fixed-variant": "#3f4759",
+                    "inverse-primary": "#bec6dd",
+                    "primary": "#040c1c",
+                    "tertiary-container": "#22221f",
+                    "on-secondary-fixed": "#261900",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "primary-fixed": "#dae2fa",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-variant": "#e4e2e2",
+                    "on-surface-variant": "#45474c",
+                    "primary-container": "#1a2233",
+                    "surface-dim": "#dbd9d9",
+                    "on-primary-container": "#81899e",
+                    "on-primary-fixed": "#131b2c",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#e4e2dd",
+                    "on-background": "#1b1c1c",
+                    "surface-container-highest": "#e4e2e2",
+                    "secondary": "#775a19",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#0b0c09",
+                    "on-tertiary-fixed-variant": "#474744",
+                    "secondary-fixed-dim": "#e9c176",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "on-secondary-container": "#785a1a",
+                    "secondary-container": "#fed488",
+                    "surface-container": "#efeded",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface": "#fbf9f8",
+                    "on-secondary": "#ffffff",
+                    "outline": "#76777d",
+                    "inverse-on-surface": "#f2f0f0",
+                    "surface-container-high": "#eae8e7",
+                    "surface-bright": "#fbf9f8",
+                    "on-tertiary-fixed": "#1b1c19",
+                    "background": "#fbf9f8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "base": "8px",
+                    "xl": "80px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "margin-mobile": "20px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "headline-sm": ["Libre Caslon Text"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "caption": ["Plus Jakarta Sans"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f8;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(251, 249, 248, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .text-shadow-subtle {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .event-card-hover {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+        .event-card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(4, 12, 28, 0.08);
+        }
+        .active-pill {
+            transition: all 0.3s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface font-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 glass-nav shadow-sm">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity active:scale-95">menu</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary">Sambela</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary">search</button>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A refined and professional portrait of a church member with a peaceful expression, set against a soft-focus warm interior background. The lighting is natural and cinematic, reflecting a high-end editorial style that aligns with the Sambela brand's aesthetic of modern minimalist tradition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa1fvhDhbQ5V5ows32OE7oXhCgssZCOSbBY-16juhy-T7Maebo3HzkEatgcpoPlSvWMQwES8J9qXShdd-fmJDXA_aNq9nYmUujDBkHBtA6sGuX5KKUQ5HvUanDYJ96W23EZsVw6VNShJrV4Gx22sQz5Eix9MFqD-0gd_VS2Vg1iEGZrzy8cx96B46r7VZBBR7igMdQVwAFdXxR9L6n0maiqbGFWdulkG9pVSWB_rvRvgNf5RVbomknJA"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-container-max mx-auto">
+<!-- Header Section -->
+<section class="mb-lg">
+<h2 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-sm">Prochains Événements</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Rejoignez notre communauté pour des moments de communion, de louange et de transformation spirituelle.</p>
+</section>
+<!-- Filter Bar -->
+<div class="flex flex-wrap gap-sm mb-lg overflow-x-auto pb-2 scrollbar-hide">
+<button class="active-pill bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md shadow-md">Tout voir</button>
+<button class="active-pill bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container px-6 py-2 rounded-full font-label-md text-label-md">Louange</button>
+<button class="active-pill bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container px-6 py-2 rounded-full font-label-md text-label-md">Conférences</button>
+<button class="active-pill bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container px-6 py-2 rounded-full font-label-md text-label-md">Prière</button>
+<button class="active-pill bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container px-6 py-2 rounded-full font-label-md text-label-md">Jeunesse</button>
+</div>
+<!-- Featured Grid / Bento Style -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Concert de Louange (Main Feature) -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl h-[500px] event-card-hover bg-primary-container">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="A grand, atmospheric church sanctuary filled with soft, golden light and ethereal stage haze. A group of worshippers is seen in silhouette, creating a deeply reverent and inspiring mood. The visual style is contemporary and minimalist, with a warm color palette of midnight navy and pale gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj9fpu339Pgu4ri1bQBFwEzqKFy_y-uhNXdwwOMwZCr-LBUoGtclqJykeeakZ-RO9nx2yisRenIIXispp_JO1lx8jawyO8mkhl0nnRJfLLZrzvIsjpcyI88-JS1WZwBoiE-AidDFOqWXeKqRrp-fVILgePzUWBrs-gYGCXSQ2mI4ct8QhKuddGVyKTCMLMnFEgYWmh2fXzPriHtfpDFod1Lhi4FwjCxoY0y06RVhOZ5eDWNrjjyj2Pfw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg z-10 w-full">
+<div class="flex items-center gap-2 text-secondary-fixed mb-sm">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">Événement Vedette</span>
+</div>
+<h3 class="font-display-lg-mobile text-display-lg-mobile text-on-primary mb-md">Concert de Louange</h3>
+<div class="flex flex-wrap gap-md text-primary-fixed mb-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md text-body-md">Samedi, 14 Septembre 2024</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-body-md text-body-md">18:30</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-body-md text-body-md">Auditorium Principal</span>
+</div>
+</div>
+<button class="bg-secondary-fixed text-on-secondary-fixed px-8 py-3 rounded-lg font-label-md text-label-md font-bold hover:bg-secondary transition-colors active:scale-95 flex items-center gap-2">
+                        Réserver mon Ticket
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Side Bento Column -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- Conférence des Femmes -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col justify-between h-[238px] event-card-hover border border-outline-variant/30">
+<div>
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container mb-md">
+<span class="material-symbols-outlined">diversity_1</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-base">Conférence des Femmes</h4>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                            21 Sept. • 09:00
+                        </p>
+</div>
+<button class="mt-md text-primary font-label-md text-label-md flex items-center gap-2 hover:underline">
+                        Réserver mon Ticket
+                        <span class="material-symbols-outlined text-[18px]">confirmation_number</span>
+</button>
+</div>
+<!-- Nuit de Prière -->
+<div class="bg-primary rounded-xl p-md flex flex-col justify-between h-[238px] event-card-hover shadow-lg">
+<div class="relative z-10">
+<div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-secondary-fixed mb-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">nightlight_round</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-primary mb-base">Nuit de Prière</h4>
+<p class="font-body-md text-body-md text-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                            27 Sept. • 22:00
+                        </p>
+</div>
+<button class="relative z-10 mt-md bg-white/10 text-on-primary border border-white/20 hover:bg-white hover:text-primary px-4 py-2 rounded-lg font-label-md text-label-md transition-all active:scale-95">
+                        Réserver mon Ticket
+                    </button>
+</div>
+</div>
+</div>
+<!-- Secondary Listing -->
+<section class="mt-xl">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-md text-headline-md text-primary">Autres Événements</h3>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:opacity-80">
+                    Voir le calendrier complet
+                    <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="space-y-sm">
+<!-- List Item 1 -->
+<div class="bg-white p-md rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-md border border-outline-variant/10 hover:border-secondary/30 transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-center justify-center bg-surface-container-high w-16 h-16 rounded-lg text-primary">
+<span class="font-label-md text-[12px] uppercase">OCT</span>
+<span class="font-headline-sm text-headline-sm font-bold">05</span>
+</div>
+<div>
+<h5 class="font-body-lg text-body-lg font-bold text-primary">Séminaire de Couple</h5>
+<p class="text-on-surface-variant font-body-md text-body-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Salle des Banquets
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<span class="hidden md:block text-on-surface-variant font-body-md">14:00 - 17:00</span>
+<button class="border border-outline text-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all active:scale-95">
+                            Réserver
+                        </button>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="bg-white p-md rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-md border border-outline-variant/10 hover:border-secondary/30 transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-center justify-center bg-surface-container-high w-16 h-16 rounded-lg text-primary">
+<span class="font-label-md text-[12px] uppercase">OCT</span>
+<span class="font-headline-sm text-headline-sm font-bold">12</span>
+</div>
+<div>
+<h5 class="font-body-lg text-body-lg font-bold text-primary">Atelier Jeunesse Innov</h5>
+<p class="text-on-surface-variant font-body-md text-body-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Centre Culturel Sambela
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<span class="hidden md:block text-on-surface-variant font-body-md">10:00 - 13:00</span>
+<button class="border border-outline text-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all active:scale-95">
+                            Réserver
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface shadow-[0_-4px_20px_rgba(4,12,28,0.05)] rounded-t-xl md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined">home_max</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined">subscriptions</span>
+<span class="font-label-md text-label-md">Media</span>
+</a>
+<!-- ACTIVE TAB: Events -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-secondary transition-opacity" href="#">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-md text-label-md">Give</span>
+</a>
+</nav>
+<!-- FAB for Quick Booking (Desktop and Mobile relevant context) -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-14 h-14 rounded-full bg-primary text-on-primary shadow-xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-40 group">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="absolute right-full mr-4 bg-primary text-on-primary px-3 py-1 rounded-md text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">Mes Tickets</span>
+</button>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('.active-pill').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.active-pill').forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-md');
+                    b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                button.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+                button.classList.add('bg-primary', 'text-on-primary', 'shadow-md');
+            });
+        });
+    </script>
+</body></html>

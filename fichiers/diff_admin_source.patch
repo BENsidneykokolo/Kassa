@@ -1,0 +1,3402 @@
+diff --git a/yabisso_admin/lib/main.dart b/yabisso_admin/lib/main.dart
+index e0c79b6..c0488a5 100644
+--- a/yabisso_admin/lib/main.dart
++++ b/yabisso_admin/lib/main.dart
+@@ -4,22 +4,10 @@ import 'package:go_router/go_router.dart';
+ import 'core/app_theme.dart';
+ import 'screens/auth/login_screen.dart';
+ import 'screens/home/dashboard_screen.dart';
+-import 'screens/ai/ai_ceo_screen.dart';
+-import 'screens/ai/ai_marketing_screen.dart';
+ import 'screens/employees/employees_screen.dart';
+ import 'screens/employees/employee_detail_screen.dart';
+-import 'screens/sales/sales_screen.dart';
+-import 'screens/assignments/assignments_screen.dart';
+-import 'screens/settings/settings_screen.dart';
+-import 'screens/profile/profile_screen.dart';
+-import 'screens/vouchers/voucher_generator_screen.dart';
+-import 'screens/activity/employee_activity_screen.dart';
+-import 'screens/tracking/employee_tracking_screen.dart';
+-import 'screens/tracking/shared_sales_screen.dart';
+-import 'screens/tracking/commerce_tracking_screen.dart';
+ import 'screens/candidates/candidates_screen.dart';
+ import 'screens/candidates/relance_screen.dart';
+-import 'screens/analytics/analytics_screen.dart';
+ import 'screens/rh/rh_dashboard_screen.dart';
+ import 'screens/rh/leaves_screen.dart';
+ import 'screens/rh/objectives_screen.dart';
+@@ -29,61 +17,84 @@ import 'screens/rh/trainings_screen.dart';
+ import 'screens/rh/manager_notes_screen.dart';
+ import 'screens/rh/daily_reports_admin_screen.dart';
+ import 'screens/rh/notifications_screen.dart';
+-
+-final goRouterProvider = Provider<GoRouter>((ref) {
+-  return GoRouter(
+-    initialLocation: '/login',
+-    routes: [
+-      GoRoute(path: '/login', builder: (ctx, state) => const LoginScreen()),
+-      GoRoute(path: '/', builder: (ctx, state) => const DashboardScreen()),
+-      GoRoute(path: '/ai-ceo', builder: (ctx, state) => const AiCeoScreen()),
+-      GoRoute(path: '/ai-marketing', builder: (ctx, state) => const AiMarketingScreen()),
+-      GoRoute(path: '/employees', builder: (ctx, state) => const EmployeesScreen()),
+-      GoRoute(
+-        path: '/employee-detail/:id',
+-        builder: (ctx, state) => EmployeeDetailScreen(employeeId: state.pathParameters['id']!),
+-      ),
+-      GoRoute(path: '/sales', builder: (ctx, state) => const SalesScreen()),
+-      GoRoute(path: '/assignments', builder: (ctx, state) => const AssignmentsScreen()),
+-      GoRoute(path: '/settings', builder: (ctx, state) => const SettingsScreen()),
+-      GoRoute(path: '/profile', builder: (ctx, state) => const ProfileScreen()),
+-      GoRoute(path: '/vouchers', name: 'vouchers', builder: (ctx, state) => const VoucherGeneratorScreen()),
+-      GoRoute(path: '/activity', builder: (ctx, state) => const EmployeeActivityScreen()),
+-      GoRoute(path: '/employee-tracking', builder: (ctx, state) => const EmployeeTrackingScreen()),
+-      GoRoute(path: '/shared-sales', builder: (ctx, state) => const SharedSalesScreen()),
+-      GoRoute(path: '/commerce-tracking', builder: (ctx, state) => const CommerceTrackingScreen()),
+-      GoRoute(path: '/candidates', builder: (ctx, state) => const CandidatesScreen()),
+-      GoRoute(path: '/relance', builder: (ctx, state) => const RelanceScreen()),
+-      GoRoute(path: '/analytics', builder: (ctx, state) => const AnalyticsScreen()),
+-      GoRoute(path: '/rh', builder: (ctx, state) => const RhDashboardScreen()),
+-      GoRoute(path: '/leaves', builder: (ctx, state) => const LeavesScreen()),
+-      GoRoute(path: '/objectives', builder: (ctx, state) => const ObjectivesScreen()),
+-      GoRoute(path: '/rewards', builder: (ctx, state) => const RewardsScreen()),
+-      GoRoute(path: '/sanctions', builder: (ctx, state) => const SanctionsScreen()),
+-      GoRoute(path: '/trainings', builder: (ctx, state) => const TrainingsScreen()),
+-      GoRoute(path: '/manager-notes', builder: (ctx, state) => const ManagerNotesScreen()),
+-      GoRoute(path: '/daily-reports', builder: (ctx, state) => const DailyReportsAdminScreen()),
+-      GoRoute(path: '/notifications', builder: (ctx, state) => const NotificationsScreen()),
+-    ],
+-  );
+-});
++import 'screens/rh/employee_tasks_screen.dart';
++import 'screens/rh/performance_dashboard_screen.dart';
++import 'screens/rh/activity_log_screen.dart';
++import 'screens/rh/attendance_history_screen.dart';
++import 'screens/sales/sales_screen.dart';
++import 'screens/analytics/analytics_screen.dart';
++import 'screens/ai/ai_ceo_screen.dart';
++import 'screens/ai/ai_marketing_screen.dart';
++import 'screens/ai/ai_assistant_screen.dart';
++import 'screens/tracking/commerce_tracking_screen.dart';
++import 'screens/tracking/employee_tracking_screen.dart';
++import 'screens/tracking/shared_sales_screen.dart';
++import 'screens/tracking/crm_relance_screen.dart';
++import 'screens/activity/employee_activity_screen.dart';
++import 'screens/profile/profile_screen.dart';
++import 'screens/settings/settings_screen.dart';
++import 'screens/vouchers/voucher_generator_screen.dart';
++import 'screens/assignments/assignments_screen.dart';
++import 'screens/rh/export_screen.dart';
+ 
+ void main() {
+   WidgetsFlutterBinding.ensureInitialized();
+   runApp(const ProviderScope(child: YabissoAdminApp()));
+ }
+ 
++final _router = GoRouter(
++  initialLocation: '/login',
++  routes: [
++    GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
++    GoRoute(path: '/', builder: (_, __) => const DashboardScreen()),
++    GoRoute(path: '/employees', builder: (_, __) => const EmployeesScreen()),
++    GoRoute(path: '/employee-detail', builder: (_, state) {
++      final employeeId = state.uri.queryParameters['id'] ?? '';
++      return EmployeeDetailScreen(employeeId: employeeId);
++    }),
++    GoRoute(path: '/candidates', builder: (_, __) => const CandidatesScreen()),
++    GoRoute(path: '/relance', builder: (_, __) => const RelanceScreen()),
++    GoRoute(path: '/rh-dashboard', builder: (_, __) => const RhDashboardScreen()),
++    GoRoute(path: '/leaves', builder: (_, __) => const LeavesScreen()),
++    GoRoute(path: '/objectives', builder: (_, __) => const ObjectivesScreen()),
++    GoRoute(path: '/rewards', builder: (_, __) => const RewardsScreen()),
++    GoRoute(path: '/sanctions', builder: (_, __) => const SanctionsScreen()),
++    GoRoute(path: '/trainings', builder: (_, __) => const TrainingsScreen()),
++    GoRoute(path: '/manager-notes', builder: (_, __) => const ManagerNotesScreen()),
++    GoRoute(path: '/daily-reports', builder: (_, __) => const DailyReportsAdminScreen()),
++    GoRoute(path: '/notifications', builder: (_, __) => const NotificationsScreen()),
++    GoRoute(path: '/employee-tasks', builder: (_, __) => const EmployeeTasksScreen()),
++    GoRoute(path: '/performance', builder: (_, __) => const PerformanceDashboardScreen()),
++    GoRoute(path: '/activity-log', builder: (_, __) => const ActivityLogScreen()),
++    GoRoute(path: '/attendance', builder: (_, __) => const AttendanceHistoryScreen()),
++    GoRoute(path: '/sales', builder: (_, __) => const SalesScreen()),
++    GoRoute(path: '/analytics', builder: (_, __) => const AnalyticsScreen()),
++    GoRoute(path: '/ai-ceo', builder: (_, __) => const AiCeoScreen()),
++    GoRoute(path: '/ai-marketing', builder: (_, __) => const AiMarketingScreen()),
++    GoRoute(path: '/ai-assistant', builder: (_, __) => const AiAssistantScreen()),
++    GoRoute(path: '/commerce-tracking', builder: (_, __) => const CommerceTrackingScreen()),
++    GoRoute(path: '/employee-tracking', builder: (_, __) => const EmployeeTrackingScreen()),
++    GoRoute(path: '/shared-sales', builder: (_, __) => const SharedSalesScreen()),
++    GoRoute(path: '/crm-relance', builder: (_, __) => const CrmRelanceScreen()),
++    GoRoute(path: '/employee-activity', builder: (_, __) => const EmployeeActivityScreen()),
++    GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
++    GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
++    GoRoute(path: '/voucher-generator', builder: (_, __) => const VoucherGeneratorScreen()),
++    GoRoute(path: '/assignments', builder: (_, __) => const AssignmentsScreen()),
++    GoRoute(path: '/export', builder: (_, __) => const ExportScreen()),
++  ],
++);
++
+ class YabissoAdminApp extends ConsumerWidget {
+   const YabissoAdminApp({super.key});
+ 
+   @override
+   Widget build(BuildContext context, WidgetRef ref) {
+-    final router = ref.watch(goRouterProvider);
+     return MaterialApp.router(
+       title: 'Yabisso Super Admin',
+       debugShowCheckedModeBanner: false,
+       theme: AppTheme.lightTheme,
+-      routerConfig: router,
++      routerConfig: _router,
+     );
+   }
+ }
+diff --git a/yabisso_admin/lib/models/admin.dart b/yabisso_admin/lib/models/admin.dart
+index 3cb9058..1888b92 100644
+--- a/yabisso_admin/lib/models/admin.dart
++++ b/yabisso_admin/lib/models/admin.dart
+@@ -68,6 +68,8 @@ class Admin {
+     'admin',
+     'hr_manager',
+     'marketing_director',
++    'manager',
++    'superviseur',
+   ];
+ 
+   static const Map<String, String> roleLabels = {
+@@ -75,5 +77,7 @@ class Admin {
+     'admin': 'Admin',
+     'hr_manager': 'Directeur RH',
+     'marketing_director': 'Directeur Marketing',
++    'manager': 'Manager',
++    'superviseur': 'Superviseur',
+   };
+ }
+diff --git a/yabisso_admin/lib/providers/providers.dart b/yabisso_admin/lib/providers/providers.dart
+index 2b6b913..d95cf14 100644
+--- a/yabisso_admin/lib/providers/providers.dart
++++ b/yabisso_admin/lib/providers/providers.dart
+@@ -89,6 +89,7 @@ final dashboardStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async
+   ref.watch(employeesRefreshProvider);
+   ref.watch(salesRefreshProvider);
+   ref.watch(assignmentsRefreshProvider);
++  ref.watch(checkinRequestsRefreshProvider);
+   final db = DatabaseHelper.instance;
+   final today = DateTime.now().toIso8601String().substring(0, 10);
+   final now = DateTime.now();
+@@ -103,6 +104,7 @@ final dashboardStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async
+   final totalSales = await db.count('sale_records');
+   final pendingProposals = await db.count('ai_proposals', where: "status = 'pending'");
+   final pendingAssignments = await db.count('assignments', where: "status = 'pending'");
++  final pendingCheckins = await db.count('checkin_requests', where: "status = 'pending'");
+ 
+   return {
+     'totalEmployees': totalEmployees,
+@@ -112,6 +114,95 @@ final dashboardStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async
+     'totalSales': totalSales,
+     'pendingProposals': pendingProposals,
+     'pendingAssignments': pendingAssignments,
+-    'pendingDecisions': pendingProposals + pendingAssignments,
++    'pendingCheckins': pendingCheckins,
++    'pendingDecisions': pendingProposals + pendingAssignments + pendingCheckins,
+   };
+ });
++
++final checkinRequestsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(checkinRequestsRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('checkin_requests', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final checkinRequestsRefreshProvider = StateProvider<int>((ref) => 0);
++
++final pendingCheckinsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(checkinRequestsRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('checkin_requests', where: "status = 'pending'", orderBy: 'created_at DESC');
++  return maps;
++});
++
++final sharedSalesReportsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(sharedSalesRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('shared_sales_reports', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final sharedSalesRefreshProvider = StateProvider<int>((ref) => 0);
++
++final candidatesProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(candidatesRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('candidates', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final candidatesRefreshProvider = StateProvider<int>((ref) => 0);
++
++final contactHistoryProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('contact_history', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final employeeTasksProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(employeeTasksRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('employee_tasks', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final employeeTasksRefreshProvider = StateProvider<int>((ref) => 0);
++
++final pendingTasksProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(employeeTasksRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('employee_tasks', where: "status = 'pending' OR status = 'in_progress'", orderBy: 'created_at DESC');
++  return maps;
++});
++
++final todayTasksProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(employeeTasksRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final today = DateTime.now().toIso8601String().substring(0, 10);
++  final maps = await db.getAll('employee_tasks', where: "due_date = ? OR created_at LIKE ?", whereArgs: ['$today%', '$today%']);
++  return maps;
++});
++
++final activityLogProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(activityLogRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('activity_log', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final activityLogRefreshProvider = StateProvider<int>((ref) => 0);
++
++final notificationsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
++  ref.watch(notificationsRefreshProvider);
++  final db = DatabaseHelper.instance;
++  final maps = await db.getAll('notifications', orderBy: 'created_at DESC');
++  return maps;
++});
++
++final notificationsRefreshProvider = StateProvider<int>((ref) => 0);
++
++final unreadNotificationsProvider = FutureProvider<int>((ref) async {
++  ref.watch(notificationsRefreshProvider);
++  final db = DatabaseHelper.instance;
++  return db.count('notifications', where: 'is_read = 0');
++});
+diff --git a/yabisso_admin/lib/screens/candidates/candidates_screen.dart b/yabisso_admin/lib/screens/candidates/candidates_screen.dart
+index 77f9084..8cdbc7e 100644
+--- a/yabisso_admin/lib/screens/candidates/candidates_screen.dart
++++ b/yabisso_admin/lib/screens/candidates/candidates_screen.dart
+@@ -19,6 +19,7 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+   String _filterContact = 'all';
+   String _filterPresentation = 'all';
+   String _filterMeeting = 'all';
++  String _filterValidation = 'all';
+ 
+   static const _contactLabels = {
+     'all': 'Tous',
+@@ -35,6 +36,11 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+     'not_come': 'Pas venu',
+     'come': 'Est venu',
+   };
++  static const _validationLabels = {
++    'all': 'Tous',
++    'validated': 'Validé',
++    'not_validated': 'Non validé',
++  };
+ 
+   @override
+   Widget build(BuildContext context) {
+@@ -113,6 +119,11 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+       if (_filterContact != 'all' && c['contact_status'] != _filterContact) return false;
+       if (_filterPresentation != 'all' && c['presentation_status'] != _filterPresentation) return false;
+       if (_filterMeeting != 'all' && c['meeting_status'] != _filterMeeting) return false;
++      
++      final validationStatus = c['validation_status'] ?? 'not_validated';
++      if (_filterValidation == 'validated' && validationStatus != 'validated') return false;
++      if (_filterValidation == 'not_validated' && validationStatus == 'validated') return false;
++      
+       return true;
+     }).toList();
+   }
+@@ -152,6 +163,8 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+             _filterDropdown('Présentation', _presentationLabels, _filterPresentation, (v) => setState(() => _filterPresentation = v!)),
+             const SizedBox(width: 8),
+             _filterDropdown('Meeting', _meetingLabels, _filterMeeting, (v) => setState(() => _filterMeeting = v!)),
++            const SizedBox(width: 8),
++            _filterDropdown('Validation', _validationLabels, _filterValidation, (v) => setState(() => _filterValidation = v!)),
+           ],
+         ),
+       ),
+@@ -185,8 +198,10 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+     final presStatus = candidate['presentation_status'] ?? 'not_attended';
+     final meetingStatus = candidate['meeting_status'] ?? 'not_come';
+     final relanceStatus = candidate['relance_status'] ?? 'active';
++    final validationStatus = candidate['validation_status'] ?? 'not_validated';
+     final hasCv = candidate['cv_path'] != null && (candidate['cv_path'] as String).isNotEmpty;
+     final isRelance = relanceStatus == 'relance';
++    final isValidated = validationStatus == 'validated';
+ 
+     return GestureDetector(
+       onTap: () => _showCandidateDetail(candidate),
+@@ -196,7 +211,11 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+         decoration: BoxDecoration(
+           color: Colors.white,
+           borderRadius: BorderRadius.circular(14),
+-          border: isRelance ? Border.all(color: AppColors.primaryAmber.withValues(alpha: 0.5), width: 1.5) : null,
++          border: isRelance 
++            ? Border.all(color: AppColors.primaryAmber.withValues(alpha: 0.5), width: 1.5)
++            : isValidated 
++              ? Border.all(color: AppColors.primaryGreen.withValues(alpha: 0.5), width: 1.5)
++              : null,
+           boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8, offset: const Offset(0, 2))],
+         ),
+         child: Column(
+@@ -208,7 +227,9 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+                   radius: 22,
+                   backgroundColor: isRelance
+                     ? AppColors.primaryAmber.withValues(alpha: 0.1)
+-                    : AppColors.primaryGreen.withValues(alpha: 0.1),
++                    : isValidated
++                      ? AppColors.primaryGreen.withValues(alpha: 0.1)
++                      : AppColors.primaryGreen.withValues(alpha: 0.1),
+                   child: Text(
+                     name.isNotEmpty ? name[0].toUpperCase() : '?',
+                     style: TextStyle(
+@@ -230,6 +251,10 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+                             const SizedBox(width: 6),
+                             Icon(Icons.attach_file, size: 14, color: AppColors.primaryBlue),
+                           ],
++                          if (isValidated) ...[
++                            const SizedBox(width: 6),
++                            Icon(Icons.check_circle, size: 14, color: AppColors.primaryGreen),
++                          ],
+                         ],
+                       ),
+                       if (phone.isNotEmpty) Text(phone, style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+@@ -242,6 +267,12 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+                     decoration: BoxDecoration(color: AppColors.primaryAmber.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(6)),
+                     child: const Text('À relancer', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryAmber)),
+                   )
++                else if (isValidated)
++                  Container(
++                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
++                    decoration: BoxDecoration(color: AppColors.primaryGreen.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(6)),
++                    child: const Text('Validé', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryGreen)),
++                  )
+                 else
+                   Icon(Icons.arrow_forward_ios, color: Colors.grey[400], size: 14),
+               ],
+@@ -377,6 +408,16 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+                         data['id'] = const Uuid().v4();
+                         data['created_at'] = now;
+                         await db.insert('candidates', data);
++                        await db.insert('notifications', {
++                          'id': const Uuid().v4(),
++                          'title': 'Nouveau candidat',
++                          'body': '${nameController.text} a été ajouté comme candidat',
++                          'type': 'info',
++                          'reference_type': 'candidate',
++                          'reference_id': data['id'],
++                          'created_at': now,
++                        });
++                        await db.logActivity(null, 'candidate_created', nameController.text);
+                       }
+                       ref.invalidate(candidatesProvider);
+                       if (mounted) Navigator.pop(ctx);
+@@ -481,9 +522,12 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+     final presStatus = candidate['presentation_status'] ?? 'not_attended';
+     final meetingStatus = candidate['meeting_status'] ?? 'not_come';
+     final relanceStatus = candidate['relance_status'] ?? 'active';
++    final validationStatus = candidate['validation_status'] ?? 'not_validated';
+     final notes = candidate['notes'] ?? '';
+     final hasCv = candidate['cv_path'] != null && (candidate['cv_path'] as String).isNotEmpty;
+     final isRelance = relanceStatus == 'relance';
++    final isValidated = validationStatus == 'validated';
++    final isAllPassed = contactStatus == 'contacted' && presStatus == 'attended' && meetingStatus == 'come';
+ 
+     showModalBottomSheet(
+       context: context,
+@@ -651,6 +695,108 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+               ],
+               const SizedBox(height: 20),
+ 
++              // Validation section
++              if (!isRelance && !isValidated) ...[
++                Container(
++                  padding: const EdgeInsets.all(12),
++                  decoration: BoxDecoration(
++                    color: isAllPassed ? AppColors.primaryGreen.withValues(alpha: 0.05) : Colors.grey[100],
++                    borderRadius: BorderRadius.circular(12),
++                    border: Border.all(
++                      color: isAllPassed ? AppColors.primaryGreen.withValues(alpha: 0.3) : Colors.grey.shade300,
++                    ),
++                  ),
++                  child: Column(
++                    crossAxisAlignment: CrossAxisAlignment.start,
++                    children: [
++                      Row(
++                        children: [
++                          Icon(
++                            isAllPassed ? Icons.check_circle : Icons.info_outline,
++                            color: isAllPassed ? AppColors.primaryGreen : Colors.grey,
++                            size: 20,
++                          ),
++                          const SizedBox(width: 8),
++                          Text(
++                            isAllPassed ? 'Candidat éligible pour validation' : 'Étapes restantes pour validation',
++                            style: TextStyle(
++                              fontSize: 14,
++                              fontWeight: FontWeight.w600,
++                              color: isAllPassed ? AppColors.primaryGreen : Colors.grey[700],
++                            ),
++                          ),
++                        ],
++                      ),
++                      if (!isAllPassed) ...[
++                        const SizedBox(height: 8),
++                        Text(
++                          'Contact: ${contactStatus == "contacted" ? "✓" : "✗"} | Présentation: ${presStatus == "attended" ? "✓" : "✗"} | Meeting: ${meetingStatus == "come" ? "✓" : "✗"}',
++                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
++                        ),
++                      ],
++                      const SizedBox(height: 12),
++                      SizedBox(
++                        width: double.infinity,
++                        child: ElevatedButton.icon(
++                          onPressed: isAllPassed ? () => _validateCandidate(candidate, ctx) : null,
++                          icon: const Icon(Icons.verified, size: 18),
++                          label: const Text('Valider ce candidat'),
++                          style: ElevatedButton.styleFrom(
++                            backgroundColor: AppColors.primaryGreen,
++                            foregroundColor: Colors.white,
++                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
++                            padding: const EdgeInsets.symmetric(vertical: 12),
++                          ),
++                        ),
++                      ),
++                    ],
++                  ),
++                ),
++              ],
++
++              // Transform to employee section (only for validated candidates)
++              if (isValidated) ...[
++                Container(
++                  padding: const EdgeInsets.all(12),
++                  decoration: BoxDecoration(
++                    color: AppColors.primaryGreen.withValues(alpha: 0.05),
++                    borderRadius: BorderRadius.circular(12),
++                    border: Border.all(color: AppColors.primaryGreen.withValues(alpha: 0.3)),
++                  ),
++                  child: Column(
++                    crossAxisAlignment: CrossAxisAlignment.start,
++                    children: [
++                      Row(
++                        children: [
++                          const Icon(Icons.check_circle, color: AppColors.primaryGreen, size: 20),
++                          const SizedBox(width: 8),
++                          const Text(
++                            'Candidat validé',
++                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryGreen),
++                          ),
++                        ],
++                      ),
++                      const SizedBox(height: 12),
++                      SizedBox(
++                        width: double.infinity,
++                        child: ElevatedButton.icon(
++                          onPressed: () => _transformToEmployee(candidate, ctx),
++                          icon: const Icon(Icons.person_add, size: 18),
++                          label: const Text('Transformer en employé'),
++                          style: ElevatedButton.styleFrom(
++                            backgroundColor: AppColors.primaryBlue,
++                            foregroundColor: Colors.white,
++                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
++                            padding: const EdgeInsets.symmetric(vertical: 12),
++                          ),
++                        ),
++                      ),
++                    ],
++                  ),
++                ),
++              ],
++              const SizedBox(height: 20),
++
+               // Action buttons
+               Row(
+                 children: [
+@@ -757,6 +903,177 @@ class _CandidatesScreenState extends ConsumerState<CandidatesScreen> {
+     );
+   }
+ 
++  Future<void> _validateCandidate(Map<String, dynamic> candidate, BuildContext ctx) async {
++    final db = DatabaseHelper.instance;
++    final now = DateTime.now().toIso8601String();
++    final name = candidate['name'] ?? '';
++
++    await showDialog(
++      context: context,
++      builder: (dialogCtx) => AlertDialog(
++        title: const Text('Valider le candidat'),
++        content: Text('Valider $name comme candidat accepté ?\n\nIl pourra ensuite être transformé en employé.'),
++        actions: [
++          TextButton(onPressed: () => Navigator.pop(dialogCtx), child: const Text('Annuler')),
++          ElevatedButton(
++            onPressed: () async {
++              Navigator.pop(dialogCtx);
++              await db.update('candidates', {
++                'validation_status': 'validated',
++                'validated_at': now,
++                'updated_at': now,
++              }, candidate['id']);
++              
++              final admin = ref.read(currentAdminProvider);
++              await db.logActivity(admin?.id, 'candidate_validated', 'Candidat validé: $name');
++              
++              // Auto notification for validation
++              await db.insert('notifications', {
++                'id': const Uuid().v4(),
++                'user_id': null,
++                'user_role': 'hr_manager',
++                'title': 'Candidat validé',
++                'body': 'Le candidat $name a été validé et peut être transformé en employé.',
++                'type': 'candidate_validated',
++                'is_read': 0,
++                'reference_id': candidate['id'],
++                'reference_type': 'candidate',
++                'created_at': now,
++              });
++              
++              ref.invalidate(candidatesProvider);
++              if (ctx.mounted) Navigator.pop(ctx);
++              
++              if (mounted) {
++                ScaffoldMessenger.of(context).showSnackBar(
++                  SnackBar(
++                    content: Text('$name validé avec succès'),
++                    backgroundColor: AppColors.primaryGreen,
++                  ),
++                );
++              }
++            },
++            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryGreen, foregroundColor: Colors.white),
++            child: const Text('Valider'),
++          ),
++        ],
++      ),
++    );
++  }
++
++  Future<void> _transformToEmployee(Map<String, dynamic> candidate, BuildContext ctx) async {
++    final name = candidate['name'] ?? '';
++    final phone = candidate['phone'] ?? '';
++
++    final positionController = TextEditingController();
++    final departmentController = TextEditingController();
++    final salaryController = TextEditingController();
++
++    await showDialog(
++      context: context,
++      builder: (dialogCtx) => AlertDialog(
++        title: const Text('Transformer en employé'),
++        content: SingleChildScrollView(
++          child: Column(
++            mainAxisSize: MainAxisSize.min,
++            children: [
++              Text('Créer un employé à partir de $name ?'),
++              const SizedBox(height: 16),
++              TextField(
++                controller: positionController,
++                decoration: const InputDecoration(
++                  labelText: 'Poste *',
++                  border: OutlineInputBorder(),
++                ),
++              ),
++              const SizedBox(height: 12),
++              TextField(
++                controller: departmentController,
++                decoration: const InputDecoration(
++                  labelText: 'Département',
++                  border: OutlineInputBorder(),
++                ),
++              ),
++              const SizedBox(height: 12),
++              TextField(
++                controller: salaryController,
++                decoration: const InputDecoration(
++                  labelText: 'Salaire (FCFA)',
++                  border: OutlineInputBorder(),
++                ),
++                keyboardType: TextInputType.number,
++              ),
++            ],
++          ),
++        ),
++        actions: [
++          TextButton(onPressed: () => Navigator.pop(dialogCtx), child: const Text('Annuler')),
++          ElevatedButton(
++            onPressed: () async {
++              if (positionController.text.isEmpty) {
++                ScaffoldMessenger.of(dialogCtx).showSnackBar(
++                  const SnackBar(content: Text('Le poste est obligatoire')),
++                );
++                return;
++              }
++
++              Navigator.pop(dialogCtx);
++              final db = DatabaseHelper.instance;
++              final now = DateTime.now().toIso8601String();
++              final id = const Uuid().v4();
++              
++              final initials = name.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
++              
++              await db.insert('employees', {
++                'id': id,
++                'name': name,
++                'phone': phone,
++                'position': positionController.text,
++                'department': departmentController.text.isNotEmpty ? departmentController.text : null,
++                'salary': salaryController.text.isNotEmpty ? int.tryParse(salaryController.text) : null,
++                'status': 'actif',
++                'initials': initials,
++                'hired_at': now,
++                'created_at': now,
++                'updated_at': now,
++              });
++
++              await db.update('candidates', {
++                'transformed_to_employee': true,
++                'employee_id': id,
++                'transformed_at': now,
++                'updated_at': now,
++              }, candidate['id']);
++
++              final admin = ref.read(currentAdminProvider);
++              await db.logActivity(admin?.id, 'candidate_transformed', 'Candidat transformé en employé: $name');
++
++              ref.invalidate(candidatesProvider);
++              ref.invalidate(employeesProvider);
++              if (ctx.mounted) Navigator.pop(ctx);
++
++              if (mounted) {
++                ScaffoldMessenger.of(context).showSnackBar(
++                  SnackBar(
++                    content: Text('$name est maintenant un employé'),
++                    backgroundColor: AppColors.primaryGreen,
++                    action: SnackBarAction(
++                      label: 'Voir',
++                      textColor: Colors.white,
++                      onPressed: () => context.push('/employee-detail?id=$id'),
++                    ),
++                  ),
++                );
++              }
++            },
++            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryBlue, foregroundColor: Colors.white),
++            child: const Text('Transformer'),
++          ),
++        ],
++      ),
++    );
++  }
++
+   Future<void> _callCandidate(String phone) async {
+     final uri = Uri.parse('tel:${Uri.encodeComponent(phone)}');
+     try {
+diff --git a/yabisso_admin/lib/screens/employees/employee_detail_screen.dart b/yabisso_admin/lib/screens/employees/employee_detail_screen.dart
+index 28b2d34..e471d55 100644
+--- a/yabisso_admin/lib/screens/employees/employee_detail_screen.dart
++++ b/yabisso_admin/lib/screens/employees/employee_detail_screen.dart
+@@ -13,334 +13,677 @@ class EmployeeDetailScreen extends ConsumerStatefulWidget {
+   ConsumerState<EmployeeDetailScreen> createState() => _EmployeeDetailScreenState();
+ }
+ 
+-class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
++class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen>
++    with SingleTickerProviderStateMixin {
++  late TabController _tabController;
++  Map<String, dynamic>? _profile;
++  List<Map<String, dynamic>> _documents = [];
++  List<Map<String, dynamic>> _trainings = [];
++  List<Map<String, dynamic>> _rewards = [];
++  List<Map<String, dynamic>> _sanctions = [];
++  List<Map<String, dynamic>> _notes = [];
++  List<Map<String, dynamic>> _attendance = [];
++  List<Map<String, dynamic>> _sales = [];
++  List<Map<String, dynamic>> _objectives = [];
++  int _presentDays = 0;
++  int _absentDays = 0;
++  int _lateDays = 0;
++
+   static const _primary = AppColors.primaryGreen;
+ 
++  @override
++  void initState() {
++    super.initState();
++    _tabController = TabController(length: 6, vsync: this);
++    _loadData();
++  }
++
++  @override
++  void dispose() {
++    _tabController.dispose();
++    super.dispose();
++  }
++
++  Future<void> _loadData() async {
++    final db = DatabaseHelper.instance;
++    final eid = widget.employeeId;
++
++    final profiles = await db.getAll('employee_profiles', where: 'employee_id = ?', whereArgs: [eid]);
++    _profile = profiles.isNotEmpty ? profiles.first : null;
++    _documents = await db.getAll('employee_documents', where: 'employee_id = ?', whereArgs: [eid]);
++    _trainings = await db.getAll('employee_trainings', where: 'employee_id = ?', whereArgs: [eid]);
++    _rewards = await db.getAll('rewards', where: 'employee_id = ?', whereArgs: [eid]);
++    _sanctions = await db.getAll('sanctions', where: 'employee_id = ?', whereArgs: [eid]);
++    _notes = await db.getAll('manager_notes', where: 'employee_id = ?', whereArgs: [eid]);
++    _attendance = await db.getAll('attendance', where: 'employee_id = ?', whereArgs: [eid], orderBy: 'date DESC');
++    _sales = await db.getAll('sale_records', where: 'employee_id = ?', whereArgs: [eid], orderBy: 'created_at DESC');
++    _objectives = await db.getAll('objectives', where: 'employee_id = ?', whereArgs: [eid]);
++
++    _presentDays = _attendance.where((a) => a['status'] == 'present').length;
++    _absentDays = _attendance.where((a) => a['status'] == 'absent').length;
++    _lateDays = _attendance.where((a) => a['status'] == 'late').length;
++
++    if (mounted) setState(() {});
++  }
++
+   @override
+   Widget build(BuildContext context) {
+     final employeesAsync = ref.watch(employeesProvider);
+ 
+     return Scaffold(
+       backgroundColor: AppColors.background,
+-      appBar: AppBar(
+-        title: const Text('Détail Employé'),
+-        backgroundColor: _primary,
+-        foregroundColor: Colors.white,
+-        leading: IconButton(
+-          icon: const Icon(Icons.arrow_back),
+-          onPressed: () => context.go('/employees'),
+-        ),
+-        actions: [
+-          IconButton(
+-            icon: const Icon(Icons.edit),
+-            onPressed: () => _showEditDialog(),
+-          ),
+-        ],
+-      ),
+       body: employeesAsync.when(
+         data: (employees) {
+-          final employee = employees.firstWhere(
+-            (e) => e.id == widget.employeeId,
+-            orElse: () => employees.first,
+-          );
+-          return SingleChildScrollView(
+-            padding: const EdgeInsets.all(16),
+-            child: Column(
++          final emp = employees.where((e) => e.id == widget.employeeId).toList();
++          if (emp.isEmpty) return const Center(child: Text('Employé non trouvé'));
++          final employee = emp.first;
++          return NestedScrollView(
++            headerSliverBuilder: (ctx, innerBoxIsScrolled) => [
++              SliverAppBar(
++                expandedHeight: 220,
++                pinned: true,
++                backgroundColor: _primary,
++                leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => context.go('/employees')),
++                actions: [
++                  IconButton(icon: const Icon(Icons.edit, color: Colors.white), onPressed: () => _showEditProfileDialog(employee)),
++                ],
++                flexibleSpace: FlexibleSpaceBar(
++                  background: _buildProfileHeader(employee),
++                ),
++                bottom: TabBar(
++                  controller: _tabController,
++                  indicatorColor: Colors.white,
++                  labelColor: Colors.white,
++                  unselectedLabelColor: Colors.white60,
++                  isScrollable: true,
++                  tabs: const [
++                    Tab(text: 'Profil'),
++                    Tab(text: 'Documents'),
++                    Tab(text: 'Présence'),
++                    Tab(text: 'Performance'),
++                    Tab(text: 'Formations'),
++                    Tab(text: 'Notes'),
++                  ],
++                ),
++              ),
++            ],
++            body: TabBarView(
++              controller: _tabController,
+               children: [
+-                _buildProfileCard(employee),
+-                const SizedBox(height: 16),
+-                _buildQuickStats(employee),
+-                const SizedBox(height: 16),
+-                _buildSalesHistory(employee),
+-                const SizedBox(height: 16),
+-                _buildAttendanceSection(employee),
+-                const SizedBox(height: 16),
+-                _buildActionButtons(employee),
+-                const SizedBox(height: 20),
++                _buildProfilTab(employee),
++                _buildDocumentsTab(),
++                _buildAttendanceTab(),
++                _buildPerformanceTab(),
++                _buildTrainingsTab(),
++                _buildNotesTab(employee),
+               ],
+             ),
+           );
+         },
+-        loading: () => const Center(child: CircularProgressIndicator()),
++        loading: () => const Center(child: CircularProgressIndicator(color: _primary)),
+         error: (e, _) => Center(child: Text('Erreur: $e')),
+       ),
+     );
+   }
+ 
+-  Widget _buildProfileCard(Employee employee) {
++  Widget _buildProfileHeader(Employee employee) {
+     return Container(
+-      width: double.infinity,
+-      padding: const EdgeInsets.all(24),
+-      decoration: BoxDecoration(
+-        gradient: LinearGradient(
+-          colors: [const Color(0xFF0B4D3C), _primary],
++      decoration: const BoxDecoration(
++        gradient: LinearGradient(colors: [Color(0xFF0B4D3C), _primary]),
++      ),
++      child: SafeArea(
++        child: Center(
++          child: Column(
++            mainAxisAlignment: MainAxisAlignment.center,
++            children: [
++              CircleAvatar(
++                radius: 36,
++                backgroundColor: Colors.white24,
++                backgroundImage: _profile?['photo_path'] != null
++                    ? NetworkImage(_profile!['photo_path'])
++                    : null,
++                child: _profile?['photo_path'] == null
++                    ? Text(employee.initials.isNotEmpty ? employee.initials : employee.name[0],
++                        style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold))
++                    : null,
++              ),
++              const SizedBox(height: 8),
++              Text(employee.name, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
++              const SizedBox(height: 4),
++              Text(employee.phone, style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 14)),
++              const SizedBox(height: 6),
++              Container(
++                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
++                decoration: BoxDecoration(
++                  color: employee.isActive ? Colors.white24 : AppColors.primaryRed.withValues(alpha: 0.3),
++                  borderRadius: BorderRadius.circular(12),
++                ),
++                child: Text(employee.isActive ? employee.roleLabel : 'Inactif',
++                    style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
++              ),
++            ],
++          ),
+         ),
+-        borderRadius: BorderRadius.circular(20),
+-        boxShadow: [BoxShadow(color: _primary.withValues(alpha: 0.3), blurRadius: 12, offset: const Offset(0, 4))],
+       ),
++    );
++  }
++
++  Widget _buildProfilTab(Employee employee) {
++    return SingleChildScrollView(
++      padding: const EdgeInsets.all(16),
+       child: Column(
+         children: [
+-          CircleAvatar(
+-            radius: 40,
+-            backgroundColor: Colors.white24,
+-            child: Text(employee.initials.isNotEmpty ? employee.initials : employee.name[0],
+-              style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+-          ),
++          _buildInfoCard('Informations personnelles', [
++            _infoRow('ID', employee.id.substring(0, 8)),
++            _infoRow('Nom complet', employee.name),
++            _infoRow('Téléphone', employee.phone),
++            _infoRow('Email', _profile?['email'] ?? '—'),
++            _infoRow('Rôle', employee.roleLabel),
++            _infoRow('Salaire', '${employee.baseSalary} FCFA'),
++          ]),
+           const SizedBox(height: 12),
+-          Text(employee.name, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+-          const SizedBox(height: 4),
+-          Text(employee.phone, style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 15)),
+-          const SizedBox(height: 8),
+-          Container(
+-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+-            decoration: BoxDecoration(
+-              color: employee.isActive ? Colors.white24 : AppColors.primaryRed.withValues(alpha: 0.3),
+-              borderRadius: BorderRadius.circular(12),
+-            ),
+-            child: Text(employee.isActive ? employee.roleLabel : 'Inactif',
+-              style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
++          _buildInfoCard('Emploi', [
++            _infoRow('Poste', _profile?['position'] ?? '—'),
++            _infoRow('Département', _profile?['department'] ?? '—'),
++            _infoRow('Manager', _profile?['manager_name'] ?? '—'),
++            _infoRow('Date d\'embauche', _profile?['hire_date'] ?? '—'),
++            _infoRow('Type contrat', _profile?['contract_type'] ?? '—'),
++            _infoRow('Adresse', _profile?['address'] ?? '—'),
++          ]),
++          const SizedBox(height: 12),
++          _buildInfoCard('Urgence', [
++            _infoRow('Contact urgence', _profile?['emergency_contact'] ?? '—'),
++            _infoRow('Tél urgence', _profile?['emergency_phone'] ?? '—'),
++          ]),
++          const SizedBox(height: 12),
++          Row(
++            children: [
++              Expanded(child: _buildMiniStat('$_presentDays', 'Présent', AppColors.successGreen)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('$_absentDays', 'Absent', AppColors.primaryRed)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('$_lateDays', 'Retard', AppColors.primaryAmber)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('${_sales.length}', 'Ventes', AppColors.primaryBlue)),
++            ],
++          ),
++          const SizedBox(height: 16),
++          Row(
++            children: [
++              Expanded(
++                child: ElevatedButton.icon(
++                  onPressed: () => _toggleActive(employee),
++                  icon: Icon(employee.isActive ? Icons.block : Icons.check_circle),
++                  label: Text(employee.isActive ? 'Désactiver' : 'Activer'),
++                  style: ElevatedButton.styleFrom(
++                    backgroundColor: employee.isActive ? AppColors.primaryRed : AppColors.successGreen,
++                    foregroundColor: Colors.white,
++                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
++                    padding: const EdgeInsets.symmetric(vertical: 12),
++                  ),
++                ),
++              ),
++              const SizedBox(width: 12),
++              Expanded(
++                child: ElevatedButton.icon(
++                  onPressed: () => _showEditProfileDialog(employee),
++                  icon: const Icon(Icons.edit),
++                  label: const Text('Modifier'),
++                  style: ElevatedButton.styleFrom(
++                    backgroundColor: AppColors.primaryBlue,
++                    foregroundColor: Colors.white,
++                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
++                    padding: const EdgeInsets.symmetric(vertical: 12),
++                  ),
++                ),
++              ),
++            ],
+           ),
+         ],
+       ),
+     );
+   }
+ 
+-  Widget _buildQuickStats(Employee employee) {
+-    return Row(
+-      children: [
+-        Expanded(child: _buildStatItem('Salaire base', '${employee.baseSalary} FCFA', Icons.account_balance_wallet, AppColors.primaryAmber)),
+-        const SizedBox(width: 12),
+-        Expanded(child: _buildStatItem('Statut', employee.isActive ? 'Actif' : 'Inactif', Icons.circle, employee.isActive ? AppColors.successGreen : AppColors.primaryRed)),
+-        const SizedBox(width: 12),
+-        Expanded(child: _buildStatItem('Rôle', employee.roleLabel, Icons.work, AppColors.primaryBlue)),
+-      ],
++  Widget _buildDocumentsTab() {
++    return SingleChildScrollView(
++      padding: const EdgeInsets.all(16),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          Row(
++            mainAxisAlignment: MainAxisAlignment.spaceBetween,
++            children: [
++              const Text('Documents', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
++              IconButton(
++                icon: const Icon(Icons.add_circle, color: _primary),
++                onPressed: () => _showAddDocumentDialog(),
++              ),
++            ],
++          ),
++          const SizedBox(height: 8),
++          if (_documents.isEmpty)
++            Center(
++              child: Padding(
++                padding: const EdgeInsets.all(40),
++                child: Column(
++                  children: [
++                    Icon(Icons.folder_open, size: 50, color: Colors.grey[300]),
++                    const SizedBox(height: 12),
++                    Text('Aucun document', style: TextStyle(color: Colors.grey[500], fontSize: 14)),
++                    const SizedBox(height: 8),
++                    Text('Appuyez + pour ajouter un document', style: TextStyle(color: Colors.grey[400], fontSize: 12)),
++                  ],
++                ),
++              ),
++            )
++          else
++            ..._documents.map((doc) => Card(
++              margin: const EdgeInsets.only(bottom: 8),
++              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
++              child: ListTile(
++                leading: CircleAvatar(
++                  backgroundColor: _primary.withValues(alpha: 0.1),
++                  child: Icon(_getDocIcon(doc['doc_type']), color: _primary, size: 20),
++                ),
++                title: Text(doc['doc_name'] ?? '', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
++                subtitle: Text(doc['doc_type'] ?? '', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
++                trailing: IconButton(
++                  icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.primaryRed),
++                  onPressed: () async {
++                    await DatabaseHelper.instance.delete('employee_documents', doc['id']);
++                    _loadData();
++                  },
++                ),
++              ),
++            )),
++        ],
++      ),
+     );
+   }
+ 
+-  Widget _buildStatItem(String label, String value, IconData icon, Color color) {
+-    return Container(
+-      padding: const EdgeInsets.all(14),
+-      decoration: BoxDecoration(
+-        color: Colors.white,
+-        borderRadius: BorderRadius.circular(14),
+-        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8, offset: const Offset(0, 2))],
+-      ),
++  Widget _buildAttendanceTab() {
++    return SingleChildScrollView(
++      padding: const EdgeInsets.all(16),
+       child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+-          Icon(icon, color: color, size: 22),
++          Row(
++            children: [
++              Expanded(child: _buildMiniStat('$_presentDays', 'Présent', AppColors.successGreen)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('$_absentDays', 'Absent', AppColors.primaryRed)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('$_lateDays', 'Retard', AppColors.primaryAmber)),
++            ],
++          ),
++          const SizedBox(height: 16),
++          const Text('Historique', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+           const SizedBox(height: 8),
+-          Text(value, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+-          const SizedBox(height: 4),
+-          Text(label, style: TextStyle(fontSize: 11, color: Colors.grey[600]), textAlign: TextAlign.center),
++          if (_attendance.isEmpty)
++            Center(child: Padding(
++              padding: const EdgeInsets.all(40),
++              child: Text('Aucun historique de présence', style: TextStyle(color: Colors.grey[500])),
++            ))
++          else
++            ..._attendance.take(30).map((a) {
++              final status = a['status'] ?? 'present';
++              final color = status == 'present' ? AppColors.successGreen
++                  : status == 'late' ? AppColors.primaryAmber
++                  : AppColors.primaryRed;
++              final label = status == 'present' ? 'Présent' : status == 'late' ? 'En retard' : 'Absent';
++              return Card(
++                margin: const EdgeInsets.only(bottom: 6),
++                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
++                child: ListTile(
++                  dense: true,
++                  leading: CircleAvatar(radius: 4, backgroundColor: color),
++                  title: Text(a['date'] ?? '', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
++                  subtitle: Text(
++                    '${a['check_in'] ?? '—'} → ${a['check_out'] ?? '—'}',
++                    style: TextStyle(fontSize: 11, color: Colors.grey[600]),
++                  ),
++                  trailing: Container(
++                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
++                    decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
++                    child: Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color)),
++                  ),
++                ),
++              );
++            }),
+         ],
+       ),
+     );
+   }
+ 
+-  Widget _buildSalesHistory(Employee employee) {
+-    return Container(
+-      width: double.infinity,
++  Widget _buildPerformanceTab() {
++    final totalSales = _sales.fold<int>(0, (s, r) => s + ((r['amount'] ?? 0) as int));
++    return SingleChildScrollView(
+       padding: const EdgeInsets.all(16),
+-      decoration: BoxDecoration(
+-        color: Colors.white,
+-        borderRadius: BorderRadius.circular(16),
+-        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8, offset: const Offset(0, 2))],
+-      ),
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+-          const Row(
++          Row(
+             children: [
+-              Icon(Icons.trending_up, color: AppColors.primaryGreen, size: 20),
+-              SizedBox(width: 8),
+-              Text('Historique des ventes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
++              Expanded(child: _buildMiniStat('${_sales.length}', 'Ventes', AppColors.primaryGreen)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('$totalSales FCFA', 'CA', AppColors.primaryAmber)),
++              const SizedBox(width: 8),
++              Expanded(child: _buildMiniStat('${_objectives.length}', 'Objectifs', AppColors.primaryBlue)),
+             ],
+           ),
+           const SizedBox(height: 16),
+-          ...List.generate(5, (i) => Container(
+-            margin: const EdgeInsets.only(bottom: 8),
+-            padding: const EdgeInsets.all(12),
+-            decoration: BoxDecoration(
+-              color: AppColors.background,
+-              borderRadius: BorderRadius.circular(10),
+-            ),
+-            child: Row(
+-              children: [
+-                Container(
+-                  padding: const EdgeInsets.all(6),
+-                  decoration: BoxDecoration(color: AppColors.primaryGreen.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+-                  child: const Icon(Icons.receipt, color: AppColors.primaryGreen, size: 16),
+-                ),
+-                const SizedBox(width: 12),
+-                Expanded(
++          if (_rewards.isNotEmpty) ...[
++            const Text('Récompenses', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
++            const SizedBox(height: 8),
++            ..._rewards.map((r) => Card(
++              margin: const EdgeInsets.only(bottom: 6),
++              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
++              child: ListTile(
++                leading: const Icon(Icons.emoji_events, color: AppColors.primaryAmber, size: 20),
++                title: Text(r['title'] ?? '', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
++                subtitle: Text('${r['reward_type']} — ${r['date']}', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
++              ),
++            )),
++            const SizedBox(height: 12),
++          ],
++          if (_sanctions.isNotEmpty) ...[
++            const Text('Sanctions', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
++            const SizedBox(height: 8),
++            ..._sanctions.map((s) => Card(
++              margin: const EdgeInsets.only(bottom: 6),
++              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
++              child: ListTile(
++                leading: const Icon(Icons.gavel, color: AppColors.primaryRed, size: 20),
++                title: Text(s['title'] ?? '', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
++                subtitle: Text('${s['sanction_type']} — ${s['date']}', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
++              ),
++            )),
++            const SizedBox(height: 12),
++          ],
++          if (_objectives.isNotEmpty) ...[
++            const Text('Objectifs', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
++            const SizedBox(height: 8),
++            ..._objectives.map((o) {
++              final target = (o['target_value'] ?? 1) as int;
++              final current = (o['current_value'] ?? 0) as int;
++              final pct = target > 0 ? (current / target).clamp(0.0, 1.0) : 0.0;
++              return Card(
++                margin: const EdgeInsets.only(bottom: 6),
++                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
++                child: Padding(
++                  padding: const EdgeInsets.all(12),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+-                      Text('Vente #${i + 1}', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+-                      Text('Il y a ${i + 1} jour(s)', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
++                      Text(o['title'] ?? '', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
++                      const SizedBox(height: 6),
++                      LinearProgressIndicator(value: pct, backgroundColor: Colors.grey[200], color: pct >= 1 ? AppColors.primaryGreen : AppColors.primaryBlue),
++                      const SizedBox(height: 4),
++                      Text('$current/$target (${(pct * 100).round()}%)', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                     ],
+                   ),
+                 ),
+-                Text('${(i + 1) * 2500} FCFA', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryGreen, fontSize: 13)),
+-              ],
+-            ),
+-          )),
++              );
++            }),
++          ],
++          if (_sales.isEmpty && _rewards.isEmpty && _sanctions.isEmpty && _objectives.isEmpty)
++            Center(child: Padding(
++              padding: const EdgeInsets.all(40),
++              child: Text('Aucune donnée de performance', style: TextStyle(color: Colors.grey[500])),
++            )),
+         ],
+       ),
+     );
+   }
+ 
+-  Widget _buildAttendanceSection(Employee employee) {
+-    return Container(
+-      width: double.infinity,
++  Widget _buildTrainingsTab() {
++    return SingleChildScrollView(
+       padding: const EdgeInsets.all(16),
+-      decoration: BoxDecoration(
+-        color: Colors.white,
+-        borderRadius: BorderRadius.circular(16),
+-        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8, offset: const Offset(0, 2))],
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          const Text('Formations', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
++          const SizedBox(height: 8),
++          if (_trainings.isEmpty)
++            Center(child: Padding(
++              padding: const EdgeInsets.all(40),
++              child: Text('Aucune formation suivie', style: TextStyle(color: Colors.grey[500])),
++            ))
++          else
++            ..._trainings.map((t) {
++              final status = t['status'] ?? 'enrolled';
++              final color = status == 'completed' ? AppColors.successGreen : AppColors.primaryBlue;
++              final label = status == 'completed' ? 'Terminée' : 'En cours';
++              return Card(
++                margin: const EdgeInsets.only(bottom: 8),
++                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
++                child: ListTile(
++                  leading: CircleAvatar(backgroundColor: color.withValues(alpha: 0.1), child: Icon(Icons.school, color: color, size: 18)),
++                  title: Text(t['training_title'] ?? '', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
++                  subtitle: Text(label, style: TextStyle(fontSize: 11, color: color)),
++                  trailing: status != 'completed'
++                      ? IconButton(
++                          icon: const Icon(Icons.check_circle, color: AppColors.primaryGreen, size: 20),
++                          onPressed: () async {
++                            await DatabaseHelper.instance.update('employee_trainings', {
++                              'status': 'completed',
++                              'completion_date': DateTime.now().toIso8601String().substring(0, 10),
++                            }, t['id']);
++                            _loadData();
++                          },
++                        )
++                      : null,
++                ),
++              );
++            }),
++        ],
+       ),
++    );
++  }
++
++  Widget _buildNotesTab(Employee employee) {
++    return SingleChildScrollView(
++      padding: const EdgeInsets.all(16),
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+-          const Row(
+-            children: [
+-              Icon(Icons.access_time, color: AppColors.primaryBlue, size: 20),
+-              SizedBox(width: 8),
+-              Text('Présence', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+-            ],
+-          ),
+-          const SizedBox(height: 16),
+           Row(
++            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+-              _buildAttendanceStat('Présent', '22', AppColors.successGreen),
+-              const SizedBox(width: 12),
+-              _buildAttendanceStat('Absent', '2', AppColors.primaryRed),
+-              const SizedBox(width: 12),
+-              _buildAttendanceStat('Retard', '1', AppColors.primaryAmber),
++              const Text('Notes du manager', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
++              IconButton(
++                icon: const Icon(Icons.add_circle, color: _primary),
++                onPressed: () => _showAddNoteDialog(employee),
++              ),
+             ],
+           ),
++          const SizedBox(height: 8),
++          if (_notes.isEmpty)
++            Center(child: Padding(
++              padding: const EdgeInsets.all(40),
++              child: Text('Aucune note', style: TextStyle(color: Colors.grey[500])),
++            ))
++          else
++            ..._notes.map((n) {
++              final sentiment = n['sentiment'] ?? 'neutral';
++              final sentimentColor = sentiment == 'positive' ? AppColors.successGreen
++                  : sentiment == 'negative' ? AppColors.primaryRed
++                  : AppColors.primaryBlue;
++              return Card(
++                margin: const EdgeInsets.only(bottom: 8),
++                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
++                child: Padding(
++                  padding: const EdgeInsets.all(12),
++                  child: Column(
++                    crossAxisAlignment: CrossAxisAlignment.start,
++                    children: [
++                      Row(
++                        children: [
++                          Container(
++                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
++                            decoration: BoxDecoration(color: sentimentColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
++                            child: Text(n['category'] ?? 'Général', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: sentimentColor)),
++                          ),
++                          const Spacer(),
++                          Text(n['created_at']?.toString().substring(0, 10) ?? '', style: TextStyle(fontSize: 10, color: Colors.grey[500])),
++                        ],
++                      ),
++                      const SizedBox(height: 8),
++                      Text(n['note'] ?? '', style: const TextStyle(fontSize: 13)),
++                    ],
++                  ),
++                ),
++              );
++            }),
+         ],
+       ),
+     );
+   }
+ 
+-  Widget _buildAttendanceStat(String label, String count, Color color) {
+-    return Expanded(
+-      child: Container(
+-        padding: const EdgeInsets.all(12),
+-        decoration: BoxDecoration(
+-          color: color.withValues(alpha: 0.08),
+-          borderRadius: BorderRadius.circular(10),
+-        ),
+-        child: Column(
+-          children: [
+-            Text(count, style: TextStyle(color: color, fontSize: 20, fontWeight: FontWeight.bold)),
+-            const SizedBox(height: 4),
+-            Text(label, style: TextStyle(fontSize: 12, color: color)),
+-          ],
+-        ),
++  Widget _buildInfoCard(String title, List<Widget> children) {
++    return Container(
++      width: double.infinity,
++      padding: const EdgeInsets.all(16),
++      decoration: BoxDecoration(
++        color: Colors.white,
++        borderRadius: BorderRadius.circular(14),
++        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8)],
++      ),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
++          const SizedBox(height: 12),
++          ...children,
++        ],
+       ),
+     );
+   }
+ 
+-  Widget _buildActionButtons(Employee employee) {
+-    return Row(
+-      children: [
+-        Expanded(
+-          child: ElevatedButton.icon(
+-            onPressed: () => _toggleActive(employee),
+-            icon: Icon(employee.isActive ? Icons.block : Icons.check_circle),
+-            label: Text(employee.isActive ? 'Désactiver' : 'Activer'),
+-            style: ElevatedButton.styleFrom(
+-              backgroundColor: employee.isActive ? AppColors.primaryRed : AppColors.successGreen,
+-              foregroundColor: Colors.white,
+-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+-              padding: const EdgeInsets.symmetric(vertical: 14),
+-            ),
+-          ),
+-        ),
+-        const SizedBox(width: 12),
+-        Expanded(
+-          child: ElevatedButton.icon(
+-            onPressed: () => _showEditDialog(),
+-            icon: const Icon(Icons.edit),
+-            label: const Text('Modifier'),
+-            style: ElevatedButton.styleFrom(
+-              backgroundColor: AppColors.primaryBlue,
+-              foregroundColor: Colors.white,
+-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+-              padding: const EdgeInsets.symmetric(vertical: 14),
+-            ),
++  Widget _infoRow(String label, String value) {
++    return Padding(
++      padding: const EdgeInsets.only(bottom: 8),
++      child: Row(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          SizedBox(
++            width: 110,
++            child: Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+           ),
+-        ),
+-      ],
++          Expanded(child: Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600))),
++        ],
++      ),
++    );
++  }
++
++  Widget _buildMiniStat(String value, String label, Color color) {
++    return Container(
++      padding: const EdgeInsets.all(12),
++      decoration: BoxDecoration(
++        color: color.withValues(alpha: 0.08),
++        borderRadius: BorderRadius.circular(10),
++      ),
++      child: Column(
++        children: [
++          Text(value, style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.bold)),
++          const SizedBox(height: 2),
++          Text(label, style: TextStyle(fontSize: 10, color: color)),
++        ],
++      ),
+     );
+   }
+ 
++  IconData _getDocIcon(String? type) {
++    switch (type) {
++      case 'contrat': return Icons.description;
++      case 'cv': return Icons.article;
++      case 'diplome': return Icons.school;
++      case 'photo': return Icons.photo;
++      default: return Icons.insert_drive_file;
++    }
++  }
++
+   Future<void> _toggleActive(Employee employee) async {
+     final db = DatabaseHelper.instance;
+     await db.update('employees', {
+       'is_active': employee.isActive ? 0 : 1,
+       'updated_at': DateTime.now().toIso8601String(),
+     }, employee.id);
++    await db.logActivity(null, employee.isActive ? 'employee_deactivated' : 'employee_activated', employee.name);
+     ref.invalidate(employeesProvider);
++    _loadData();
+   }
+ 
+-  void _showEditDialog() {
+-    final employees = ref.read(employeesProvider).valueOrNull;
+-    if (employees == null) return;
+-    final employee = employees.firstWhere((e) => e.id == widget.employeeId);
+-    final nameController = TextEditingController(text: employee.name);
+-    final phoneController = TextEditingController(text: employee.phone);
++  void _showEditProfileDialog(Employee employee) {
++    final nameCtrl = TextEditingController(text: employee.name);
++    final phoneCtrl = TextEditingController(text: employee.phone);
++    final emailCtrl = TextEditingController(text: _profile?['email'] ?? '');
++    final positionCtrl = TextEditingController(text: _profile?['position'] ?? '');
++    final deptCtrl = TextEditingController(text: _profile?['department'] ?? '');
++    final managerCtrl = TextEditingController(text: _profile?['manager_name'] ?? '');
++    final addressCtrl = TextEditingController(text: _profile?['address'] ?? '');
++    final emergencyContactCtrl = TextEditingController(text: _profile?['emergency_contact'] ?? '');
++    final emergencyPhoneCtrl = TextEditingController(text: _profile?['emergency_phone'] ?? '');
+ 
+     showModalBottomSheet(
+       context: context,
+       isScrollControlled: true,
+       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+-      builder: (ctx) => StatefulBuilder(
+-        builder: (ctx, setModalState) => Padding(
+-          padding: EdgeInsets.only(
+-            bottom: MediaQuery.of(ctx).viewInsets.bottom,
+-            left: 24, right: 24, top: 24,
+-          ),
++      builder: (ctx) => Padding(
++        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom, left: 24, right: 24, top: 24),
++        child: SingleChildScrollView(
+           child: Column(
+             mainAxisSize: MainAxisSize.min,
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+-              const Text('Modifier l\'employé', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+-              const SizedBox(height: 20),
+-              TextField(
+-                controller: nameController,
+-                decoration: InputDecoration(
+-                  labelText: 'Nom complet',
+-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+-                ),
+-              ),
++              const Text('Modifier le profil', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
++              const SizedBox(height: 16),
++              _buildDialogField(nameCtrl, 'Nom complet'),
++              _buildDialogField(phoneCtrl, 'Téléphone'),
++              _buildDialogField(emailCtrl, 'Email'),
++              _buildDialogField(positionCtrl, 'Poste'),
++              _buildDialogField(deptCtrl, 'Département'),
++              _buildDialogField(managerCtrl, 'Manager'),
++              _buildDialogField(addressCtrl, 'Adresse'),
++              _buildDialogField(emergencyContactCtrl, 'Contact urgence'),
++              _buildDialogField(emergencyPhoneCtrl, 'Tél urgence'),
+               const SizedBox(height: 16),
+-              TextField(
+-                controller: phoneController,
+-                keyboardType: TextInputType.phone,
+-                decoration: InputDecoration(
+-                  labelText: 'Téléphone',
+-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+-                ),
+-              ),
+-              const SizedBox(height: 24),
+               SizedBox(
+                 width: double.infinity, height: 48,
+                 child: ElevatedButton(
+                   onPressed: () async {
+                     final db = DatabaseHelper.instance;
+-                    final initials = nameController.text.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
++                    final initials = nameCtrl.text.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
+                     await db.update('employees', {
+-                      'name': nameController.text,
+-                      'phone': phoneController.text,
+-                      'initials': initials,
++                      'name': nameCtrl.text, 'phone': phoneCtrl.text, 'initials': initials,
+                       'updated_at': DateTime.now().toIso8601String(),
+                     }, employee.id);
++
++                    final profileData = {
++                      'employee_id': employee.id,
++                      'email': emailCtrl.text,
++                      'position': positionCtrl.text,
++                      'department': deptCtrl.text,
++                      'manager_name': managerCtrl.text,
++                      'address': addressCtrl.text,
++                      'emergency_contact': emergencyContactCtrl.text,
++                      'emergency_phone': emergencyPhoneCtrl.text,
++                      'updated_at': DateTime.now().toIso8601String(),
++                    };
++                    if (_profile != null) {
++                      await db.update('employee_profiles', profileData, _profile!['id']);
++                    } else {
++                      profileData['id'] = DateTime.now().millisecondsSinceEpoch.toString();
++                      profileData['created_at'] = DateTime.now().toIso8601String();
++                      await db.insert('employee_profiles', profileData);
++                    }
++
++                    await db.logActivity(null, 'employee_updated', employee.name);
+                     ref.invalidate(employeesProvider);
+-                    if (mounted) Navigator.pop(ctx);
++                    _loadData();
++                    if (ctx.mounted) Navigator.pop(ctx);
+                   },
++                  style: ElevatedButton.styleFrom(backgroundColor: _primary, foregroundColor: Colors.white),
+                   child: const Text('Sauvegarder'),
+                 ),
+               ),
+@@ -351,4 +694,151 @@ class _EmployeeDetailScreenState extends ConsumerState<EmployeeDetailScreen> {
+       ),
+     );
+   }
++
++  Widget _buildDialogField(TextEditingController ctrl, String label) {
++    return Padding(
++      padding: const EdgeInsets.only(bottom: 12),
++      child: TextField(
++        controller: ctrl,
++        decoration: InputDecoration(
++          labelText: label,
++          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
++          isDense: true,
++        ),
++      ),
++    );
++  }
++
++  void _showAddDocumentDialog() {
++    String docType = 'contrat';
++    final nameCtrl = TextEditingController();
++    showModalBottomSheet(
++      context: context,
++      isScrollControlled: true,
++      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
++      builder: (ctx) => Padding(
++        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom, left: 24, right: 24, top: 24),
++        child: StatefulBuilder(
++          builder: (ctx, setModalState) => Column(
++            mainAxisSize: MainAxisSize.min,
++            crossAxisAlignment: CrossAxisAlignment.start,
++            children: [
++              const Text('Ajouter un document', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
++              const SizedBox(height: 16),
++              DropdownButtonFormField<String>(
++                value: docType,
++                items: const [
++                  DropdownMenuItem(value: 'contrat', child: Text('Contrat')),
++                  DropdownMenuItem(value: 'cv', child: Text('CV')),
++                  DropdownMenuItem(value: 'diplome', child: Text('Diplôme')),
++                  DropdownMenuItem(value: 'photo', child: Text('Photo')),
++                  DropdownMenuItem(value: 'autre', child: Text('Autre')),
++                ],
++                onChanged: (v) => setModalState(() => docType = v!),
++                decoration: InputDecoration(labelText: 'Type', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
++              ),
++              const SizedBox(height: 12),
++              TextField(controller: nameCtrl, decoration: InputDecoration(labelText: 'Nom du document', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)))),
++              const SizedBox(height: 16),
++              SizedBox(
++                width: double.infinity, height: 48,
++                child: ElevatedButton(
++                  onPressed: () async {
++                    if (nameCtrl.text.isEmpty) return;
++                    final db = DatabaseHelper.instance;
++                    await db.insert('employee_documents', {
++                      'id': DateTime.now().millisecondsSinceEpoch.toString(),
++                      'employee_id': widget.employeeId,
++                      'doc_type': docType,
++                      'doc_name': nameCtrl.text,
++                      'created_at': DateTime.now().toIso8601String(),
++                    });
++                    _loadData();
++                    if (ctx.mounted) Navigator.pop(ctx);
++                  },
++                  style: ElevatedButton.styleFrom(backgroundColor: _primary, foregroundColor: Colors.white),
++                  child: const Text('Ajouter'),
++                ),
++              ),
++              const SizedBox(height: 24),
++            ],
++          ),
++        ),
++      ),
++    );
++  }
++
++  void _showAddNoteDialog(Employee employee) {
++    final noteCtrl = TextEditingController();
++    String category = 'Général';
++    String sentiment = 'neutral';
++    showModalBottomSheet(
++      context: context,
++      isScrollControlled: true,
++      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
++      builder: (ctx) => Padding(
++        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom, left: 24, right: 24, top: 24),
++        child: StatefulBuilder(
++          builder: (ctx, setModalState) => Column(
++            mainAxisSize: MainAxisSize.min,
++            crossAxisAlignment: CrossAxisAlignment.start,
++            children: [
++              const Text('Ajouter une note', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
++              const SizedBox(height: 16),
++              DropdownButtonFormField<String>(
++                value: category,
++                items: const [
++                  DropdownMenuItem(value: 'Général', child: Text('Général')),
++                  DropdownMenuItem(value: 'Performance', child: Text('Performance')),
++                  DropdownMenuItem(value: 'Ponctualité', child: Text('Ponctualité')),
++                  DropdownMenuItem(value: 'Relation client', child: Text('Relation client')),
++                  DropdownMenuItem(value: 'Autre', child: Text('Autre')),
++                ],
++                onChanged: (v) => setModalState(() => category = v!),
++                decoration: InputDecoration(labelText: 'Catégorie', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
++              ),
++              const SizedBox(height: 12),
++              DropdownButtonFormField<String>(
++                value: sentiment,
++                items: const [
++                  DropdownMenuItem(value: 'neutral', child: Text('Neutre')),
++                  DropdownMenuItem(value: 'positive', child: Text('Positif')),
++                  DropdownMenuItem(value: 'negative', child: Text('Négatif')),
++                ],
++                onChanged: (v) => setModalState(() => sentiment = v!),
++                decoration: InputDecoration(labelText: 'Sentiment', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
++              ),
++              const SizedBox(height: 12),
++              TextField(controller: noteCtrl, maxLines: 3, decoration: InputDecoration(labelText: 'Note', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)))),
++              const SizedBox(height: 16),
++              SizedBox(
++                width: double.infinity, height: 48,
++                child: ElevatedButton(
++                  onPressed: () async {
++                    if (noteCtrl.text.isEmpty) return;
++                    final db = DatabaseHelper.instance;
++                    await db.insert('manager_notes', {
++                      'id': DateTime.now().millisecondsSinceEpoch.toString(),
++                      'employee_id': employee.id,
++                      'employee_name': employee.name,
++                      'note': noteCtrl.text,
++                      'category': category,
++                      'sentiment': sentiment,
++                      'created_at': DateTime.now().toIso8601String(),
++                    });
++                    await db.logActivity(null, 'manager_note', 'Note pour ${employee.name}');
++                    _loadData();
++                    if (ctx.mounted) Navigator.pop(ctx);
++                  },
++                  style: ElevatedButton.styleFrom(backgroundColor: _primary, foregroundColor: Colors.white),
++                  child: const Text('Ajouter'),
++                ),
++              ),
++              const SizedBox(height: 24),
++            ],
++          ),
++        ),
++      ),
++    );
++  }
+ }
+diff --git a/yabisso_admin/lib/screens/employees/employees_screen.dart b/yabisso_admin/lib/screens/employees/employees_screen.dart
+index 71e055a..71fe702 100644
+--- a/yabisso_admin/lib/screens/employees/employees_screen.dart
++++ b/yabisso_admin/lib/screens/employees/employees_screen.dart
+@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
+ import 'package:flutter_riverpod/flutter_riverpod.dart';
+ import 'package:go_router/go_router.dart';
+ import 'package:uuid/uuid.dart';
++import 'package:mobile_scanner/mobile_scanner.dart';
+ import '../../core/app_theme.dart';
+ import '../../models/employee.dart';
+ import '../../providers/providers.dart';
+@@ -155,6 +156,7 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
+   void _showAddEmployeeDialog() {
+     final nameController = TextEditingController();
+     final phoneController = TextEditingController();
++    final idController = TextEditingController();
+     String selectedRole = 'prestataire';
+ 
+     showModalBottomSheet(
+@@ -175,6 +177,41 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
+             children: [
+               const Text('Ajouter un employé', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+               const SizedBox(height: 20),
++              SizedBox(
++                width: double.infinity,
++                child: OutlinedButton.icon(
++                  onPressed: () => _scanEmployeeQr(ctx, setModalState, nameController, phoneController, idController),
++                  icon: const Icon(Icons.qr_code_scanner, size: 20),
++                  label: const Text('Scanner QR Code de l\'employé'),
++                  style: OutlinedButton.styleFrom(
++                    foregroundColor: AppColors.primaryBlue,
++                    side: const BorderSide(color: AppColors.primaryBlue),
++                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
++                    padding: const EdgeInsets.symmetric(vertical: 14),
++                  ),
++                ),
++              ),
++              const SizedBox(height: 16),
++              Row(
++                children: [
++                  Expanded(child: Divider(color: Colors.grey[300])),
++                  Padding(
++                    padding: const EdgeInsets.symmetric(horizontal: 12),
++                    child: Text('ou saisie manuelle', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
++                  ),
++                  Expanded(child: Divider(color: Colors.grey[300])),
++                ],
++              ),
++              const SizedBox(height: 16),
++              TextField(
++                controller: idController,
++                decoration: InputDecoration(
++                  labelText: 'ID de l\'employé',
++                  hintText: 'Ex: EMP-001 (laisser vide pour auto)',
++                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
++                ),
++              ),
++              const SizedBox(height: 16),
+               TextField(
+                 controller: nameController,
+                 decoration: InputDecoration(
+@@ -212,7 +249,7 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
+                   onPressed: () async {
+                     if (nameController.text.isEmpty || phoneController.text.isEmpty) return;
+                     final db = DatabaseHelper.instance;
+-                    final id = const Uuid().v4();
++                    final id = idController.text.isNotEmpty ? idController.text : const Uuid().v4();
+                     final now = DateTime.now().toIso8601String();
+                     final initials = nameController.text.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
+                     final employee = Employee(
+@@ -233,4 +270,169 @@ class _EmployeesScreenState extends ConsumerState<EmployeesScreen> {
+       ),
+     );
+   }
++
++  void _scanEmployeeQr(BuildContext ctx, StateSetter setModalState, TextEditingController nameController, TextEditingController phoneController, TextEditingController idController) {
++    Navigator.pop(ctx);
++    MobileScannerController? scannerController;
++    showDialog(
++      context: context,
++      builder: (ctx) => StatefulBuilder(
++        builder: (ctx, setDialogState) => Dialog(
++          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
++          child: ClipRRect(
++            borderRadius: BorderRadius.circular(20),
++            child: SizedBox(
++              width: 320,
++              height: 400,
++              child: Stack(
++                children: [
++                  MobileScanner(
++                    onDetect: (capture) {
++                      final barcode = capture.barcodes.first;
++                      final raw = barcode.rawValue ?? '';
++                      if (raw.startsWith('YABISSO_EMP:')) {
++                        final parts = raw.split(':');
++                        if (parts.length >= 2) {
++                          final empId = parts[1];
++                          Navigator.pop(ctx);
++                          _showAddEmployeeFromQr(empId);
++                        }
++                      } else if (!raw.contains('{')) {
++                        Navigator.pop(ctx);
++                        _showAddEmployeeFromQr(raw);
++                      }
++                    },
++                  ),
++                  Positioned(
++                    top: 12, left: 12,
++                    child: CircleAvatar(
++                      backgroundColor: Colors.black45,
++                      child: IconButton(
++                        icon: const Icon(Icons.close, color: Colors.white, size: 20),
++                        onPressed: () => Navigator.pop(ctx),
++                      ),
++                    ),
++                  ),
++                  Positioned(
++                    bottom: 20, left: 0, right: 0,
++                    child: Center(
++                      child: Container(
++                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
++                        decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(8)),
++                        child: const Text('Scannez le QR code de l\'employé', style: TextStyle(color: Colors.white, fontSize: 13)),
++                      ),
++                    ),
++                  ),
++                ],
++              ),
++            ),
++          ),
++        ),
++      ),
++    );
++  }
++
++  Future<void> _showAddEmployeeFromQr(String employeeId) async {
++    final nameController = TextEditingController();
++    final phoneController = TextEditingController();
++    String selectedRole = 'prestataire';
++
++    showModalBottomSheet(
++      context: context,
++      isScrollControlled: true,
++      shape: const RoundedRectangleBorder(
++        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
++      ),
++      builder: (ctx) => StatefulBuilder(
++        builder: (ctx, setModalState) => Padding(
++          padding: EdgeInsets.only(
++            bottom: MediaQuery.of(ctx).viewInsets.bottom,
++            left: 24, right: 24, top: 24,
++          ),
++          child: Column(
++            mainAxisSize: MainAxisSize.min,
++            crossAxisAlignment: CrossAxisAlignment.start,
++            children: [
++              Row(
++                children: [
++                  const Icon(Icons.qr_code, color: AppColors.primaryBlue, size: 22),
++                  const SizedBox(width: 8),
++                  const Text('Ajouter employé via QR', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
++                ],
++              ),
++              const SizedBox(height: 8),
++              Container(
++                padding: const EdgeInsets.all(10),
++                decoration: BoxDecoration(
++                  color: AppColors.primaryBlue.withValues(alpha: 0.08),
++                  borderRadius: BorderRadius.circular(10),
++                ),
++                child: Row(
++                  children: [
++                    const Icon(Icons.info_outline, size: 16, color: AppColors.primaryBlue),
++                    const SizedBox(width: 8),
++                    Expanded(
++                      child: Text('ID scanné: ${employeeId.substring(0, 12)}...', style: TextStyle(fontSize: 12, color: Colors.grey[700], fontFamily: 'monospace')),
++                    ),
++                  ],
++                ),
++              ),
++              const SizedBox(height: 16),
++              TextField(
++                controller: nameController,
++                decoration: InputDecoration(
++                  labelText: 'Nom complet',
++                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
++                ),
++              ),
++              const SizedBox(height: 16),
++              TextField(
++                controller: phoneController,
++                keyboardType: TextInputType.phone,
++                decoration: InputDecoration(
++                  labelText: 'Téléphone',
++                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
++                ),
++              ),
++              const SizedBox(height: 16),
++              DropdownButtonFormField<String>(
++                value: selectedRole,
++                decoration: InputDecoration(
++                  labelText: 'Rôle',
++                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
++                ),
++                items: const [
++                  DropdownMenuItem(value: 'prestataire', child: Text('Prestataire')),
++                  DropdownMenuItem(value: 'commercial', child: Text('Commercial')),
++                  DropdownMenuItem(value: 'manager', child: Text('Manager')),
++                ],
++                onChanged: (v) => setModalState(() => selectedRole = v ?? 'prestataire'),
++              ),
++              const SizedBox(height: 24),
++              SizedBox(
++                width: double.infinity, height: 48,
++                child: ElevatedButton(
++                  onPressed: () async {
++                    if (nameController.text.isEmpty || phoneController.text.isEmpty) return;
++                    final db = DatabaseHelper.instance;
++                    final now = DateTime.now().toIso8601String();
++                    final initials = nameController.text.split(' ').map((w) => w.isNotEmpty ? w[0] : '').take(2).join().toUpperCase();
++                    final employee = Employee(
++                      id: employeeId, name: nameController.text, phone: phoneController.text,
++                      role: selectedRole, initials: initials, createdAt: now, updatedAt: now,
++                    );
++                    await db.insert('employees', employee.toMap());
++                    ref.invalidate(employeesProvider);
++                    if (mounted) Navigator.pop(ctx);
++                  },
++                  child: const Text('Ajouter'),
++                ),
++              ),
++              const SizedBox(height: 24),
++            ],
++          ),
++        ),
++      ),
++    );
++  }
+ }
+diff --git a/yabisso_admin/lib/screens/home/dashboard_screen.dart b/yabisso_admin/lib/screens/home/dashboard_screen.dart
+index 41ceb2f..26cfb2c 100644
+--- a/yabisso_admin/lib/screens/home/dashboard_screen.dart
++++ b/yabisso_admin/lib/screens/home/dashboard_screen.dart
+@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
+ import '../../core/app_theme.dart';
+ import '../../providers/providers.dart';
+ import '../../services/ai_service.dart';
++import '../../services/permissions_service.dart';
+ 
+ class DashboardScreen extends ConsumerStatefulWidget {
+   const DashboardScreen({super.key});
+@@ -15,6 +16,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+   static const _primary = AppColors.primaryGreen;
+   static const _bg = AppColors.background;
+ 
++  bool _hasPermission(String permission) {
++    final admin = ref.read(currentAdminProvider);
++    if (admin == null) return false;
++    return PermissionsService.instance.hasPermission(admin.role, permission);
++  }
++
+   @override
+   void initState() {
+     super.initState();
+@@ -84,7 +91,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Text('$greeting, $name', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+-              Text('Tableau de bord Super Admin', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
++              Text('Tableau de bord ${PermissionsService.instance.getRoleLabel(admin.role)}', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+             ],
+           ),
+         ),
+@@ -96,6 +103,37 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+           ),
+           child: const Icon(Icons.notifications_outlined, color: AppColors.primaryAmber, size: 22),
+         ),
++        const SizedBox(width: 8),
++        GestureDetector(
++          onTap: () {
++            showDialog(
++              context: context,
++              builder: (ctx) => AlertDialog(
++                title: const Text('Déconnexion'),
++                content: const Text('Voulez-vous vous déconnecter ?'),
++                actions: [
++                  TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Annuler')),
++                  TextButton(
++                    onPressed: () {
++                      ref.read(currentAdminProvider.notifier).state = null;
++                      Navigator.pop(ctx);
++                      context.go('/login');
++                    },
++                    child: const Text('Se déconnecter', style: TextStyle(color: AppColors.primaryRed)),
++                  ),
++                ],
++              ),
++            );
++          },
++          child: Container(
++            padding: const EdgeInsets.all(8),
++            decoration: BoxDecoration(
++              color: AppColors.primaryRed.withValues(alpha: 0.1),
++              borderRadius: BorderRadius.circular(10),
++            ),
++            child: const Icon(Icons.logout, color: AppColors.primaryRed, size: 22),
++          ),
++        ),
+       ],
+     );
+   }
+@@ -290,70 +328,115 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+   }
+ 
+   Widget _buildQuickActions() {
+-    return Column(
+-      crossAxisAlignment: CrossAxisAlignment.start,
+-      children: [
+-        const Text('Actions rapides', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Employés', Icons.people, _primary, () => context.push('/employees'))),
+-            const SizedBox(width: 12),
++    final actions = <Widget>[];
++
++    if (_hasPermission('employees_view')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Employés', Icons.people, _primary, () => context.push('/employees'))),
++          const SizedBox(width: 12),
++          if (_hasPermission('analytics_view'))
+             Expanded(child: _buildActionCard('Ventes', Icons.trending_up, AppColors.primaryBlue, () => context.push('/sales'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Assignations', Icons.assignment, AppColors.primaryAmber, () => context.push('/assignments'))),
+-            const SizedBox(width: 12),
+-            Expanded(child: _buildActionCard('IA Marketing', Icons.campaign, AppColors.primaryRed, () => context.push('/ai-marketing'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Générateur de vouchers', Icons.vpn_key, AppColors.primaryGreen, () => context.push('/vouchers'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Activité Employé', Icons.assignment, AppColors.primaryBlue, () => context.push('/activity'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('tasks_view')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Assignations', Icons.assignment, AppColors.primaryAmber, () => context.push('/assignments'))),
++          const SizedBox(width: 12),
++          Expanded(child: _buildActionCard('IA Marketing', Icons.campaign, AppColors.primaryRed, () => context.push('/ai-marketing'))),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('vouchers_generate')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Générateur de vouchers', Icons.vpn_key, AppColors.primaryGreen, () => context.push('/vouchers'))),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('attendance_view')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Activité Employé', Icons.assignment, AppColors.primaryBlue, () => context.push('/activity'))),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('leaves_view') || _hasPermission('objectives_view')) {
++      actions.add(Row(
++        children: [
++          if (_hasPermission('objectives_view'))
+             Expanded(child: _buildActionCard('Tableau de bord RH', Icons.dashboard, AppColors.primaryGreen, () => context.push('/rh'))),
++          if (_hasPermission('objectives_view') && _hasPermission('leaves_view'))
+             const SizedBox(width: 12),
++          if (_hasPermission('leaves_view'))
+             Expanded(child: _buildActionCard('Congés', Icons.event_busy, AppColors.primaryAmber, () => context.push('/leaves'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Suivi des employés', Icons.fingerprint, AppColors.primaryAmber, () => context.push('/employee-tracking'))),
+-            const SizedBox(width: 12),
+-            Expanded(child: _buildActionCard('Ventes employés', Icons.receipt_long, AppColors.primaryGreen, () => context.push('/shared-sales'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Candidats', Icons.person_search, AppColors.primaryBlue, () => context.push('/candidates'))),
+-            const SizedBox(width: 12),
+-            Expanded(child: _buildActionCard('Suivi commerces', Icons.store_mall_directory, AppColors.primaryGreen, () => context.push('/commerce-tracking'))),
+-          ],
+-        ),
+-        const SizedBox(height: 12),
+-        Row(
+-          children: [
+-            Expanded(child: _buildActionCard('Relance', Icons.phone_callback, AppColors.primaryAmber, () => context.push('/relance'))),
+-            const SizedBox(width: 12),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('attendance_view')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Suivi des employés', Icons.fingerprint, AppColors.primaryAmber, () => context.push('/employee-tracking'))),
++          const SizedBox(width: 12),
++          Expanded(child: _buildActionCard('Ventes employés', Icons.receipt_long, AppColors.primaryGreen, () => context.push('/shared-sales'))),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('candidates_view')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Candidats', Icons.person_search, AppColors.primaryBlue, () => context.push('/candidates'))),
++          const SizedBox(width: 12),
++          Expanded(child: _buildActionCard('Suivi commerces', Icons.store_mall_directory, AppColors.primaryGreen, () => context.push('/commerce-tracking'))),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('prospectives_view')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Relance', Icons.phone_callback, AppColors.primaryAmber, () => context.push('/relance'))),
++          const SizedBox(width: 12),
++          if (_hasPermission('analytics_view'))
+             Expanded(child: _buildActionCard('Analyse & Performance', Icons.analytics, AppColors.primaryAmber, () => context.push('/analytics'))),
+-          ],
+-        ),
++        ],
++      ));
++      actions.add(const SizedBox(height: 12));
++    }
++
++    if (_hasPermission('reports_export')) {
++      actions.add(Row(
++        children: [
++          Expanded(child: _buildActionCard('Export PDF', Icons.file_download, AppColors.primaryGreen, () => context.push('/export'))),
++        ],
++      ));
++    }
++
++    if (actions.isEmpty) {
++      return const SizedBox.shrink();
++    }
++
++    return Column(
++      crossAxisAlignment: CrossAxisAlignment.start,
++      children: [
++        const Text('Actions rapides', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
++        const SizedBox(height: 12),
++        ...actions,
+       ],
+     );
+   }
+@@ -440,6 +523,21 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+   }
+ 
+   Widget _buildBottomNav(BuildContext context) {
++    final items = <Widget>[
++      _buildNavItem(Icons.home, 'Dashboard', true, () {}),
++    ];
++
++    if (_hasPermission('employees_view')) {
++      items.add(_buildNavItem(Icons.people, 'Employés', false, () => context.push('/employees')));
++    }
++
++    if (_hasPermission('analytics_view')) {
++      items.add(_buildNavItem(Icons.trending_up, 'Ventes', false, () => context.push('/sales')));
++      items.add(_buildNavItem(Icons.analytics, 'Analyse', false, () => context.push('/analytics')));
++    }
++
++    items.add(_buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')));
++
+     return Container(
+       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+       decoration: BoxDecoration(
+@@ -448,13 +546,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+       ),
+       child: Row(
+         mainAxisAlignment: MainAxisAlignment.spaceAround,
+-        children: [
+-          _buildNavItem(Icons.home, 'Dashboard', true, () {}),
+-          _buildNavItem(Icons.people, 'Employés', false, () => context.push('/employees')),
+-          _buildNavItem(Icons.trending_up, 'Ventes', false, () => context.push('/sales')),
+-          _buildNavItem(Icons.analytics, 'Analyse', false, () => context.push('/analytics')),
+-          _buildNavItem(Icons.smart_toy, 'IA', false, () => context.push('/ai-ceo')),
+-        ],
++        children: items,
+       ),
+     );
+   }
+diff --git a/yabisso_admin/lib/screens/rh/leaves_screen.dart b/yabisso_admin/lib/screens/rh/leaves_screen.dart
+index 5ae6c9f..ae24da6 100644
+--- a/yabisso_admin/lib/screens/rh/leaves_screen.dart
++++ b/yabisso_admin/lib/screens/rh/leaves_screen.dart
+@@ -129,6 +129,14 @@ class _LeavesScreenState extends ConsumerState<LeavesScreen> {
+                         'created_at': now,
+                         'updated_at': now,
+                       });
++                      await db.insert('notifications', {
++                        'id': const Uuid().v4(),
++                        'title': 'Demande de congé',
++                        'body': '${emp['name']} demande un congé du ${startDate.toIso8601String().substring(0, 10)} au ${endDate.toIso8601String().substring(0, 10)}',
++                        'type': 'warning',
++                        'reference_type': 'leave',
++                        'created_at': now,
++                      });
+                       await db.logActivity(ref.read(currentAdminProvider)?.id, 'leave_created', 'Demande de congé pour ${emp['name']}');
+                       _loadData();
+                       if (mounted) Navigator.pop(ctx);
+diff --git a/yabisso_admin/lib/screens/rh/objectives_screen.dart b/yabisso_admin/lib/screens/rh/objectives_screen.dart
+index 62ecab4..3c8febc 100644
+--- a/yabisso_admin/lib/screens/rh/objectives_screen.dart
++++ b/yabisso_admin/lib/screens/rh/objectives_screen.dart
+@@ -57,13 +57,33 @@ class _ObjectivesScreenState extends ConsumerState<ObjectivesScreen> {
+   Future<void> _incrementObjective(Map<String, dynamic> obj) async {
+     final newCurrent = (obj['current_value'] as int) + 1;
+     final newStatus = newCurrent >= (obj['target_value'] as int) ? 'completed' : obj['status'];
++    final now = DateTime.now().toIso8601String();
++    
+     await DatabaseHelper.instance.update('objectives', {
+       'current_value': newCurrent,
+       'status': newStatus,
+-      'updated_at': DateTime.now().toIso8601String(),
++      'updated_at': now,
+     }, obj['id']);
++    
+     final admin = ref.read(currentAdminProvider);
+     await DatabaseHelper.instance.logActivity(admin?.id, 'objective_incremented', 'Objectif "${obj['title']}" incrementé à $newCurrent');
++    
++    // Auto notification when objective is completed
++    if (newStatus == 'completed') {
++      await DatabaseHelper.instance.insert('notifications', {
++        'id': const Uuid().v4(),
++        'user_id': obj['employee_id'],
++        'user_role': 'employee',
++        'title': 'Objectif atteint!',
++        'body': 'Félicitations! Vous avez atteint l\'objectif: ${obj['title']}',
++        'type': 'objective_completed',
++        'is_read': 0,
++        'reference_id': obj['id'],
++        'reference_type': 'objective',
++        'created_at': now,
++      });
++    }
++    
+     _loadData();
+   }
+ 
+@@ -167,6 +187,20 @@ class _ObjectivesScreenState extends ConsumerState<ObjectivesScreen> {
+                         'updated_at': now,
+                       });
+                       await db.logActivity(admin?.id, 'objective_created', 'Objectif "${titleController.text}" créé pour ${emp['name']}');
++                      
++                      // Auto notification
++                      await db.insert('notifications', {
++                        'id': const Uuid().v4(),
++                        'user_id': selectedEmployee,
++                        'user_role': 'employee',
++                        'title': 'Nouvel objectif',
++                        'body': 'Un nouvel objectif vous a été assigné: ${titleController.text}',
++                        'type': 'objective',
++                        'is_read': 0,
++                        'reference_id': null,
++                        'reference_type': 'objective',
++                        'created_at': now,
++                      });
+                       _loadData();
+                       if (mounted) Navigator.pop(ctx);
+                     },
+diff --git a/yabisso_admin/lib/screens/rh/rh_dashboard_screen.dart b/yabisso_admin/lib/screens/rh/rh_dashboard_screen.dart
+index 1479308..a6610c5 100644
+--- a/yabisso_admin/lib/screens/rh/rh_dashboard_screen.dart
++++ b/yabisso_admin/lib/screens/rh/rh_dashboard_screen.dart
+@@ -1,15 +1,18 @@
+ import 'package:flutter/material.dart';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
+ import 'package:go_router/go_router.dart';
+ import '../../core/app_theme.dart';
++import '../../providers/providers.dart';
+ import '../../services/database_helper.dart';
++import '../../services/permissions_service.dart';
+ 
+-class RhDashboardScreen extends StatefulWidget {
++class RhDashboardScreen extends ConsumerStatefulWidget {
+   const RhDashboardScreen({super.key});
+   @override
+-  State<RhDashboardScreen> createState() => _RhDashboardScreenState();
++  ConsumerState<RhDashboardScreen> createState() => _RhDashboardScreenState();
+ }
+ 
+-class _RhDashboardScreenState extends State<RhDashboardScreen> {
++class _RhDashboardScreenState extends ConsumerState<RhDashboardScreen> {
+   bool _loading = true;
+   int _totalEmployees = 0;
+   int _totalCandidates = 0;
+@@ -20,8 +23,10 @@ class _RhDashboardScreenState extends State<RhDashboardScreen> {
+   int _totalObjectives = 0;
+   int _completedObjectives = 0;
+   int _pendingLeaves = 0;
+-  int _totalTrainings = 0;
+   int _unreadNotifications = 0;
++  int _pendingTasks = 0;
++  int _completedTasks = 0;
++  List<Map<String, dynamic>> _topPerformers = [];
+ 
+   @override
+   void initState() {
+@@ -29,6 +34,12 @@ class _RhDashboardScreenState extends State<RhDashboardScreen> {
+     _loadDashboard();
+   }
+ 
++  bool _hasPermission(String permission) {
++    final admin = ref.read(currentAdminProvider);
++    if (admin == null) return false;
++    return PermissionsService.instance.hasPermission(admin.role, permission);
++  }
++
+   Future<void> _loadDashboard() async {
+     setState(() => _loading = true);
+     final db = DatabaseHelper.instance;
+@@ -41,13 +52,51 @@ class _RhDashboardScreenState extends State<RhDashboardScreen> {
+     final objectives = await db.getAll('objectives', where: "status = 'active'");
+     final objectivesCompleted = await db.getAll('objectives', where: "status = 'completed'");
+     final leaves = await db.getAll('leaves', where: "status = 'pending'");
+-    final trainings = await db.getAll('trainings');
+     final notifications = await db.getAll('notifications', where: 'is_read = 0');
++    final tasks = await db.getAll('employee_tasks');
++    final pendingTasks = tasks.where((t) => t['status'] == 'pending' || t['status'] == 'in_progress').length;
++    final completedTasks = tasks.where((t) => t['status'] == 'completed').length;
+ 
+     final present = attendance.where((a) => a['status'] == 'present' || a['status'] == 'late').length;
+     final absent = employees.length - attendance.length;
+     final late = attendance.where((a) => a['status'] == 'late').length;
+ 
++    // Calculate top performers
++    final Map<String, int> employeeScores = {};
++    for (final emp in employees) {
++      final empId = emp['id']?.toString() ?? '';
++      final empName = emp['name']?.toString() ?? '';
++      if (empId.isEmpty || empName.isEmpty) continue;
++      
++      int score = 0;
++      
++      // Tasks completed (30 points max)
++      final empTasks = tasks.where((t) => t['employee_id']?.toString() == empId).toList();
++      final completedEmpTasks = empTasks.where((t) => t['status'] == 'completed').length;
++      score += (completedEmpTasks * 6).clamp(0, 30);
++      
++      // Prospection (25 points max)
++      final empProspections = prospections.where((p) => p['employee_id']?.toString() == empId).length;
++      score += (empProspections * 5).clamp(0, 25);
++      
++      // Attendance (20 points max)
++      final empAttendance = await db.getAll('attendance', where: 'employee_id = ?', whereArgs: [empId]);
++      final empPresent = empAttendance.where((a) => a['status'] == 'present').length;
++      if (empAttendance.isNotEmpty) {
++        score += ((empPresent / empAttendance.length) * 20).round();
++      }
++      
++      employeeScores[empName] = score;
++    }
++    
++    final sorted = employeeScores.entries.toList()
++      ..sort((a, b) => b.value.compareTo(a.value));
++    
++    _topPerformers = sorted.take(5).map((e) => {
++      'name': e.key,
++      'score': e.value,
++    }).toList();
++
+     setState(() {
+       _totalEmployees = employees.length;
+       _totalCandidates = candidates.length;
+@@ -58,8 +107,9 @@ class _RhDashboardScreenState extends State<RhDashboardScreen> {
+       _totalObjectives = objectives.length;
+       _completedObjectives = objectivesCompleted.length;
+       _pendingLeaves = leaves.length;
+-      _totalTrainings = trainings.length;
+       _unreadNotifications = notifications.length;
++      _pendingTasks = pendingTasks;
++      _completedTasks = completedTasks;
+       _loading = false;
+     });
+   }
+@@ -143,7 +193,23 @@ class _RhDashboardScreenState extends State<RhDashboardScreen> {
+                         _buildStatCard('$_completedObjectives', 'Terminés', Icons.check, AppColors.primaryBlue),
+                       ],
+                     ),
++                    const SizedBox(height: 16),
++                    _buildSectionTitle('Tâches'),
++                    const SizedBox(height: 8),
++                    Row(
++                      children: [
++                        _buildStatCard('$_pendingTasks', 'En cours', Icons.pending_actions, AppColors.primaryAmber),
++                        const SizedBox(width: 8),
++                        _buildStatCard('$_completedTasks', 'Terminées', Icons.check_circle, AppColors.primaryGreen),
++                      ],
++                    ),
+                     const SizedBox(height: 20),
++                    if (_topPerformers.isNotEmpty) ...[
++                      _buildSectionTitle('Top Performers'),
++                      const SizedBox(height: 8),
++                      _buildTopPerformersSection(),
++                      const SizedBox(height: 20),
++                    ],
+                     _buildSectionTitle('Modules'),
+                     const SizedBox(height: 8),
+                     _buildModuleGrid(),
+@@ -181,21 +247,145 @@ class _RhDashboardScreenState extends State<RhDashboardScreen> {
+     );
+   }
+ 
++  Widget _buildTopPerformersSection() {
++    return Container(
++      padding: const EdgeInsets.all(12),
++      decoration: BoxDecoration(
++        color: Colors.white,
++        borderRadius: BorderRadius.circular(12),
++        border: Border.all(color: AppColors.primaryGreen.withValues(alpha: 0.2)),
++      ),
++      child: Column(
++        children: _topPerformers.asMap().entries.map((entry) {
++          final index = entry.key;
++          final performer = entry.value;
++          final name = performer['name']?.toString() ?? '';
++          final score = performer['score'] as int? ?? 0;
++          
++          return Container(
++            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
++            decoration: BoxDecoration(
++              border: Border(
++                bottom: index < _topPerformers.length - 1 
++                  ? BorderSide(color: Colors.grey.withValues(alpha: 0.2))
++                  : BorderSide.none,
++              ),
++            ),
++            child: Row(
++              children: [
++                Container(
++                  width: 24,
++                  height: 24,
++                  decoration: BoxDecoration(
++                    color: index == 0 
++                      ? AppColors.primaryAmber.withValues(alpha: 0.2)
++                      : index == 1 
++                        ? Colors.grey.withValues(alpha: 0.2)
++                        : index == 2 
++                          ? Color(0xFFCD7F32).withValues(alpha: 0.2)
++                          : AppColors.primaryGreen.withValues(alpha: 0.1),
++                    shape: BoxShape.circle,
++                  ),
++                  child: Center(
++                    child: Text(
++                      '${index + 1}',
++                      style: TextStyle(
++                        fontSize: 12,
++                        fontWeight: FontWeight.bold,
++                        color: index == 0 
++                          ? AppColors.primaryAmber
++                          : index == 1 
++                            ? Colors.grey[700]
++                            : index == 2 
++                              ? Color(0xFFCD7F32)
++                              : AppColors.primaryGreen,
++                      ),
++                    ),
++                  ),
++                ),
++                const SizedBox(width: 12),
++                Expanded(
++                  child: Text(
++                    name,
++                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
++                  ),
++                ),
++                Container(
++                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
++                  decoration: BoxDecoration(
++                    color: AppColors.primaryGreen.withValues(alpha: 0.1),
++                    borderRadius: BorderRadius.circular(8),
++                  ),
++                  child: Text(
++                    '$score pts',
++                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.primaryGreen),
++                  ),
++                ),
++              ],
++            ),
++          );
++        }).toList(),
++      ),
++    );
++  }
++
+   Widget _buildModuleGrid() {
+-    final modules = [
+-      {'icon': Icons.person_search, 'label': 'Candidats', 'route': '/candidates', 'color': AppColors.primaryBlue},
+-      {'icon': Icons.people, 'label': 'Employés', 'route': '/employees', 'color': AppColors.primaryGreen},
+-      {'icon': Icons.event, 'label': 'Congés', 'route': '/leaves', 'color': AppColors.primaryAmber},
+-      {'icon': Icons.flag, 'label': 'Objectifs', 'route': '/objectives', 'color': AppColors.primaryRed},
+-      {'icon': Icons.emoji_events, 'label': 'Récompenses', 'route': '/rewards', 'color': AppColors.primaryGreen},
+-      {'icon': Icons.gavel, 'label': 'Sanctions', 'route': '/sanctions', 'color': AppColors.primaryRed},
+-      {'icon': Icons.school, 'label': 'Formations', 'route': '/trainings', 'color': AppColors.primaryBlue},
+-      {'icon': Icons.assessment, 'label': 'Rapports', 'route': '/daily-reports', 'color': AppColors.primaryAmber},
+-      {'icon': Icons.store_mall_directory, 'label': 'Démarchage', 'route': '/commerce-tracking', 'color': AppColors.primaryGreen},
+-      {'icon': Icons.trending_up, 'label': 'Performances', 'route': '/analytics', 'color': AppColors.primaryBlue},
+-      {'icon': Icons.phone_callback, 'label': 'Relance', 'route': '/relance', 'color': AppColors.primaryAmber},
+-      {'icon': Icons.notifications, 'label': 'Notifications', 'route': '/notifications', 'color': AppColors.primaryRed},
+-    ];
++    final modules = <Map<String, dynamic>>[];
++    
++    if (_hasPermission('candidates_view')) {
++      modules.add({'icon': Icons.person_search, 'label': 'Candidats', 'route': '/candidates', 'color': AppColors.primaryBlue, 'permission': 'candidates_view'});
++    }
++    if (_hasPermission('employees_view')) {
++      modules.add({'icon': Icons.people, 'label': 'Employés', 'route': '/employees', 'color': AppColors.primaryGreen, 'permission': 'employees_view'});
++    }
++    if (_hasPermission('tasks_view')) {
++      modules.add({'icon': Icons.task_alt, 'label': 'Tâches', 'route': '/employee-tasks', 'color': AppColors.primaryGreen, 'permission': 'tasks_view'});
++    }
++    if (_hasPermission('leaves_view')) {
++      modules.add({'icon': Icons.event, 'label': 'Congés', 'route': '/leaves', 'color': AppColors.primaryAmber, 'permission': 'leaves_view'});
++    }
++    if (_hasPermission('objectives_view')) {
++      modules.add({'icon': Icons.flag, 'label': 'Objectifs', 'route': '/objectives', 'color': AppColors.primaryRed, 'permission': 'objectives_view'});
++    }
++    if (_hasPermission('performance_view')) {
++      modules.add({'icon': Icons.trending_up, 'label': 'Performances', 'route': '/performance', 'color': AppColors.primaryBlue, 'permission': 'performance_view'});
++    }
++    if (_hasPermission('rewards_view')) {
++      modules.add({'icon': Icons.emoji_events, 'label': 'Récompenses', 'route': '/rewards', 'color': AppColors.primaryGreen, 'permission': 'rewards_view'});
++    }
++    if (_hasPermission('sanctions_view')) {
++      modules.add({'icon': Icons.gavel, 'label': 'Sanctions', 'route': '/sanctions', 'color': AppColors.primaryRed, 'permission': 'sanctions_view'});
++    }
++    if (_hasPermission('trainings_view')) {
++      modules.add({'icon': Icons.school, 'label': 'Formations', 'route': '/trainings', 'color': AppColors.primaryBlue, 'permission': 'trainings_view'});
++    }
++    if (_hasPermission('attendance_view')) {
++      modules.add({'icon': Icons.access_time, 'label': 'Présence', 'route': '/attendance', 'color': AppColors.primaryGreen, 'permission': 'attendance_view'});
++    }
++    if (_hasPermission('reports_view')) {
++      modules.add({'icon': Icons.assessment, 'label': 'Rapports', 'route': '/daily-reports', 'color': AppColors.primaryAmber, 'permission': 'reports_view'});
++    }
++    if (_hasPermission('prospectives_view')) {
++      modules.add({'icon': Icons.store_mall_directory, 'label': 'Démarchage', 'route': '/commerce-tracking', 'color': AppColors.primaryGreen, 'permission': 'prospectives_view'});
++    }
++    if (_hasPermission('prospectives_view')) {
++      modules.add({'icon': Icons.phone_callback, 'label': 'Relance', 'route': '/relance', 'color': AppColors.primaryAmber, 'permission': 'prospectives_view'});
++    }
++    if (_hasPermission('manager_notes_view')) {
++      modules.add({'icon': Icons.sticky_note_2, 'label': 'Notes manager', 'route': '/manager-notes', 'color': AppColors.primaryBlue, 'permission': 'manager_notes_view'});
++    }
++    if (_hasPermission('notifications_send')) {
++      modules.add({'icon': Icons.notifications, 'label': 'Notifications', 'route': '/notifications', 'color': AppColors.primaryRed, 'permission': 'notifications_send'});
++    }
++    if (_hasPermission('activity_log_view')) {
++      modules.add({'icon': Icons.history, 'label': 'Journal', 'route': '/activity-log', 'color': AppColors.primaryAmber, 'permission': 'activity_log_view'});
++    }
++    if (_hasPermission('settings_manage')) {
++      modules.add({'icon': Icons.security, 'label': 'Permissions', 'route': '/settings', 'color': AppColors.primaryRed, 'permission': 'settings_manage'});
++    }
++    if (_hasPermission('reports_export')) {
++      modules.add({'icon': Icons.file_download, 'label': 'Export PDF', 'route': '/export', 'color': AppColors.primaryGreen, 'permission': 'reports_export'});
++    }
+ 
+     return GridView.builder(
+       shrinkWrap: true,
+diff --git a/yabisso_admin/lib/screens/vouchers/voucher_generator_screen.dart b/yabisso_admin/lib/screens/vouchers/voucher_generator_screen.dart
+index 59b275a..b8580f4 100644
+--- a/yabisso_admin/lib/screens/vouchers/voucher_generator_screen.dart
++++ b/yabisso_admin/lib/screens/vouchers/voucher_generator_screen.dart
+@@ -16,8 +16,10 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+ 
+   String _businessType = 'boutique';
+   final _businessIdController = TextEditingController();
++  final _prestataireIdController = TextEditingController();
+   String _voucherMode = 'subscription';
+   String _selectedPlan = 'BASIC';
++  String _selectedDuration = '30';
+   final _pointsController = TextEditingController();
+   String? _generatedCode;
+   List<Map<String, dynamic>> _history = [];
+@@ -40,6 +42,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+   @override
+   void dispose() {
+     _businessIdController.dispose();
++    _prestataireIdController.dispose();
+     _pointsController.dispose();
+     super.dispose();
+   }
+@@ -66,7 +69,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+     final prefs = await SharedPreferences.getInstance();
+     final list = prefs.getStringList('voucher_history') ?? [];
+     final now = DateTime.now().toLocal().toString().substring(0, 16);
+-    final plan = _voucherMode == 'subscription' ? _selectedPlan : '';
++    final plan = _voucherMode == 'points' ? '' : _selectedPlan;
+     final points = _voucherMode == 'points' ? (_pointsController.text) : '';
+     list.insert(0, '$type|||$code|||$now|||$_businessType|||$plan|||$points');
+     if (list.length > 50) list.removeLast();
+@@ -75,19 +78,29 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+   }
+ 
+   void _generateVoucher() {
+-    final businessId = _businessIdController.text.trim();
+-    if (businessId.isEmpty) {
+-      ScaffoldMessenger.of(context).showSnackBar(
+-        const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
+-      );
+-      return;
+-    }
+-
+     String code;
+-    if (_voucherMode == 'subscription') {
++
++    if (_voucherMode == 'online') {
++      code = VoucherGeneratorService.generateOnlineVoucher();
++      _saveToHistory('YAB', code);
++    } else if (_voucherMode == 'subscription') {
++      final businessId = _businessIdController.text.trim();
++      if (businessId.isEmpty) {
++        ScaffoldMessenger.of(context).showSnackBar(
++          const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
++        );
++        return;
++      }
+       code = VoucherGeneratorService.generateOfflineVoucher(_businessType, businessId, _selectedPlan);
+       _saveToHistory('OFF', code);
+     } else {
++      final businessId = _businessIdController.text.trim();
++      if (businessId.isEmpty) {
++        ScaffoldMessenger.of(context).showSnackBar(
++          const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
++        );
++        return;
++      }
+       final pointsText = _pointsController.text.trim();
+       if (pointsText.isEmpty || int.tryParse(pointsText) == null) {
+         ScaffoldMessenger.of(context).showSnackBar(
+@@ -163,10 +176,20 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+             _buildBusinessTypeSelector(),
+             const SizedBox(height: 20),
+             _buildBusinessIdInput(),
++            const SizedBox(height: 16),
++            _buildPrestataireIdInput(),
+             const SizedBox(height: 20),
+             _buildVoucherModeToggle(),
+             const SizedBox(height: 16),
+-            if (_voucherMode == 'subscription') _buildPlanSelector() else _buildPointsInput(),
++            if (_voucherMode == 'online') ...[
++              _buildPlanSelector(),
++              const SizedBox(height: 16),
++              _buildDurationSelector(),
++            ] else if (_voucherMode == 'subscription') ...[
++              _buildPlanSelector(),
++            ] else ...[
++              _buildPointsInput(),
++            ],
+             const SizedBox(height: 16),
+             _buildGenerateButton(businessColor),
+             const SizedBox(height: 16),
+@@ -278,14 +301,14 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+     return Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+-        const Text('ID du commerce', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
++        Text(_voucherMode == 'online' ? 'ID Boutique (optionnel)' : 'ID du commerce', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+         const SizedBox(height: 10),
+         TextField(
+           controller: _businessIdController,
+           textCapitalization: TextCapitalization.characters,
+           decoration: InputDecoration(
+             hintText: hint,
+-            helperText: helper,
++            helperText: _voucherMode == 'online' ? 'Pas obligatoire pour les vouchers en ligne' : helper,
+             helperStyle: TextStyle(color: Colors.grey[500], fontSize: 12),
+             filled: true,
+             fillColor: Colors.white,
+@@ -319,13 +342,59 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+     );
+   }
+ 
++  Widget _buildPrestataireIdInput() {
++    return Column(
++      crossAxisAlignment: CrossAxisAlignment.start,
++      children: [
++        const Text('ID Prestataire (optionnel)', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
++        const SizedBox(height: 10),
++        TextField(
++          controller: _prestataireIdController,
++          textCapitalization: TextCapitalization.characters,
++          decoration: InputDecoration(
++            hintText: 'EMP-1234-JD',
++            helperText: 'ID du vendeur/commercial',
++            helperStyle: TextStyle(color: Colors.grey[500], fontSize: 12),
++            filled: true,
++            fillColor: Colors.white,
++            border: OutlineInputBorder(
++              borderRadius: BorderRadius.circular(12),
++              borderSide: BorderSide(color: AppColors.border),
++            ),
++            enabledBorder: OutlineInputBorder(
++              borderRadius: BorderRadius.circular(12),
++              borderSide: BorderSide(color: AppColors.border),
++            ),
++            focusedBorder: OutlineInputBorder(
++              borderRadius: BorderRadius.circular(12),
++              borderSide: const BorderSide(color: AppColors.primaryBlue, width: 2),
++            ),
++            prefixIcon: Container(
++              margin: const EdgeInsets.all(8),
++              padding: const EdgeInsets.all(8),
++              decoration: BoxDecoration(
++                color: AppColors.primaryBlue.withValues(alpha: 0.1),
++                borderRadius: BorderRadius.circular(8),
++              ),
++              child: const Text('E', style: TextStyle(
++                color: AppColors.primaryBlue, fontWeight: FontWeight.bold, fontSize: 14,
++              )),
++            ),
++          ),
++          onChanged: (_) => setState(() => _generatedCode = null),
++        ),
++      ],
++    );
++  }
++
+   Widget _buildVoucherModeToggle() {
+     return Container(
+       padding: const EdgeInsets.all(4),
+       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+       child: Row(
+         children: [
+-          _buildModeButton('Abonnement', 'subscription'),
++          _buildModeButton('En ligne', 'online'),
++          _buildModeButton('Hors ligne', 'subscription'),
+           _buildModeButton('Points', 'points'),
+         ],
+       ),
+@@ -405,6 +474,51 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+     );
+   }
+ 
++  Widget _buildDurationSelector() {
++    return Column(
++      crossAxisAlignment: CrossAxisAlignment.start,
++      children: [
++        const Text('Durée', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
++        const SizedBox(height: 10),
++        Row(
++          children: [
++            _buildDurationOption('30', '30 jours'),
++            const SizedBox(width: 8),
++            _buildDurationOption('60', '60 jours'),
++            const SizedBox(width: 8),
++            _buildDurationOption('90', '90 jours'),
++          ],
++        ),
++      ],
++    );
++  }
++
++  Widget _buildDurationOption(String value, String label) {
++    final isActive = _selectedDuration == value;
++    return Expanded(
++      child: GestureDetector(
++        onTap: () => setState(() {
++          _selectedDuration = value;
++          _generatedCode = null;
++        }),
++        child: Container(
++          padding: const EdgeInsets.symmetric(vertical: 12),
++          decoration: BoxDecoration(
++            color: isActive ? _primary.withValues(alpha: 0.1) : Colors.white,
++            borderRadius: BorderRadius.circular(10),
++            border: Border.all(color: isActive ? _primary : AppColors.border, width: isActive ? 2 : 1),
++          ),
++          child: Center(
++            child: Text(label, style: TextStyle(
++              fontWeight: FontWeight.w600, fontSize: 13,
++              color: isActive ? _primary : Colors.grey[600],
++            )),
++          ),
++        ),
++      ),
++    );
++  }
++
+   Color _getPlanColor(String plan) {
+     switch (plan) {
+       case 'MICRO':
+@@ -526,7 +640,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+               borderRadius: BorderRadius.circular(8),
+             ),
+             child: Text(
+-              _voucherMode == 'subscription' ? 'VOUCHER ABONNEMENT' : 'VOUCHER POINTS',
++              _voucherMode == 'online' ? 'VOUCHER EN LIGNE' : (_voucherMode == 'subscription' ? 'VOUCHER HORS LIGNE' : 'VOUCHER POINTS'),
+               style: TextStyle(color: businessColor, fontSize: 12, fontWeight: FontWeight.w700),
+             ),
+           ),
+@@ -610,10 +724,12 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+   }
+ 
+   Widget _buildHistoryItem(Map<String, dynamic> item) {
+-    final isOff = item['type'] == 'OFF';
+-    final color = isOff ? _primary : AppColors.primaryAmber;
+-    final label = isOff ? 'Abonnement' : 'Points';
+-    final detail = isOff ? (item['plan'] ?? '') : '${item['points'] ?? ''} pts';
++    final type = item['type'] ?? 'OFF';
++    final isYab = type == 'YAB';
++    final isPts = type == 'PTS';
++    final color = isYab ? AppColors.primaryBlue : (isPts ? AppColors.primaryAmber : _primary);
++    final label = isYab ? 'En ligne' : (isPts ? 'Points' : 'Hors ligne');
++    final detail = isYab ? '${item['plan'] ?? ''} • $_selectedDuration j' : (isPts ? '${item['points'] ?? ''} pts' : (item['plan'] ?? ''));
+ 
+     return Container(
+       margin: const EdgeInsets.only(bottom: 8),
+@@ -627,7 +743,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
+           Container(
+             padding: const EdgeInsets.all(8),
+             decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+-            child: Icon(isOff ? Icons.card_membership : Icons.stars, color: color, size: 18),
++            child: Icon(isYab ? Icons.language : (isPts ? Icons.stars : Icons.card_membership), color: color, size: 18),
+           ),
+           const SizedBox(width: 12),
+           Expanded(
+diff --git a/yabisso_admin/lib/services/ai_service.dart b/yabisso_admin/lib/services/ai_service.dart
+index 4bb11a6..ead8b8c 100644
+--- a/yabisso_admin/lib/services/ai_service.dart
++++ b/yabisso_admin/lib/services/ai_service.dart
+@@ -1,121 +1,230 @@
+-import 'dart:math';
+ import 'package:uuid/uuid.dart';
+ import '../models/ai_proposal.dart';
+ import 'database_helper.dart';
++import 'analytics_service.dart';
+ 
+ class AiService {
+   static final AiService instance = AiService._init();
+   AiService._init();
+ 
+   final _db = DatabaseHelper.instance;
+-  final _random = Random();
+-
+-  static const _proposalTemplates = [
+-    {
+-      'title': 'Campagne de recrutement ciblée',
+-      'description': 'Lancer une campagne de recrutement sur les réseaux sociaux pour attirer des commerciaux dans la zone de Douala. Cibler les jeunes de 20-30 ans avec expérience en vente.',
+-      'expectedImpact': 'Augmentation de 30% de l\'équipe commerciale en 2 semaines',
+-      'priority': 'high',
+-      'category': 'hr',
+-    },
+-    {
+-      'title': 'Programme de fidélisation clients',
+-      'description': 'Implémenter un système de points de fidélité pour les boutiques partenaires. Les clients accumulent des points à chaque abonnement acheté.',
+-      'expectedImpact': 'Augmentation de 15% du taux de rétention des clients',
+-      'priority': 'high',
+-      'category': 'marketing',
+-    },
+-    {
+-      'title': 'Optimisation des zones de vente',
+-      'description': 'Analyser les données de vente pour identifier les zones sous-exploitées et redéployer les commerciaux dans ces secteurs.',
+-      'expectedImpact': 'Couverture de 20% de nouvelles zones en 1 mois',
+-      'priority': 'medium',
+-      'category': 'sales',
+-    },
+-    {
+-      'title': 'Formation accélérée nouveaux employés',
+-      'description': 'Créer un programme de formation de 3 jours pour les nouveaux employés couvrant les techniques de vente, la connaissance du produit et le service client.',
+-      'expectedImpact': 'Réduction de 40% du temps d\'intégration',
+-      'priority': 'medium',
+-      'category': 'hr',
+-    },
+-    {
+-      'title': 'Promotion saisonnière',
+-      'description': 'Lancer une promotion de -20% sur tous les abonnements pendant la période de fêtes pour stimuler les ventes.',
+-      'expectedImpact': 'Hausse de 25% du chiffre d\'affaires mensuel',
+-      'priority': 'high',
+-      'category': 'marketing',
+-    },
+-    {
+-      'title': 'Système de commission amélioré',
+-      'description': 'Revoir la structure des commissions pour récompenser davantage les meilleurs vendeurs et motiver l\'ensemble de l\'équipe.',
+-      'expectedImpact': 'Augmentation de 20% de la productivité moyenne',
+-      'priority': 'medium',
+-      'category': 'finance',
+-    },
+-    {
+-      'title': 'Expansion géographique',
+-      'description': 'Étendre les activités dans les villes secondaires du Cameroun : Bafoussam, Garoua, Maroua. Recruter des correspondants locaux.',
+-      'expectedImpact': 'Nouveau marché de 500+ clients potentiels',
+-      'priority': 'low',
+-      'category': 'operations',
+-    },
+-    {
+-      'title': 'Application mobile améliorée',
+-      'description': 'Ajouter des fonctionnalités de paiement mobile et de suivi en temps réel des abonnements dans l\'application.',
+-      'expectedImpact': 'Amélioration de 35% de l\'expérience utilisateur',
+-      'priority': 'medium',
+-      'category': 'operations',
+-    },
+-    {
+-      'title': 'Partenariat stratégique',
+-      'description': 'Développer des partenariats avec des opérateurs télécoms pour offrir des forfaits data inclus avec les abonnements.',
+-      'expectedImpact': 'Attractivité accrue de 40% pour les nouveaux clients',
+-      'priority': 'high',
+-      'category': 'marketing',
+-    },
+-    {
+-      'title': 'Audit des performances',
+-      'description': 'Réaliser un audit complet des performances de chaque équipe et identifier les axes d\'amélioration prioritaires.',
+-      'expectedImpact': 'Optimisation des processus internes de 25%',
+-      'priority': 'low',
+-      'category': 'general',
+-    },
+-  ];
+ 
+   Future<void> generateDailyProposals() async {
+     final today = DateTime.now().toIso8601String().substring(0, 10);
+     final existing = await _db.getAll('ai_proposals',
+-      where: "created_at LIKE ?", whereArgs: ['$today%']);
++        where: "created_at LIKE ?", whereArgs: ['$today%']);
+     if (existing.length >= 3) return;
+ 
++    final analytics = await AnalyticsService.instance.getFullAnalytics();
++    final proposals = await _generateProposalsFromData(analytics);
++
+     final count = 3 - existing.length;
+-    final available = List.from(_proposalTemplates)..shuffle(_random);
+     final now = DateTime.now().toIso8601String();
+ 
+-    for (var i = 0; i < count && i < available.length; i++) {
+-      final template = available[i];
++    for (var i = 0; i < count && i < proposals.length; i++) {
++      final p = proposals[i];
+       final proposal = AiProposal(
+         id: const Uuid().v4(),
+-        title: template['title']!,
+-        description: template['description']!,
+-        expectedImpact: template['expectedImpact']!,
+-        priority: template['priority']!,
+-        category: template['category']!,
++        title: p['title']!,
++        description: p['description']!,
++        expectedImpact: p['expectedImpact']!,
++        priority: p['priority']!,
++        category: p['category']!,
+         createdAt: now,
+       );
+       await _db.insert('ai_proposals', proposal.toMap());
+     }
+   }
+ 
++  Future<List<Map<String, String>>> _generateProposalsFromData(
++      Map<String, dynamic> analytics) async {
++    final proposals = <Map<String, String>>[];
++
++    final employees = analytics['employees'] as Map<String, dynamic>;
++    final sales = analytics['sales'] as Map<String, dynamic>;
++    final checkins = analytics['checkins'] as Map<String, dynamic>;
++    final candidates = analytics['candidates'] as Map<String, dynamic>;
++    final teams = analytics['teams'] as Map<String, dynamic>;
++
++    final performance =
++        (employees['performance'] as List).cast<Map<String, dynamic>>();
++    final activeCount = employees['active'] as int;
++    final todayAmount = sales['today_amount'] as int;
++    final monthAmount = sales['month_amount'] as int;
++    final pendingCheckins = checkins['pending'] as int;
++    final totalCandidates = candidates['total'] as int;
++    final notContacted =
++        (candidates['not_contacted'] as List).cast<Map<String, dynamic>>();
++    final lowPerformers =
++        (teams['low_performers'] as List).cast<Map<String, dynamic>>();
++    final suggestions =
++        (teams['pairing_suggestions'] as List).cast<Map<String, dynamic>>();
++    final avgSales = teams['avg_sales'] as int;
++
++    // HR: Low performers need training
++    if (lowPerformers.isNotEmpty && lowPerformers.length >= 2) {
++      final names = lowPerformers.take(2).map((e) => e['name']).join(' et ');
++      proposals.add({
++        'title': 'Formation ciblée pour $names',
++        'description':
++            '${lowPerformers.length} employé(s) performent en dessous de la moyenne (${_fmt(avgSales)} FCFA vs moyenne). '
++                'Un programme de mentorat avec les meilleurs vendeurs est recommandé.',
++        'expectedImpact':
++            'Amélioration de 20-30% des ventes de ces employés en 2 semaines',
++        'priority': 'high',
++        'category': 'hr',
++      });
++    }
++
++    // SALES: Today's revenue is low
++    if (todayAmount == 0 && activeCount > 0) {
++      proposals.add({
++        'title': 'Aucune vente aujourd\'hui — action immédiate',
++        'description':
++            'Aucune vente enregistrée aujourd\'hui avec $activeCount employé(s) actif(s). '
++                'Vérifiez si les employés sont sur le terrain et relancez les prospects.',
++        'expectedImpact': 'Reprise des ventes dans les 24h',
++        'priority': 'high',
++        'category': 'sales',
++      });
++    } else if (todayAmount > 0 && activeCount > 0) {
++      final perEmployee = todayAmount ~/ activeCount;
++      if (perEmployee < avgSales ~/ 30) {
++        proposals.add({
++          'title': 'Performance quotidienne sous la moyenne',
++          'description':
++              'CA du jour: ${_fmt(todayAmount)} FCFA pour $activeCount employé(s) '
++                  '(${_fmt(perEmployee)} FCFA/employé). La moyenne mensuelle est de ${_fmt(avgSales ~/ (activeCount > 0 ? activeCount : 1))} FCFA/employé.',
++          'expectedImpact':
++              'Atteindre la moyenne de ${_fmt(avgSales ~/ (activeCount > 0 ? activeCount : 1))} FCFA/employé/jour',
++          'priority': 'medium',
++          'category': 'sales',
++        });
++      }
++    }
++
++    // OPERATIONS: Pending checkins need review
++    if (pendingCheckins >= 5) {
++      proposals.add({
++        'title': '$pendingCheckins pointages en attente de validation',
++        'description':
++            'Il y a $pendingCheckins demandes de pointage en attente. '
++                'Un retard de validation peut décourager les employés et fausser les données.',
++        'expectedImpact': 'Validation sous 2h = motivation employés +15%',
++        'priority': 'high',
++        'category': 'operations',
++      });
++    }
++
++    // MARKETING: Candidates not contacted
++    if (notContacted.length >= 3) {
++      proposals.add({
++        'title': '${notContacted.length} candidats pas encore contactés',
++        'description':
++            'Des candidats potentiels n\'ont pas été contactés. '
++                'Chaque jour sans contact réduit de 30% la chance de conversion.',
++        'expectedImpact':
++            'Conversion de 2-3 candidats supplémentaires par mois',
++        'priority': 'medium',
++        'category': 'marketing',
++      });
++    }
++
++    // HR: Team pairing suggestions
++    if (suggestions.isNotEmpty) {
++      final s = suggestions.first;
++      proposals.add({
++        'title': 'Parrainage: ${s['mentor']} → ${s['mentee']}',
++        'description': s['reason'] as String,
++        'expectedImpact':
++            'Le mentorat croisé améliore la performance globale de 15-25%',
++        'priority': 'medium',
++        'category': 'hr',
++      });
++    }
++
++    // FINANCE: Monthly revenue trend
++    if (monthAmount > 0 && activeCount > 0) {
++      final monthlyPerEmployee = monthAmount ~/ activeCount;
++      if (monthlyPerEmployee < 50000) {
++        proposals.add({
++          'title': 'Revenu mensuel faible par employé',
++          'description':
++              'Le revenu mensuel moyen par employé est de ${_fmt(monthlyPerEmployee)} FCFA. '
++                  'Objectif minimum recommandé: 100 000 FCFA/employé/mois.',
++          'expectedImpact':
++              'Doublement du CA mensuel en optimisant les zones de vente',
++          'priority': 'medium',
++          'category': 'finance',
++        });
++      }
++    }
++
++    // OPERATIONS: Employee count vs assignments
++    final totalAssignments = await _db.count('assignments');
++    final completedAssignments =
++        await _db.count('assignments', where: "status = 'completed'");
++    if (activeCount > 0 && totalAssignments == 0) {
++      proposals.add({
++        'title': 'Aucune assignation créée',
++        'description':
++            '$activeCount employé(s) actif(s) mais aucune assignation. '
++                'Créez des missions pour structurer le travail.',
++        'expectedImpact': 'Productivité +20% avec des objectifs clairs',
++        'priority': 'low',
++        'category': 'operations',
++      });
++    }
++
++    // If no data-driven proposals, add generic ones
++    if (proposals.isEmpty) {
++      proposals.addAll([
++        {
++          'title': 'Revue hebdomadaire des performances',
++          'description':
++              'Planifiez une réunion hebdomadaire pour analyser les ventes et aligner l\'équipe.',
++          'expectedImpact': 'Meilleure coordination d\'équipe',
++          'priority': 'low',
++          'category': 'general',
++        },
++        {
++          'title': 'Mise à jour de la base de données',
++          'description':
++              'Vérifiez que tous les employés et produits sont correctement enregistrés.',
++          'expectedImpact': 'Données fiables pour les décisions',
++          'priority': 'low',
++          'category': 'operations',
++        },
++        {
++          'title': 'Objectif du mois',
++          'description':
++              'Définissez un objectif de CA mensuel clair pour chaque employé.',
++          'expectedImpact': 'Motivation et orientation de l\'équipe',
++          'priority': 'low',
++          'category': 'sales',
++        },
++      ]);
++    }
++
++    return proposals;
++  }
++
++  String _fmt(int amount) {
++    return amount
++        .toString()
++        .replaceAllMapped(
++            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
++  }
++
+   Future<List<AiProposal>> getAllProposals() async {
+-    final maps = await _db.getAll('ai_proposals', orderBy: 'created_at DESC');
++    final maps =
++        await _db.getAll('ai_proposals', orderBy: 'created_at DESC');
+     return maps.map((m) => AiProposal.fromMap(m)).toList();
+   }
+ 
+   Future<List<AiProposal>> getPendingProposals() async {
+     final maps = await _db.getAll('ai_proposals',
+-      where: "status = 'pending'", orderBy: 'created_at DESC');
++        where: "status = 'pending'", orderBy: 'created_at DESC');
+     return maps.map((m) => AiProposal.fromMap(m)).toList();
+   }
+ 
+@@ -138,14 +247,17 @@ class AiService {
+   Future<Map<String, dynamic>> getMarketingMetrics() async {
+     final totalSales = await _db.sum('sale_records', 'amount');
+     final totalCommission = await _db.sum('sale_records', 'commission');
+-    final totalEmployees = await _db.count('employees', where: 'is_active = 1');
++    final totalEmployees =
++        await _db.count('employees', where: 'is_active = 1');
+     final totalAssignments = await _db.count('assignments');
+-    final completedAssignments = await _db.count('assignments', where: "status = 'completed'");
++    final completedAssignments =
++        await _db.count('assignments', where: "status = 'completed'");
+ 
+     final now = DateTime.now();
+-    final monthStart = '${now.year}-${now.month.toString().padLeft(2, '0')}-01';
++    final monthStart =
++        '${now.year}-${now.month.toString().padLeft(2, '0')}-01';
+     final monthlySales = await _db.sum('sale_records', 'amount',
+-      where: 'created_at >= ?', whereArgs: [monthStart]);
++        where: 'created_at >= ?', whereArgs: [monthStart]);
+ 
+     return {
+       'totalSales': totalSales,
+@@ -154,7 +266,9 @@ class AiService {
+       'totalAssignments': totalAssignments,
+       'completedAssignments': completedAssignments,
+       'monthlySales': monthlySales,
+-      'conversionRate': totalAssignments > 0 ? (completedAssignments / totalAssignments * 100).toStringAsFixed(1) : '0',
++      'conversionRate': totalAssignments > 0
++          ? (completedAssignments / totalAssignments * 100).toStringAsFixed(1)
++          : '0',
+     };
+   }
+ }
+diff --git a/yabisso_admin/lib/services/database_helper.dart b/yabisso_admin/lib/services/database_helper.dart
+index 3e420f0..03d0aee 100644
+--- a/yabisso_admin/lib/services/database_helper.dart
++++ b/yabisso_admin/lib/services/database_helper.dart
+@@ -17,7 +17,7 @@ class DatabaseHelper {
+   Future<Database> _initDB(String filePath) async {
+     final dir = await getApplicationDocumentsDirectory();
+     final path = join(dir.path, filePath);
+-    return await openDatabase(path, version: 7, onCreate: _createDB, onUpgrade: _upgradeDB);
++    return await openDatabase(path, version: 10, onCreate: _createDB, onUpgrade: _upgradeDB);
+   }
+ 
+   Future _createDB(Database db, int version) async {
+@@ -158,6 +158,11 @@ class DatabaseHelper {
+         relance_stage TEXT,
+         last_contact_date TEXT,
+         notes TEXT,
++        validation_status TEXT DEFAULT 'not_validated',
++        validated_at TEXT,
++        transformed_to_employee INTEGER DEFAULT 0,
++        employee_id TEXT,
++        transformed_at TEXT,
+         created_at TEXT,
+         updated_at TEXT
+       )
+@@ -374,6 +379,40 @@ class DatabaseHelper {
+         created_at TEXT
+       )
+     ''');
++
++    await db.execute('''
++      CREATE TABLE contact_history (
++        id TEXT PRIMARY KEY,
++        shop_id TEXT NOT NULL,
++        shop_name TEXT NOT NULL,
++        agent_name TEXT DEFAULT '',
++        channel TEXT DEFAULT 'appel',
++        result TEXT DEFAULT 'relance_necessaire',
++        notes TEXT DEFAULT '',
++        created_at TEXT
++      )
++    ''');
++
++    await db.execute('''
++      CREATE TABLE employee_tasks (
++        id TEXT PRIMARY KEY,
++        employee_id TEXT NOT NULL,
++        employee_name TEXT NOT NULL,
++        title TEXT NOT NULL,
++        description TEXT,
++        task_type TEXT DEFAULT 'demarchage',
++        priority TEXT DEFAULT 'medium',
++        due_date TEXT,
++        status TEXT DEFAULT 'pending',
++        started_at TEXT,
++        completed_at TEXT,
++        comment TEXT,
++        proof_path TEXT,
++        assigned_by TEXT,
++        created_at TEXT,
++        updated_at TEXT
++      )
++    ''');
+   }
+ 
+   Future<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
+@@ -523,6 +562,29 @@ class DatabaseHelper {
+         notes TEXT, created_at TEXT
+       )''');
+     }
++    if (oldVersion < 8) {
++      await db.execute('''CREATE TABLE IF NOT EXISTS contact_history (
++        id TEXT PRIMARY KEY, shop_id TEXT NOT NULL, shop_name TEXT NOT NULL,
++        agent_name TEXT DEFAULT '', channel TEXT DEFAULT 'appel',
++        result TEXT DEFAULT 'relance_necessaire', notes TEXT DEFAULT '', created_at TEXT
++      )''');
++    }
++    if (oldVersion < 9) {
++      await db.execute('''CREATE TABLE IF NOT EXISTS employee_tasks (
++        id TEXT PRIMARY KEY, employee_id TEXT NOT NULL, employee_name TEXT NOT NULL,
++        title TEXT NOT NULL, description TEXT, task_type TEXT DEFAULT 'demarchage',
++        priority TEXT DEFAULT 'medium', due_date TEXT, status TEXT DEFAULT 'pending',
++        started_at TEXT, completed_at TEXT, comment TEXT, proof_path TEXT,
++        assigned_by TEXT, created_at TEXT, updated_at TEXT
++      )''');
++    }
++    if (oldVersion < 10) {
++      await db.execute("ALTER TABLE candidates ADD COLUMN validation_status TEXT DEFAULT 'not_validated'");
++      await db.execute("ALTER TABLE candidates ADD COLUMN validated_at TEXT");
++      await db.execute("ALTER TABLE candidates ADD COLUMN transformed_to_employee INTEGER DEFAULT 0");
++      await db.execute("ALTER TABLE candidates ADD COLUMN employee_id TEXT");
++      await db.execute("ALTER TABLE candidates ADD COLUMN transformed_at TEXT");
++    }
+   }
+ 
+   Future<void> insert(String table, Map<String, dynamic> data) async {
+diff --git a/yabisso_admin/lib/services/voucher_generator_service.dart b/yabisso_admin/lib/services/voucher_generator_service.dart
+index 9763a98..81094e3 100644
+--- a/yabisso_admin/lib/services/voucher_generator_service.dart
++++ b/yabisso_admin/lib/services/voucher_generator_service.dart
+@@ -43,4 +43,11 @@ class VoucherGeneratorService {
+     final check = _randomChars(2);
+     return 'PTS-$hash-$hexPoints-$check';
+   }
++
++  /// Generate an online voucher code (not tied to any boutique)
++  static String generateOnlineVoucher() {
++    final part1 = _randomChars(4);
++    final part2 = _randomChars(4);
++    return 'YAB-$part1-$part2';
++  }
+ }
+diff --git a/yabisso_admin/pubspec.yaml b/yabisso_admin/pubspec.yaml
+index 2f1e209..16ca58c 100644
+--- a/yabisso_admin/pubspec.yaml
++++ b/yabisso_admin/pubspec.yaml
+@@ -21,6 +21,10 @@ dependencies:
+   file_picker: ^8.0.0
+   mobile_scanner: ^7.0.0
+   url_launcher: ^6.3.1
++  intl: ^0.19.0
++  pdf: ^3.11.2
++  printing: ^5.13.4
++  share_plus: ^10.1.4
+ 
+ dev_dependencies:
+   flutter_test:

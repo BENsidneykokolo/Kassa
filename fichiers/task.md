@@ -19,6 +19,11 @@
 
 | Tâche | Complétée le | Notes |
 |-------|--------------|-------|
+| Wiring CurrencyService.formatPrice() partout | 17/07/2026 | 19 fichiers, 38 occurrences FCFA → fmtPrice/CurrencyService.currentCurrency.symbol |
+| Fix bouton Payer (cart_panel.dart) | 17/07/2026 | context.push('/payment') |
+| Fix bouton Appeler fournisseur (stock_alert_screen.dart) | 17/07/2026 | launchUrl tel: supplierPhone |
+| Wiring LanguageService.translate() navigation + cart | 17/07/2026 | 80+ clés, t() function, init dans main.dart |
+|-------|--------------|-------|
 | Section Aide dans Paramètres (Appel/WhatsApp/SMS/Chatbot) | 27/06/2026 | settings_screen.dart: +242050332359, message auto avec ID boutique |
 | Fix scanner noir écran Paiement | 27/06/2026 | Copié code scanner_screen.dart (ventes) → payment_screen.dart |
 | GitHub Actions iOS + macOS | 26/06/2026 | build.yml: macos-15, IPA + DMG, cache Flutter + CocoaPods |

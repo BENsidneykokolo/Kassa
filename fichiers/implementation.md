@@ -138,7 +138,10 @@ Yabisso Kassa — Application Flutter Cross-Platform Offline-First (POS) pour pe
 - [x] flutter analyze 0 erreurs
 
 ## Phase 15: En attente (prochaines étapes)
-- [ ] Wiring CurrencyService.formatPrice() partout dans l'app
+- [x] Wiring CurrencyService.formatPrice() partout dans l'app (19 fichiers, 38 occurrences FCFA → fmtPrice/symbol) ✅ 17/07/2026
+- [x] Wiring LanguageService.translate() navigation + cart panel (80+ clés, t() function) ✅ 17/07/2026
+- [x] Fix bouton Payer cassé (cart_panel → /payment) ✅ 17/07/2026
+- [x] Fix bouton Appeler fournisseur cassé (stock_alert → url_launcher) ✅ 17/07/2026
 - [ ] Wiring LanguageService.translate() pour toutes les chaînes UI
 - [ ] Déploiement Render (attente validation user)
 - [ ] Mise à jour _apiBaseUrl dans subscription_screen.dart après Render

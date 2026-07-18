@@ -1185,6 +1185,122 @@ cd yabisso_kassa && flutter.bat analyze
 
 ---
 
+## Session du 18/07/2026
+
+### Correctifs WiFi Hotspot Local + Marketing complet + Commandes
+
+**Contexte** : L'utilisateur a demandé de corriger les problèmes WiFi Hotspot Local (ventes non créées, images non chargées, bouton refuser manquant) et de terminer le module Marketing (réductions, campagnes, stats, poster studio, gestion complète).
+
+### Problèmes WiFi Hotspot Local corrigés (4)
+
+| # | Problème | Fichier | Solution |
+|---|----------|---------|----------|
+| 1 | `validateOrder()` ne créait pas de Sale ni ne déduisait le stock | `order_queue_service.dart` | Réécriture complète : crée `Sale` + `SaleItem` via `db.processSale()` |
+| 2 | Images produits ne chargeaient pas dans le navigateur client | `catalog_html.dart` + `local_server_service.dart` | Ajout endpoint HTTP `/api/products/{id}/photo` + URLs dans le HTML |
+| 3 | Pas de bouton "Refuser" pour les commandes | `order_queue_screen.dart` | Ajout bouton "Refuser" avec dialog de confirmation + `_rejectOrder()` |
+| 4 | Stat "Appareils connectés" comptait tous les appareils historiques | (constaté, non corrigé) | Constaté mais pas critique |
+
+### Module Marketing — 11 correctifs/ajouts
+
+| # | Composant | Fichier | Modification |
+|---|-----------|---------|--------------|
+| 1 | Réduction coupons ne s'appliquait jamais | `marketing_service.dart` | `getCouponDiscount()` retourne le vrai pourcentage au lieu de `0` |
+| 2 | `_isInactive()` ignorait le paramètre `days` | `marketing_service.dart` | Utilise maintenant `days` + filtre `updatedAt` |
+| 3 | 4 boutons dashboard vides | `marketing_dashboard_screen.dart` | VIP → segments, Points → /points, Campagnes → /marketing/campaigns, Stats → /marketing/stats |
+| 4 | AI Marketing = code mort | `marketing_dashboard_screen.dart` | Sheet appelle maintenant `MarketingAI.analyze()` + affiche les résultats |
+| 5 | Pas d'écran Campagnes | **NEW** `campaigns_screen.dart` | CRUD complet : créer, modifier, envoyer, supprimer |
+| 6 | Pas d'écran Stats Marketing | **NEW** `marketing_stats_screen.dart` | Stats temps réel depuis SQLite (jour/semaine/mois, promos, coupons, clients, VIP, points) |
+| 7 | Promotions sans edit/delete | `promotions_screen.dart` | Réécriture : PopupMenu edit/delete, clavier, SnackBar |
+| 8 | Coupons sans toggle/edit/delete | `coupons_screen.dart` | Réécriture : toggle actif, edit, delete, clavier |
+| 9 | Poster studio sans choix produit | `poster_studio_screen.dart` | Ajout "Choisir un produit" + génération PDF réelle + partage |
+| 10 | `PosterService` ne partageait que du texte | `poster_service.dart` | Ajout `generateCouponPDF()` + `shareFile()` |
+| 11 | Routes manquantes | `app_router.dart` | Ajout `/marketing/campaigns` + `/marketing/stats` |
+
+### Ajout bouton Commandes
+- `products_content.dart` — Ajout bouton "Commandes" dans l'en-tête → navigue vers `/wifi-commerce/orders`
+
+### Documentation
+- `implementation.md` — Mis à jour avec Phase 16 (tous les correctifs WiFi + Marketing documentés)
+
+### Fichiers modifiés (13) + Nouveaux (2)
+
+**Modifiés** : `database_helper.dart`, `app_router.dart`, `coupons_screen.dart`, `marketing_dashboard_screen.dart`, `poster_studio_screen.dart`, `promotions_screen.dart`, `products_content.dart`, `order_queue_screen.dart`, `marketing_service.dart`, `poster_service.dart`, `catalog_html.dart`, `local_server_service.dart`, `order_queue_service.dart`
+
+**Nouveaux** : `campaigns_screen.dart`, `marketing_stats_screen.dart`
+
+### Statut
+- ✅ Tous les correctifs Kassa terminés
+- ⏳ `flutter analyze` à lancer manuellement
+- ⏳ Commit + push en attente
+- ⏳ Build APK en attente
+- ⏳ Suite : Analyse + développement app Hotel (`yabisso_pos_hotel`)
+
+*En attente des instructions de Ben...*
+---
+
+## Session du 18/07/2026 — Vérification fichiers .md + enregistrement automatique
+
+### 18:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1370 lignes)
+  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-14 complétées, v1.4.11, APK ~115 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Phase 15 en cours** : Wiring CurrencyService ✅ (38 occurrences FCFA corrigées), LanguageService partiel (navigation + cart), Fix 2 boutons cassés ✅
+    - **Tâches en attente** : LanguageService UI complète, Render deploy, Bluetooth printer, tests, Play Store
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 17/07/2026 (suite 2)
+
+### Fix des fonctionnalités Fidélité — Scanner, Génération de carte, Config éditable
+
+**Contexte** : Suite aux corrections précédentes (CurrencyService, boutons cassés, LanguageService), 3 bugs restants dans le module fidélité.
+
+### 1. Scanner de carte fidélité — Corrigé
+- **Bug** : `_scanCustomerCard()` affichait juste un SnackBar au lieu d'ouvrir un scanner
+- **Correction** : Nouveau `LoyaltyScannerScreen` (`lib/screens/loyalty/loyalty_scanner_screen.dart`) avec `MobileScanner`
+  - Scanne le QR code de la carte du client
+  - Cherche le client par `card_number` via `getCustomerByCardNumber()`
+  - Navigue vers `/loyalty/customer/:id` si trouvé
+  - Sinon affiche un dialog "Client non trouvé" avec option d'ajout
+- **Route** : `/loyalty/scan` ajoutée dans `app_router.dart`
+
+### 2. Générer une carte fidélité — Ajouté
+- **Ajout** : Bouton "Générer une carte" dans `loyalty_settings_screen.dart`
+  - Ouvre un `SimpleDialog` avec la liste de tous les clients
+  - Sélection → génère le PDF via `LoyaltyCardService.saveAndShareCard()`
+  - Affiche le chemin du fichier généré
+
+### 3. Configuration fidélité — Éditable
+- **Bug** : Les items "Points par 1000" et "Réduction" avaient des `onTap: () {}` vides
+- **Correction** :
+  - Valeurs persistées via `SharedPreferences` (`loyalty_points_per_1000`, `loyalty_reduction_points`, `loyalty_reduction_amount`)
+  - Tap sur un item → dialog d'édition avec `TextField` numérique
+  - Valeurs mises à jour en temps réel dans le dialog (via `StatefulBuilder`)
+  - Valeurs par défaut : 100 pts/1000 FCFA, réduction 500 pts = 500 FCFA
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/loyalty/loyalty_scanner_screen.dart` | **Nouveau** — Écran scanner QR pour cartes fidélité |
+| `lib/screens/loyalty/loyalty_settings_screen.dart` | Modifié — Scanner fixé, bouton générer ajouté, config éditable |
+| `lib/router/app_router.dart` | Modifié — Import + route `/loyalty/scan` |
+
+### Git
+- **Commit** : `c333d90` — yabisso_kassa
+- **Commit** : `38034fb` — Kassa (parent)
+- **Push** : Les 2 repos poussés ✅
+
+*En attente des instructions de Ben...*
+
+---
+
 ## Session du 17/07/2026 (suite) — Phase 15: Wiring complet
 
 ### 13:00 — Backup git

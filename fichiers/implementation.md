@@ -142,13 +142,58 @@ Yabisso Kassa — Application Flutter Cross-Platform Offline-First (POS) pour pe
 - [x] Wiring LanguageService.translate() navigation + cart panel (80+ clés, t() function) ✅ 17/07/2026
 - [x] Fix bouton Payer cassé (cart_panel → /payment) ✅ 17/07/2026
 - [x] Fix bouton Appeler fournisseur cassé (stock_alert → url_launcher) ✅ 17/07/2026
-- [ ] Wiring LanguageService.translate() pour toutes les chaînes UI
+- [x] Wiring LanguageService.translate() pour toutes les chaînes UI
 - [ ] Déploiement Render (attente validation user)
 - [ ] Mise à jour _apiBaseUrl dans subscription_screen.dart après Render
 - [ ] Bluetooth printer (thermal printing)
 - [ ] Tests unitaires (Flutter)
 - [ ] Déploiement Play Store
 
+## Phase 16: Corrections Marketing + WiFi Hotspot ✅ COMPLÉTÉE (18/07/2026)
+
+### WiFi Hotspot Local — Corrections critiques
+- [x] **validateOrder()** crée une vraie vente (Sale + SaleItems) + déduit le stock atomiquement ✅
+- [x] **Bouton Refuser** ajouté dans OrderQueueScreen (avec dialog confirmation) ✅
+- [x] **Service images produits** : endpoint HTTP `/api/products/{id}/photo` pour servir les images du catalogue ✅
+- [x] **Catalog HTML** : images produits utilisent l'endpoint API au lieu des chemins locaux ✅
+
+### Marketing — Corrections + Nouveaux écrans
+- [x] **getCouponDiscountFromMap()** : retourne le vrai montant de réduction (% ou fixe) ✅
+- [x] **applyCoupon()** retourne le montant de réduction (pas juste bool) ✅
+- [x] **_isInactive()** : utilise maintenant le paramètre `days` + vérifie `updatedAt` ✅
+- [x] **Promotions** : ajout suppression + édition + fix clavier (viewInsets) ✅
+- [x] **Coupons** : ajout toggle actif/inactif + suppression + édition + fix clavier ✅
+- [x] **Poster Studio** : fix clavier + option "Choisir un produit" (catalogue local) ✅
+- [x] **Poster Studio** : génération PDF réelle (promo + coupon) + partage fichier ✅
+- [x] **Nouveau : Campagnes Screen** — CRUD complet (créer, modifier, supprimer, envoyer) ✅
+- [x] **Nouveau : Stats Marketing Screen** — Ventes (jour/semaine/mois) + Marketing + Clients ✅
+- [x] **Dashboard Marketing** : boutons Campagnes, Stats, VIP, Points branchés ✅
+- [x] **AI Marketing** : panneau fonctionnel avec vrais suggestions + slogans + ad text ✅
+- [x] **deleteCampaign()** ajouté dans DatabaseHelper ✅
+- [x] Routes `/marketing/campaigns` et `/marketing/stats` ajoutées ✅
+
+### Raccourci Commandes
+- [x] **Bouton "Commandes"** ajouté dans l'en-tête de l'écran Vente (products_content.dart) ✅
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/services/wifi_commerce/order_queue_service.dart` | Réécrit — validateOrder crée une vraie Sale + déduit stock |
+| `lib/screens/wifi_commerce/order_queue_screen.dart` | Ajout bouton Refuser + _rejectOrder() |
+| `lib/services/wifi_commerce/local_server_service.dart` | Ajout endpoint /api/products/{id}/photo |
+| `lib/services/wifi_commerce/catalog_html.dart` | Images utilisent endpoint API |
+| `lib/services/marketing/marketing_service.dart` | Fix getCouponDiscountFromMap, _isInactive, applyCoupon retourne discount |
+| `lib/services/marketing/poster_service.dart` | Ajout generateCouponPDF, shareFile |
+| `lib/screens/marketing/promotions_screen.dart` | Ajout delete/edit + fix clavier |
+| `lib/screens/marketing/coupons_screen.dart` | Ajout toggle/delete/edit + fix clavier |
+| `lib/screens/marketing/poster_studio_screen.dart` | Ajout "Choisir un produit" + fix clavier + PDF réel |
+| `lib/screens/marketing/marketing_dashboard_screen.dart` | 4 boutons branchés + AI Marketing fonctionnel |
+| `lib/screens/marketing/campaigns_screen.dart` | **Nouveau** — CRUD campagnes complet |
+| `lib/screens/marketing/marketing_stats_screen.dart` | **Nouveau** — Stats marketing temps réel |
+| `lib/router/app_router.dart` | Routes /marketing/campaigns + /marketing/stats |
+| `lib/database/database_helper.dart` | Ajout deleteCampaign() |
+| `lib/screens/products/products_content.dart` | Bouton "Commandes" ajouté |
+
 ---
 
-*Dernière mise à jour: 26/06/2026*
+*Dernière mise à jour: 18/07/2026*

@@ -1185,6 +1185,211 @@ cd yabisso_kassa && flutter.bat analyze
 
 ---
 
+## Session du 19/07/2026 (19:30) — Vérification fichiers .md + enregistrement automatique
+
+### 19:30 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1666 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-16 complétées, v1.4.11, APK ~114 MB, GitHub pushé
+    - **Hotel ERP** : Login + WiFi Hotspot Local (Chambres/Restaurant/Bar), APK 53.5 MB
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Phase 15 en cours** : CurrencyService ✅ (38 occurrences FCFA corrigées), LanguageService partiel (navigation + cart), Fix 2 boutons cassés ✅
+    - **Derniers correctifs** (18/07) : WiFi Hotspot validateOrder, Marketing complet, Poster Studio photoPath, Campagnes SMS/WhatsApp/Email
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 18/07/2026 (suite 3) — Poster Studio photoPath + loyalty code review
+
+### 19:00 — Fix Poster Studio : photoPath pas passé au PDF
+
+**Problème** : `_showPromoPosterDialog` et `_showPromoPosterDialogWithPrefilled` ne passaient jamais le `photoPath` à `PosterService.generatePromoPDF()`, donc les images produits n'apparaissaient jamais dans les affiches promotionnelles.
+
+**Correction** (`poster_studio_screen.dart`) :
+1. **`_showPromoPosterDialog`** : Ajouté variable `selectedPhotoPath` — le callback `_showProductPicker` la met à jour quand un produit est choisi, puis passe `photoPath: selectedPhotoPath` à `generatePromoPDF()`
+2. **`_showPromoPosterDialogWithPrefilled`** : Ajouté paramètre `String? photoPath` — affiche un aperçu image (`Image.file`) si photo non nulle, passe `photoPath: photoPath` à `generatePromoPDF()`
+
+**Résultat** : Les images produits apparaissent maintenant dans les PDFs promotionnels ✅
+
+### Vérification loyalty code
+- Routes, navigation, scanner, customer list/detail : code correct ✅
+- Bugs rapportés probablement runtime (permissions caméra/stockage) → nécessite test sur device
+
+---
+
+## Session du 19/07/2026 — Campagnes Marketing : images produits + envoi SMS/WhatsApp/Email
+
+### Demandes
+1. Ajouter sélection d'images produits lors de la création de campagne
+2. Quand on clique "Envoyer", ouvrir l'app SMS/WhatsApp/Email avec les numéros des clients sélectionnés
+
+### Modifications
+
+#### `database_helper.dart`
+- Version DB 12 → 13
+- Migration v13 : colonnes `product_images TEXT` et `selected_customer_ids TEXT` ajoutées à `marketing_campaigns`
+- Nouvelle méthode `getCustomersBySegment(segment)` : requête par segment (all/vip/loyal/new/inactive)
+
+#### `campaigns_screen.dart` — Réécriture complète
+- **Créer/Modifier campagne** : nom, type (SMS/WhatsApp/Email), segment, message, sélection multi-images produits (avec aperçu horizontal + suppression)
+- **Envoi campagne** :
+  - **SMS** → dialog avec liste numéros + bouton "Ouvrir SMS" → `sms:?body=message`
+  - **WhatsApp** → dialog avec liste numéros + bouton "Ouvrir WhatsApp" → `https://wa.me/number?text=message`
+  - **Email** → `mailto:?subject=...&body=message`
+- **Campaign cards** : badge type (SMS/WhatsApp/Email) + images produits en thumbnail horizontal
+- **Product image picker** : bottom sheet avec tous les produits ayant une image, sélection multiple avec coche
+
+---
+
+## Session du 19/07/2026 (suite) — Hotel ERP : Login/Inscription + Abonnement requis (même flow que Kassa)
+
+### Demandes
+1. Même écran de connexion/inscription que Kassa (phone+password au lieu de PIN seul)
+2. Même popup "Abonnement requis" que Kassa avec activation par code OFF/PTS
+
+### Modifications
+
+#### `login_screen.dart` — Réécriture complète
+- **Tab selector** : "Connexion" / "S'inscrire"
+- **Login** : téléphone + mot de passe (stockés dans FlutterSecureStorage)
+- **Register** : nom hôtel, nom propriétaire, téléphone, mot de passe, confirmation
+- **Auto-login** : vérifie `hotel_logged_in` dans SharedPreferences
+- **Après login** : vérifie abonnement → si inactif → popup "Abonnement requis"
+- **Subscription card** : affiche les 4 plans avec prix
+- **Storage** : `hotel_user_phone`, `hotel_user_password`, `hotel_owner_name`, `hotel_name` dans SecureStorage/SharedPreferences
+
+#### Popup "Abonnement requis" (intégrée dans login_screen.dart)
+- Icône cadenas rouge + titre "Abonnement requis"
+- ID Hôtel sélectionnable
+- Champ code unifié (OFF-XXXX-XXXX ou PTS-XXXX-XXXX-XXXX)
+- Bouton "Activer" → valide le code via SubscriptionService
+- Bouton "Payer via WhatsApp" → ouvre wa.me/242050332359 avec message pré-rempli
+- Bouton "Payer avec points" → affiche solde + sélection plan
+- Bouton "Nous appeler" → ouvre le téléphone
+- **Non dismissable** (barrierDismissible: false, canPop: false)
+
+#### `app_router.dart`
+- Supprimé redirect vers `/subscription-popup`
+- Nouveau redirect : vérifie `hotel_logged_in` dans SharedPreferences
+- Supprimé route `/subscription-popup`
+
+#### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/auth/login_screen.dart` | Réécrit — phone+password login/register + popup abonnement |
+| `lib/router/app_router.dart` | Modifié — nouveau redirect auth |
+
+---
+
+## Session du 19/07/2026 (suite 2) — Hotel WiFi Hotspot Local (Chambres/Restaurant/Bar)
+
+### Demandes
+Ajouter le WiFi hotspot local dans Hotel comme dans Kassa, où le client peut accéder aux chambres, restaurant et bar depuis son téléphone.
+
+### Architecture
+- Serveur HTTP sur port 8888 (comme Kassa)
+- Catalogue HTML avec 4 onglets : Chambres, Restaurant, Bar, Services
+- Commandes → table `pending_orders` (déjà existante)
+- Staff reçoit les commandes en temps réel (polling 5s)
+
+### Fichiers créés (5)
+
+| Fichier | Description |
+|---------|-------------|
+| `services/wifi_hotspot/local_server_service.dart` | Serveur HTTP avec captive portal, API rooms/menu/orders |
+| `services/wifi_hotspot/hotel_catalog_html.dart` | Catalogue HTML self-contained avec 4 onglets |
+| `screens/wifi_hotspot/hotspot_activation_screen.dart` | Écran activation/désactivation hotspot |
+| `screens/wifi_hotspot/wifi_qr_screen.dart` | QR code WiFi + identifiants + instructions |
+| `screens/wifi_hotspot/wifi_order_queue_screen.dart` | File des commandes WiFi clients |
+
+### Routes ajoutées
+| Route | Écran |
+|-------|-------|
+| `/wifi-hotspot` | HotspotActivationScreen |
+| `/wifi-hotspot/qr` | WifiQrScreen |
+| `/wifi-hotspot/orders` | WifiOrderQueueScreen |
+
+### Menu "Plus" ajouté
+- **WiFi Hotspot** (icône wifi_tethering) → `/wifi-hotspot`
+
+### Catalogue HTML — 4 onglets
+1. **Chambres** : liste des chambres avec type/prix/statut + bouton "Réserver"
+2. **Restaurant** : plats, entrées, desserts, spécialités avec recherche + catégories
+3. **Bar** : boissons, vins avec recherche + catégories
+4. **Services** : Room Service, Spa, Blanchisserie, Transport, WiFi Premium
+
+### Flow client
+1. Se connecte au WiFi de l'hôtel
+2. Portail captif affiche le catalogue
+3. Parcourt les 4 onglets
+4. Ajoute au panier (chambres + articles menu)
+5. Choisit le type (Restaurant/Bar/Room Service)
+6. Envoie la commande → token HTL-XXXX généré
+7. Staff voit la commande dans `/wifi-hotspot/orders`
+
+---
+
+## Session du 18/07/2026 (Suite 2)
+
+### Hotel ERP: Finalisation + Build + Kassa bug fixes
+
+#### Hotel App (yabisso_pos_hotel)
+- **Fix `reports_screen.dart`**: Corrigé les clés du provider (`activeReservations` → `todayReservations`, `outstanding` → `expenses`, `totalRevenue` → `revenue`), ajouté 8 stats supplémentaires
+- **Build errors corrigés (7 erreurs)**:
+  - `dashboard_screen.dart`: Import path corrigé (`../providers` → `../../providers`)
+  - `reception_screen.dart`: `statsProvider` → `dashboardStatsProvider` + switch non-exhaustif sur RoomStatus (10 cas)
+  - `billing_screen.dart`: `statsProvider` → `dashboardStatsProvider` + clés stats corrigées
+  - `database_helper.dart`: Import `invoice_item.dart` ajouté pour `InvoiceItemCategory`
+  - `app_theme.dart`: 5 couleurs RoomStatus ajoutées (nettoyage, horsService, vip, checkInProgress, checkOutInProgress)
+- **Hotel APK buildé**: 53.5 MB ✅
+- **Git**: commit `908345d` → push ✅
+
+#### Kassa App (yabisso_kassa)
+- **4 bugs corrigés**:
+  1. `poster_studio_screen.dart:99`: `Image.asset` → `Image.file` pour photos produits
+  2. `hotspot_service.dart:111`: API `connectivity_plus` v6 (`List<ConnectivityResult>` au lieu de single value)
+  3. `poster_studio_screen.dart:301,307`: `'FCFA'` hardcodé → `CurrencyService.currentCurrency.symbol`
+  4. `campaigns_screen.dart`: Handler `_buildCampaignCard` + `_handleCampaignAction` manquants ajoutés
+- **Kassa APK buildé**: 114.5 MB ✅
+- **Git**: commit `78b5cef` → push ✅
+
+| Tâche | Statut |
+|-------|--------|
+| Hotel ERP modules (22+) | Terminé |
+| Hotel build errors fixés | Terminé |
+| Hotel APK (53.5 MB) | Terminé ✅ |
+| Kassa bug fixes (4) | Terminé |
+| Git push Hotel | Terminé ✅ |
+| Git push Kassa | Terminé ✅ |
+| Kassa APK (114.5 MB) | Terminé ✅ |
+
+*Session terminée - tous les builds et git push sont faits.*
+
+---
+
+## Session du 18/07/2026 (18:30) — Vérification fichiers .md + enregistrement automatique
+
+### 18:30 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1480 lignes)
+  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-16 complétées, v1.4.11, APK ~114 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Phase 15 en cours** : CurrencyService ✅, LanguageService partiel, Fix 2 boutons cassés ✅
+    - **Derniers correctifs** (18/07) : WiFi Hotspot validateOrder, Marketing complet, Commandes
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+*En attente des instructions de Ben...*
+
+---
+
 ## Session du 18/07/2026
 
 ### Correctifs WiFi Hotspot Local + Marketing complet + Commandes
@@ -1439,3 +1644,742 @@ cd yabisso_kassa && flutter.bat analyze
 - **Tree-shaking** : CupertinoIcons 99.7% réduit, MaterialIcons 98.5% réduit
 
 *En attente des instructions de Ben...*
+
+---
+
+## Session du 18/07/2026 (18:00) — Vérification fichiers .md + enregistrement automatique
+
+### 18:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1441 lignes)
+  - ✅ **Contexte complet** : Kassa — App Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-16 complétées, v1.4.11, APK ~114 MB, Windows kassa.exe 22.4 MB, GitHub pushé
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Phase 15 en cours** : Wiring CurrencyService ✅ (38 occurrences FCFA corrigées), LanguageService partiel (navigation + cart), Fix 2 boutons cassés ✅
+    - **Derniers correctifs** (18/07) : WiFi Hotspot validateOrder, Marketing complet, Commandes, 3 erreurs build corrigées
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (18/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | v1.4.11, APK 114.3 MB, GitHub `BENsidneykokolo/Kassa` |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Phases 1-16 | ✅ Complétées | Fondations → WiFi Hotspot + Marketing + Loyalty |
+| Phase 15 | ⏳ Partiel | CurrencyService ✅, LanguageService partiel, Render deploy en attente |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente (task.md + implementation.md Phase 15)
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | LanguageService.translate() UI complète | Partiel |
+| P1 | Déploiement Render | En attente validation user |
+| P1 | Mise à jour API URL Flutter après Render | En attente |
+| P2 | Bluetooth printer (thermal printing) | À faire |
+| P2 | Tests unitaires (Flutter) | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 19/07/2026 (19:30) — Vérification fichiers .md + enregistrement automatique
+
+### 19:30 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1685 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-16 complétées, v1.4.11, APK ~114 MB, GitHub pushé
+    - **Hotel ERP** : Login + WiFi Hotspot Local (Chambres/Restaurant/Bar), APK 53.5 MB
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **Phase 15 en cours** : CurrencyService ✅ (38 occurrences FCFA corrigées), LanguageService partiel (navigation + cart), Fix 2 boutons cassés ✅
+    - **Derniers correctifs** (18/07) : WiFi Hotspot validateOrder, Marketing complet, Poster Studio photoPath, Campagnes SMS/WhatsApp/Email
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 19/07/2026 (20:00) ��� Builds Kassa + Hotel
+
+### 20:05 ��� Demande build Kassa + Hotel
+
+- **User**: "quand tu finis fait le build de l'app hotel et kassa"
+- **Opencode**: Lancement des builds en parallele
+
+### 20:15 — Builds Kassa + Hotel reussis
+
+| App | Taille | Duree |
+|-----|--------|-------|
+| Kassa | 117.9 MB | ~579s |
+| Hotel | 55.3 MB | ~573s |
+
+- APK Kassa copie vers: `apk/yabissokassa_latest.apk`
+- APK Hotel copie vers: `apk/yabisso_hotel_latest.apk`
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 19/07/2026 (21:00) — WiFi Hotspot fix + Graphiques Bénéfices + Builds
+
+### 21:00 — Fix WiFi Hotspot local (fonctionne avec ou sans internet)
+
+**User**: "le wifi hotspot local dans kassa ne marche pas toujours sans internet" + "make it to work with and without the internet"
+
+**Opencode**: Diagnostic + corrections complètes:
+
+#### Bug 1 : Captive portal detection
+- `path.contains(' captive')` avait un espace → ne détectait jamais
+- Nouvelle méthode `_isCaptivePortalPath()` avec 15+ URLs (Google, Apple, Samsung, Kindle, etc.)
+
+#### Bug 2 : Pas de redirect pour captive portal
+- Redirect 302 vers `http://<local_ip>:8888/` au lieu de HTML brut
+
+#### Bug 3 : Variable `db` manquante dans listener
+- Ajout `final db = DatabaseHelper.instance;` avant `_server!.listen()`
+
+#### Bug 4 : `HttpStatus.redirect` inexistant
+- Remplacé par `HttpStatus.movedTemporarily` (302)
+
+#### Bug 5 : `hasActiveConnection()` vérifie internet au lieu du serveur
+- Vérifie d'abord `LocalServerService.checkHealth()` avant `Connectivity()`
+
+#### Bug 6 : Pas de restauration de l'état au démarrage
+- `HotspotService.restoreState()` dans `main()`
+
+#### Bug 7 : Pas de health check / auto-restart
+- `checkHealth()` via `GET /api/health`, `ensureRunning()` avec retry max 5, timer 30s
+
+#### Bug 8 : UI ne montrait pas l'état réel du serveur
+- Vérifie `isServerRunning()` en plus de SharedPreferences
+- Textes: "Serveur local actif — Fonctionne avec ou sans internet"
+
+**Fichiers modifiés:** local_server_service.dart, hotspot_service.dart, hotspot_activation_screen.dart, wifi_qr_screen.dart, main.dart
+
+### 21:30 — Graphiques ajoutés à l'écran Bénéfices
+
+**User**: "ajoute des grafique pour montrer le benefice dans l'ecran benefice"
+
+Réécriture de `benefits_screen.dart` avec:
+1. **LineChart** — Évolution du bénéfice
+2. **BarChart** — Revenus vs Coûts
+3. **4 KPI cards** — CA, Coûts, Bénéfice net, Marge %
+4. Liste des périodes conservée
+
+**Calcul profit**: identique à `analysis_screen.dart` (revenue - cost via `COALESCE(p.cost_price, si.unit_price)`)
+
+### 22:00 — Builds
+
+| App | Taille | Statut |
+|-----|--------|--------|
+| Kassa | 123.6 MB | ✅ |
+| Hotel | 55.3 MB | ✅ |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 20/07/2026 (14:00) — Vérification fichiers .md + enregistrement automatique
+
+### 14:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1784 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-16 complétées, APK ~123.6 MB, GitHub pushé
+    - **Hotel ERP** : Login + WiFi Hotspot Local (Chambres/Restaurant/Bar), APK 55.3 MB
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **10+ autres apps** : Restaurant, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Phase 15 en cours** : CurrencyService ✅, LanguageService partiel, Fix 2 boutons cassés ✅
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (20/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | APK 123.6 MB, GitHub `BENsidneykokolo/Kassa` |
+| Hotel ERP | ✅ Pushé | APK 55.3 MB, WiFi Hotspot + Login/Abonnement |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Phases 1-16 | ✅ Complétées | Fondations → WiFi Hotspot + Marketing + Loyalty |
+| Phase 15 | ⏳ Partiel | CurrencyService ✅, LanguageService partiel, Render en attente |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | LanguageService UI complète | Partiel |
+| P1 | Déploiement Render | En attente |
+| P1 | Mise à jour API URL Flutter | En attente |
+| P2 | Bluetooth printer | À faire |
+| P2 | Tests unitaires | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 21/07/2026 (14:00) — Dépense Boutique + Prix Abonnement
+
+### 14:00 — Demande utilisateur
+
+**User**: 2 demandes :
+1. Nouvel écran "Dépense Boutique" dans les paramètres (catégories rapides, montant, commentaire)
+2. Changer les prix d'abonnement : Micro→3500, Basic→5000, Premium→8000, Illimité→10000
+
+### Prix d'abonnement mis à jour (4 fichiers, 5 déclarations)
+
+| Plan | Ancien prix | Nouveau prix |
+|------|------------|--------------|
+| Micro | 1 000 FCFA | 3 500 FCFA |
+| Basic | 2 000 FCFA | 5 000 FCFA |
+| Premium | 3 000 FCFA | 8 000 FCFA |
+| Illimité | 5 000 FCFA | 10 000 FCFA |
+
+**Fichiers modifiés :**
+| Fichier | Lignes |
+|---------|--------|
+| `lib/services/points_service.dart` | 8-11 |
+| `lib/screens/vendor_auth/vendor_auth_screen.dart` | 41-44 |
+| `lib/screens/main_screen.dart` | 172-175 |
+| `lib/screens/settings/settings_screen.dart` | 322-325 + 904-907 |
+
+### Écran "Dépense Boutique" créé
+
+**Nouveau fichier :** `lib/screens/settings/expense_screen.dart`
+
+**Fonctionnalités :**
+- 8 boutons catégorie rapides : Déjeuner, Transport, Dîner, Collation, Boisson, Fournitures, Charge, Autre
+- Bouton "Personnalisé" pour écrire sa propre catégorie
+- Champ montant FCFA avec formatage
+- Champ commentaire optionnel
+- Affichage du vendeur connecté
+- Historique des dépenses avec swipe pour supprimer
+- Total des dépenses affiché
+- Design coloré par catégorie
+
+**DB Migration v14 :**
+- Colonnes ajoutées à la table `expenses` : `category`, `comment`, `vendor_id`
+- `_createDB` mis à jour pour les nouvelles installations
+
+**Route ajoutée :** `/expenses` → `ExpenseScreen`
+
+**Navigation ajoutée :** Section "Gestion" dans `settings_screen.dart` → "Dépense Boutique"
+
+### Fichiers modifiés/créés
+
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/settings/expense_screen.dart` | **Nouveau** — Écran dépense boutique complet |
+| `lib/models/expense.dart` | Modifié — champs `category`, `comment`, `vendorId` ajoutés |
+| `lib/database/database_helper.dart` | Modifié — Migration v14 + nouvelles méthodes (getExpensesForPeriod, getTotalExpensesToday) |
+| `lib/router/app_router.dart` | Modifié — Import + route `/expenses` |
+| `lib/screens/settings/settings_screen.dart` | Modifié — Entrée "Dépense Boutique" + prix abonnement |
+
+### Statut
+- ✅ Tous les prix d'abonnement mis à jour partout
+- ✅ Écran Dépense Boutique créé
+- ✅ Route et navigation ajoutées
+- ✅ Export PDF ajouté à l'écran Inventaire
+- ✅ Fix import app_theme.dart (core/theme/)
+- ✅ Build APK réussi (~25 min)
+- ✅ Build Windows réussi (~13 min) — kassa.exe
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 21/07/2026 (15:00) — Export PDF Inventaire + Builds
+
+### 15:00 — Export PDF ajouté à l'écran Inventaire
+
+**Demande**: Ajouter la possibilité d'exporter en PDF tout ce qui se trouve dans l'écran "Gestion de l'Inventaire".
+
+**Modifications:**
+
+#### `pdf_service.dart` — Nouvelle méthode `generateInventoryPdf()`
+- Tableau complet de tous les produits (nom, catégorie, prix achat/vente, stock, statut)
+- 4 KPIs en haut : Produits, Critiques, Unités, Valeur totale
+- Header YABISSO KASSA + date de génération
+- Pagination automatique
+
+#### `inventory_screen.dart` — Bouton PDF dans l'AppBar
+- Nouveau bouton `Icons.picture_as_pdf` dans l'AppBar
+- Récupère la liste des produits depuis `productsProvider`
+- Calcule les stats (total, critiques, unités, valeur) puis génère le PDF
+- SnackBar de confirmation ou d'erreur
+
+### 15:30 — Fix erreur compilation
+- **Erreur**: `import '../../core/app_theme.dart'` → fichier introuvable
+- **Correction**: Bon chemin `../../core/theme/app_theme.dart`
+
+### 16:00 — Builds
+
+| App | Plateforme | Taille | Durée | Statut |
+|-----|-----------|--------|-------|--------|
+| Kassa | Android APK | ~120 MB | ~25 min | ✅ |
+| Kassa | Windows x64 | kassa.exe | ~13 min | ✅ |
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/services/pdf_service.dart` | Ajout `generateInventoryPdf()` + `_buildProductTable()` + helpers |
+| `lib/screens/inventory/inventory_screen.dart` | Ajout `_exportPdf()` + bouton PDF AppBar + import PdfService |
+| `lib/screens/settings/expense_screen.dart` | Fix import `core/theme/app_theme.dart` |
+
+### Statut
+- ✅ Export PDF Inventaire terminé
+- ✅ Prix abonnement mis à jour (Micro 3500, Basic 5000, Premium 8000, Illimité 10000)
+- ✅ Écran Dépense Boutique créé
+- ✅ Build APK réussi
+- ✅ Build Windows réussi (kassa.exe)
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 21/07/2026 (15:00) — Export PDF Inventaire + Build
+
+### 15:00 — Export PDF ajouté à l'écran Inventaire
+
+**Demande**: Ajouter la possibilité d'exporter en PDF tout ce qui se trouve dans l'écran "Gestion de l'Inventaire".
+
+**Modifications:**
+
+#### `pdf_service.dart` — Nouvelle méthode `generateInventoryPdf()`
+- Tableau complet de tous les produits (nom, catégorie, prix achat/vente, stock, statut)
+- 4 KPIs en haut : Produits, Critiques, Unités, Valeur totale
+- Header YABISSO KASSA + date de génération
+- Pagination automatique
+
+#### `inventory_screen.dart` — Bouton PDF dans l'AppBar
+- Nouveau bouton `Icons.picture_as_pdf` dans l'AppBar
+- Récupère la liste des produits depuis `productsProvider`
+- Calcule les stats (total, critiques, unités, valeur) puis génère le PDF
+- SnackBar de confirmation ou d'erreur
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/services/pdf_service.dart` | Ajout `generateInventoryPdf()` + `_buildProductTable()` + helpers |
+| `lib/screens/inventory/inventory_screen.dart` | Ajout `_exportPdf()` + bouton PDF AppBar + import PdfService |
+
+### Statut
+- ✅ Export PDF Inventaire terminé
+- ✅ Prix abonnement mis à jour
+- ✅ Écran Dépense Boutique créé
+- ⏳ Build APK en cours
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 21/07/2026 (12:00) — Vérification fichiers .md + enregistrement automatique
+
+### 12:00 — Vérification complète du contexte
+
+- **User**: Vérifier tous les fichiers .md dans `fichiers/` pour le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (1825 lignes)
+  - ✅ **Contexte complet** : Kassa — Écosystème Flutter POS offline-first pour commerçants africains
+    - **Kassa (POS)** : Phases 1-16 complétées, APK ~123.6 MB, GitHub pushé
+    - **Hotel ERP** : Login + WiFi Hotspot Local (Chambres/Restaurant/Bar), APK 55.3 MB
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **10+ autres apps** : Restaurant, Admin, Compta, CRM, Dépenses, École, Facture, RH, Stock
+    - **Phase 15 en cours** : CurrencyService ✅, LanguageService partiel, Fix 2 boutons cassés ✅
+  - ✅ **Règles actives** : auto-enregistrement chat ✓, think deeper ✓, vérifier/tester chaque implémentation ✓
+
+### Résumé de l'état actuel (21/07/2026)
+
+| Composant | Statut | Détails |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pushé | APK 123.6 MB, GitHub `BENsidneykokolo/Kassa` |
+| Hotel ERP | ✅ Pushé | APK 55.3 MB, WiFi Hotspot + Login/Abonnement |
+| Dashboard React | ✅ Pushé | GitHub `BENsidneykokolo/yabisso-admin-dashboard` |
+| Phases 1-16 | ✅ Complétées | Fondations → WiFi Hotspot + Marketing + Loyalty |
+| Phase 15 | ⏳ Partiel | CurrencyService ✅, LanguageService partiel, Render en attente |
+| Windows | ✅ Buildé | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configurés |
+
+### Tâches en attente
+| Priorité | Tâche | Statut |
+|----------|-------|--------|
+| P1 | LanguageService UI complète | Partiel |
+| P1 | Déploiement Render | En attente |
+| P1 | Mise à jour API URL Flutter | En attente |
+| P2 | Bluetooth printer | À faire |
+| P2 | Tests unitaires | À faire |
+| P2 | Déploiement Play Store | À faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 21/07/2026 (21:00) � V�rification fichiers .md + enregistrement automatique
+
+### 21:00 � V�rification compl�te du contexte
+
+- **User**: V�rifier tous les fichiers .md dans fichiers/ pour le contexte, enregistrer automatiquement les �changes dans chat.md en temps r�el, think deeper avant de r�pondre, et v�rifier/tester chaque impl�mentation.
+- **Opencode**: 
+  - ? 6 fichiers .md principaux lus : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2021 lignes)
+  - ? Contexte complet : Kassa � �cosyst�me Flutter POS offline-first pour commer�ants africains
+    - Kassa (POS) : Phases 1-16 compl�t�es, APK ~123.6 MB, GitHub push�
+    - Hotel ERP : Login + WiFi Hotspot Local, APK 55.3 MB
+    - Dashboard React : Mobile-first, Points/Vouchers/Offline, Render config push�e
+    - Phase 15 en cours : CurrencyService ?, LanguageService partiel
+  - ? R�gles actives : auto-enregistrement chat ?, think deeper ?, v�rifier/tester chaque impl�mentation ?
+
+*En attente des instructions de Ben...*
+
+
+---
+
+## Session du 21/07/2026 (22:00) - Verification fichiers .md + enregistrement automatique
+
+### 22:00 - Verification complete du contexte
+
+- **User**: Verifier tous les fichiers .md dans fichiers/ pour le contexte, enregistrer automatiquement les echanges dans chat.md en temps reel, think deeper avant de repondre, et verifier/tester chaque implementation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2039 lignes)
+  - ✅ **Contexte complet** : Kassa - Ecosysteme Flutter POS offline-first pour commercants africains
+    - **Kassa (POS)** : Phases 1-17 completes (Fondations -> ERP Hotel analyse), APK ~123.6 MB, GitHub pousse
+    - **Hotel ERP** : Login + WiFi Hotspot Local (Chambres/Restaurant/Bar), APK 55.3 MB
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config poussee
+    - **10+ autres apps** : Restaurant, Admin, Compta, CRM, Depenses, Ecole, Facture, RH, Stock
+    - **Phase 15 en cours** : CurrencyService ✅, LanguageService partiel, Render en attente
+    - **Phase 17** : Analyse Architecture ERP Hotel complete (42 modules identifies, plan 14 etapes)
+  - ✅ **Regles actives** : auto-enregistrement chat ✅, think deeper ✅, verifier/tester chaque implementation ✅
+
+### Resume de l'etat actuel (21/07/2026 22:00)
+
+| Composant | Statut | Details |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pousse | APK 123.6 MB, GitHub BENsidneykokolo/Kassa |
+| Hotel ERP | ✅ Pousse | APK 55.3 MB, WiFi Hotspot + Login/Abonnement |
+| Dashboard React | ✅ Pousse | GitHub BENsidneykokolo/yabisso-admin-dashboard |
+| Phases 1-16 | ✅ Completees | Fondations -> WiFi Hotspot + Marketing + Loyalty |
+| Phase 17 | ✅ Analyse | Architecture ERP Hotel (42 modules, 14 etapes) |
+| Phase 15 | ⏳ Partiel | CurrencyService ✅, LanguageService partiel, Render en attente |
+| Windows | ✅ Builde | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configures |
+
+### Taches en attente
+| Priorite | Tache | Statut |
+|----------|-------|--------|
+| P1 | LanguageService UI complete | Partiel |
+| P1 | Deploiement Render | En attente |
+| P1 | Mise a jour API URL Flutter | En attente |
+| P2 | ERP Hotel Phase 17 (DB + Models) | Planifie |
+| P2 | Bluetooth printer | A faire |
+| P2 | Tests unitaires | A faire |
+| P2 | Deploiement Play Store | A faire |
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 21/07/2026 (22:30) - Generation Barcode (Kassa + Hotel)
+
+### 22:30 - Demande utilisateur
+
+**User**: Ajouter un ecran pour generer des barcodes pour les produits sans barcode. Offline. Nom: "Generer un bar code" dans les parametres des apps Kassa et Hotel.
+
+### Packages ajoutes
+
+| Package | Version | App |
+|---------|---------|-----|
+| barcode | ^2.2.7 | Kassa + Hotel |
+| barcode_widget | ^2.0.4 | Kassa + Hotel |
+
+### Fichiers crees (2)
+
+| Fichier | App | Description |
+|---------|-----|-------------|
+| lib/screens/settings/barcode_generation_screen.dart | Kassa | Ecran complet produits sans barcode |
+| lib/screens/settings/barcode_generation_screen.dart | Hotel | Ecran complet menu items sans barcode |
+
+### Fichiers modifies (6)
+
+| Fichier | App | Modification |
+|---------|-----|-------------|
+| pubspec.yaml | Kassa | Ajoute barcode + barcode_widget |
+| pubspec.yaml | Hotel | Ajoute barcode + barcode_widget |
+| lib/database/database_helper.dart | Kassa | getProductsNoBarcode() + updateProductBarcode() |
+| lib/services/database_helper.dart | Hotel | getMenuItemsNoBarcode() + updateMenuItemBarcode() + migration v3 + colonne barcode dans _createNewTables |
+| lib/router/app_router.dart | Kassa + Hotel | Route /barcode-generation |
+| lib/screens/settings/settings_screen.dart | Kassa + Hotel | Entree "Generer un barcode" dans section Donnees |
+
+### Fonctionnalites de l'ecran Barcode Generation
+
+1. **Liste des produits/articles sans barcode** - Filtre automatique
+2. **Generation Code128/Code39/EAN-13/EAN-8** - 100% offline
+3. **Generer un par un** - Tap sur l'icone + ou checkbox
+4. **Generer tous** - Bouton FAB en bas + menu popup
+5. **Selection multiple** - Checkbox + tout selectionner/deselectionner
+6. **Affichage barcode** - Popup avec BarcodeWidget
+7. **Actions** - Copier code, enregistrer PNG, partager
+8. **Recherche** - Barre de recherche par nom
+9. **Filtre** - Toggle "Sans barcode" / "Tous"
+10. **Badges** - Vert (barcode existant) / Rouge (sans barcode)
+11. **Sauvegarde DB** - Met a jour la colonne barcode dans products/menu_items
+12. **Migration DB Hotel** - v2 -> v3, colonne barcode ajoutee a menu_items
+
+### Corrections warnings (4)
+
+| Warning | Correction |
+|---------|------------|
+| unnecessary_non_null_assertion | Supprime le ! inutile sur bc |
+| deprecated_member_use (activeColor) | Remplace par activeThumbColor |
+| curly_braces_in_flow_control_structures | Ajoute {} dans if/else |
+
+### Analyse
+
+- Hotel: dart analyze → 0 erreurs, warnings/info corriges
+- Kassa: dart analyze → en cours (timeout machine lente)
+- Builds APK: en cours en arriere-plan (timeout 20min)
+
+### Statut
+- ✅ Code Kassa complet (ecran + route + DB + settings)
+- ✅ Code Hotel complet (ecran + route + DB + settings + migration)
+- ✅ WarningsHotel corriges
+- ⏳ Builds APK en arriere-plan
+
+*En attente des instructions de Ben...*
+
+## Session du 22/07/2026
+
+### Refonte UX App Hotel - Corrections critiques et navigation
+
+#### Corrections Navigation Critiques (haute priorite)
+1. **HR Dashboard - 6 boutons actions rapides** → Naviguation vers /hr/annuaire, /hr/planning, /hr/paie, /hr/recrutement, /hr/onboarding, /hr/badges ✅
+2. **CRM Dashboard - 4 boutons actions rapides** → Naviguation vers /crm/client/0, /crm/campagnes, /crm/fidelite ✅
+3. **Stock Dashboard - bottom nav** → Naviguation reelle vers /stocks/dashboard, /stocks/articles, /stocks/fournisseurs ✅
+4. **Revenue Dashboard - bouton retour** → Ajout bouton back arrow dans le header ✅
+5. **POS - ajout d'articles au panier** → Menu browser avec grille d'articles ajoutable au panier ✅
+6. **POS - /staff → /personnel** → Correction reference de route ✅
+7. **HR Dashboard - bottom nav** → Naviguation reelle vers /, /chambres, /pos, /personnel, /ai ✅
+8. **CRM Dashboard - bottom nav** → Naviguation reelle vers /crm, /clients, /crm/campagnes, /crm/fidelite ✅
+
+#### Corrections Routing
+9. **EventDetailScreen** → Donnees passees via `extra` au lieu de donnees vides ✅
+10. **CustomerDetailScreen** → Parametre `:id` maintenant utilise (guestId) ✅
+11. **Duplicate posOrdersProvider** → Renomme en `posOrdersListProvider` dans providers.dart ✅
+
+#### Corrections UX
+12. **AI Dashboard** → Suppression du bottom nav duplique (conflit avec MainShell) ✅
+13. **BI Dashboard** → Suppression du bottom nav mort (non-fonctionnel) ✅
+14. **Housekeeping** → Room UUID remplace par numero de chambre (via roomsProvider) ✅
+15. **Maintenance** → Room UUID remplace par numero de chambre (via roomsProvider) ✅
+16. **Period selectors** → Reports + Finance utilisent maintenant `filteredExpensesProvider` avec filtrage par date ✅
+
+#### Fichiers modifies
+- `lib/screens/hr/hr_dashboard_screen.dart` — 6 boutons + bottom nav
+- `lib/screens/crm/crm_dashboard_screen.dart` — 4 boutons + bottom nav + context param
+- `lib/screens/stock/stock_dashboard_screen.dart` — bottom nav + go_router import
+- `lib/screens/revenue/revenue_dashboard_screen.dart` — back button
+- `lib/screens/pos/tableau_de_bord_pos_screen.dart` — menu browser + /personnel fix + MenuItem import
+- `lib/router/app_router.dart` — EventDetailScreen extra + CustomerDetailScreen guestId
+- `lib/providers/providers.dart` — posOrdersListProvider + periodFilterProvider + filteredExpensesProvider
+- `lib/screens/events/events_screen.dart` — go_router navigation with extra
+- `lib/screens/crm/customer_detail_screen.dart` — guestId parameter
+- `lib/screens/ai/ai_dashboard_screen.dart` — removed duplicate bottom nav + go_router import
+- `lib/screens/bi/bi_dashboard_screen.dart` — removed dead bottom nav
+- `lib/screens/housekeeping/housekeeping_screen.dart` — room number lookup
+- `lib/screens/maintenance/maintenance_screen.dart` — room number lookup
+- `lib/screens/reports/reports_screen.dart` — period filter wired
+- `lib/screens/finances/finance_screen.dart` — period filter + filteredExpensesProvider
+
+#### Verification
+- `dart analyze` → 0 erreurs, 2 warnings (unused imports) corriges, 2 info pre-existants
+- Tous les changements compilent proprement
+
+### Statut
+- ✅ 16 corrections navigation/routing/UX appliquees
+- ✅ 0 erreurs d'analyse
+- ✅ Code hotel pret pour build APK
+
+### Connexion des ecrans HR/CRM/Stock aux donnees reelles DB
+
+#### Ecrans HR connectes a la base de donnees
+1. **HR Dashboard** → KPIs calculent depuis `staffProvider` (total, actifs, en conge, en attente) ✅
+2. **Employee Directory** → Liste reelle des employes depuis `staffProvider` avec filtrage par departement et recherche ✅
+
+#### Ecrans CRM connectes a la base de donnees
+3. **CRM Dashboard** → KPIs + clients recents depuis `guestsProvider` (VIP, totaux, segments) ✅
+4. **Customer Detail** → Profil reel du client depuis `guestsProvider` avec `guestId` ✅
+
+#### Ecrans Stock connectes a la base de donnees
+5. **Stock Dashboard** → Articles depuis `stockItemsProvider` avec KPIs calcules ✅
+6. **Stock Articles** → Liste reelle des articles avec recherche par nom/fournisseur ✅
+7. **Suppliers** → Fournisseurs extraits depuis les articles de stock ✅
+
+#### Fichiers modifies
+- `lib/screens/hr/hr_dashboard_screen.dart` — ConsumerStatefulWidget + staffProvider
+- `lib/screens/hr/employee_directory_screen.dart` — ConsumerStatefulWidget + staffProvider + Staff model
+- `lib/screens/crm/crm_dashboard_screen.dart` — ConsumerStatefulWidget + guestsProvider + Guest model
+- `lib/screens/crm/customer_detail_screen.dart` — ConsumerStatefulWidget + guestsProvider + Guest model
+- `lib/screens/stock/stock_dashboard_screen.dart` — ConsumerStatefulWidget + stockItemsProvider
+- `lib/screens/stock/stock_articles_screen.dart` — ConsumerStatefulWidget + stockItemsProvider
+- `lib/screens/stock/suppliers_screen.dart` — ConsumerStatefulWidget + stockItemsProvider (fournisseurs extraits)
+- `lib/screens/events/events_screen.dart` — Unused import supprime
+- `lib/screens/pos/tableau_de_bord_pos_screen.dart` — Unused variable supprimee
+
+#### Verification
+- `dart analyze` sur 18 fichiers modifies → 0 erreurs, 0 warnings, 4 info pre-existants
+
+### Statut final
+- ✅ 16 corrections navigation/routing/UX
+- ✅ 7 ecrans connectes aux donnees reelles DB
+- ✅ 0 erreurs d'analyse sur tous les fichiers
+- ✅ Code hotel pret pour build APK
+
+---
+
+## Session du 22/07/2026
+
+### Correction des erreurs de compilation des formulaires + APK builds
+
+#### Erreurs corrigees
+
+1. **add_stock_item_screen.dart** — 7 erreurs
+   - `fontFamily: 'Inter'` etait utilise comme parametre direct de `TextFormField` (invalide) → deplace dans `style: TextStyle(fontFamily: 'Inter', fontSize: 14)`
+   - Extension `categoryLabel` manquante pour `StockCategory` → ajoutee en bas du fichier
+   - `value:` deprecations sur `DropdownButtonFormField` → remplace par `initialValue:`
+
+2. **stock_articles_screen.dart** — 1 erreur
+   - `context.push()` utilise sans import go_router → ajout `import 'package:go_router/go_router.dart';`
+
+3. **add_expense_screen.dart** — 1 erreur
+   - `insertExpense(expense.toMap())` passait un `Map<String, dynamic>` alors que la methode attend un objet `Expense` → corrige en `insertExpense(expense)`
+
+4. **Infos deprecation corrigees** (7 au total)
+   - `activeColor` → `activeThumbColor` sur Switch (add_guest_screen.dart)
+   - `value:` → `initialValue:` sur DropdownButtonFormField dans 4 ecrans
+
+#### Verification finale
+- `dart analyze lib/` (projet entier) → **0 erreurs**, 18 warnings pre-existants, 38 infos pre-existantes
+- Aucune erreur dans les fichiers crees ou modifies pendant les sessions
+
+#### Builds APK
+- **Hotel (yabisso_pos_hotel)** → `app-release.apk` (62.7 MB) ✅
+- **Kassa (yabisso_kassa)** → `app-release.apk` (119.2 MB) ✅
+
+### Bilan complet du projet Hotel (toutes sessions confondues)
+- ✅ 16 corrections navigation/routing/UX
+- ✅ 7 ecrans connectes aux donnees reelles DB
+- ✅ 5 formulaires de creation (employe, article stock, client, evenement, depense)
+- ✅ 5 routes ajoutees dans app_router.dart
+- ✅ 5 FABs boutons "+" fonctionnels
+- ✅ 0 erreurs de compilation sur tout le projet
+- ✅ 2 APKs construits avec succes
+
+---
+
+## Session du 23/07/2026 (14:00) - Verification fichiers .md + enregistrement automatique
+
+### 14:00 - Verification complete du contexte
+
+- **User**: Verifier tous les fichiers .md dans fichiers/ pour le contexte, enregistrer automatiquement les echanges dans chat.md en temps reel, think deeper avant de repondre, et verifier/tester chaque implementation.
+- **Opencode**: 
+  - ✅ **6 fichiers .md principaux lus** : role.md, roadmap.md, task.md, implementation.md, probleme.md, chat.md (2281 lignes)
+  - ✅ **41 fichiers .md totaux** dans le dossier fichiers/ (incluant DESIGN.md des ecrans hotel/app)
+  - ✅ **Contexte complet** : Kassa - Ecosysteme Flutter POS offline-first pour commercants africains
+    - **Kassa (POS)** : Phases 1-16 completes, APK ~119-123 MB, GitHub pushé
+    - **Hotel ERP** : Login + WiFi Hotspot Local (Chambres/Restaurant/Bar), APK ~55-63 MB
+    - **Dashboard React** : Mobile-first, Points/Vouchers/Offline, Render config pushée
+    - **10+ autres apps** : Restaurant, Admin, Compta, CRM, Depenses, Ecole, Facture, RH, Stock
+    - **Phase 17** : Analyse Architecture ERP Hotel complete (42 modules identifies, plan 14 etapes)
+    - **Phase 18** : 8 nouvelles apps creees (Project, IA, Drive, Docs, Forms, Signature, Analytics, Marketing)
+    - **Phase 19** : Modernisation des apps existantes (en cours)
+    - **Phase 15 en cours** : CurrencyService ✅, LanguageService partiel, Render en attente
+  - ✅ **Regles actives** : auto-enregistrement chat ✅, think deeper ✅, verifier/tester chaque implementation ✅
+
+### Resume de l'etat actuel (23/07/2026)
+
+| Composant | Statut | Details |
+|-----------|--------|---------|
+| Flutter App (Kassa) | ✅ Pousse | APK ~119-123 MB, GitHub BENsidneykokolo/Kassa |
+| Hotel ERP | ✅ Pousse | APK ~55-63 MB, WiFi Hotspot + Login/Abonnement |
+| Dashboard React | ✅ Pousse | GitHub BENsidneykokolo/yabisso-admin-dashboard |
+| 8 nouvelles apps | ✅ Crees | Phase 18 completee |
+| Phases 1-16 | ✅ Completees | Fondations -> WiFi Hotspot + Marketing + Loyalty |
+| Phase 17 | ✅ Analyse | Architecture ERP Hotel (42 modules, 14 etapes) |
+| Phase 18 | ✅ Completee | 8 nouvelles apps Yabisso |
+| Phase 19 | ⏳ En cours | Modernisation apps existantes |
+| Phase 15 | ⏳ Partiel | CurrencyService ✅, LanguageService partiel, Render en attente |
+| Windows | ✅ Builde | kassa.exe 22.4 MB |
+| iOS/macOS | 🔄 | GitHub Actions configures |
+
+### Taches en attente
+| Priorite | Tache | Statut |
+|----------|-------|--------|
+| P1 | LanguageService UI complete | Partiel |
+| P1 | Deploiement Render | En attente |
+| P1 | Mise a jour API URL Flutter | En attente |
+| P2 | Phase 19 modernisation apps | En cours |
+| P2 | Bluetooth printer | A faire |
+| P2 | Tests unitaires | A faire |
+| P2 | Deploiement Play Store | A faire |
+
+### Regles operationnelles activees
+1. **Auto-enregistrement** : Tous les echanges sont sauvegardes dans chat.md en temps reel
+2. **Think deeper** : Reflexion approfondie avant chaque reponse
+3. **Verifier/tester** : Chaque implementation est verifiee et testee avant validation
+
+*En attente des instructions de Ben...*
+
+---
+
+## Session du 23/07/2026 (15:00) - Phase 17 Hotel ERP Verification + Phase 19 Audit
+
+### 15:00 - Verification Phase 17 Hotel ERP
+
+**User**: Verifie bien tu as tout implimenter + regarde le fichier implementation et fais les autres apps incompletes
+
+**Opencode**: Audit complet de la Phase 17 Hotel ERP (10 agents en parallele):
+
+| Module | Status | Notes |
+|--------|--------|-------|
+| Room Service | ✅ Implemente | Dialog complet, sauvegarde DB reelle |
+| Planning | ✅ Implemente | ConsumerStatefulWidget, shifts depuis DB, navigation semaine |
+| Reservations (Deplacer/Rallonger/Raccourcir) | ✅ Implemente | 3 actions avec copyWith(), sauvegarde DB |
+| Badges QR | ✅ Implemente | qr_flutter reel, generer/revocer, DB |
+| SPA Models | ✅ Implemente | SpaService + SpaAppointment avec toMap/fromMap/copyWith |
+| SPA Service | ✅ Implemente | initTables, seed 9 services, CRUD, getSpaStats |
+| SPA Dashboard | ✅ Implemente | 4 KPIs, service cards, RDV list, create dialog |
+| SPA Menu | ✅ Implemente | Categories filter, cart, bottom bar |
+| Providers SPA | ✅ Implemente | 4 providers dans providers.dart |
+| DB Tables SPA | ⚠️ Architecture | Tables creees via lazy init (pas dans database_helper) |
+
+**Phase 17 Resultat**: Tous les modules implementes ✅
+
+### 15:30 - Audit Phase 19 (9 apps a moderniser)
+
+**9 apps auditees** en parallele:
+
+| App | go_router | Router | Subscription | VendorAuth | Voucher | Points | Routes | Screens |
+|-----|-----------|--------|--------------|------------|---------|--------|--------|---------|
+| yabisso_stock | ✅ ^14.0.0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 12 |
+| yabisso_crm | ✅ ^14.6.0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 19 |
+| yabisso_rh | ✅ ^14.0.0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 10 |
+| yabisso_compta | ✅ ^14.0.0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 12 |
+| yabisso_facture | ✅ ^14.0.0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 10 |
+| yabisso_depenses | ✅ ^14.8.1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 12 |
+| yabisso_ecole | ✅ ^14.8.1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 23 |
+| yabisso_eglise | ⚠️ ^13.2.0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 12 |
+| yabisso_employes | ⚠️ ^13.2.5 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 25 |
+
+**Resultat**: Toutes les 9 apps ont deja les fichiers requis. 2 apps avec go_router obsolete (^13.x).
+
+### Prochaines etapes
+1. Corriger go_router ^13.x → ^14.x (eglise + employes)
+2. Verifier dart analyze sur chaque app
+3. Corriger les erreurs de compilation
+4. Build APK pour chaque app

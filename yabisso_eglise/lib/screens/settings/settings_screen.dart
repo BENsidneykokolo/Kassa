@@ -109,6 +109,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             _buildTile(Icons.backup, 'Sauvegarde', 'Créer une copie', onTap: () {}),
             _buildTile(Icons.upload_file, 'Import/Export Pack', 'Synchroniser les données', onTap: () {}),
           ]),
+          _buildSection('Abonnement', [
+            _buildTile(Icons.card_membership, 'Mon abonnement', 'Gérer mon forfait', onTap: () => context.push('/vendor-auth')),
+          ]),
           _buildSection('Synchronisation', [
             _buildTile(Icons.wifi_tethering, 'Hotspot Sync', 'YCE Hotspot', onTap: () => context.push('/hotspot')),
           ]),

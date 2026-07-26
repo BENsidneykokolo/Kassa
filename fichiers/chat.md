@@ -49,4 +49,40 @@ Je suis prêt à continuer. Quelle tâche souhaitez-vous aborder en premier ?
 
 ---
 
+### Session 27/07/2026 - Backup Git + Build Kassa
+
+#### 1. Backup Git ✅
+- `git add -A` + `git commit` + `git push origin master`
+- Commit: `25c1dc0` — 1424 fichiers, 114735 insertions
+- Push GitHub: https://github.com/BENsidneykokolo/Kassa.git ✅
+
+#### 2. Corrections fichiers corrompus ✅
+**Problème**: 4 fichiers Dart contenaient des null bytes (U+0000) au début :
+- `inventory_screen.dart` — corrompu
+- `products_content.dart` — corrompu
+- `products_screen.dart` — corrompu
+- `database_helper.dart` — SQL mal formé (quotes `''''` au lieu de `'''`)
+
+**Solution**:
+- Restauré les 3 fichiers depuis `git checkout HEAD`
+- Pour `database_helper.dart`: récupéré la version complète avec tables WiFi + multi-unit methods depuis le backup, corrigé les quotes SQL
+- Ajouté import `sqflite` manquant dans `stock_engine.dart`
+
+#### 3. Build Kassa APK ✅
+- `flutter build apk --release` — 118.6 MB
+- APK copié: `apk/kassa_v1.4.4.apk`
+- Build submodule pushé: `37c5ebc`
+- Build parent pushé: `197790b`
+
+#### Fichiers modifiés (submodule yabisso_kassa)
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/inventory/inventory_screen.dart` | Restauré (null bytes) |
+| `lib/screens/products/products_content.dart` | Restauré (null bytes) |
+| `lib/screens/products/products_screen.dart` | Restauré (null bytes) |
+| `lib/database/database_helper.dart` | Restauré + fix quotes SQL + multi-unit methods |
+| `lib/services/stock_engine.dart` | Ajout import sqflite |
+
+---
+
 *Ce fichier est mis à jour en temps réel pendant nos échanges.*

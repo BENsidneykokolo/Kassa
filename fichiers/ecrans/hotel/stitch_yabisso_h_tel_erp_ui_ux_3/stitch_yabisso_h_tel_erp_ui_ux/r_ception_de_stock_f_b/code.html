@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stock Entry - Inventory Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#565e74",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#b87500",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-surface-variant": "#45464d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "background": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary": "#006c49",
+                        "outline": "#76777d",
+                        "on-secondary-container": "#00714d",
+                        "surface-bright": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#6cf8bb",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#2a1700",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary": "#000000",
+                        "surface": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-pad {
+            background: linear-gradient(to bottom, transparent 95%, #E2E8F0 95%);
+            background-size: 100% 24px;
+        }
+        .step-active { border-color: #000000; color: #000000; }
+        .step-inactive { border-color: #E2E8F0; color: #76777d; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-20 md:pb-0 md:pl-72">
+<!-- Top Navigation Anchor (Mobile/Small) -->
+<header class="flex justify-between items-center px-md w-full h-14 z-50 docked full-width top-0 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline sticky">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" data-icon="menu">menu</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-on-surface">Inventory Control</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a luxury hotel operations manager, wearing a crisp dark suit, smiling confidently. Soft studio lighting with a blurred architectural background of a modern hotel lobby, high-end photography style, clean and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY4_Qhccz-4JdrxUylJE6_DrjmmAWl-sn8X6J7KoqRZNV7gJpZY6yoEbw9ZNX7awc0HgPYv4pI5NvIF5WCs-Lt8CCCw2ZlQR55-AzyF918FzOQ5xJi3WjX--_iJwO_6R5eg2OKKxA8iQtwuFVxjS1KHNQfzUTvn1BA28eN9MLdX0L-r__9SpvLNCQlGQFjUz03V8gOj4kkSOF8GX8O3osxJgxsWVWfkmqUKLWzhbbkdiTlLKaII7n7uQ"/>
+</div>
+</header>
+<!-- Side Navigation Anchor (Desktop) -->
+<nav class="hidden md:flex fixed inset-y-0 left-0 flex-col p-md z-50 h-full w-72 rounded-r-xl bg-surface-container-low dark:bg-surface-container-lowest shadow-sm">
+<div class="mb-xl px-sm">
+<h2 class="font-headline-sm text-headline-sm font-black text-secondary dark:text-secondary-fixed">F&amp;B Operations</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Luxury Hotel ERP</p>
+</div>
+<div class="flex flex-col gap-xs flex-grow">
+<button class="flex items-center gap-md p-md w-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</button>
+<button class="flex items-center gap-md p-md w-full bg-secondary-container text-on-secondary-container dark:bg-secondary dark:text-on-secondary rounded-lg font-semibold shadow-sm">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Stock List</span>
+</button>
+<button class="flex items-center gap-md p-md w-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-label-lg text-label-lg">Movements</span>
+</button>
+<button class="flex items-center gap-md p-md w-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Purchase Orders</span>
+</button>
+<button class="flex items-center gap-md p-md w-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="delete_sweep">delete_sweep</span>
+<span class="font-label-lg text-label-lg">Waste Reports</span>
+</button>
+</div>
+<div class="mt-auto p-md bg-surface-container-high dark:bg-surface-container-lowest rounded-xl flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">EC</div>
+<div>
+<p class="font-label-lg text-label-lg font-bold">Executive Chef</p>
+<p class="text-xs text-outline">Stock Manager</p>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="p-4 md:p-lg max-w-5xl mx-auto">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
+<div>
+<nav class="flex text-outline font-label-md mb-xs gap-sm items-center">
+<span>Movements</span>
+<span class="material-symbols-outlined text-[12px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface">New Entry</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-primary">Record Incoming Stock</h2>
+<p class="text-on-surface-variant max-w-md">Complete the following steps to update inventory with new warehouse arrivals.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm border border-outline-variant rounded-lg font-label-lg hover:bg-surface-container transition-colors">Save Draft</button>
+<button class="px-md py-sm bg-primary text-on-primary rounded-lg font-label-lg shadow-sm active:scale-95 transition-transform">Complete Entry</button>
+</div>
+</div>
+<!-- Multi-Step Progress -->
+<div class="grid grid-cols-3 gap-xs mb-lg">
+<div class="h-1 bg-primary rounded-full"></div>
+<div class="h-1 bg-outline-variant rounded-full"></div>
+<div class="h-1 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Form Layout - Bento Style -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Step 1: Logistics -->
+<section class="md:col-span-4 flex flex-col gap-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+<h3 class="font-headline-sm text-headline-sm">Logistics</h3>
+</div>
+<div class="space-y-lg">
+<div class="group">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Supplier</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md pr-10 appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+<option>Select Supplier</option>
+<option selected="">Ocean Fresh Seafood Ltd</option>
+<option>Gourmet Meats Dist.</option>
+<option>Organic Greens Africa</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Purchase Order (PO)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="PO-2023-8942"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer hover:bg-surface-container p-xs rounded" data-icon="search">search</span>
+</div>
+</div>
+<div class="p-md bg-secondary-container/20 rounded-lg border border-secondary/10">
+<p class="text-xs font-bold text-secondary uppercase tracking-wider mb-xs">PO Status</p>
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg">Awaiting Receipt</span>
+<span class="px-sm py-1 bg-secondary/10 text-secondary rounded-full text-[10px] font-bold">MATCHED</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" data-icon="qr_code_scanner">qr_code_scanner</span>
+<h3 class="font-headline-sm text-headline-sm">Quick Add</h3>
+</div>
+<button class="w-full h-32 flex flex-col items-center justify-center gap-md border-2 border-dashed border-outline-variant hover:border-primary hover:bg-surface-container-low rounded-xl transition-all group">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-3xl" data-icon="barcode_scanner">barcode_scanner</span>
+<p class="font-label-lg text-label-lg text-outline group-hover:text-primary">Scan Item Barcode</p>
+</button>
+</div>
+</section>
+<!-- Step 2: Item List -->
+<section class="md:col-span-8 flex flex-col gap-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-lg border-b border-outline-variant flex items-center justify-between bg-surface-container-low/50">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="list_alt">list_alt</span>
+<h3 class="font-headline-sm text-headline-sm">Received Items</h3>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">3 Items Found in PO</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-md font-label-md text-on-surface-variant">Item Description</th>
+<th class="p-md font-label-md text-on-surface-variant w-32">Qty Recv.</th>
+<th class="p-md font-label-md text-on-surface-variant w-48">Expiry Date</th>
+<th class="p-md font-label-md text-on-surface-variant w-16"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="set_meal">set_meal</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Atlantic Salmon Fillet</p>
+<p class="text-xs text-outline">SKU: FSH-231-SLM</p>
+</div>
+</div>
+</td>
+<td class="p-md">
+<input class="w-full bg-transparent border border-outline-variant rounded p-sm focus:border-primary focus:ring-0 outline-none text-center" type="number" value="12"/>
+</td>
+<td class="p-md">
+<div class="relative">
+<input class="w-full bg-transparent border border-outline-variant rounded p-sm focus:border-primary focus:ring-0 outline-none" type="date" value="2023-11-28"/>
+</div>
+</td>
+<td class="p-md">
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="restaurant">restaurant</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Giant Tiger Prawns (Frozen)</p>
+<p class="text-xs text-outline">SKU: FSH-992-PRN</p>
+</div>
+</div>
+</td>
+<td class="p-md">
+<input class="w-full bg-transparent border border-outline-variant rounded p-sm focus:border-primary focus:ring-0 outline-none text-center" type="number" value="5"/>
+</td>
+<td class="p-md">
+<input class="w-full bg-transparent border border-outline-variant rounded p-sm focus:border-primary focus:ring-0 outline-none" type="date" value="2024-05-12"/>
+</td>
+<td class="p-md">
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="dinner_dining">dinner_dining</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Black Truffle Oil (250ml)</p>
+<p class="text-xs text-outline">SKU: CND-044-TRF</p>
+</div>
+</div>
+</td>
+<td class="p-md">
+<input class="w-full bg-transparent border border-outline-variant rounded p-sm focus:border-primary focus:ring-0 outline-none text-center" type="number" value="24"/>
+</td>
+<td class="p-md">
+<input class="w-full bg-transparent border border-outline-variant rounded p-sm focus:border-primary focus:ring-0 outline-none" type="date" value="2025-01-15"/>
+</td>
+<td class="p-md">
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md bg-surface-container-low flex justify-center">
+<button class="flex items-center gap-sm text-primary font-label-lg hover:underline transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                            Add Manual Row
+                        </button>
+</div>
+</div>
+<!-- Confirmation / Signature -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" data-icon="history_edu">history_edu</span>
+<h3 class="font-headline-sm text-headline-sm">Reception Signature</h3>
+</div>
+<div class="h-40 border-2 border-outline-variant rounded-xl bg-surface-container-low relative signature-pad overflow-hidden cursor-crosshair">
+<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none select-none">
+<span class="font-label-lg">Sign here to confirm receipt</span>
+</div>
+<canvas class="absolute inset-0 w-full h-full" id="sig-canvas"></canvas>
+</div>
+<div class="flex justify-between mt-sm">
+<p class="text-xs text-outline italic">Required: Authorized personnel only</p>
+<button class="text-xs font-bold text-primary hover:underline" id="clear-sig">Clear</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="assignment_turned_in">assignment_turned_in</span>
+<h3 class="font-headline-sm text-headline-sm">Summary</h3>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span>Total SKUs</span>
+<span class="font-bold">3</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Total Units</span>
+<span class="font-bold">41</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>PO Match</span>
+<span class="text-secondary font-bold">100%</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-lg py-md bg-primary text-on-primary rounded-lg font-label-lg shadow-lg active:scale-95 transition-all">
+                            Complete Entry &amp; Sync
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Anchor (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline backdrop-blur-md h-16 flex justify-around items-center px-4 shadow-lg rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-sm text-[10px]">Items</span>
+</button>
+<button class="flex flex-col items-center justify-center -mt-8 bg-primary w-14 h-14 rounded-full text-on-primary shadow-xl ring-4 ring-background">
+<span class="material-symbols-outlined" data-icon="add_box">add_box</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-[10px]">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span class="font-label-sm text-[10px]">Waste</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for Signature Pad
+        const canvas = document.getElementById('sig-canvas');
+        const clearBtn = document.getElementById('clear-sig');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            // Fit to container
+            const resize = () => {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                ctx.strokeStyle = '#0F172A';
+                ctx.lineWidth = 2;
+                ctx.lineJoin = 'round';
+            };
+            window.addEventListener('resize', resize);
+            resize();
+
+            const startDraw = (e) => {
+                drawing = true;
+                draw(e);
+            };
+            const endDraw = () => {
+                drawing = false;
+                ctx.beginPath();
+            };
+            const draw = (e) => {
+                if (!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || e.touches[0].clientX) - rect.left;
+                const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            };
+
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', endDraw);
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e); });
+            canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+            canvas.addEventListener('touchend', endDraw);
+
+            clearBtn.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+        }
+    </script>
+</body></html>

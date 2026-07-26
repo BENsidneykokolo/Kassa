@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Analyse Financière F&amp;B</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-container": "#6cf8bb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "secondary": "#006c49",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container-high": "#e6e8ea",
+                        "on-surface-variant": "#45464d",
+                        "on-surface": "#191c1e",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "error-container": "#ffdad6",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-container": "#2a1700",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary-fixed": "#002113",
+                        "surface": "#f7f9fb",
+                        "primary-container": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#00714d",
+                        "on-primary-fixed": "#131b2e",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-container": "#b87500",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#565e74",
+                        "on-primary-container": "#7c839b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "unit": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-bar {
+            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-40 bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center px-margin-mobile md:px-lg h-14">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex bg-surface-container-low rounded-full px-md py-xs items-center gap-sm border border-outline-variant">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-48" placeholder="Rechercher des rapports..." type="text"/>
+</div>
+<button class="relative p-xs">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<main class="pt-20 pb-24 md:pb-10 px-margin-mobile md:px-lg max-w-7xl mx-auto">
+<!-- Dashboard Header -->
+<div class="mb-lg">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-xs">Analyse Restaurant &amp; Bar</h2>
+<p class="text-body-md text-on-surface-variant">Performance opérationnelle et financière en temps réel.</p>
+</div>
+<!-- Tab Navigation -->
+<nav class="flex space-x-md border-b border-outline-variant mb-xl overflow-x-auto no-scrollbar">
+<button class="px-md py-sm border-b-2 border-primary text-primary font-label-lg whitespace-nowrap">Vue d'ensemble</button>
+<button class="px-md py-sm border-b-2 border-transparent text-on-surface-variant hover:text-primary font-label-lg whitespace-nowrap">Performance Menu</button>
+<button class="px-md py-sm border-b-2 border-transparent text-on-surface-variant hover:text-primary font-label-lg whitespace-nowrap">Analyse de Service</button>
+</nav>
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+<!-- Total Revenue -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-secondary-container text-on-secondary-container rounded-lg material-symbols-outlined">payments</span>
+<span class="text-secondary text-label-sm font-bold flex items-center">+12.5%</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Revenu Total F&amp;B</p>
+<p class="text-headline-md font-headline-md text-primary mt-xs">42 850 €</p>
+</div>
+<!-- Average Check -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-primary-fixed text-on-primary-fixed rounded-lg material-symbols-outlined">receipt_long</span>
+<span class="text-secondary text-label-sm font-bold flex items-center">+4.2%</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Ticket Moyen</p>
+<p class="text-headline-md font-headline-md text-primary mt-xs">68,40 €</p>
+</div>
+<!-- Turnover Rate -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-tertiary-fixed text-on-tertiary-fixed rounded-lg material-symbols-outlined">sync_alt</span>
+<span class="text-error text-label-sm font-bold flex items-center">-1.8%</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Taux Rotation Table</p>
+<p class="text-headline-md font-headline-md text-primary mt-xs">2.4 / service</p>
+</div>
+<!-- Top Category -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="p-xs bg-secondary-container text-on-secondary-container rounded-lg material-symbols-outlined">wine_bar</span>
+<span class="text-secondary text-label-sm font-bold flex items-center">Vins Premium</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Catégorie Top Vente</p>
+<p class="text-headline-md font-headline-md text-primary mt-xs">Boissons (45%)</p>
+</div>
+</div>
+<!-- Main Charts Section (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-md mb-xl">
+<!-- Revenue by Meal Period -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+<div class="flex justify-between items-center mb-xl">
+<h3 class="text-headline-sm font-headline-sm text-primary">Revenu par Période</h3>
+<div class="flex gap-xs">
+<button class="text-label-sm px-sm py-xs bg-surface-container-high rounded text-primary">Jour</button>
+<button class="text-label-sm px-sm py-xs hover:bg-surface-container-high rounded text-on-surface-variant">Mois</button>
+</div>
+</div>
+<div class="flex items-end justify-between h-64 px-md gap-lg">
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg relative group overflow-hidden" style="height: 40%;">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Petit-Déj</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-secondary-container rounded-t-lg relative group overflow-hidden" style="height: 75%;">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Déjeuner</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-primary rounded-t-lg relative group overflow-hidden" style="height: 95%;">
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant font-bold">Dîner</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full bg-tertiary-fixed rounded-t-lg relative group overflow-hidden" style="height: 25%;">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Bar/Snack</span>
+</div>
+</div>
+</div>
+<!-- Beverage vs Food Ratio -->
+<div class="lg:col-span-5 bg-primary-container text-on-primary p-lg rounded-xl shadow-md border border-primary overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="text-headline-sm font-headline-sm text-white mb-lg">Ratio Aliments / Boissons</h3>
+<div class="space-y-xl mt-lg">
+<div>
+<div class="flex justify-between text-label-md mb-xs">
+<span>Aliments (Cuisine)</span>
+<span>55%</span>
+</div>
+<div class="w-full bg-white/10 rounded-full h-2">
+<div class="bg-secondary-fixed-dim h-full rounded-full" style="width: 55%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-md mb-xs">
+<span>Boissons (Bar)</span>
+<span>45%</span>
+</div>
+<div class="w-full bg-white/10 rounded-full h-2">
+<div class="bg-primary-fixed-dim h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-white/10">
+<p class="text-label-sm opacity-60 italic text-center">Insight: La vente de vin au dîner a augmenté la marge boisson de 4% ce mois-ci.</p>
+</div>
+</div>
+<!-- Subtle background decorative pattern -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
+</div>
+</div>
+<!-- Pareto Chart: Most Profitable Items -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant mb-xl">
+<div class="flex justify-between items-center mb-xl">
+<h3 class="text-headline-sm font-headline-sm text-primary">Analyse de Rentabilité (Pareto)</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<div class="min-w-[800px] flex items-end gap-xl h-48 px-md mb-md">
+<!-- Column 1 -->
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="text-label-sm mb-xs">92%</div>
+<div class="w-12 bg-primary rounded-t-sm h-full"></div>
+<span class="text-label-md text-on-surface-variant truncate w-full text-center">Homard Grillé</span>
+</div>
+<!-- Column 2 -->
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="text-label-sm mb-xs">88%</div>
+<div class="w-12 bg-primary rounded-t-sm" style="height: 85%;"></div>
+<span class="text-label-md text-on-surface-variant truncate w-full text-center">Côte de Bœuf</span>
+</div>
+<!-- Column 3 -->
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="text-label-sm mb-xs">84%</div>
+<div class="w-12 bg-primary rounded-t-sm" style="height: 80%;"></div>
+<span class="text-label-md text-on-surface-variant truncate w-full text-center">Cocktail Signature</span>
+</div>
+<!-- Column 4 -->
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="text-label-sm mb-xs">75%</div>
+<div class="w-12 bg-primary rounded-t-sm" style="height: 70%;"></div>
+<span class="text-label-md text-on-surface-variant truncate w-full text-center">Salade Niçoise</span>
+</div>
+<!-- Column 5 -->
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="text-label-sm mb-xs">68%</div>
+<div class="w-12 bg-primary/40 rounded-t-sm" style="height: 60%;"></div>
+<span class="text-label-md text-on-surface-variant truncate w-full text-center">Tartare de Thon</span>
+</div>
+</div>
+</div>
+<p class="text-label-sm text-on-surface-variant mt-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+                Les 3 premiers articles génèrent 42% du profit total F&amp;B.
+            </p>
+</div>
+<!-- Tables Section: Staff Performance -->
+<div class="grid grid-cols-1 lg:grid-cols-1 gap-md">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm text-primary">Performance par Serveur</h3>
+<button class="text-primary font-label-lg flex items-center gap-xs">Exporter <span class="material-symbols-outlined text-[18px]">download</span></button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-label-md text-on-surface-variant">
+<tr>
+<th class="px-lg py-md font-semibold">Employé</th>
+<th class="px-lg py-md font-semibold text-center">Couvert</th>
+<th class="px-lg py-md font-semibold text-center">Ventes (€)</th>
+<th class="px-lg py-md font-semibold text-center">Ticket Moyen</th>
+<th class="px-lg py-md font-semibold text-right">Note Service</th>
+</tr>
+</thead>
+<tbody class="text-body-md divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center font-bold text-on-primary-fixed">JM</div>
+<div>
+<div class="font-semibold">Jean Marc</div>
+<div class="text-label-sm text-on-surface-variant">Chef de Rang</div>
+</div>
+</td>
+<td class="px-lg py-md text-center">142</td>
+<td class="px-lg py-md text-center font-semibold">12 450 €</td>
+<td class="px-lg py-md text-center">87,60 €</td>
+<td class="px-lg py-md text-right">
+<div class="flex items-center justify-end gap-xs text-secondary">
+<span class="font-bold">4.9</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed">SB</div>
+<div>
+<div class="font-semibold">Sarah B.</div>
+<div class="text-label-sm text-on-surface-variant">Serveuse</div>
+</div>
+</td>
+<td class="px-lg py-md text-center">118</td>
+<td class="px-lg py-md text-center font-semibold">8 120 €</td>
+<td class="px-lg py-md text-center">68,80 €</td>
+<td class="px-lg py-md text-right">
+<div class="flex items-center justify-end gap-xs text-secondary">
+<span class="font-bold">4.7</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center font-bold text-on-tertiary-fixed">AK</div>
+<div>
+<div class="font-semibold">Amadou K.</div>
+<div class="text-label-sm text-on-surface-variant">Serveur Senior</div>
+</div>
+</td>
+<td class="px-lg py-md text-center">164</td>
+<td class="px-lg py-md text-center font-semibold">10 900 €</td>
+<td class="px-lg py-md text-center">66,40 €</td>
+<td class="px-lg py-md text-right">
+<div class="flex items-center justify-end gap-xs text-secondary">
+<span class="font-bold">4.5</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<footer class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] flex justify-around items-center h-16 px-xs pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm-mobile">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm font-label-sm-mobile">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="text-label-sm font-label-sm-mobile">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-label-sm font-label-sm-mobile">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm-mobile">AI</span>
+</div>
+</footer>
+<!-- FAB for Quick Actions -->
+<button class="fixed bottom-20 md:bottom-10 right-md bg-primary text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-30 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        // Simple Interaction logic for tabs
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('nav button').forEach(btn => {
+                    btn.classList.remove('border-primary', 'text-primary');
+                    btn.classList.add('border-transparent', 'text-on-surface-variant');
+                });
+                button.classList.add('border-primary', 'text-primary');
+                button.classList.remove('border-transparent', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

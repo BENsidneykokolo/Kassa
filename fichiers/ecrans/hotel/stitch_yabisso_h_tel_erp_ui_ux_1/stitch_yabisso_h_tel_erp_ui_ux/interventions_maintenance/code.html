@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interventions - Maintenance Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "outline": "#76777d",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-container": "#7c839b",
+                        "background": "#f7f9fb",
+                        "on-tertiary-container": "#b87500",
+                        "tertiary-container": "#2a1700",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#565e74",
+                        "on-surface-variant": "#45464d",
+                        "surface-container": "#eceef0",
+                        "on-secondary-container": "#00714d",
+                        "primary": "#000000",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#dae2fd",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary-container": "#6cf8bb",
+                        "outline-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary": "#000000",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary": "#006c49",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-bright": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-high": "#e6e8ea",
+                        "surface": "#f7f9fb",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "margin-mobile": "16px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm sticky top-0 z-50 flex justify-between items-center px-md h-14 w-full">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container dark:hover:bg-surface-variant transition-colors duration-200 p-sm rounded-full">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Maintenance Operations</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a senior maintenance manager in a crisp white shirt, standing in a brightly lit, modern office environment. The style is professional and minimalist, with a shallow depth of field focusing on the friendly facial expression. High-key lighting emphasizes a clean, luxury hospitality service aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsPaC2q-aJLGpzw0yJHDcwjkdLwFzJQKEls1R1PDsCBIMOO9xY8uMsarS9bjnq0rXdKtewpS2yT0WUL7MUIHPM5PY95aBJRIMgbWFGvuLsT_08AIBxDcmeIIb1P1CJTADFQFeRV56HVQVg0lWQwfnDoaEu4NM8ktDjr_Y_xySQFxF9U6xE7fLwZtcP2lx5um2Srys_IZO8ZgxtI0rD6jS56xPgqL6XhhLo_f8dYFw0RzFUk2_xcOuRyg"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-md lg:px-lg py-md">
+<!-- Summary Dashboard Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-on-surface-variant mb-unit uppercase tracking-wider">Total Active</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">24</h2>
+</div>
+<span class="material-symbols-outlined text-primary p-sm bg-surface-container rounded-lg">build</span>
+</div>
+<p class="font-label-sm text-secondary mt-sm flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-xs">trending_up</span> +3 since last shift
+                </p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-on-surface-variant mb-unit uppercase tracking-wider">Pending Requests</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">12</h2>
+</div>
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant p-sm bg-tertiary-fixed rounded-lg">pending_actions</span>
+</div>
+<p class="font-label-sm text-outline mt-sm">Average wait: 14 mins</p>
+</div>
+<div class="bg-error-container border border-error p-lg rounded-xl shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-on-error-container mb-unit uppercase tracking-wider">Urgency Alerts</p>
+<h2 class="font-headline-lg text-headline-lg text-on-error-container">03</h2>
+</div>
+<span class="material-symbols-outlined text-on-error-container p-sm bg-error/10 rounded-lg" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<p class="font-label-sm text-on-error-container font-semibold mt-sm animate-pulse">Action Required Immediate</p>
+</div>
+</section>
+<!-- Filters & Tools -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-md">
+<div class="flex items-center gap-sm overflow-x-auto pb-sm md:pb-0 no-scrollbar">
+<button class="bg-primary text-on-primary px-lg py-sm rounded-full font-label-lg whitespace-nowrap shadow-sm">All Tasks</button>
+<button class="bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg whitespace-nowrap hover:bg-surface-variant transition-colors">Plumbing</button>
+<button class="bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg whitespace-nowrap hover:bg-surface-variant transition-colors">Electrical</button>
+<button class="bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg whitespace-nowrap hover:bg-surface-variant transition-colors">HVAC</button>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative group flex-1 md:flex-none">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">filter_list</span>
+<select class="pl-10 pr-md py-sm bg-surface-container border-none rounded-lg font-label-md focus:ring-2 focus:ring-primary appearance-none cursor-pointer">
+<option>Priority: High to Low</option>
+<option>Status: Newest First</option>
+<option>Staff: Unassigned</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Intervention Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Card 1: Urgent Plumbing -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_6px_rgba(15,23,42,0.12)] transition-all group flex flex-col">
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col">
+<span class="font-label-sm bg-error-container text-on-error-container px-sm py-[2px] rounded-full w-fit mb-xs">URGENT</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Room 402 - Water Leak</h3>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant mb-md">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+<p class="font-body-md text-body-md">Plumbing • Floor 4 • Master Suite</p>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up avatar of a professional technician wearing a grey utility uniform. The lighting is crisp and natural, set in a bright modern hotel corridor. Professional photography with high detail and a soft-focus background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCINUW4cB4UoGSItAD2YV1AlYxe8tP5Zq7Zkjr4HyhqfIdlctHd2KthPDe_g4MgFbM6jRnxx9WHFKcThqyevvBm91nB2yx4uqYC4jWorC67bhl32fPuY53GIm3lWCtKUtQztNTHeGd23xKN44tUx3ynCvg4VW-1C4s6MGSo8QeUqCmGehSJpH0MtutyDlnEpzqYjakkPRc51Y1HZZT2RNnnR7BgvXWJsGc1Fpnvj1Vd7zn33VvzPIrngA"/>
+</div>
+<span class="font-label-md text-on-surface">Jean-Luc Dupont</span>
+</div>
+<div class="flex items-center justify-between mt-lg">
+<span class="font-label-sm text-on-secondary-container bg-secondary-container px-md py-1 rounded-full">En cours</span>
+<span class="font-label-sm text-outline">Since 09:12 AM</span>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant p-md bg-surface-container-low flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-sm rounded-lg font-label-md active:scale-95 transition-transform">Update Status</button>
+</div>
+</div>
+<!-- Card 2: Electrical -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_6px_rgba(15,23,42,0.12)] transition-all group flex flex-col">
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col">
+<span class="font-label-sm bg-surface-container text-on-surface-variant px-sm py-[2px] rounded-full w-fit mb-xs">NORMAL</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Lobby - Socket Repair</h3>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant mb-md">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<p class="font-body-md text-body-md">Electrical • Ground Floor</p>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">person</span>
+</div>
+<span class="font-label-md text-outline">Unassigned</span>
+</div>
+<div class="flex items-center justify-between mt-lg">
+<span class="font-label-sm text-outline bg-surface-container px-md py-1 rounded-full">En attente</span>
+<span class="font-label-sm text-outline">Since 11:30 AM</span>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant p-md bg-surface-container-low flex gap-sm">
+<button class="flex-1 border border-primary text-primary py-sm rounded-lg font-label-md hover:bg-surface-variant transition-colors">Assign Staff</button>
+</div>
+</div>
+<!-- Card 3: HVAC -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_6px_rgba(15,23,42,0.12)] transition-all group flex flex-col">
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col">
+<span class="font-label-sm bg-tertiary-fixed text-on-tertiary-fixed-variant px-sm py-[2px] rounded-full w-fit mb-xs">HIGH</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Restaurant - AC Unit 3</h3>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant mb-md">
+<span class="material-symbols-outlined text-[18px]">ac_unit</span>
+<p class="font-body-md text-body-md">HVAC • Mezzanine</p>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a skilled woman technician in professional maintenance gear. She is holding a tablet with a diagnostic screen in a brightly lit, modern industrial setting. The image is clean, sharp, and uses a palette of soft greys and whites with professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPd5FqAukJKXw8ejiF7Xcwwo0P6tztCIe9V1egG1cMxLNkYGKLtUXn73e4oak-sQ0Xfh4KgSHXuSdmRBhVbU-wIkulIAVWeLcZqz9GleCh-qTjfOx3aVImmVu5GQ-JmeEDou2oROCWRneseZWFSYzp0owglfUmrkb1psnkmrg2i3T1CCg66B2FitDmxbdWhrfr1OLvp_EnhXW-pA8NaNOOLpQcz6YKenjdZbpiRoB5OKbO40PefeLpcA"/>
+</div>
+<span class="font-label-md text-on-surface">Amara Okafor</span>
+</div>
+<div class="flex items-center justify-between mt-lg">
+<span class="font-label-sm text-on-secondary-container bg-secondary-container px-md py-1 rounded-full">En cours</span>
+<span class="font-label-sm text-outline">Since 10:45 AM</span>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant p-md bg-surface-container-low flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-sm rounded-lg font-label-md active:scale-95 transition-transform">Update Status</button>
+</div>
+</div>
+<!-- Card 4: Light Repair -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_6px_rgba(15,23,42,0.12)] transition-all group flex flex-col">
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col">
+<span class="font-label-sm bg-surface-container text-on-surface-variant px-sm py-[2px] rounded-full w-fit mb-xs">NORMAL</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Gym - Lighting Out</h3>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant mb-md">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<p class="font-body-md text-body-md">Electrical • Basement 1</p>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up profile of a maintenance professional in clean blue overalls. Background shows a blurred, high-end hotel hallway with warm accent lighting. The composition is professional and focused on efficiency and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdGX1-gUXjKCU3a7TWZn7XVpKko7ZnsR8TFJZnsFsDtJwn3Q1SKdTe7dgRwy9AdiVXtxhJbIAZmJ5ucAzHIX3d-QiI9G505iCy0csM-r-4Bi3cd3sqaV4ewrOhvSxcE4N0Kv78wlSkFDH_bzjNK1lkjvYE3AbRXqviJwjLK5WC5DXo0OPTDz4xLhhAH67pbPHrPAy3lDrRQr3OB0WWlvTvcAw593CT7FRSqm_Vvc4aw5mcR_Ysgpjhfw"/>
+</div>
+<span class="font-label-md text-on-surface">Kofi Mensah</span>
+</div>
+<div class="flex items-center justify-between mt-lg">
+<span class="font-label-sm text-on-secondary-container bg-secondary-container px-md py-1 rounded-full">En cours</span>
+<span class="font-label-sm text-outline">Since 12:05 PM</span>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant p-md bg-surface-container-low flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-sm rounded-lg font-label-md active:scale-95 transition-transform">Update Status</button>
+</div>
+</div>
+<!-- Card 5: Preventative -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_6px_rgba(15,23,42,0.12)] transition-all group flex flex-col">
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col">
+<span class="font-label-sm bg-surface-container text-on-surface-variant px-sm py-[2px] rounded-full w-fit mb-xs">NORMAL</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Pool - Filter Check</h3>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant mb-md">
+<span class="material-symbols-outlined text-[18px]">pool</span>
+<p class="font-body-md text-body-md">Systems • Exterior Area</p>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">person</span>
+</div>
+<span class="font-label-md text-outline">Unassigned</span>
+</div>
+<div class="flex items-center justify-between mt-lg">
+<span class="font-label-sm text-outline bg-surface-container px-md py-1 rounded-full">En attente</span>
+<span class="font-label-sm text-outline">Scheduled: 2 PM</span>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant p-md bg-surface-container-low flex gap-sm">
+<button class="flex-1 border border-primary text-primary py-sm rounded-lg font-label-md hover:bg-surface-variant transition-colors">Assign Staff</button>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for New Request -->
+<button class="fixed bottom-20 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-sm pb-safe">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-label-sm text-label-sm">Interventions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-on-surface-variant rounded-lg p-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">New Request</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-on-surface-variant rounded-lg p-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-on-surface-variant rounded-lg p-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">Audit Log</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for filter buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if(this.classList.contains('bg-surface-container')) {
+                    this.parentElement.querySelectorAll('button').forEach(b => {
+                        b.classList.remove('bg-primary', 'text-on-primary');
+                        b.classList.add('bg-surface-container', 'text-on-surface-variant');
+                    });
+                    this.classList.add('bg-primary', 'text-on-primary');
+                    this.classList.remove('bg-surface-container', 'text-on-surface-variant');
+                }
+            });
+        });
+    </script>
+</body></html>

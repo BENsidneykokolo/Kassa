@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Spa - Therapist Schedule</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e9e8e6",
+                        "surface-container-low": "#f4f3f1",
+                        "secondary-fixed": "#f1e1bc",
+                        "outline-variant": "#c3c8c1",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#526255",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#eee9e3",
+                        "surface": "#faf9f7",
+                        "on-secondary-fixed-variant": "#50462a",
+                        "primary-fixed-dim": "#bacbba",
+                        "primary-container": "#5d6d5f",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#efeeec",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1b",
+                        "background": "#faf9f7",
+                        "inverse-primary": "#bacbba",
+                        "secondary": "#695d40",
+                        "surface-dim": "#dadad8",
+                        "on-primary-fixed": "#101f14",
+                        "on-primary-fixed-variant": "#3b4a3e",
+                        "secondary-container": "#eedeb9",
+                        "on-surface": "#1a1c1b",
+                        "surface-bright": "#faf9f7",
+                        "surface-container-highest": "#e3e2e0",
+                        "on-surface-variant": "#434843",
+                        "tertiary-container": "#6c6964",
+                        "on-secondary-fixed": "#221b04",
+                        "inverse-surface": "#2f3130",
+                        "primary-fixed": "#d6e7d6",
+                        "tertiary-fixed": "#e7e2dc",
+                        "on-secondary-container": "#6d6244",
+                        "on-primary-container": "#ddeedd",
+                        "tertiary-fixed-dim": "#cac6c0",
+                        "secondary-fixed-dim": "#d4c5a1",
+                        "on-tertiary-fixed": "#1d1b18",
+                        "tertiary": "#53514c",
+                        "surface-variant": "#e3e2e0",
+                        "outline": "#747872",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-primary": "#ffffff",
+                        "primary": "#455548",
+                        "on-tertiary-fixed-variant": "#494642"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "section-gap-md": "80px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "section-gap-lg": "120px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "headline-sm": ["Libre Caslon Text"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .appointment-card:hover .action-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-[0px_20px_40px_rgba(93,109,95,0.05)]">
+<div class="flex justify-between items-center px-margin-mobile md:px-gutter w-full h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="spa">spa</span>
+<h1 class="font-headline-md text-headline-sm text-primary tracking-tight">Yabisso Spa</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<main class="pt-24 px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+<!-- Welcome & Header Section -->
+<section class="mb-8">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Bonjour, Elena</h2>
+<p class="text-on-surface-variant font-body-md opacity-80">Voici votre programme pour aujourd'hui, le 24 Mai.</p>
+</section>
+<!-- Horizontal Weekly Calendar Picker -->
+<div class="mb-10 overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile">
+<div class="flex gap-4 min-w-max">
+<!-- Days of the week -->
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Lun</span>
+<span class="font-headline-sm text-headline-sm">20</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Mar</span>
+<span class="font-headline-sm text-headline-sm">21</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Mer</span>
+<span class="font-headline-sm text-headline-sm">22</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Jeu</span>
+<span class="font-headline-sm text-headline-sm">23</span>
+</button>
+<!-- Active Day -->
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-primary text-on-primary shadow-xl scale-110 ring-4 ring-primary/10">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Ven</span>
+<span class="font-headline-sm text-headline-sm">24</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Sam</span>
+<span class="font-headline-sm text-headline-sm">25</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-24 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors opacity-50">
+<span class="font-label-caps text-[10px] mb-2 uppercase">Dim</span>
+<span class="font-headline-sm text-headline-sm">26</span>
+</button>
+</div>
+</div>
+<!-- Appointment Timeline -->
+<div class="relative space-y-6 before:absolute before:left-[11px] before:top-4 before:bottom-4 before:w-[1px] before:bg-outline-variant/30">
+<!-- CURRENT SESSION -->
+<div class="relative pl-10 group">
+<div class="absolute left-0 top-6 w-6 h-6 rounded-full bg-primary ring-4 ring-primary-fixed flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="bg-white border border-primary-fixed shadow-[0px_20px_40px_rgba(93,109,95,0.05)] rounded-xl p-6 transition-all duration-300 hover:shadow-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-3">
+<span class="font-label-caps text-primary">EN COURS — 09:30</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-caps text-[10px]">VIP</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Massage Deep Tissue</h3>
+<p class="text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span> Sophie Martin
+                                <span class="mx-2 text-outline-variant">|</span>
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 90 min
+                            </p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-caps flex items-center justify-center gap-2 active:scale-95 transition-all hover:opacity-90">
+                            Démarrer le soin
+                            <span class="material-symbols-outlined text-[18px]" data-icon="magic_button">magic_button</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PREP TIME INDICATOR -->
+<div class="relative pl-10">
+<div class="absolute left-[6px] top-1/2 -translate-y-1/2 w-[10px] h-[10px] rounded-full bg-tertiary-fixed border-2 border-surface"></div>
+<div class="bg-surface-container-low/50 border-l-4 border-tertiary-fixed p-3 rounded-r-lg">
+<p class="font-label-caps text-[10px] text-tertiary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="cleaning_services">cleaning_services</span>
+                        PRÉPARATION &amp; NETTOYAGE (15 MIN)
+                    </p>
+</div>
+</div>
+<!-- NEXT APPOINTMENT -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-6 w-6 h-6 rounded-full bg-surface-container-high border-2 border-surface flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div class="bg-surface-container-low border border-transparent rounded-xl p-6 transition-all duration-300 hover:bg-surface-container">
+<div class="space-y-1">
+<span class="font-label-caps text-on-surface-variant">11:15</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface/80">Soin Visage Éclat</h3>
+<p class="text-on-surface-variant/80 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span> Marc Lefebvre
+                            <span class="mx-2 text-outline-variant">|</span>
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 60 min
+                        </p>
+</div>
+</div>
+</div>
+<!-- LUNCH BREAK -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-secondary-fixed border-2 border-surface flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[12px] text-on-secondary-fixed" data-icon="restaurant">restaurant</span>
+</div>
+<div class="bg-secondary-container/20 border-y border-dashed border-secondary-fixed/40 py-4 px-6 flex justify-between items-center rounded-xl">
+<span class="font-label-caps text-on-secondary-container">PAUSE DÉJEUNER</span>
+<span class="text-on-secondary-container/60 font-body-md italic">12:30 - 13:30</span>
+</div>
+</div>
+<!-- AFTERNOON SESSIONS -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-6 w-6 h-6 rounded-full bg-surface-container-high border-2 border-surface flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div class="bg-surface-container-low border border-transparent rounded-xl p-6 transition-all duration-300 hover:bg-surface-container">
+<div class="space-y-1">
+<span class="font-label-caps text-on-surface-variant">14:00</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface/80">Réflexologie Plantaire</h3>
+<p class="text-on-surface-variant/80 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span> Clara Rossi
+                            <span class="mx-2 text-outline-variant">|</span>
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 45 min
+                        </p>
+</div>
+</div>
+</div>
+<div class="relative pl-10">
+<div class="absolute left-0 top-6 w-6 h-6 rounded-full bg-surface-container-high border-2 border-surface flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div class="bg-surface-container-low border border-transparent rounded-xl p-6 transition-all duration-300 hover:bg-surface-container">
+<div class="space-y-1">
+<span class="font-label-caps text-on-surface-variant">15:15</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface/80">Rituel Corps "Sable Rose"</h3>
+<p class="text-on-surface-variant/80 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span> Isabelle Dubois
+                            <span class="mx-2 text-outline-variant">|</span>
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 120 min
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Stats / Summary -->
+<section class="mt-section-gap-md grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col justify-between aspect-video md:aspect-auto">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="query_stats">query_stats</span>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1">OCCUPATION</p>
+<p class="font-headline-md text-headline-md text-primary">85%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="history_edu">history_edu</span>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1">SOINS PRÉVUS</p>
+<p class="font-headline-md text-headline-md text-primary">6 sessions</p>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-8 rounded-2xl flex flex-col justify-between">
+<span class="material-symbols-outlined mb-4" data-icon="hourglass_empty">hourglass_empty</span>
+<div>
+<p class="font-label-caps opacity-80 mb-1">DURÉE TOTALE</p>
+<p class="font-headline-md text-headline-md">7h 15min</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-safe px-4 bg-surface/90 backdrop-blur-md shadow-[0px_-4px_20px_rgba(93,109,95,0.03)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-[10px]">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-caps text-[10px]">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="groups">groups</span>
+<span class="font-label-caps text-[10px]">Staff</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-[10px]">Inventory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-[10px]">Insights</span>
+</a>
+</nav>
+<!-- FAB for quick notes or new entry -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined" data-icon="add_notes">add_notes</span>
+</button>
+<script>
+        // Micro-interaction for day selection
+        const dayButtons = document.querySelectorAll('.flex-col.items-center.justify-center.w-16.h-24');
+        dayButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                dayButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-xl', 'scale-110', 'ring-4', 'ring-primary/10');
+                    b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+                });
+                this.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+                this.classList.add('bg-primary', 'text-on-primary', 'shadow-xl', 'scale-110', 'ring-4', 'ring-primary/10');
+            });
+        });
+
+        // Simple feedback for "Démarrer le soin"
+        const startBtn = document.querySelector('button.bg-primary.text-on-primary');
+        if(startBtn) {
+            startBtn.addEventListener('click', function() {
+                this.innerHTML = `<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> Chargement...`;
+                setTimeout(() => {
+                    this.innerHTML = `Soin en cours <span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span>`;
+                    this.classList.replace('bg-primary', 'bg-secondary');
+                }, 1200);
+            });
+        }
+    </script>
+</body></html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Directory - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#a8b8ff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-container": "#54647a",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c4c5d5",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#001453",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#173bab",
+                    "on-tertiary-fixed-variant": "#005049",
+                    "surface": "#f7f9fb",
+                    "outline": "#757684",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#6bd8cb",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#3755c3",
+                    "primary": "#00288e",
+                    "primary-container": "#1e40af",
+                    "inverse-surface": "#2d3133",
+                    "on-surface-variant": "#444653",
+                    "tertiary-container": "#00554e",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#d3e4fe",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-tertiary-fixed": "#00201d",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-container": "#5fcdbf",
+                    "secondary": "#505f76",
+                    "inverse-primary": "#b8c4ff",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#89f5e7",
+                    "primary-fixed": "#dde1ff",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#d0e1fb",
+                    "background": "#f7f9fb",
+                    "tertiary": "#003c36",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-secondary-fixed-variant": "#38485d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "sidebar-width": "280px",
+                    "stack-sm": "8px",
+                    "container-padding": "24px",
+                    "stack-lg": "32px",
+                    "unit": "4px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-md-mobile": ["Hanken Grotesk"],
+                    "status-label": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"]
+            },
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC; /* Level 0 Base per Style Guidance */
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .zebra-table tr:nth-child(even) {
+            background-color: #F1F5F9;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar from JSON -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-secondary-container flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female HR manager with a warm, confident expression. She is wearing a tailored navy blazer in a modern, bright office setting with soft, natural lighting. The image maintains a clean, corporate aesthetic with high-key lighting and a shallow depth of field, emphasizing reliability and professional calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANrK-EaTAvDw0Ek-Kmlkl0_wZBmhPvyYhv5VAocFDtp1CZZxlRt-xnfmky1UIgerzaVxcNuYyOSS7PUmkoD8T63xsZ-qX1s2ibiZcW1ovsfwFfz_EEAPz4CcDsAaVwySxlYR3C8sBoPtLntuQkvxnRsEqY5AWGHp15XhZl5wMzAczqRPaQ0x_yyQdPgjecfqmroAp14Vy7PQNkdlTthetzJikMYfJRrYEI09uUcmRpvBgMYBdHOe2ayA"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Yabisso Hôtel</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-gutter max-w-7xl mx-auto min-h-screen">
+<!-- Search and Filter Section -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex-1 max-w-md">
+<h2 class="font-label-caps text-label-caps text-secondary mb-2 uppercase">Staff Directory</h2>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:outline-none focus:border-primary transition-all text-body-md" placeholder="Search by name or position..." type="text"/>
+</div>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+<button class="px-4 py-2 bg-primary text-white font-status-label text-status-label rounded-lg whitespace-nowrap">All Staff</button>
+<button class="px-4 py-2 bg-white border border-outline-variant text-on-surface-variant font-status-label text-status-label rounded-lg whitespace-nowrap hover:bg-surface-container transition-colors">Front Office</button>
+<button class="px-4 py-2 bg-white border border-outline-variant text-on-surface-variant font-status-label text-status-label rounded-lg whitespace-nowrap hover:bg-surface-container transition-colors">Housekeeping</button>
+<button class="px-4 py-2 bg-white border border-outline-variant text-on-surface-variant font-status-label text-status-label rounded-lg whitespace-nowrap hover:bg-surface-container transition-colors">F&amp;B Service</button>
+<button class="px-4 py-2 bg-white border border-outline-variant text-on-surface-variant font-status-label text-status-label rounded-lg whitespace-nowrap hover:bg-surface-container transition-colors">Kitchen</button>
+</div>
+</div>
+</section>
+<!-- Employee Data Table / Cards -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse zebra-table">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-4 font-label-caps text-label-caps text-secondary uppercase">Employee</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-secondary uppercase">Department</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-secondary uppercase">Position</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-secondary uppercase">Status</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-secondary uppercase text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body-md">
+<!-- Row 1 -->
+<tr class="transition-colors hover:bg-surface-container">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a male hotel concierge in a crisp white shirt and vest. He has a friendly, helpful expression, standing in a brightly lit, elegant hotel lobby with marble accents. The style is sharp, corporate, and clean with a focus on professional excellence and high-end service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGJXB0AnIGpLb6qUxeqOm-hHLmKMkd0zkoghnOlIfzDpIBx2h9Furg3-Zw2ipP5Dn7FeV9dmgOWGThlXpJ8TgrNlNJuZ4dVnxhraTEQgDOr49c_2x5rok0hOI3QCN1EnBj2h7laDnUKayt2ibDDymYRsF1FQQYhWLwjKGiBUEhAgfvoTo6CTT1geqnDWid8hatrrHTxCL7mcuMwK3T61XU2Bh2AIoQrKVzcYwtYWkDQ3Xgqs43Sdapmg"/>
+</div>
+<div>
+<div class="font-headline-sm text-[16px] text-on-surface leading-tight">Marcus Thompson</div>
+<div class="text-on-surface-variant text-xs">ID: YB-2931</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-status-label text-on-surface-variant">Front Office</td>
+<td class="px-6 py-4 text-on-surface">Chief Concierge</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-green-100 text-green-700 text-status-label font-status-label rounded-full flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                                    On Duty
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-status-label text-status-label hover:underline">View Profile</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="transition-colors hover:bg-surface-container">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a female hospitality professional in a clean, minimalist kitchen environment. She is wearing a professional chef's coat, looking directly at the camera with a poised and organized demeanor. The background is a high-end commercial kitchen with stainless steel surfaces and soft overhead lighting, evoking a sense of culinary precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuipOrIccHcmGsaQBPc11r5xT6yhJLvYystbFVqWFbAChnEbfOYULlwA5kdLN691LiqiDVEvdUBYRBNOgm3JY93oSdmBKmxRVH0Jte1W_2omqckBJaPUM_WAJOIDsLUTral5Hj0JlkBjzylAmbPGFyabtgYjy9q2ud3o6aBP1GXoSkLQbKGnEBpQrebg1dgJ0yzPdBLu0VYVyaeaD5oS81ta4kFbRPl7RiZJvcJC6GvVQUJkFxrClHtw"/>
+</div>
+<div>
+<div class="font-headline-sm text-[16px] text-on-surface leading-tight">Elena Rodriguez</div>
+<div class="text-on-surface-variant text-xs">ID: YB-4402</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-status-label text-on-surface-variant">Kitchen</td>
+<td class="px-6 py-4 text-on-surface">Pastry Chef</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-slate-100 text-slate-600 text-status-label font-status-label rounded-full flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                    Off
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-status-label text-status-label hover:underline">View Profile</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="transition-colors hover:bg-surface-container">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young man working in hotel housekeeping management, wearing a clean light blue polo shirt. He stands in a bright, modern guest suite with minimalist decor and soft daylight. The image conveys cleanliness, order, and dedicated service in a luxury hotel setting, with a bright and airy color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlCsDvB8-VFGnqddtDbSzgf2P-sQBs1U7M9neG3XMbTTWqK3dGPyLPdmlMwhJPivn2rsRcWlHUIVeYea4L111mS_Afz6QBbgLQcdiNOPsdDcTSLYhj6lw5UgZ_D55MKdC-EbG77gPQxg2EGXNE5WjQmRUJcdozrgsoW1wLAdSWJMKtpGB681BKc3NWdrxjRyRg84PrLXBFTnwNslTICnDnPX3XFFliJxV2tKtlQsN6uHnsh_eF5xS1ug"/>
+</div>
+<div>
+<div class="font-headline-sm text-[16px] text-on-surface leading-tight">James Wu</div>
+<div class="text-on-surface-variant text-xs">ID: YB-3118</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-status-label text-on-surface-variant">Housekeeping</td>
+<td class="px-6 py-4 text-on-surface">Floor Supervisor</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-green-100 text-green-700 text-status-label font-status-label rounded-full flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                                    On Duty
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-status-label text-status-label hover:underline">View Profile</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="transition-colors hover:bg-surface-container">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a senior hotel manager in a light gray suit, standing in an elegant restaurant dining area with soft warm lighting. The setting is luxurious and calm, featuring polished wood and soft textiles. The mood is authoritative yet welcoming, emphasizing high-level hospitality management and corporate sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx57GwI_uAZO2pnXfaCxUGp5act9t97ZdyGWS3us2lCkbOchZv5UmMwVnfNMF8JiGtK0GnexkJQZkZZ12gj_mvVEf-1w2zbgcrJj_XD1csZHbfaeIsCMwVdGQ3y1sZyja8upGfYYnNWpkCsbdVZ7Sl4kk0zjAko6SzSdDPjAFGqEcEddQ2HML0CQ_mFiJIQGxWSfZf250tHzqtXI1kYuLt8dSLUWUjQE5c30writlJ5qCu6ylnpVxBxg"/>
+</div>
+<div>
+<div class="font-headline-sm text-[16px] text-on-surface leading-tight">Sophie Chen</div>
+<div class="text-on-surface-variant text-xs">ID: YB-0520</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-status-label text-on-surface-variant">F&amp;B Service</td>
+<td class="px-6 py-4 text-on-surface">Restaurant Manager</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-amber-100 text-amber-700 text-status-label font-status-label rounded-full flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    On Leave
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-status-label text-status-label hover:underline">View Profile</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="transition-colors hover:bg-surface-container">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A male security professional in a clean black uniform, standing in a high-tech hotel security room with multiple monitors softly glowing in the background. The aesthetic is clean and vigilant, with a focus on safety and reliability. The lighting is low-contrast with cool blue tones, reinforcing a secure and calm environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAntnkumN_yzhJmCe1wjoao1Ildpbr9gbCKfuhFUaLohnu5AM_Nv-mgS_7JcTCJxPeL3iXokomdnRrRW_8uRQcCDZ1A4MEzNKKu6wDK2XGmCnb8yM4q4s4np5QuLPBIMR7Txms5xmIuOFarTPoF_vH_mWaHElY086Zuv8osL9zEoATGR6dOnJttRqNLNbj7qlVwubL9ltV30VGve5GepagEaNsRWoIdMoUkOE-h0IlETJkoSHgp-Ud8Dw"/>
+</div>
+<div>
+<div class="font-headline-sm text-[16px] text-on-surface leading-tight">David Miller</div>
+<div class="text-on-surface-variant text-xs">ID: YB-1982</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-status-label text-on-surface-variant">Security</td>
+<td class="px-6 py-4 text-on-surface">Senior Guard</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-green-100 text-green-700 text-status-label font-status-label rounded-full flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                                    On Duty
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-status-label text-status-label hover:underline">View Profile</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination-like footer -->
+<div class="px-6 py-4 border-t border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<span class="text-body-md text-on-surface-variant">Showing 5 of 142 employees</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar from JSON -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center h-20 px-2 pb-safe w-full">
+<!-- Directory (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-status-label text-status-label mt-1">Directory</span>
+</a>
+<!-- Schedule -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-status-label text-status-label mt-1">Schedule</span>
+</a>
+<!-- Payroll -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-status-label text-status-label mt-1">Payroll</span>
+</a>
+<!-- Insights -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-status-label text-status-label mt-1">Insights</span>
+</a>
+</nav>
+<!-- Contextual FAB - Specific to Management Screens -->
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-primary text-white rounded-2xl shadow-lg flex items-center justify-center hover:bg-primary-container transition-all active:scale-90 z-40">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+<script>
+        // Micro-interaction for filter buttons
+        const filterButtons = document.querySelectorAll('.flex.gap-2.overflow-x-auto button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('bg-white', 'border', 'border-outline-variant', 'text-on-surface-variant');
+                });
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('bg-white', 'border', 'border-outline-variant', 'text-on-surface-variant');
+            });
+        });
+
+        // Search bar micro-interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+</body></html>

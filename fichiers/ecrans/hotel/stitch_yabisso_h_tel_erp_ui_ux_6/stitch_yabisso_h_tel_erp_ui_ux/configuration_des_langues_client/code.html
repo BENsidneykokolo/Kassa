@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Language Configuration | Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#565e74",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#6cf8bb",
+                        "outline-variant": "#c6c6cd",
+                        "on-background": "#191c1e",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary-container": "#00714d",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#b87500",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "primary-container": "#131b2e",
+                        "on-primary-container": "#7c839b",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#76777d",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-fixed": "#ffddb8",
+                        "error": "#ba1a1a",
+                        "tertiary": "#000000",
+                        "surface-variant": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "primary": "#000000",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-low": "#f2f4f6",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-container": "#2a1700",
+                        "secondary": "#006c49",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "gutter-mobile": "12px",
+                        "margin-mobile": "16px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .toggle-checkbox:checked { right: 0; border-color: #0F172A; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #006c49; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface-container-low w-full top-0 sticky shadow-sm z-40 flex justify-between items-center px-md h-[64px]">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-full">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-high transition-colors rounded-full">search</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a hotel manager in a stylish, minimalist uniform, captured in a brightly lit, modern office environment. The background features subtle luxury textures and a clean white aesthetic. The image is crisp, high-contrast, and embodies professional efficiency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjnH9Dpg805KDAWK-al9J8pgMvjNn8KWQrVpEvap4HxcdubNSyr60DJ4g7DyYY6AI7u8PZIMIs1veV7ImXy35QuSBL7rajxe4VpCZ0rAc9cYV4CbwwUQMIGXn5ZXhC6OLUgtwjIyIMw0ThmMy5sxyYCLAQgdFPdFmMTA1gozKEzo-zruejX38VIpi_jWJQr55i1JRwjjBtaJOoc88njfPD3m-wwySMnSavrMwVdjdDSdkY-bFPYGVogw"/>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-md mt-lg space-y-lg">
+<!-- Header Section -->
+<section class="flex flex-col gap-xs">
+<nav class="flex items-center text-on-surface-variant gap-xs">
+<span class="font-label-sm text-label-sm">Settings</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-label-sm text-label-sm">Guest Communications</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-primary">Language Configuration</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                Configure the languages available for your booking portal, automated guest emails, and digital menus. Enable multiple languages to improve accessibility for international guests.
+            </p>
+</section>
+<!-- Primary Language Selector Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">star</span>
+<h3 class="font-headline-sm text-headline-sm">Primary Language</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">Default Setting</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">This is the default language used for all initial guest communications and the fallback for untranslated content.</p>
+<div class="relative group max-w-sm">
+<select class="w-full appearance-none bg-surface border border-outline rounded-lg px-md py-sm font-label-lg text-label-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none">
+<option value="fr">French (Français)</option>
+<option selected="" value="en">English (United Kingdom)</option>
+<option value="de">German (Deutsch)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Language List Grid -->
+<div class="space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm">Supported Languages</h3>
+<button class="flex items-center gap-xs text-primary font-label-lg text-label-lg hover:underline">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    Add Language
+                </button>
+</div>
+<!-- Bento-style Grid for Languages -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Language Card: French -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between hover:shadow-md transition-shadow group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">FR</div>
+<div>
+<p class="font-label-lg text-label-lg">French</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Français</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-sm">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Active</span>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in mt-1">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-4 checked:right-0" id="toggle-fr" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer" for="toggle-fr"></label>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container-high rounded-full">settings</button>
+</div>
+</div>
+<!-- Language Card: English -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between hover:shadow-md transition-shadow group border-l-4 border-l-secondary">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">EN</div>
+<div>
+<p class="font-label-lg text-label-lg">English</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Primary Language</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-sm">
+<span class="text-[10px] uppercase font-bold text-secondary tracking-wider">Default</span>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in mt-1">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-0 opacity-50" disabled="" id="toggle-en" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-secondary cursor-pointer opacity-50" for="toggle-en"></label>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container-high rounded-full">settings</button>
+</div>
+</div>
+<!-- Language Card: German -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between hover:shadow-md transition-shadow group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">DE</div>
+<div>
+<p class="font-label-lg text-label-lg">German</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Deutsch</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-sm">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Inactive</span>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in mt-1">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-4" id="toggle-de" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer" for="toggle-de"></label>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container-high rounded-full">settings</button>
+</div>
+</div>
+<!-- Language Card: Spanish -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between hover:shadow-md transition-shadow group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">ES</div>
+<div>
+<p class="font-label-lg text-label-lg">Spanish</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Español</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-sm">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Inactive</span>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in mt-1">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-4" id="toggle-es" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer" for="toggle-es"></label>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container-high rounded-full">settings</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Localization Progress Card -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-lg overflow-hidden relative">
+<div class="flex flex-col md:flex-row gap-lg items-start">
+<div class="flex-1 space-y-md">
+<h4 class="font-headline-sm text-headline-sm">Localization Health</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Your content coverage across enabled languages. Ensure all transaction emails are translated to maintain a luxury experience.</p>
+<div class="space-y-sm">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Booking Portal</span>
+<span class="text-secondary">100% Translated</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-full"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Guest Emails</span>
+<span class="text-on-surface-variant">82% Translated</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[82%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Digital Menus</span>
+<span class="text-error">45% Translated</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[45%]"></div>
+</div>
+</div>
+</div>
+<div class="hidden md:block w-48 h-48 bg-surface-container-high rounded-full flex items-center justify-center p-md">
+<img class="w-full h-full object-contain" data-alt="A sophisticated, high-end vector illustration of a globe surrounded by floating dialogue bubbles in different languages. The style is minimalist and elegant, using a palette of deep slate and mint green accents. The lighting is soft and professional, evoking a sense of global connectivity and luxury hospitality service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdAcaywxWBVbZk3RN65WzjceUa-qvcAFDjBtkrK9PsSivo5VR9yBp_GYHAp5XQaguCxxkepRlYfNh3H6vrCHn9D2rzav3Pvbk9XaYQcnSUE-KeIbvUUVburILO-093EcI938ZDV15vc7GXTLww5swJhMpab5XlxSal4GtJllfvfifXvmKeGA2nk9JLGOS1BCzaieqHKVc7J7YRHs6kdczrFlZfvVrrd4pG6LpsVb4WKqf6aaQbvBMUbg"/>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-end gap-md pt-lg border-t border-outline-variant">
+<button class="px-lg py-sm rounded-lg border border-outline font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">Discard Changes</button>
+<button class="px-xl py-sm rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:opacity-90 active:scale-95 transition-all shadow-md">Save Configuration</button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-[80px] px-sm pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-sm text-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</div>
+</nav>
+<!-- Global Floating Action Button (FAB) Suppression check: Only on relevant screens -->
+<!-- This screen is a configuration screen, so FAB is suppressed. -->
+<script>
+        // Simple micro-interaction for toggle switches
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', (e) => {
+                const label = e.target.closest('.group').querySelector('span.uppercase');
+                if (e.target.checked) {
+                    if (label) label.textContent = 'Active';
+                } else {
+                    if (label) label.textContent = 'Inactive';
+                }
+            });
+        });
+
+        // Search bar interaction simulator
+        const searchBtn = document.querySelector('.material-symbols-outlined.text-on-surface-variant');
+        searchBtn.addEventListener('click', () => {
+            console.log("Search focused");
+            // Logic for revealing a search overlay would go here
+        });
+    </script>
+</body></html>

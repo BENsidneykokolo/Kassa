@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Yabisso Hôtel - Restaurant POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#006c49",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#ffddb8",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container": "#eceef0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-container": "#2a1700",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-container": "#b87500",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline": "#76777d",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#565e74",
+                    "on-surface": "#191c1e",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary-container": "#00714d",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .active-category {
+            border-bottom: 3px solid #000000;
+        }
+        .pos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface flex flex-col">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-40 bg-surface shadow-sm border-b border-outline-variant flex justify-between items-center px-lg h-14 w-full">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary p-sm hover:bg-surface-container rounded-full transition-colors">menu</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="bg-surface-container px-md py-xs rounded-full flex items-center gap-sm border border-outline-variant">
+<span class="material-symbols-outlined text-label-md">table_restaurant</span>
+<span class="text-label-lg font-label-lg">Table 12</span>
+<span class="material-symbols-outlined text-label-md">expand_more</span>
+</div>
+<button class="material-symbols-outlined text-primary p-sm hover:bg-surface-container rounded-full transition-colors">notifications</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex pt-14 pb-16 md:pb-0 h-full overflow-hidden">
+<!-- Sidebar Navigation Drawer (Hidden on mobile usually, but integrated here as shell) -->
+<aside class="hidden md:flex flex-col h-full w-20 py-lg bg-surface-container-low border-r border-outline-variant items-center gap-lg">
+<button class="flex flex-col items-center gap-xs text-primary group">
+<div class="bg-secondary-container text-on-secondary-container p-sm rounded-xl group-active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+</div>
+<span class="text-[10px] font-bold">POS</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-[10px] font-medium">Salles</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-[10px] font-medium">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors mt-auto">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Admin</span>
+</button>
+</aside>
+<!-- POS Canvas -->
+<section class="flex-1 flex flex-col md:flex-row h-full overflow-hidden">
+<!-- Product Selection Grid -->
+<div class="flex-1 flex flex-col bg-background overflow-hidden">
+<!-- Category Tabs -->
+<nav class="flex items-center gap-lg px-lg border-b border-outline-variant bg-surface sticky top-0 z-30">
+<button class="py-md text-label-lg font-label-lg active-category text-primary whitespace-nowrap">Boissons</button>
+<button class="py-md text-label-lg font-label-lg text-on-surface-variant hover:text-primary whitespace-nowrap">Entrées</button>
+<button class="py-md text-label-lg font-label-lg text-on-surface-variant hover:text-primary whitespace-nowrap">Plats</button>
+<button class="py-md text-label-lg font-label-lg text-on-surface-variant hover:text-primary whitespace-nowrap">Desserts</button>
+<div class="flex-1"></div>
+<button class="material-symbols-outlined text-on-surface-variant">search</button>
+</nav>
+<!-- Grid -->
+<div class="flex-1 overflow-y-auto p-md custom-scrollbar">
+<div class="pos-grid">
+<!-- Product Item 1 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Bière Locale', 2500)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A cold, condensation-covered bottle of premium local lager standing on a dark wooden bar counter with soft amber lighting in a high-end African hotel lounge. The background is softly blurred showing a sophisticated interior with gold accents and warm wood tones. High-contrast photography style emphasizing texture and freshness." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDD6wXwD50u9b6OYGEbLNomefChA-3lGsvo5-sxbnx1A8Q52ceNlpz4h4KrD2KLMkojOAkpwx8mR5PczMSqVanW7wndIWVrTSPz57mT8DmANE7Bu1YrIR1IYz6TPbK3KD1QeQzH7s3Or--h3f7sxhwvhLSAAywtpiCAkvZ6EImuboo3Vx6F6mgy6FHGAqU3k2y14SRHBxyFPNanzFfHn8KoZL54Fce_PuzPBTNm3dxnjznzzt7GpYrd-g')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Bière Locale</span>
+<span class="text-label-sm font-bold text-secondary">2.500 FCFA</span>
+</div>
+</button>
+<!-- Product Item 2 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Cocktail Yabisso', 4500)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A vibrant, exotic fruit cocktail in a crystal glass garnished with fresh passion fruit and mint. The drink glows under soft spotlighting against a minimalist dark background. The scene exudes luxury and freshness, using a palette of sunset oranges, deep greens, and crisp whites. Professional food photography aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBITlbcO1zeIbcPBc1f86evND52oymL3NcL7SwK2HgmCdiX-7dSDUKnuUjES5MAg_BrZHt_AVFrX3jq6fEHSu4TEtRlJ8DrAaFN7v5r8WXXNCyuWdQ5fp8Jpbp5av8lHoQYNOr_flzl47kI8U3_ADDEaIvP1uC419ix2igJ9ui5wyk8_vai4rMJcrIovPIdPk86qVCCPc4_6OWrSwKxf4mEoNah8gTK0Zz4Ql0qxA_Q0BWyfGOuGFAwBQ')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Cocktail Yabisso</span>
+<span class="text-label-sm font-bold text-secondary">4.500 FCFA</span>
+</div>
+</button>
+<!-- Product Item 3 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Vin Rouge (Verre)', 3000)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A tall elegant wine glass partially filled with a rich, deep red Cabernet Sauvignon. The light catches the liquid creating ruby highlights. Set on a marble surface with a clean, light-mode background typical of a modern luxury hotel bistro. Elegant and sophisticated atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCTC_06i-6oPUVFC4G1BXIZagCTZKDpdrm6eoMDlNpMQU2p-zsm3U5MqbpHla7sr7SOFtThAwc5Jr5s1vO7TTY0ibn6yZzX98ykGflO7n30QFs3L9nPveeLrQwmGVwefqZ-2vRJN0nQ65PXsNfGS7uGTa5c2ctMxImaKeJaKcFTAelhvHBaOBgP9iTWbXRdOMT4UutYWnEzc68TGEdXdzOz6FExdP-iXd2_3jx-yixMyyBR-LCFUE1doQ')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Vin Rouge (Verre)</span>
+<span class="text-label-sm font-bold text-secondary">3.000 FCFA</span>
+</div>
+</button>
+<!-- Product Item 4 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Jus de Gingembre', 1500)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A tall glass of fresh, homemade ginger juice with ice and a lemon slice. Bright, natural lighting in a contemporary kitchen setting. The colors are earthy yellows and bright whites, reflecting a healthy and energizing vibe. Minimalist and clean product presentation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnML-b0aymVgG1s267nC-Egm0RFeQsd3SnO8rVZHazxZ7bDBfNSC250u9pVjx2C-1trlVZp3eT9yipy9BkSWAdyg9EbUi5SJh_Q91kOerxmG3kR-sVNUkYWD1nPkoxpZ1FfabsUEhUgBxCwXD5mlsx85-edetTNZabeHpPryChemUyNgWcJrzBQWzNaWmf3GId8dj4rvSSQ8DUmMVWtvmge36DKAnHtV4S7znA4MuAaxldjUYIZeBNhA')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Jus de Gingembre</span>
+<span class="text-label-sm font-bold text-secondary">1.500 FCFA</span>
+</div>
+</button>
+<!-- Product Item 5 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Eau Minérale 1.5L', 1000)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A clear plastic bottle of mineral water with crisp blue branding, placed on a white table in a bright sunlit dining area. The lighting is high-key and fresh, emphasizing purity and clarity. Modern minimalist hotel restaurant environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDY5R5GLBqz7kNqVZFs34CeeLZrlqWQEITMT9o2gRzoeHKOQyBpmKIV6SPTwLHJHroIX1Z0rRhyGRaOfevE1za7oFRCRyQGRxp8kNf7tSs1vjMH68vBFlsxMAJVVkImQwQT-3yLxhhisnq5VAMFgFYyrDMw5DY7hr0_oPSxaVn1LeCdV_5IA1Zv85J1i9Dsb-ISvtyQqw5_C4EvwEGYdLcy0sA1uWaE1ELB9QyES1QUuF6vrg3Wszhpeg')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Eau Minérale 1.5L</span>
+<span class="text-label-sm font-bold text-secondary">1.000 FCFA</span>
+</div>
+</button>
+<!-- Product Item 6 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Whisky Sec', 6500)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A heavy crystal tumbler with premium aged whisky and a single large ice cube. The lighting is dramatic and moody, with deep shadows and warm golden reflections. High-end bar ambiance with a focus on luxury and exclusivity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC5St2BKJYCY984Lvs3451GQHiltj0pjzLpwI3rhWstWncxYPoEnIB8NkFfqBmDNaukaLDnrIAEv3-u9ReDPCrsMASNQpRe9jC2v6sDnBrWelR8Xrx3VymEXjajS9bSHfV7iaYQoz5E8nEAQhwYuGKWs9Eq-R_FaNpJsS0wXWLGhkp1Dv8KIcvL3YsYOGXKYycQdv63zIIa0dI8cUcLs6XrLYswtvy5YQ6Cpu25a-O8LaPwQrPE4yjrNA')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Whisky Sec</span>
+<span class="text-label-sm font-bold text-secondary">6.500 FCFA</span>
+</div>
+</button>
+<!-- Product Item 7 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Soda Citron', 1500)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A sparkling lemon soda in a glass with bubbles and lime slices. The background is a bright outdoor terrace with soft bokeh of green foliage. The scene is refreshing, clean, and modern. High-quality commercial beverage photography." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDcrcP2MFfUb895A8l-lzgEE39qfQtB1y9dmSxeNqFXgoyMXbTCadRG4xeoni5jgyGMY9o6q2eR7IUHSDn4oKGeqg97kWpmvtvX_BdUbLv_jTniGU-KIujMvUh-w4kxakexgs1hVpXVI4tMBkmwN8g_FpVW1Hkk_Xo14gaRbsyppqF6nlfNcPR_mRBHrUrIhKbYXojv98ByBpgbsqPStkJg4Bo7glZYFqofj1UN9pGBLxYESmgaz_fEdQ')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Soda Citron</span>
+<span class="text-label-sm font-bold text-secondary">1.500 FCFA</span>
+</div>
+</button>
+<!-- Product Item 8 -->
+<button class="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all active:scale-95 text-left" onclick="addToCart('Café Expresso', 1200)">
+<div class="w-full h-24 bg-cover bg-center" data-alt="A small white ceramic cup of rich espresso with thick crema on top. Placed on a matching saucer on a dark slate table. The lighting is soft and morning-like. Professional coffee shop aesthetic with a focus on quality and detail." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDthL4BCIpDudhN2G-pRXXbH3G8CT3IFwtAfzFuugmpRrgKCH_iVS4Dv3qxZyFvP9xJVuXjYLW-m9J_WDa9SKLhfEzFBerER5aww7GJT4fIL7bsWzfm_FgNheZazLowWn-LdBN1u9ca6RYJQSXHBwGR94a8YRx2x2Ke0RQosVZMQZMOZ-HnLg_dd0IwwhXv3LxjUGXvbUxfCepNLbn9966TC7CKHjUHtTpfw6kXaN67XBtb1Ayg7H2jNA')"></div>
+<div class="p-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-lg text-on-surface leading-tight">Café Expresso</span>
+<span class="text-label-sm font-bold text-secondary">1.200 FCFA</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Basket Side Panel (Panier) -->
+<aside class="w-full md:w-[360px] bg-surface-container-low border-l border-outline-variant flex flex-col h-full shadow-lg">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface">
+<h2 class="text-headline-sm font-headline-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">shopping_basket</span>
+                        Panier
+                    </h2>
+<span class="bg-primary text-white text-[10px] px-2 py-0.5 rounded-full" id="cart-count">0 articles</span>
+</div>
+<!-- Cart Items -->
+<div class="flex-1 overflow-y-auto p-md space-y-md custom-scrollbar" id="cart-items">
+<!-- Dynamic Items go here -->
+<div class="h-full flex flex-col items-center justify-center text-on-surface-variant opacity-50 space-y-md" id="empty-cart-msg">
+<span class="material-symbols-outlined text-6xl">shopping_cart_off</span>
+<p class="text-body-md">Le panier est vide</p>
+</div>
+</div>
+<!-- Calculation & Pay -->
+<div class="p-lg bg-surface border-t border-outline-variant space-y-md">
+<div class="space-y-xs">
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Sous-total</span>
+<span id="subtotal">0 FCFA</span>
+</div>
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>TVA (18%)</span>
+<span id="tax">0 FCFA</span>
+</div>
+<div class="flex justify-between text-headline-sm font-headline-sm text-primary pt-sm border-t border-dashed border-outline-variant">
+<span>TOTAL</span>
+<span id="total">0 FCFA</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<button class="bg-surface border border-primary text-primary font-bold py-md rounded-xl hover:bg-primary hover:text-white transition-all active:scale-95 flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">print</span>
+                            Note
+                        </button>
+<button class="bg-primary text-white font-bold py-md rounded-xl hover:opacity-90 transition-all active:scale-95 shadow-md flex items-center justify-center gap-xs" onclick="checkout()">
+<span class="material-symbols-outlined text-sm">payments</span>
+                            Payer
+                        </button>
+</div>
+</div>
+</aside>
+</section>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] bg-surface border-t border-outline-variant flex justify-around items-center h-16 w-full px-xs pb-safe">
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-label-sm font-label-sm">POS</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm font-label-sm">Salles</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="text-label-sm font-label-sm">Recettes</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-label-sm font-label-sm">Staff</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm">AI</span>
+</button>
+</nav>
+<!-- Success Modal Overlay (Hidden) -->
+<div class="fixed inset-0 z-[60] bg-black/60 hidden items-center justify-center backdrop-blur-sm p-lg" id="payment-success">
+<div class="bg-surface w-full max-w-sm rounded-2xl p-xl text-center space-y-lg animate-in zoom-in-90 duration-300">
+<div class="w-20 h-20 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary">Paiement Réussi</h3>
+<p class="text-body-md text-on-surface-variant">La commande pour la Table 12 a été validée. Impression du reçu en cours...</p>
+<button class="w-full bg-primary text-white py-md rounded-xl font-bold" onclick="closeModal()">Nouvelle Commande</button>
+</div>
+</div>
+<script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            renderCart();
+            // Tactile feedback simulation
+            const btn = event.currentTarget;
+            btn.classList.add('ring-2', 'ring-secondary');
+            setTimeout(() => btn.classList.remove('ring-2', 'ring-secondary'), 200);
+        }
+
+        function removeFromCart(index) {
+            if (cart[index].qty > 1) {
+                cart[index].qty -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+            const countLabel = document.getElementById('cart-count');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyMsg);
+                emptyMsg.classList.remove('hidden');
+                countLabel.innerText = "0 articles";
+            } else {
+                emptyMsg.classList.add('hidden');
+                container.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const el = document.createElement('div');
+                    el.className = "bg-surface border border-outline-variant p-sm rounded-xl flex items-center justify-between shadow-sm animate-in slide-in-from-right-4 duration-200";
+                    el.innerHTML = `
+                        <div class="flex flex-col">
+                            <span class="text-label-lg font-bold">${item.name}</span>
+                            <span class="text-label-sm text-on-surface-variant">${item.price.toLocaleString()} FCFA x ${item.qty}</span>
+                        </div>
+                        <div class="flex items-center gap-md">
+                            <span class="font-bold text-primary">${(item.price * item.qty).toLocaleString()}</span>
+                            <button onclick="removeFromCart(${index})" class="material-symbols-outlined text-error bg-error-container p-xs rounded-lg text-sm">remove</button>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                });
+                countLabel.innerText = `${cart.reduce((acc, i) => acc + i.qty, 0)} articles`;
+            }
+
+            updateTotals();
+        }
+
+        function updateTotals() {
+            const sub = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const tax = Math.round(sub * 0.18);
+            const total = sub + tax;
+
+            document.getElementById('subtotal').innerText = `${sub.toLocaleString()} FCFA`;
+            document.getElementById('tax').innerText = `${tax.toLocaleString()} FCFA`;
+            document.getElementById('total').innerText = `${total.toLocaleString()} FCFA`;
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert("Le panier est vide");
+            document.getElementById('payment-success').classList.remove('hidden');
+            document.getElementById('payment-success').classList.add('flex');
+        }
+
+        function closeModal() {
+            cart = [];
+            renderCart();
+            document.getElementById('payment-success').classList.add('hidden');
+            document.getElementById('payment-success').classList.remove('flex');
+        }
+    </script>
+</body></html>

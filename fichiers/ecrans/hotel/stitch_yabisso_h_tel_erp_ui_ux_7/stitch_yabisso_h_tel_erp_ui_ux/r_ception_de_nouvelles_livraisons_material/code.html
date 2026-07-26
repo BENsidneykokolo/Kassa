@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Réception de Matériel - Luxury ERP</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#000000",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#e9c176",
+                        "on-surface-variant": "#44474d",
+                        "tertiary-container": "#261900",
+                        "outline": "#75777e",
+                        "error-container": "#ffdad6",
+                        "secondary": "#505f76",
+                        "surface-dim": "#d8dadc",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-fixed": "#261900",
+                        "tertiary-fixed": "#ffdea5",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-primary-fixed-variant": "#39475f",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b9c7e4",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "primary": "#000000",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-container": "#0d1c32",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-container": "#76849f",
+                        "background": "#f7f9fb",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary-container": "#d0e1fb",
+                        "surface-tint": "#515f78",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed": "#0d1c32",
+                        "primary-fixed": "#d6e3ff",
+                        "on-background": "#191c1e",
+                        "on-tertiary-fixed-variant": "#5d4201",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c5c6cd",
+                        "on-tertiary-container": "#a17f3b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Manrope"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "headline-lg-mobile": ["Libre Caslon Text"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "display-lg": ["Libre Caslon Text"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+        .signature-pad {
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            cursor: crosshair;
+            touch-action: none;
+        }
+        .custom-checkbox:checked {
+            background-color: #000000;
+            border-color: #000000;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24">
+<!-- Top App Bar (Based on Shared Components) -->
+<header class="bg-surface sticky top-0 z-50 flex justify-between items-center w-full px-5 py-4 border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary cursor-pointer active:opacity-80 transition-opacity">arrow_back</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Réception de Matériel</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a luxury hotel warehouse manager wearing a tailored charcoal suit in a high-end, clean logistics environment with warm ambient lighting and soft blurred background of organized shelving." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7wCYRG2fSDh6X9iEV5SisIsRgynbr9sdDlU2zmdiDnZdty_YooqIfcwxcbD4Oyq57vsinZVx7nbJbk_B7ykfQ0SuR4oKJM4VycfvYgkyPExpBRypGaS4Bv8Eo_LyiVX4cArpBQ5bfV-ZEZiv8OIYGNNmJmrBMvCXgFLgVJFzRvo08n4r4WLHDCGwTCwH3aXrYAFHM4_1jSO-fIpiFnPW0PaEyLnYVZHvSbpRzMv8exG3Nm-EXqi12kA"/>
+</div>
+</header>
+<main class="px-5 pt-6 flex flex-col gap-6 max-w-lg mx-auto">
+<!-- Delivery Overview Card -->
+<section class="bg-surface-container-lowest border border-outline-variant p-5 rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Bon de Commande</p>
+<h2 class="font-title-md text-title-md text-primary">PO #28441-X</h2>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">En Attente</span>
+</div>
+<div class="grid grid-cols-2 gap-4 border-t border-outline-variant pt-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Fournisseur</p>
+<p class="font-body-md text-body-md font-bold">Baccarat Crystal</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Date Prévue</p>
+<p class="font-body-md text-body-md font-bold">24 Oct 2023</p>
+</div>
+</div>
+</section>
+<!-- Itemized Checklist -->
+<section>
+<div class="flex justify-between items-end mb-4">
+<h3 class="font-title-md text-title-md text-primary">Articles Attendus</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2 Articles</p>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Item 1 -->
+<div class="bg-white border border-outline-variant p-4 rounded-lg">
+<div class="flex justify-between items-start mb-3">
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-bold text-primary">120 Harcourt Goblets</h4>
+<p class="text-on-surface-variant text-sm mt-1">Ref: BC-772-CLR</p>
+</div>
+<input class="w-6 h-6 rounded-sm border-outline focus:ring-0 checked:bg-black checked:border-black cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between gap-4 pt-3 border-t border-dashed border-outline-variant">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Endommagé / Manquant</label>
+<div class="flex items-center border border-outline rounded-lg overflow-hidden h-10">
+<button class="px-3 hover:bg-surface-container-high transition-colors text-primary">−</button>
+<input class="w-12 text-center border-none focus:ring-0 font-bold" min="0" type="number" value="0"/>
+<button class="px-3 hover:bg-surface-container-high transition-colors text-primary">+</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white border border-outline-variant p-4 rounded-lg">
+<div class="flex justify-between items-start mb-3">
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-bold text-primary">50 Silk Linens</h4>
+<p class="text-on-surface-variant text-sm mt-1">Ref: SL-WH-240</p>
+</div>
+<input class="w-6 h-6 rounded-sm border-outline focus:ring-0 checked:bg-black checked:border-black cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between gap-4 pt-3 border-t border-dashed border-outline-variant">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Endommagé / Manquant</label>
+<div class="flex items-center border border-outline rounded-lg overflow-hidden h-10">
+<button class="px-3 hover:bg-surface-container-high transition-colors text-primary">−</button>
+<input class="w-12 text-center border-none focus:ring-0 font-bold" min="0" type="number" value="0"/>
+<button class="px-3 hover:bg-surface-container-high transition-colors text-primary">+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Photo Upload Section -->
+<section>
+<h3 class="font-title-md text-title-md text-primary mb-4">Documents &amp; Photos</h3>
+<div class="grid grid-cols-3 gap-3">
+<button class="aspect-square flex flex-col items-center justify-center border-2 border-dashed border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary mb-1">add_a_photo</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase">Ajouter</span>
+</button>
+<div class="aspect-square relative rounded-lg overflow-hidden group border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Sharp high-angle photograph of a pristine, official delivery receipt resting on a dark slate surface, illuminated by a single directional light source showing textures of the high-quality paper and elegant serif typography, minimal luxury office aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp1vPqnKtrYl1OprmQW4fihDyomqb_5KLrABgpS9Mqb7TkO0MU3N3Vv87rx1D4JIa-KecvKUaX5iRaOtdsGBxQIYHj7ZIzzfXIJMz88UamqunoBWgCtFrgrjuPyT9cGX0-ShoapdAOreMpPsUx2Dz4Ez0RlVKEB_dQ7QjE09RCoq1MxY4QTeZLaBM8WXtkm_OG5ArrcY8BOc7udEBa1ted5i5Z2gZiy5eFRhBrEoLSJmAlUdUFo3q53g"/>
+<button class="absolute top-1 right-1 bg-black/50 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</div>
+<p class="mt-3 text-on-surface-variant text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">info</span>
+                Joignez le bon de livraison signé.
+            </p>
+</section>
+<!-- Signature Pad -->
+<section>
+<h3 class="font-title-md text-title-md text-primary mb-4">Signature du Réceptionnaire</h3>
+<div class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<canvas class="signature-pad w-full h-40" height="160" id="signature-pad" width="400"></canvas>
+<div class="flex justify-between items-center p-3 border-t border-outline-variant bg-surface-container-low">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Signer à l'intérieur du cadre</p>
+<button class="text-error font-label-sm uppercase tracking-widest px-2 py-1 hover:bg-error-container rounded-sm transition-colors" onclick="clearCanvas()">Effacer</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Actions -->
+<div class="fixed bottom-0 left-0 w-full p-5 bg-surface border-t border-outline-variant z-50">
+<button class="w-full bg-primary text-on-primary py-4 rounded-sm font-title-md text-title-md active:scale-[0.98] transition-transform flex items-center justify-center gap-3">
+            Confirmer la Réception
+            <span class="material-symbols-outlined">check_circle</span>
+</button>
+</div>
+<!-- Hidden Bottom Nav for context but suppressed per relevance check on "Task-Focused" screens -->
+<!-- The prompt implies a focused task (Receiving delivery), so global nav is suppressed to focus on Canvas. -->
+<script>
+        // Simple Canvas Signature Logic
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = getCoordinates(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const [x, y] = getCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            [lastX, lastY] = [x, y];
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function getCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            return [
+                clientX - rect.left,
+                clientY - rect.top
+            ];
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Desktop Events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        window.addEventListener('mouseup', stopDrawing);
+
+        // Mobile Events
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startDrawing(e);
+        });
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            draw(e);
+        });
+        canvas.addEventListener('touchend', stopDrawing);
+
+        // Ensure canvas width matches container on resize
+        function resizeCanvas() {
+            const width = canvas.parentElement.clientWidth;
+            canvas.width = width;
+            // Redrawing is lost on resize, usually okay for simple mobile forms
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Simple vibration/feedback simulation for primary action
+        document.querySelector('button.bg-primary').addEventListener('click', function() {
+            if (navigator.vibrate) navigator.vibrate(10);
+            this.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Traitement...';
+            setTimeout(() => {
+                this.innerHTML = 'Réception Confirmée <span class="material-symbols-outlined">check_circle</span>';
+                this.classList.replace('bg-primary', 'bg-secondary');
+            }, 1500);
+        });
+    </script>
+</body></html>

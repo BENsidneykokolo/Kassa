@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Pricing Insight | Majordomo Revenue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191c1d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#2c0050",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "tertiary-fixed": "#ffe088",
+                    "background": "#f8f9fa",
+                    "tertiary": "#735c00",
+                    "primary-container": "#1c1b1b",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1c1b1b",
+                    "secondary": "#7b41b3",
+                    "on-tertiary-container": "#4f3e00",
+                    "on-tertiary-fixed": "#241a00",
+                    "secondary-fixed": "#f0dbff",
+                    "secondary-fixed-dim": "#ddb7ff",
+                    "surface-container-high": "#e7e8e9",
+                    "secondary-container": "#c588fe",
+                    "tertiary-container": "#cca730",
+                    "on-surface": "#191c1d",
+                    "surface-container-low": "#f3f4f5",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#5f5e5e",
+                    "inverse-primary": "#c8c6c5",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-bright": "#f8f9fa",
+                    "on-surface-variant": "#444748",
+                    "inverse-on-surface": "#f0f1f2",
+                    "error-container": "#ffdad6",
+                    "outline": "#747878",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#474746",
+                    "on-primary-container": "#858383",
+                    "surface-variant": "#e1e3e4",
+                    "primary": "#000000",
+                    "primary-fixed": "#e5e2e1",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "surface": "#f8f9fa",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "on-secondary-container": "#54118a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#622599",
+                    "outline-variant": "#c4c7c7",
+                    "tertiary-fixed-dim": "#e9c349"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "data-density-gap": "8px",
+                    "margin-desktop": "48px",
+                    "container-max": "1440px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Libre Caslon Text"],
+                    "label-caps": ["JetBrains Mono"],
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "ai-insight-callout": ["Hanken Grotesk"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "data-tabular": ["Hanken Grotesk"],
+                    "body-main": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "ai-insight-callout": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body-main": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .ai-border-glow {
+            border-left: 3px solid #7b41b3;
+            box-shadow: inset 10px 0 20px -10px rgba(123, 65, 179, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sparkline-gradient {
+            background: linear-gradient(180deg, rgba(123, 65, 179, 0.1) 0%, rgba(123, 65, 179, 0) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-main selection:bg-secondary-fixed">
+<!-- Top Navigation Anchor -->
+<header class="w-full top-0 sticky z-40 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg tracking-tighter text-primary">MAJORDOMO REVENUE</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors cursor-pointer">DASHBOARD</span>
+<span class="font-label-caps text-label-caps text-primary font-bold transition-colors cursor-pointer">PRICING</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors cursor-pointer">SIMULATION</span>
+<div class="flex items-center gap-2 bg-on-background text-on-primary px-4 py-2 rounded-full cursor-pointer hover:bg-secondary transition-colors duration-300">
+<span class="font-label-caps text-label-caps">LIVE MARKET PULSE</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 pb-32">
+<!-- Back Navigation & Breadcrumb -->
+<nav class="mb-8 flex items-center gap-2">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-[20px]" data-icon="arrow_back">arrow_back</span>
+<span class="font-label-caps text-label-caps">BACK TO OPPORTUNITIES</span>
+</button>
+</nav>
+<!-- Hero Section: The Insight Title -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-secondary-fixed/20 text-secondary px-3 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-widest border border-secondary/10">High Priority</span>
+<span class="font-data-tabular text-on-surface-variant text-sm">Insight ID: YLD-2024-0612</span>
+</div>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary max-w-3xl">
+                        Occupancy Spike Detected: <span class="text-secondary">June 12–15</span>
+</h2>
+</div>
+<!-- Confidence Score Radial (Simplified) -->
+<div class="flex items-center gap-6 p-6 glass-effect border border-outline-variant rounded-xl">
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="none" r="28" stroke="#e1e3e4" stroke-width="4"></circle>
+<circle cx="32" cy="32" fill="none" r="28" stroke="#7b41b3" stroke-dasharray="175.9" stroke-dashoffset="14" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-data-tabular font-bold text-lg">92%</span>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">CONFIDENCE SCORE</p>
+<p class="font-body-main text-sm text-primary leading-tight">AI Model: Majordomo-Yield v4.2<br/><span class="text-secondary">High Statistical Variance</span></p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Analysis -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Column 1: The Why (Narrative Clarity) -->
+<div class="md:col-span-7 flex flex-col gap-gutter">
+<div class="p-8 bg-surface-container-lowest border border-outline-variant rounded-xl ai-border-glow relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-secondary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="lightbulb">lightbulb</span>
+                        AI RATIONALE &amp; MARKET SIGNALS
+                    </h3>
+<div class="space-y-8">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed/30 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary" data-icon="apartment">apartment</span>
+</div>
+<div>
+<h4 class="font-headline-md text-primary text-lg mb-2">Competitor Saturation Alert</h4>
+<p class="font-body-main text-on-surface-variant leading-relaxed">
+                                    "The Ritz-Carlton" and "Four Seasons Penthouse" are currently <span class="font-bold text-primary">100% sold out</span> for these specific dates. Historical data indicates a spillover of luxury guests to your tier within 12 hours of primary competitor exhaustion.
+                                </p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed/30 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<h4 class="font-headline-md text-primary text-lg mb-2">Luxury Intent Surge</h4>
+<p class="font-body-main text-on-surface-variant leading-relaxed">
+                                    Search volume for <span class="italic">"Luxury stays with private helipad"</span> in the West District is <span class="font-bold text-primary">up 45% YoY</span>. This correlate with the unannounced "Global Tech Summit" pre-registration phase.
+                                </p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed/30 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary" data-icon="event_seat">event_seat</span>
+</div>
+<div>
+<h4 class="font-headline-md text-primary text-lg mb-2">Local Inventory Depletion</h4>
+<p class="font-body-main text-on-surface-variant leading-relaxed">
+                                    Inventory of 'Presidential Suites' within a 5-mile radius has dropped from 14 units to 2 units in the last 6 hours.
+                                </p>
+</div>
+</div>
+</div>
+<div class="mt-10 pt-6 border-t border-outline-variant flex items-center justify-between">
+<button class="font-label-caps text-[10px] text-on-surface-variant flex items-center gap-2 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[14px]" data-icon="visibility">visibility</span>
+                            VIEW FULL LOGIC TREE
+                        </button>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-data-tabular text-xs text-on-surface-variant">Last Recalibrated: 4 mins ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: The Data (Validation) -->
+<div class="md:col-span-5 flex flex-col gap-gutter">
+<!-- Revenue Breakdown Card -->
+<div class="p-8 bg-on-background text-on-primary rounded-xl overflow-hidden relative">
+<h3 class="font-label-caps text-label-caps text-primary-fixed-dim mb-6">REVENUE PROJECTION</h3>
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<div>
+<p class="font-body-main text-sm text-primary-fixed-dim">Current Strategy</p>
+<p class="font-headline-md text-2xl">$42,500</p>
+</div>
+<span class="material-symbols-outlined opacity-20 text-4xl" data-icon="drag_handle">drag_handle</span>
+</div>
+<div class="h-[1px] bg-outline-variant/20 w-full"></div>
+<div class="flex justify-between items-center">
+<div>
+<p class="font-body-main text-sm text-secondary-fixed">Proposed AI Strategy</p>
+<p class="font-headline-md text-4xl text-secondary-fixed">$61,200</p>
+</div>
+<div class="bg-secondary text-on-secondary px-3 py-1 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_upward">arrow_upward</span>
+<span class="font-data-tabular text-sm">+44%</span>
+</div>
+</div>
+</div>
+<!-- Sparkline Asset -->
+<div class="mt-8 h-24 w-full relative">
+<div class="absolute inset-0 sparkline-gradient opacity-20"></div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<path d="M0,80 Q50,75 100,85 T200,60 T300,40 T400,10" fill="none" stroke="#ddb7ff" stroke-width="3"></path>
+</svg>
+</div>
+</div>
+<!-- Price Modification Table -->
+<div class="p-6 bg-surface-container-low border border-outline-variant rounded-xl">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">INVENTORY UNIT ADJUSTMENT</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="font-data-tabular text-sm">Penthouse Alpha</span>
+<div class="text-right">
+<span class="font-data-tabular line-through text-on-surface-variant text-xs">$8,500</span>
+<span class="font-data-tabular text-primary ml-2">$12,400</span>
+</div>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="font-data-tabular text-sm">Executive Terrace</span>
+<div class="text-right">
+<span class="font-data-tabular line-through text-on-surface-variant text-xs">$4,200</span>
+<span class="font-data-tabular text-primary ml-2">$6,800</span>
+</div>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="font-data-tabular text-sm">Studio Loft (x4)</span>
+<div class="text-right">
+<span class="font-data-tabular line-through text-on-surface-variant text-xs">$1,800</span>
+<span class="font-data-tabular text-primary ml-2">$2,400</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Strategic Context Image -->
+<div class="h-48 rounded-xl overflow-hidden grayscale contrast-125 hover:grayscale-0 transition-all duration-700 relative group">
+<img class="w-full h-full object-cover" data-alt="A high-end cinematic aerial shot of a modern glass skyscraper district at twilight. The city lights are shimmering with a sophisticated cool blue and warm gold palette. The style is professional architectural photography with a focus on geometric clarity and luxury urban living. The mood is calm, elite, and successful, reflecting a premium revenue management context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxf5uWl0m8AAtCYxOQ5Jv54h9QVN_CE8TCc3VnEcBj53rkGrEQyjJmIFPzkTqAKS489FuEAwiMJjoHQEH453Mwy25TpTCjjdByqJ2_WUueLIqc-nVDBC3y9Xi3R0lP2ykGo04F7X_MDoTvdWbGa7_fP73_X9TeDg6Pwc9I8jSpnVjfB1JWkLEAUUMUm6HMzvzuvIYgaaFCzTMB3JarUibBw5_l7QTPaVu5zwWgLrqp70MPTaftwVxXzQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<p class="font-label-caps text-[10px] text-white/70">MARKET CONTEXT</p>
+<p class="font-body-main text-white text-sm">West District High-Net-Worth Activity</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Actions -->
+<div class="fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant py-6 z-50">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-2xl" data-icon="shield_with_check">shield_with_heart</span>
+<p class="font-body-main text-sm text-on-surface-variant max-w-sm">
+                        Accepting this recommendation will immediately push pricing updates to <span class="text-primary font-bold">7 distribution channels</span>.
+                    </p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-3 border border-outline text-on-surface font-label-caps text-label-caps hover:bg-surface-container-high transition-all active:scale-95">
+                        IGNORE INSIGHT
+                    </button>
+<button class="flex-1 md:flex-none px-12 py-3 bg-primary text-on-primary font-label-caps text-label-caps hover:bg-secondary transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3" onclick="approveInsight()">
+                        APPROVE CHANGES
+                        <span class="material-symbols-outlined text-[16px]" data-icon="rocket_launch">rocket_launch</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Overlay (Hidden) -->
+<div class="fixed inset-0 bg-primary/95 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500" id="success-overlay">
+<div class="text-center p-margin-desktop">
+<div class="mb-8 overflow-hidden h-64 w-full flex justify-center">
+
+</div>
+<h3 class="font-display-lg text-white mb-4">Executing Strategy...</h3>
+<p class="font-body-main text-primary-fixed-dim mb-12 max-w-md mx-auto">Revenue parameters are being synchronized across your global portfolio. Distribution nodes updated: 14/14.</p>
+<button class="font-label-caps text-label-caps text-white border border-white/30 px-12 py-3 hover:bg-white hover:text-primary transition-all" onclick="closeOverlay()">RETURN TO DASHBOARD</button>
+</div>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-0 right-0 -z-10 w-1/3 h-full opacity-[0.03] pointer-events-none">
+
+</div>
+<script>
+        function approveInsight() {
+            const overlay = document.getElementById('success-overlay');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.classList.add('opacity-100');
+        }
+
+        function closeOverlay() {
+            const overlay = document.getElementById('success-overlay');
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Simple intersection observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bento-item').forEach(item => {
+            item.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(item);
+        });
+    </script>
+</body></html>

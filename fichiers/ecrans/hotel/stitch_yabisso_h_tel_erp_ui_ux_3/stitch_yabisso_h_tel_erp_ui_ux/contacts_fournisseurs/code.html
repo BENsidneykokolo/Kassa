@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Supplier Contacts | Yabisso Professional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "on-surface": "#191c1e",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary": "#006c49",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#6cf8bb",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-container": "#7c839b",
+                    "surface-tint": "#565e74",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#b87500",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#000000",
+                    "on-secondary-container": "#00714d",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-container": "#eceef0",
+                    "outline": "#76777d",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed": "#2a1700",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#2a1700",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Navigation Drawer (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md z-50 bg-surface-container-low w-80 rounded-r-xl shadow-sm hidden md:flex">
+<div class="flex items-center gap-md mb-xl px-sm">
+<div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-black text-primary">F&amp;B Operations</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Luxury Hotel Group</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 rounded-lg font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">factory</span>
+                Suppliers
+            </a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 rounded-lg font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Products
+            </a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 rounded-lg font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+                Performance
+            </a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-semibold rounded-lg transition-all duration-300 font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">contact_phone</span>
+                Contacts
+            </a>
+</nav>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg text-on-surface">Executive Chef</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">v2.4.0</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">settings</span>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-80 pb-24 md:pb-8 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-16 px-md w-full sticky top-0 z-40 bg-surface border-b border-outline-variant transition-colors duration-200">
+<div class="flex items-center gap-sm">
+<button class="md:hidden p-sm hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary">Supplier Contacts</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-10 pr-4 py-1.5 rounded-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary w-64 text-body-md font-body-md" placeholder="Search contacts..." type="text"/>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a senior executive chef in a white uniform, set against a warm, blurred luxury kitchen background with copper pans. The lighting is soft and cinematic, emphasizing authority and high-end hospitality standards. The style is clean, modern, and high-fidelity, matching a premium hotel ERP interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjbkl3LsCoZr48FgElfVJ5_pOWQFkMjg6dja7VpUKliB6dLVLspmecC29b9-_BV1IWx97BnbIDcyo8wVeUROSLsoSLVFd9lRu24AfWD74CaKvxciYAoAKe5jENPG6YJNNa3v5iEoTJATSB-LtL1ZyOZyQuP6vd75ZV1YTMmC4tHfbt5vt3tVW0AFdo6tof7Hn-0NLIVjdQIjBzuRr2E1-d2Apap_yIwCYwP7Wr8hvR_62FgeyP9NR_cA"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-md md:p-xl max-w-7xl mx-auto">
+<!-- Quick Filters -->
+<div class="flex items-center gap-sm mb-lg overflow-x-auto pb-sm no-scrollbar">
+<button class="px-md py-xs bg-primary text-on-primary rounded-full font-label-md text-label-md">All Contacts</button>
+<button class="px-md py-xs bg-surface-container text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md text-label-md transition-colors">Sales Managers</button>
+<button class="px-md py-xs bg-surface-container text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md text-label-md transition-colors">Logistics</button>
+<button class="px-md py-xs bg-surface-container text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md text-label-md transition-colors">Accounting</button>
+<button class="px-md py-xs bg-surface-container text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md text-label-md transition-colors">Emergency</button>
+</div>
+<!-- Bento Grid Contacts -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Contact Card 1 -->
+<div class="glass-card p-lg rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group">
+<div class="flex justify-between items-start mb-md">
+<div class="w-14 h-14 rounded-lg bg-primary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a sales manager in a sharp charcoal suit, smiling confidently. The background is a blurred high-end office with glass walls and warm interior lighting. The aesthetic is clean, professional, and trustworthy, perfectly suited for a luxury business directory." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCLUEehObYaBlV4E71jN7RQoH1LbEnmamw3EyCrAPP7N3e4JNmqwMCx5o-gsIVJKluyr6GH0MVhlhFH__gTMNBCAwMeebLnf3_JlPkxsr-je1sn6B195mK6EYLYaBvW5-d8j47dPD5yFmNodCJXgjG4HYDJ7KabutP3dyT4cGOASCwji_idFGX8iFxJxdsdkFt4BCjNoDh7aaWDhA7bhGgzWm52eByb0Q1AtxaLkd3baQWD19ZZX0uKQ"/>
+</div>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-fixed-variant text-label-sm font-label-sm rounded-md">Sales Manager</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Julian Vance</h3>
+<p class="font-label-md text-label-md text-secondary font-semibold mb-md">Oceanic Seafoods Co.</p>
+<div class="space-y-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">mail</span>
+<span class="font-body-md text-body-md">j.vance@oceanic.com</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">call</span>
+<span class="font-body-md text-body-md">+254 700 123 456</span>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 flex items-center justify-center gap-sm py-sm bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-md">call</span> Call
+                            </button>
+<button class="flex-1 flex items-center justify-center gap-sm py-sm border border-outline text-on-surface rounded-lg font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-md">mail</span> Email
+                            </button>
+</div>
+</div>
+</div>
+<!-- Contact Card 2 -->
+<div class="glass-card p-lg rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a logistics manager in a blue polo shirt, holding a digital tablet. Behind them is a clean, organized warehouse environment with soft daylight. The image conveys efficiency and modern supply chain management for a high-end luxury hospitality brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDNY3Pmo8yKW06UoK7aRvCpIb-5bjIv2SarVyrBNDfBISwVmm8XinorNuMECFSfJCeTHpTx69V20fM8KjMJOpugTnBnB7K9yfpMuD2Cf-3WWysi5WOVMdw-vCJBpzaXIYsU2-j4D8ragNhYJ7kfFPvMQVqTfQqw4KWnMgWhhq21xsbdaZpy6FDTtZ4t_DZpkNO-7XwuKO358P1Lqisgg2YAkQFRmcqUdpaoBb_M9AVPf2fTFJZz7ryMw"/>
+</div>
+<span class="px-sm py-xs bg-primary-fixed text-on-primary-fixed-variant text-label-sm font-label-sm rounded-md">Logistics</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Amara Okafor</h3>
+<p class="font-label-md text-label-md text-secondary font-semibold mb-md">Savannah Organics Ltd</p>
+<div class="space-y-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">mail</span>
+<span class="font-body-md text-body-md">amara.o@savannah.org</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">call</span>
+<span class="font-body-md text-body-md">+254 711 987 654</span>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 flex items-center justify-center gap-sm py-sm bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-md">call</span> Call
+                            </button>
+<button class="flex-1 flex items-center justify-center gap-sm py-sm border border-outline text-on-surface rounded-lg font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-md">mail</span> Email
+                            </button>
+</div>
+</div>
+</div>
+<!-- Contact Card 3 -->
+<div class="glass-card p-lg rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A focused accountant working in a minimalist, bright office space. High-key lighting highlights the clean surfaces and professional demeanor. The style is modern minimalist, conveying accuracy and financial integrity for a luxury hotel's supplier portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPSYTRqWUDGuccOcbxQulfJEqpBSRMek4eLg9ZUePj2ZmNLXC9xNS07ymcVdmgoCEVMy8Vh2y1-vsLkeCGFEG6YZckRlTkf_r9Iru-MT9m0ykUPq9cMKz-Ph-gcvsBRgGlIecaeSXOxdjCka16LI3qiGSxRPIP7A5kp_7fuoT2PdKS-QzKTfJzrbP0dyra6oG2htGvVToLBJuHVy_BbkLNH2WkbxybwpL76xwC8olFlJ9EEvLVIKzUuA"/>
+</div>
+<span class="px-sm py-xs bg-tertiary-fixed text-on-tertiary-fixed-variant text-label-sm font-label-sm rounded-md">Accounting</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Marcus Thorne</h3>
+<p class="font-label-md text-label-md text-secondary font-semibold mb-md">Vintage Cellars Dist.</p>
+<div class="space-y-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">mail</span>
+<span class="font-body-md text-body-md">m.thorne@vintage.co</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">call</span>
+<span class="font-body-md text-body-md">+254 722 555 000</span>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 flex items-center justify-center gap-sm py-sm bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-md">call</span> Call
+                            </button>
+<button class="flex-1 flex items-center justify-center gap-sm py-sm border border-outline text-on-surface rounded-lg font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-md">mail</span> Email
+                            </button>
+</div>
+</div>
+</div>
+<!-- Additional Contact Card 4 -->
+<div class="glass-card p-lg rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A senior customer success manager in a bright, modern glass-walled office. The lighting is natural and airy, with a soft depth of field. The subject has a warm, helpful expression, emphasizing white-glove service in the luxury hospitality procurement sector." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhHm8CgoaLruUjwhVs1oZzFvyjE-gZShPh6nfUz04y_aZweqO8kW9aqNsSx8bFJ7nkUqgaUc3mve3PGK_dr9VlOBlVjZzOVmhIPngJRbsrWO5NfEf3BlX-QB8rhOCXYGGQI4eXpo2DXK-jdY5McLRbpMKEscgOuUizAZB99avkJjOmkSwpfup0YjIV1GvRn0RNTUZu1v64u36cGJHClOTQxHMqpOQKsCAT2XuGJo0nAS4wkg0BdpmcdQ"/>
+</div>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-fixed-variant text-label-sm font-label-sm rounded-md">Sales Manager</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Elena Rodriguez</h3>
+<p class="font-label-md text-label-md text-secondary font-semibold mb-md">Premium Linens Global</p>
+<div class="space-y-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">mail</span>
+<span class="font-body-md text-body-md">e.rodriguez@premium.com</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">call</span>
+<span class="font-body-md text-body-md">+254 733 444 777</span>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 flex items-center justify-center gap-sm py-sm bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-md">call</span> Call
+                            </button>
+<button class="flex-1 flex items-center justify-center gap-sm py-sm border border-outline text-on-surface rounded-lg font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-md">mail</span> Email
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Footer Action -->
+<div class="mt-xl text-center p-xl border-2 border-dashed border-outline-variant rounded-xl bg-surface-container-low">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-md">person_add</span>
+<p class="font-headline-sm text-headline-sm text-on-surface">Need to add a new contact?</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Maintain your supplier network by adding key personnel.</p>
+<button class="px-xl py-md bg-secondary text-on-secondary rounded-lg font-label-lg text-label-lg hover:shadow-lg transition-all active:scale-95">
+                    Register New Contact
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-sm pb-safe bg-surface-container-lowest shadow-lg md:hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-sm text-label-sm">Directory</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">contact_phone</span>
+<span class="font-label-sm text-label-sm">Contacts</span>
+</div>
+</nav>
+<!-- Floating Action Button (FAB) - Suppression Logic applied: Hidden on Details/Contacts screens usually but added for quick-add in this Context -->
+<button class="fixed right-lg bottom-24 md:bottom-lg w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-40">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput?.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput?.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

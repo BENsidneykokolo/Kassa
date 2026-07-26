@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Supplier Directory | Yabisso Professional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "on-surface": "#191c1e",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary": "#006c49",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6cf8bb",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#4edea3",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-container": "#131b2e",
+                        "surface": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-container": "#7c839b",
+                        "surface-tint": "#565e74",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#b87500",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#00714d",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary": "#000000",
+                        "outline-variant": "#c6c6cd",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#2a1700",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden h-screen flex">
+<!-- Sidebar / NavigationDrawer -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md z-50 bg-surface-container-low transition-all duration-300 ease-in-out h-full w-80 rounded-r-xl shadow-sm md:flex hidden">
+<div class="flex items-center gap-md mb-xl px-sm">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">apartment</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-black text-primary">Yabisso</h2>
+<p class="text-on-surface-variant font-label-sm">F&amp;B Operations</p>
+</div>
+</div>
+<nav class="flex-1 space-y-xs">
+<!-- Suppliers (Active) -->
+<a class="flex items-center gap-md p-md bg-secondary-container text-on-secondary-container font-semibold rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="factory">factory</span>
+<span class="font-label-lg text-label-lg">Suppliers</span>
+</a>
+<!-- Products -->
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<!-- Performance -->
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-lg text-label-lg">Performance</span>
+</a>
+<!-- Contacts -->
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="contact_phone">contact_phone</span>
+<span class="font-label-lg text-label-lg">Contacts</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-outline-variant">
+<div class="flex items-center gap-md px-sm py-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior executive chef in a luxury hotel setting, wearing a crisp white uniform with embroidered details. The lighting is soft and flattering, highlighting a friendly yet authoritative expression. The background shows a blurred, high-end commercial kitchen with stainless steel surfaces and warm ambient lighting, maintaining a sophisticated and modern hospitality aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZdIzfORmgZxA3lHl5C4oBrbyHWpi3SZAsjaaSs9YiofXQ7Kum81HBb666eHEA5pa49uuana1dgg3VvUiWRKwDL-IueEPg_MG95-8IyuZVmjgpWjVrHWc0p5qf7pmIrluLIraJ_7myljkIfLuDC1ryjEiLqR1aNcRRszG8cVN3xXMUDGPESjkvTM9b2cxHGj54scYQMB346K3ie16IH9om4nTJRf6537JkylDEwiVskNj5DTqJKR431g"/>
+</div>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg">Executive Chef</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Luxury Hotel Group</p>
+</div>
+<span class="text-[10px] text-outline">v2.4.0</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-screen md:ml-80 overflow-hidden relative">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-16 px-md w-full sticky top-0 z-40 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary">Supplier Management</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of a professional logo badge on a chef's jacket, featuring intricate silver embroidery on dark navy fabric. The lighting emphasizes the texture of the textile and the metallic sheen of the thread. The overall mood is one of quiet luxury, professional excellence, and meticulous attention to detail within a high-stakes hospitality environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGs8mUGWDjTDbVhqqdlEqGEjkAzvr57dK8KBEuSULD3FQGIJWGFHq26ORIDRy-QK6y-ryyBWhf4AYAUaMdFhGIN6JMiGwukFRxw_MwlnMVQBEgz-LOxZ21rBMlPN66gVopidua7s8_d2ensAAmmZoKeXhVBMJIgw-vsYtFZkhSzXi0UNouwVEyTsBxLWnv8xfIudKaD1NJU6qWoGIuwUKo4M4OW6paBiumYi9t4T0EcfnpJpiV73EmDQ"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-md lg:p-xl space-y-lg">
+<!-- Dashboard Stats / Async Header Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-card p-md rounded-xl shadow-sm flex items-center justify-between group hover:border-primary transition-all">
+<div>
+<p class="text-on-surface-variant font-label-md">Active Partners</p>
+<h3 class="font-headline-lg text-headline-lg mt-xs">124</h3>
+</div>
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handshake</span>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl shadow-sm flex items-center justify-between group hover:border-primary transition-all">
+<div>
+<p class="text-on-surface-variant font-label-md">Pending Renewals</p>
+<h3 class="font-headline-lg text-headline-lg mt-xs">08</h3>
+</div>
+<div class="w-12 h-12 rounded-lg bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl shadow-sm flex items-center justify-between group hover:border-primary transition-all">
+<div>
+<p class="text-on-surface-variant font-label-md">Compliance Rate</p>
+<h3 class="font-headline-lg text-headline-lg mt-xs">98.2%</h3>
+</div>
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</section>
+<!-- Search and Filter Shell -->
+<section class="space-y-md">
+<div class="flex flex-col md:flex-row gap-md items-center">
+<div class="relative flex-1 w-full">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none text-body-md" placeholder="Search suppliers, contacts, or certifications..." type="text"/>
+</div>
+<div class="flex items-center gap-sm overflow-x-auto w-full md:w-auto pb-xs">
+<button class="px-md py-sm bg-primary text-on-primary rounded-full font-label-lg whitespace-nowrap">All Sources</button>
+<button class="px-md py-sm bg-surface-container-high hover:bg-surface-container-highest rounded-full font-label-lg whitespace-nowrap transition-colors">Meat</button>
+<button class="px-md py-sm bg-surface-container-high hover:bg-surface-container-highest rounded-full font-label-lg whitespace-nowrap transition-colors">Seafood</button>
+<button class="px-md py-sm bg-surface-container-high hover:bg-surface-container-highest rounded-full font-label-lg whitespace-nowrap transition-colors">Produce</button>
+<button class="px-md py-sm bg-surface-container-high hover:bg-surface-container-highest rounded-full font-label-lg whitespace-nowrap transition-colors">Beverage</button>
+</div>
+</div>
+</section>
+<!-- Supplier Directory Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+<!-- Supplier Card 1 -->
+<div class="glass-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="A wide-angle landscape shot of a pristine, modern wagyu cattle ranch at sunrise. The fields are lush and emerald green, with rolling hills in the background under a soft, golden sky. The lighting is cinematic and peaceful, conveying a sense of organic quality and premium agricultural practices. The overall aesthetic is clean, sophisticated, and high-end, fitting for a luxury hotel supplier." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbHkSQsxoHWnG4lPlTAO9uT5bbzU8PrLog1z3_cjobvtpI8J4bVNGl6guVYm6Vg4QKabOlrXW5i0LAnswpRxm0TBrJj3FgUHqgltnmcP5CdXiKO-qplY1bcQtTbSp7y4yB5GLQRQ5c0_q1GEQJ6kZ4_WocVqWqbOZeIyR6qx3tny93t_3g06-jfAeRRQyXuBu3A-P7P9MakDA3RgFXvT5HpsqQomjIcsYyoIrRyJMd8E2Qz4r0-FyWBw"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-label-sm flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                                Active
+                            </span>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Atlantic Prime Meats</h4>
+<p class="text-on-surface-variant font-label-md">Meat &amp; Poultry Distribution</p>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg">4.9</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200 flex items-center justify-center font-label-sm">JD</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-300 flex items-center justify-center font-label-sm">AS</div>
+</div>
+<button class="flex items-center gap-xs font-label-lg text-primary hover:underline">
+                                Details
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Supplier Card 2 -->
+<div class="glass-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="A high-detail, artistic photograph of fresh, silver-scaled fish resting on a bed of crushed ice, illuminated by cool, crisp morning light. A few sprigs of green herbs and slices of bright yellow lemon are scattered artistically among the seafood. The setting is a clean, modern fish market with professional-grade stainless steel accents. The mood is fresh, energetic, and indicates a commitment to the highest quality marine products." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD6rV8YfzEP_YUB4qH11xFTYV4NX16noxCBBxKBkvOrP2TBwv7xQMZGylWf0L_Qv3iAr9qqPYHmbDYdEZyaRn7chHoa9ZMmqcT1TYzN5ld-E7eKFvSLp-wDp0b_1qTy-rgZu2eMr--2jQuRlmduJZcplaJi32f0iAzIfCJqIOxjDQkVKWncHj7D6BZ7IRLIBp-6EeyDLWNfmINoNUZctouBhe_6dbAsNibDE0IhG01qQ-iakK3_BgTTw"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-label-sm flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                Active
+                            </span>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Coastal Catch Co.</h4>
+<p class="text-on-surface-variant font-label-md">Seafood &amp; Shellfish</p>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg">4.7</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-blue-100 flex items-center justify-center font-label-sm text-blue-700">MR</div>
+</div>
+<button class="flex items-center gap-xs font-label-lg text-primary hover:underline">
+                                Details
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Supplier Card 3 -->
+<div class="glass-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="A stunning macro photograph of vibrant, dew-covered organic heirloom vegetables including purple carrots, radishes, and deep green kale. The lighting is soft and natural, coming from a large window in a minimalist, modern farm-to-table storage facility. The composition is clean and focused, highlighting the natural textures and rich colors of the produce. The overall feeling is one of health, vitality, and artisanal quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaqU7ztu9lhUI7-nbUlmhrtwahBiwDtrzsxhVZHYxB5ZzdRvnvRnXGvOvKvLY78pC88oj_avzFd8HrCe2Ojh_hwP-qs0kHUcuKWP0UTDFWAer8MO2l0oaKIjMU_dOh2QlJmM92-2-AE7XbVLxDxXp3chjOiOWfjvsyMOllw_mNCwEhfL9QeDx7u-rkI90rMMUFLtxseImaEucLK7C5B2VLwPjuS01U-TDrfuNNaeYSZNTY9dNpUL-zbg"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-surface-container-highest text-on-surface-variant px-sm py-1 rounded-full font-label-sm flex items-center gap-xs border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                Inactive
+                            </span>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Verdant Valleys</h4>
+<p class="text-on-surface-variant font-label-md">Organic Produce</p>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star_half</span>
+<span class="font-label-lg">4.2</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-400 flex items-center justify-center font-label-sm">TH</div>
+</div>
+<button class="flex items-center gap-xs font-label-lg text-primary hover:underline">
+                                Details
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Supplier Card 4 -->
+<div class="glass-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="An elegant, low-angle shot of a temperature-controlled wine cellar with sleek glass walls and minimalist wooden racking. The lighting is warm and dramatic, casting soft shadows across rows of premium vintage bottles. A professional sommelier is visible in the background, out of focus, examining a label. The environment is one of extreme luxury, precision, and world-class hospitality, emphasizing the prestigious nature of the beverage supply." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDObuU2Acgo01sMq_f8kzYJcqnrcOAktms4NTMmQWfA1Soiob8Ij-vMUSaF2BKHGzmqGybnoiNVG4TCFoYGsIjfef-uFklugGd9F4GosUcalnYEOcOKVGPdytnYNNdL8eFQXWeREasNgKUNWVuoyH9FNw_MokfLRBQTyDvt2p938TVHEPEFrpVLI12fsivhjcfUsqRlxhplFlOcDUFIEVEucUJBL-Noq0tFuiKfDCDSbBEdxaQy3_QlQw"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-label-sm flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                Active
+                            </span>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Cellar Selection</h4>
+<p class="text-on-surface-variant font-label-md">Fine Wines &amp; Spirits</p>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg">5.0</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-amber-100 flex items-center justify-center font-label-sm text-amber-700">VG</div>
+</div>
+<button class="flex items-center gap-xs font-label-lg text-primary hover:underline">
+                                Details
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Supplier Card 5 -->
+<div class="glass-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="A clean, industrial-chic dairy production facility with gleaming stainless steel tanks and white tiled walls. The lighting is bright and sterile yet professional. In the foreground, a tray of artisanal cheeses in various stages of aging is displayed on a rustic wooden board. The aesthetic balances modern industrial efficiency with traditional craftsmanship, suggesting a reliable and high-quality dairy supplier for a luxury establishment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcf_aLEol6SetHeCcUni12YNz436ax543ejdqUCABXr7BYrvs3jfp4iL6vAaiGj8rUXCS7YLNoRl6SxevWBMVbv3Qy1lnw4wpf_pCB8-BkIdb_tfr_gGsO07_muKXtC4r5w4ePfpRrAvdYQGRA_kSCoJPn_1H6YkzantBdd_sTM4eEHO0JlLSwi9AJsE4pzumb4cx2otJUcMbnnj_H_miYqaaPdp_gBn5_vkdAMClO5aa61xY3GizxxQ"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-label-sm flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                Active
+                            </span>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Alpine Dairy Co.</h4>
+<p class="text-on-surface-variant font-label-md">Premium Dairy &amp; Cheese</p>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg">4.6</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200 flex items-center justify-center font-label-sm">LK</div>
+</div>
+<button class="flex items-center gap-xs font-label-lg text-primary hover:underline">
+                                Details
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add New Supplier Placeholder Card -->
+<button class="border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-xl gap-md group hover:border-primary hover:bg-surface-container-low transition-all">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-3xl">add</span>
+</div>
+<div class="text-center">
+<h4 class="font-headline-sm text-headline-sm text-on-surface-variant group-hover:text-primary transition-colors">Onboard Supplier</h4>
+<p class="text-on-surface-variant font-label-md">Start the compliance workflow</p>
+</div>
+</button>
+</section>
+</div>
+<!-- FAB (Floating Action Button) - Visible on Home/Directory Context -->
+<button class="fixed right-lg bottom-28 md:bottom-lg w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-2xl">add_shopping_cart</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-sm pb-safe bg-surface-container-lowest shadow-lg">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-sm text-label-sm">Directory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+</main>
+<script>
+        // Micro-interactions for category filtering
+        const filterButtons = document.querySelectorAll('.flex.items-center.gap-sm button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary');
+                    b.classList.add('bg-surface-container-high', 'text-on-surface');
+                });
+                btn.classList.remove('bg-surface-container-high', 'text-on-surface');
+                btn.classList.add('bg-primary', 'text-on-primary');
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput.parentElement;
+        searchInput.addEventListener('focus', () => {
+            searchContainer.querySelector('span').classList.add('text-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchContainer.querySelector('span').classList.remove('text-primary');
+        });
+    </script>
+</body></html>

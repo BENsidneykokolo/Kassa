@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Establishment Profile - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#565e74",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#6cf8bb",
+                        "outline-variant": "#c6c6cd",
+                        "on-background": "#191c1e",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary-container": "#00714d",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#b87500",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "primary-container": "#131b2e",
+                        "on-primary-container": "#7c839b",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#76777d",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-fixed": "#ffddb8",
+                        "error": "#ba1a1a",
+                        "tertiary": "#000000",
+                        "surface-variant": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "primary": "#000000",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-low": "#f2f4f6",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-container": "#2a1700",
+                        "secondary": "#006c49",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "gutter-mobile": "12px",
+                        "margin-mobile": "16px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.5); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation Anchor -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-md h-[64px] border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 duration-150">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors cursor-pointer">notifications</span>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container border-2 border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel manager in a tailored dark navy suit, standing in a brightly lit, high-end marble lobby with subtle African art in the background. The lighting is soft and cinematic, highlighting a trustworthy and sophisticated demeanor. The image is clean, sharp, and uses a professional business aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbYq5wwl3euXaVslKdkhZd8Cm1M4J9Nmn8hFHLPrTJg6TlJ6luTeTyTMqq1UL7BPQIHsrVOHrFdGKKojHv07XNu0aTOSpiL8gNaiWrJs9uQONQociNy1UZssKve__D8n7uUQW5cBgsZettfY_mLK67ouz7ERm4Og-Natgpwg4V4ibuNU7tsuRltSolMhZMdrKsCqAIEfAQXdWjm_67z7exgj6EK5niQmI4785HUhKFOarfKJtVH9VYEA"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 md:px-lg py-md mb-24">
+<!-- Action Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Establishment Profile</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your hotel's identity, legal information, and operational settings.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="px-md py-sm rounded-lg border border-outline text-on-surface font-label-lg hover:bg-surface-container transition-colors active:scale-95 duration-150">Discard</button>
+<button class="px-md py-sm rounded-lg bg-primary text-white font-label-lg shadow-md hover:opacity-90 active:scale-95 duration-150 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                    Save Changes
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Left Column: Core Identity (Bento Grid Style) -->
+<div class="lg:col-span-8 space-y-lg">
+<!-- Brand & Visuals Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="h-48 relative">
+<div class="absolute inset-0 bg-primary-container overflow-hidden">
+<img class="w-full h-full object-cover opacity-60" data-alt="A stunning wide-angle shot of a high-end luxury hotel facade at twilight. The architecture combines modern minimalist glass with traditional African stone elements. Warm orange lighting spills from the windows against a deep navy sky. The atmosphere is sophisticated, calm, and expensive, reflecting the Yabisso brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb_NnyGbNC6wQWbV69AUUEob5aFJUaZ9Dk4XVwVmCJFrfxdImguEGA2P9cVHkEevry0P07qzrC02KNz09Ux3lteWJI30FuARQI4fNWaRPBHUMMJ2oU2s8DHzSyDCTq16MT0VoUtyRCI-HdDiqkPGZuWO9KnstxEI3pN7_QuZ4guFmKzcdY7HjA4Lt5jtxl-lCMLgiTs3OTwJZwXkuowSHadjcTYEjhh22Rhbnw50zxY_WUFi6uGMmwFw"/>
+</div>
+<div class="absolute bottom-4 left-4 flex items-end gap-md">
+<div class="w-24 h-24 rounded-xl bg-white p-2 shadow-lg border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="A minimalist and elegant hotel logo for Yabisso Hôtel. The logo features a stylized geometric golden bird symbol, representing prestige and African heritage, set against a clean white background. The design is sharp, vector-quality, and embodies modern luxury hospitality branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm4_xkSJLZhgx9WxMK-ebC7TYN0NoNEuyRXEwnl1kLgxvd2giNydzjDyIw0EC90-A4TIyCup4nZkkWUOx4XCKHowQE--gK5mhryViAYv-uz632M-FJN6ANHw-TvnNPSPmhxb6MPc5HolKuZvWuRqtsgbJ3JNy06GEXgDYzVdRLtePRB6JsqNaGhYVSVXs8NNW_gatXtGBylv5AWh3hW4RGNuNMGTcoaHv6I2IPKq9hbxSm1XAzVjMRHQ"/>
+</div>
+<button class="mb-2 bg-white/20 backdrop-blur-md text-white text-label-sm px-3 py-1.5 rounded-full border border-white/30 flex items-center gap-xs hover:bg-white/30 transition-all">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+                                Change Logo
+                            </button>
+</div>
+</div>
+<div class="p-lg grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-sm">
+<label class="font-label-lg text-primary">Establishment Name</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-lg" type="text" value="Yabisso Hôtel"/>
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-primary">Luxury Category</label>
+<select class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-lg appearance-none bg-no-repeat bg-[right_16px_center]">
+<option>5 Stars - Ultra Luxury</option>
+<option>4 Stars - Premium</option>
+<option>3 Stars - Comfort</option>
+<option>Boutique</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Contact & Location Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg space-y-lg">
+<div class="flex items-center gap-sm pb-sm border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Contact &amp; Location</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-sm col-span-1 md:col-span-2">
+<label class="font-label-lg text-primary">Full Address</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-lg" type="text" value="124 Luxury Boulevard, Plateau District, Abidjan"/>
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-primary">Phone Number</label>
+<div class="flex">
+<span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-outline-variant bg-surface-container-low text-on-surface-variant font-body-md">+225</span>
+<input class="w-full h-12 px-md rounded-r-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-lg" type="text" value="07 00 11 22 33"/>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-primary">Official Email</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-lg" type="email" value="admin@yabisso-hotel.ci"/>
+</div>
+<div class="space-y-sm col-span-1 md:col-span-2">
+<label class="font-label-lg text-primary">Website</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-lg" type="url" value="https://www.yabisso-hotel.ci"/>
+</div>
+</div>
+</section>
+<!-- Social Presence Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary">share</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Social Media Links</h3>
+</div>
+<div class="space-y-md">
+<div class="flex items-center gap-md p-sm border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">public</span>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md" placeholder="Instagram Profile URL" type="text" value="instagram.com/yabisso_hotel"/>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer">link</span>
+</div>
+<div class="flex items-center gap-md p-sm border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">public</span>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md" placeholder="LinkedIn Page URL" type="text" value="linkedin.com/company/yabisso"/>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer">link</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Metadata & Regulatory -->
+<div class="lg:col-span-4 space-y-lg">
+<!-- Legal & Tax Information -->
+<section class="bg-surface-container-low rounded-xl p-lg border border-outline-variant space-y-md">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">verified_user</span>
+                        Legal &amp; Tax
+                    </h3>
+<div class="space-y-sm">
+<label class="font-label-md text-on-surface-variant">Business License Number</label>
+<input class="w-full h-10 px-md rounded-lg border border-outline-variant focus:border-primary outline-none font-body-md bg-white" type="text" value="CI-ABJ-2023-B-4452"/>
+</div>
+<div class="space-y-sm">
+<label class="font-label-md text-on-surface-variant">Tax ID / TIN</label>
+<input class="w-full h-10 px-md rounded-lg border border-outline-variant focus:border-primary outline-none font-body-md bg-white" type="text" value="99203847X-001"/>
+</div>
+<div class="pt-sm">
+<div class="flex items-center justify-between p-sm rounded bg-secondary-container/20 border border-secondary/20">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<span class="font-label-sm text-secondary">Verified Entity</span>
+</div>
+<span class="text-[10px] font-bold text-secondary uppercase">Active</span>
+</div>
+</div>
+</section>
+<!-- Operational Metadata -->
+<section class="bg-surface-container-lowest rounded-xl p-lg border border-outline-variant space-y-md shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">settings_suggest</span>
+                        Operations
+                    </h3>
+<div class="space-y-sm">
+<label class="font-label-md text-on-surface-variant">Default Currency</label>
+<div class="relative">
+<select class="w-full h-10 pl-10 pr-md rounded-lg border border-outline-variant focus:border-primary outline-none font-body-md appearance-none">
+<option>CFA Franc (XOF)</option>
+<option>Euro (EUR)</option>
+<option>US Dollar (USD)</option>
+</select>
+<span class="material-symbols-outlined absolute left-3 top-2 text-on-surface-variant text-[20px]">payments</span>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-md text-on-surface-variant">Timezone</label>
+<div class="relative">
+<select class="w-full h-10 pl-10 pr-md rounded-lg border border-outline-variant focus:border-primary outline-none font-body-md appearance-none">
+<option>(GMT+00:00) Abidjan</option>
+<option>(GMT+01:00) Paris</option>
+<option>(GMT-05:00) New York</option>
+</select>
+<span class="material-symbols-outlined absolute left-3 top-2 text-on-surface-variant text-[20px]">schedule</span>
+</div>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-on-surface-variant">System Status</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">All modules operating normally.</p>
+</div>
+</section>
+<!-- Quick Help / Support -->
+<div class="p-lg rounded-xl border border-dashed border-outline-variant flex flex-col items-center text-center space-y-sm">
+<span class="material-symbols-outlined text-primary opacity-50 text-[32px]">contact_support</span>
+<h4 class="font-label-lg text-primary">Need assistance?</h4>
+<p class="text-[12px] text-on-surface-variant">Changes to tax information may require manual approval by Yabisso Support.</p>
+<a class="font-label-md text-secondary hover:underline" href="#">Contact Support Team</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Focused) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface dark:bg-surface-container-lowest border-t border-outline-variant shadow-lg flex justify-around items-center h-[80px] px-sm pb-safe md:hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-sm text-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</div>
+</nav>
+<!-- Footer for Desktop -->
+<footer class="hidden md:block py-lg text-center border-t border-outline-variant bg-surface-container-low mt-xl">
+<p class="font-label-sm text-on-surface-variant">Yabisso Hôtel Management System • Admin Terminal V1.0.2</p>
+<div class="flex justify-center gap-md mt-sm">
+<span class="text-[11px] text-on-surface-variant hover:text-primary cursor-pointer">Privacy Policy</span>
+<span class="text-[11px] text-on-surface-variant hover:text-primary cursor-pointer">Terms of Service</span>
+<span class="text-[11px] text-on-surface-variant hover:text-primary cursor-pointer">Audit Logs</span>
+</div>
+</footer>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.parentElement.classList.add('ring-2', 'ring-primary/10');
+            });
+            el.addEventListener('blur', () => {
+                el.parentElement.classList.remove('ring-2', 'ring-primary/10');
+            });
+        });
+
+        // Floating Action Button logic if needed for mobile quick save
+        const saveBtn = document.querySelector('button:last-of-type');
+        saveBtn.addEventListener('click', () => {
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">sync</span> Saving...';
+            setTimeout(() => {
+                saveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Saved';
+                setTimeout(() => {
+                    saveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">save</span> Save Changes';
+                }, 2000);
+            }, 800);
+        });
+    </script>
+</body></html>

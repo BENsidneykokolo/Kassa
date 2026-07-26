@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Candidate Profile - Recruitment Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "surface-dim": "#d8dadc",
+                    "surface-variant": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-fixed": "#271901",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-primary-container": "#7c839b",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#07006c",
+                    "surface-tint": "#565e74",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6063ee",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-tertiary-container": "#98805d",
+                    "error-container": "#ffdad6",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary": "#4648d4",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary-container": "#271901",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "inverse-surface": "#2d3133",
+                    "primary": "#000000",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary-fixed": "#fcdeb5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "pipeline-column-width": "280px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #F8FAFC; color: #191c1e; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .active-pipeline-step { color: #4F46E5; border-bottom: 2px solid #4F46E5; }
+        .status-badge-applied { background-color: rgba(70, 72, 212, 0.1); color: #4648d4; }
+        .status-badge-interview { background-color: rgba(96, 99, 238, 0.1); color: #6063ee; }
+        .status-badge-rejected { background-color: rgba(186, 26, 26, 0.1); color: #ba1a1a; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="w-full top-0 border-b border-outline-variant bg-surface flex justify-between items-center px-margin-desktop h-16 z-40 fixed">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95">arrow_back</button>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Recruitment Portal</h1>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-secondary text-on-secondary px-6 py-2 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all shadow-sm">Post Job</button>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate recruiter, featuring a friendly middle-aged woman in a structured navy blazer. The lighting is soft and studio-quality, emphasizing a professional yet approachable demeanor against a clean, neutral office background. The image has a crisp, high-definition aesthetic consistent with a modern enterprise recruitment tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWbzy5lK5HBX7etc2ATmmYQ5HN3vECGLRmqf_TPCCTEikFB0Jy7_fX3gM_9LF9ps5T9pVpOnHKGt3igNwe8u1m0n7jakg9_S6_ynZUbhknTSZbMFUthjqn-efWTyUIDQcyrn1aLeaGeFaNukVlvW0mj120RvWbHMc4UKHgsnQ5WxjI3wqPU4CMl-qNSHOOPx6auaj1RDXPWKEjHflO_UIxB_0fTQKRbZuPpUUzLt4fk6VTNNgjCweIrw"/>
+</div>
+</div>
+</header>
+<!-- Sidebar (NavigationDrawer) -->
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-16 w-pipeline-column-width py-6 px-4 bg-surface-container-low border-r border-outline-variant">
+<div class="mb-8 px-4">
+<span class="font-label-caps text-label-caps text-primary uppercase opacity-50 tracking-widest">Management</span>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">work</span>
+<span>Job Openings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-full transition-all font-bold" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Candidates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span>Interviews</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Recruitment Analytics</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-pipeline-column-width pt-16 pb-24 md:pb-8 min-h-screen">
+<div class="max-w-6xl mx-auto px-6 py-8">
+<!-- Top Action Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div class="flex items-center gap-6">
+<div class="w-24 h-24 rounded-2xl bg-white border border-outline-variant shadow-sm flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality professional portrait of a software engineer candidate, a young man with a focused expression, wearing a minimalist grey t-shirt. The background is a soft-focus modern tech office with warm ambient lighting. The visual style is clean, sharp, and high-density, perfectly suited for an executive recruitment portal's profile view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn04K5GizmHzjYKzzihptxkNGIvMq3gXy4jfC_7NbIcKBEbyIfaqmeeilQ6pWoi53j408lgkk7a9F3_6Ee16nc_o-G96Rl_pPraKjYlEJwrO0IvVzb93NLHkVGQqolqDpsKhC5rR6PL46NRShkGD3CuBerrOcMl3qqRrjBxObvPQXnXDtDR1sHTWctH49336jv7y71oz3iWEW6lzpyNi_hqUfQvhmIEtB45C6nNhUjWo-kgWeWZDD8FA"/>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="font-headline-xl text-headline-xl text-primary">Alex Rivera</h2>
+<span class="status-badge-interview font-label-caps text-label-caps px-2 py-0.5 rounded uppercase">In Review</span>
+</div>
+<p class="text-on-surface-variant font-body-md mb-2">Senior Full Stack Engineer • San Francisco, CA</p>
+<div class="flex gap-4">
+<a class="text-secondary hover:underline flex items-center gap-1 text-body-sm font-bold" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span> View CV
+                            </a>
+<a class="text-secondary hover:underline flex items-center gap-1 text-body-sm font-bold" href="#">
+<span class="material-symbols-outlined text-[18px]">link</span> Portfolio
+                            </a>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 md:flex-none border border-error text-error px-5 py-2 rounded-lg font-bold hover:bg-error-container/10 transition-all active:scale-95">Reject</button>
+<button class="flex-1 md:flex-none bg-primary text-on-primary px-5 py-2 rounded-lg font-bold hover:brightness-125 transition-all active:scale-95 flex items-center justify-center gap-2" onclick="openSchedule()">
+<span class="material-symbols-outlined text-[20px]">calendar_add_on</span> Schedule
+                    </button>
+<button class="flex-1 md:flex-none bg-secondary text-on-secondary px-5 py-2 rounded-lg font-bold hover:brightness-110 transition-all active:scale-95">Move to Interview</button>
+</div>
+</div>
+<!-- Pipeline Funnel Visualization -->
+<div class="bg-white border border-outline-variant rounded-xl p-1 mb-8 shadow-sm">
+<div class="flex flex-row overflow-x-auto no-scrollbar">
+<div class="flex-1 min-w-[120px] text-center py-4 border-b-2 border-transparent text-on-surface-variant opacity-50">
+<span class="font-label-caps text-label-caps">1. Applied</span>
+</div>
+<div class="flex-1 min-w-[120px] text-center py-4 border-b-2 border-transparent text-on-surface-variant opacity-50">
+<span class="font-label-caps text-label-caps">2. Screening</span>
+</div>
+<div class="flex-1 min-w-[120px] text-center py-4 active-pipeline-step bg-secondary-container/5">
+<span class="font-label-caps text-label-caps font-bold">3. Technical Interview</span>
+</div>
+<div class="flex-1 min-w-[120px] text-center py-4 border-b-2 border-transparent text-on-surface-variant">
+<span class="font-label-caps text-label-caps">4. Cultural Fit</span>
+</div>
+<div class="flex-1 min-w-[120px] text-center py-4 border-b-2 border-transparent text-on-surface-variant">
+<span class="font-label-caps text-label-caps">5. Offer</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Left Column: Info & Skills -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<!-- Contact Card -->
+<div class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-wider">Contact Information</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">mail</span>
+<div>
+<p class="text-body-sm text-on-surface-variant">Email</p>
+<p class="font-bold">alex.rivera@example.com</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">call</span>
+<div>
+<p class="text-body-sm text-on-surface-variant">Phone</p>
+<p class="font-bold">+1 (555) 012-3456</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<div>
+<p class="text-body-sm text-on-surface-variant">Location</p>
+<p class="font-bold">San Francisco, CA</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Skills Card -->
+<div class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-wider">Key Skills</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">React.js</span>
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">Node.js</span>
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">TypeScript</span>
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">AWS</span>
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">PostgreSQL</span>
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">System Design</span>
+<span class="bg-surface-container-high px-3 py-1 rounded text-body-sm font-medium">Docker</span>
+</div>
+</div>
+</div>
+<!-- Center Column: Notes & History -->
+<div class="md:col-span-8 flex flex-col gap-6">
+<!-- Interview Notes -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Interview Notes</h3>
+<button class="text-secondary font-bold text-body-sm flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">add_comment</span> New Note</button>
+</div>
+<div class="p-6 space-y-6">
+<div class="pb-6 border-b border-outline-variant last:border-0 last:pb-0">
+<div class="flex justify-between items-start mb-2">
+<p class="font-bold text-primary">Technical Screen (Phone)</p>
+<span class="text-body-sm text-on-surface-variant">Oct 12, 2023</span>
+</div>
+<p class="text-on-surface-variant mb-3 italic">"Strong understanding of React hooks and performance optimization. Easily solved the algorithmic problem in O(n) time. Communicated clearly during the live coding session."</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-[10px] flex items-center justify-center text-white">JD</div>
+<span class="text-body-sm font-medium">John Doe, Senior Architect</span>
+</div>
+</div>
+<div class="pb-6 border-b border-outline-variant last:border-0 last:pb-0">
+<div class="flex justify-between items-start mb-2">
+<p class="font-bold text-primary">Recruiter Initial Screen</p>
+<span class="text-body-sm text-on-surface-variant">Oct 10, 2023</span>
+</div>
+<p class="text-on-surface-variant mb-3 italic">"Cultural match seems solid. Looking for growth opportunities and high-impact work. Salary expectations are within our budget range."</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-[10px] flex items-center justify-center text-white">SK</div>
+<span class="text-body-sm font-medium">Sarah King, HR Specialist</span>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 bg-surface-container-low border-t border-outline-variant">
+<textarea class="w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-secondary p-0 placeholder:text-on-surface-variant/50 text-body-md min-h-[40px] resize-none" placeholder="Type a quick note..."></textarea>
+</div>
+</div>
+<!-- Application History -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Application History</h3>
+</div>
+<div class="p-0">
+<table class="w-full text-left">
+<thead class="bg-surface-container-highest/30 text-on-surface-variant font-label-caps text-[10px] uppercase">
+<tr>
+<th class="px-6 py-3">Role</th>
+<th class="px-6 py-3">Applied</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="px-6 py-4">
+<p class="font-bold">Senior Full Stack Engineer</p>
+<p class="text-[10px] text-on-surface-variant">Engineering Department</p>
+</td>
+<td class="px-6 py-4 text-body-sm">Oct 08, 2023</td>
+<td class="px-6 py-4">
+<span class="status-badge-interview font-label-caps text-[10px] px-2 py-0.5 rounded">Current</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</td>
+</tr>
+<tr class="opacity-60">
+<td class="px-6 py-4">
+<p class="font-bold">Frontend Lead</p>
+<p class="text-[10px] text-on-surface-variant">Product Team</p>
+</td>
+<td class="px-6 py-4 text-body-sm">Mar 15, 2023</td>
+<td class="px-6 py-4">
+<span class="status-badge-rejected font-label-caps text-[10px] px-2 py-0.5 rounded">Closed</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant px-2">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-caps text-label-caps">Jobs</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-label-caps text-label-caps">Talent</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-label-caps">Calendar</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-caps text-label-caps">Stats</span>
+</div>
+</nav>
+<!-- Simple Schedule Modal (Logic Only for Demo) -->
+<div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden" id="scheduleModal">
+<div class="bg-white rounded-xl w-full max-w-md p-8 shadow-2xl scale-in-center">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-lg text-headline-lg font-bold">Schedule Interview</h3>
+<button class="material-symbols-outlined" onclick="closeSchedule()">close</button>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-body-sm font-bold mb-1">Interview Type</label>
+<select class="w-full bg-surface-container-low border border-outline rounded-lg px-4 py-2">
+<option>Technical Onsite</option>
+<option>Cultural Fit</option>
+<option>Executive Review</option>
+</select>
+</div>
+<div>
+<label class="block text-body-sm font-bold mb-1">Date</label>
+<input class="w-full bg-surface-container-low border border-outline rounded-lg px-4 py-2" type="date"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-body-sm font-bold mb-1">Start Time</label>
+<input class="w-full bg-surface-container-low border border-outline rounded-lg px-4 py-2" type="time"/>
+</div>
+<div>
+<label class="block text-body-sm font-bold mb-1">Duration</label>
+<select class="w-full bg-surface-container-low border border-outline rounded-lg px-4 py-2">
+<option>45 min</option>
+<option>60 min</option>
+<option>90 min</option>
+</select>
+</div>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 border border-outline-variant px-4 py-2 rounded-lg font-bold" onclick="closeSchedule()">Cancel</button>
+<button class="flex-1 bg-secondary text-on-secondary px-4 py-2 rounded-lg font-bold" onclick="confirmSchedule()">Send Invite</button>
+</div>
+</div>
+</div>
+<script>
+        function openSchedule() {
+            const modal = document.getElementById('scheduleModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSchedule() {
+            const modal = document.getElementById('scheduleModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function confirmSchedule() {
+            alert('Interview invite sent to Alex Rivera!');
+            closeSchedule();
+        }
+
+        // Simple interaction for move next
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.innerText === 'Move to Interview') {
+                    this.classList.add('animate-pulse');
+                    setTimeout(() => {
+                        this.classList.remove('animate-pulse');
+                        this.innerText = 'Moved to Next Stage';
+                        this.classList.replace('bg-secondary', 'bg-green-600');
+                    }, 800);
+                }
+            });
+        });
+    </script>
+</body></html>

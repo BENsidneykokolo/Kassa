@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - CRM Guest Profile</title>
+<!-- Google Fonts: Inter for the clean, professional hospitality look -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icon consistency -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Implementation -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#006c49",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#ffddb8",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container": "#eceef0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-container": "#2a1700",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#565e74",
+                    "on-surface": "#191c1e",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary-container": "#00714d",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab {
+            border-bottom: 3px solid #000000;
+            color: #000000;
+        }
+        /* Glassmorphism subtle effect for high-end feel */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-20 md:pb-0 md:pl-72 pt-14">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center px-margin-mobile md:px-lg h-14">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container transition-colors p-2 rounded-full">search</span>
+<span class="material-symbols-outlined text-primary cursor-pointer relative">
+                notifications
+                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-error ring-2 ring-surface"></span>
+</span>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-72 flex-col py-lg bg-surface-container-low border-r border-outline-variant shadow-xl z-30">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-md p-sm bg-surface-container-lowest rounded-xl shadow-sm">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A professional portrait of a hotel general manager with a sophisticated, friendly expression. The background is a blurred high-end hotel lobby with warm ambient lighting. The style is sharp digital photography with a corporate yet welcoming aesthetic, using a soft depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLa0UWOAyf0dGcKHflJ7pfPGd7adYgu__JlcBGcQN39cXVpfxx2X1Mxj5KtavnTgQsdKXMIehbNaojEdmw8uvUvAQhvJMHsMHcghzmO_bqsnf8GATi50ZAiCzHn-Tew69tGTeSJtuSSi_Ul0CK1BQ-6do_i2DeliYmD5IRI-Z7tuLinOwtFbcbtmO88ju-6sFwwl7nZiCEBNOG6yYVUacY70bgyx87ZxXn_cirCZJ3am4FsqtE48iIag"/>
+<div>
+<p class="text-label-lg font-label-lg text-primary">General Manager</p>
+<p class="text-label-sm text-on-surface-variant">Yabisso Grand Hotel</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-xs px-sm">
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg px-md py-sm translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-lg">CRM</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg">Stocks</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="max-w-7xl mx-auto p-margin-mobile md:p-lg space-y-lg">
+<!-- Profile Header Section (Bento Inspired) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Guest Identity Card -->
+<div class="lg:col-span-8 glass-card rounded-xl p-lg flex flex-col md:flex-row gap-lg items-start md:items-center shadow-sm">
+<div class="relative">
+<img class="w-32 h-32 md:w-40 md:h-40 rounded-2xl object-cover ring-4 ring-white shadow-md" data-alt="A high-quality studio portrait of an elegant African businessman in his early 40s wearing a charcoal grey suit. He is smiling warmly against a minimalist, light blue-grey background. The lighting is soft and flattering, emphasizing a premium and professional mood suitable for a luxury hotel CRM." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_R-Ur2opFFezX7EQ0bMzLwlRD3Po4lOlfqIPNbKbZsqzMzre5rTyC5tRvDftcXacCohtZx7VGdKHRPCgu6N9dA-PIyenrO_yZU72sM-SB_ttuLGLhfxiqT_88N8DWsGts1NMnNBLEx70zGyvmuwDYBDzTRi4zM9WlaM4TjK63sYkXd3nsBcdOthibqPpo6QSMHdTNdKnXgJSWnOZi_eCptPuLrdvsBwE41iGIt6ibywlwUmEKSroIw"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        GOLD
+                    </div>
+</div>
+<div class="flex-1 space-y-md">
+<div class="flex flex-wrap items-center justify-between gap-md">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Jean-Marc Kablan</h2>
+<p class="text-body-lg text-on-surface-variant">Membre depuis: Octobre 2021 • Abidjan, CI</p>
+</div>
+<div class="flex gap-sm">
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container-high transition-all text-primary">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container-high transition-all text-primary">
+<span class="material-symbols-outlined">mail</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-secondary text-secondary hover:bg-secondary-container transition-all">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md pt-md border-t border-outline-variant">
+<div>
+<p class="text-label-md text-on-surface-variant uppercase">Loyalty Status</p>
+<p class="text-headline-sm font-bold text-secondary">VIP Gold</p>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant uppercase">Total Séjours</p>
+<p class="text-headline-sm font-bold">24</p>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant uppercase">Dernier séjour</p>
+<p class="text-body-md font-medium">12 Mai 2024</p>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant uppercase">Points</p>
+<p class="text-headline-sm font-bold">12,450</p>
+</div>
+</div>
+</div>
+</div>
+<!-- LTV & Lifetime Metric Card -->
+<div class="lg:col-span-4 bg-primary-container text-white rounded-xl p-lg flex flex-col justify-between shadow-xl relative overflow-hidden">
+<!-- Abstract visual element -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+<div>
+<p class="text-label-lg font-label-lg text-on-primary-container uppercase">Lifetime Value (LTV)</p>
+<h3 class="text-[40px] font-extrabold leading-tight mt-xs">8,450,000 <span class="text-headline-sm font-medium">CFA</span></h3>
+</div>
+<div class="space-y-sm mt-lg">
+<div class="flex justify-between items-center text-label-md text-on-primary-container">
+<span>Dépense moyenne / séjour</span>
+<span class="text-white font-bold">352,083 CFA</span>
+</div>
+<div class="w-full bg-white/10 h-1.5 rounded-full">
+<div class="bg-secondary-container h-full rounded-full" style="width: 75%"></div>
+</div>
+<p class="text-label-sm text-on-primary-container italic">Dans le top 5% des clients premium.</p>
+</div>
+</div>
+</div>
+<!-- Detailed Insights Tabs -->
+<div class="glass-card rounded-xl overflow-hidden shadow-sm">
+<!-- Tab Headers -->
+<div class="flex border-b border-outline-variant bg-surface px-md overflow-x-auto custom-scrollbar">
+<button class="px-lg py-md text-label-lg active-tab transition-all whitespace-nowrap" id="tab-sejours" onclick="switchTab('sejours')">Séjours (History)</button>
+<button class="px-lg py-md text-label-lg text-on-surface-variant hover:text-primary transition-all whitespace-nowrap" id="tab-paiements" onclick="switchTab('paiements')">Paiements (Billing)</button>
+<button class="px-lg py-md text-label-lg text-on-surface-variant hover:text-primary transition-all whitespace-nowrap" id="tab-preferences" onclick="switchTab('preferences')">Préférences &amp; Allergies</button>
+</div>
+<!-- Tab Content -->
+<div class="p-lg">
+<!-- SEJOURS TAB -->
+<div class="space-y-md" id="content-sejours">
+<div class="flex justify-between items-center mb-md">
+<h4 class="text-headline-sm">Historique des réservations</h4>
+<button class="text-primary text-label-lg flex items-center gap-1 hover:underline">
+                            Voir tout <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Stay Card 1 -->
+<div class="p-md border border-outline-variant rounded-xl flex gap-md hover:shadow-md transition-shadow cursor-pointer bg-white">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A luxurious hotel suite with a large king-sized bed, high-quality linen, and large windows overlooking a city skyline. The room is decorated in modern African luxury style with warm wood accents and contemporary art. Photorealistic architecture photography, crisp and clear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxqIn_p25lHjulGjzuPlDcWRvdmWF9fnAURdunDFecg0ot2b7tTurFyz18GcF7OiFJQoKGB_xm6gf6rg3H5M5SWUq0UZXBQz-678pNyWrBYjsYlxoBHIf1dN_7CrFyGliC5Kuj-WSUUjcHYN-oR7j53zvKYenNdK7I3Sp9qR8Rt3FWCUWIw2Lc9QISGCXBs0c4YHjzWhJabvyZLbxHFphG6bgy4pH1xw7_BrfHqw-hFgiUXdPX_J6ufw"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="text-label-md font-bold text-primary">Suite Royale #402</p>
+<span class="text-label-sm px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full">Terminé</span>
+</div>
+<p class="text-label-sm text-on-surface-variant mt-1">10 Mai - 12 Mai 2024 (2 nuits)</p>
+<p class="text-label-lg font-bold mt-2">750,000 CFA</p>
+</div>
+</div>
+<!-- Stay Card 2 -->
+<div class="p-md border border-outline-variant rounded-xl flex gap-md hover:shadow-md transition-shadow cursor-pointer bg-white">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A modern executive hotel room with minimalist furniture, a desk, and sleek design. The color palette consists of neutral tones with emerald green accents. Professional real estate photography style, bright and inviting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEKWWloH2Pkk0uFZ8FBXqymbAIoAriu3aqG60eVodc95aVtPWTuZwyqK_zKXR9-_QIHgzHgw8rjusPtaL58LwEjem0bxK8hOIUHv5J2gbamJcxqesS36YPDaCZZoPfNtzeypty_sDD7qn89tP894lCwomuiY1jbJDw9ipN_OpkOFc_rdPw0Sg5Ev4z69n63lk2C6IaHAC1vmTXd_i2VWfEU6Xc_SanefFOwRIX1eE8UvUIubiWlUfsGA"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="text-label-md font-bold text-primary">Chambre Executive #105</p>
+<span class="text-label-sm px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full">Terminé</span>
+</div>
+<p class="text-label-sm text-on-surface-variant mt-1">15 Mars - 20 Mars 2024 (5 nuits)</p>
+<p class="text-label-lg font-bold mt-2">1,250,000 CFA</p>
+</div>
+</div>
+</div>
+</div>
+<!-- PAIEMENTS TAB (Hidden by default) -->
+<div class="hidden space-y-md" id="content-paiements">
+<div class="overflow-hidden border border-outline-variant rounded-xl bg-white">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-lg py-md text-label-sm text-on-surface-variant">DATE</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant">DESCRIPTION</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant">METHODE</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant">MONTANT</th>
+<th class="px-lg py-md text-label-sm text-on-surface-variant">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="px-lg py-md text-body-md">12/05/2024</td>
+<td class="px-lg py-md text-body-md">Sèjour Suite Royale #402</td>
+<td class="px-lg py-md text-body-md">Visa **** 1234</td>
+<td class="px-lg py-md text-body-md font-bold">750,000 CFA</td>
+<td class="px-lg py-md"><span class="text-secondary font-medium">Payé</span></td>
+</tr>
+<tr>
+<td class="px-lg py-md text-body-md">20/03/2024</td>
+<td class="px-lg py-md text-body-md">Room Service &amp; Bar</td>
+<td class="px-lg py-md text-body-md">Cash</td>
+<td class="px-lg py-md font-bold">145,000 CFA</td>
+<td class="px-lg py-md"><span class="text-secondary font-medium">Payé</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- PREFERENCES TAB (Hidden by default) -->
+<div class="hidden grid grid-cols-1 md:grid-cols-2 gap-lg" id="content-preferences">
+<div class="space-y-md">
+<h5 class="text-label-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-error">warning</span> Allergies &amp; Santé
+                        </h5>
+<div class="flex flex-wrap gap-sm">
+<span class="px-md py-sm bg-error-container text-on-error-container rounded-lg text-label-md font-medium">Allergie aux arachides</span>
+<span class="px-md py-sm bg-error-container text-on-error-container rounded-lg text-label-md font-medium">Intolérance au Lactose</span>
+</div>
+</div>
+<div class="space-y-md">
+<h5 class="text-label-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">hotel</span> Préférences de chambre
+                        </h5>
+<ul class="space-y-sm">
+<li class="flex items-start gap-md text-body-md">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">check_circle</span>
+                                Étages élevés uniquement (au-dessus du 10ème)
+                            </li>
+<li class="flex items-start gap-md text-body-md">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">check_circle</span>
+                                Oreillers en plumes (extra fermes)
+                            </li>
+<li class="flex items-start gap-md text-body-md">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">check_circle</span>
+                                Température de chambre réglée à 22°C à l'arrivée
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Admin Actions / Footer Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="p-lg glass-card rounded-xl shadow-sm space-y-sm">
+<p class="text-label-md text-on-surface-variant font-bold uppercase">Prochaine action recommandée</p>
+<div class="p-md bg-secondary-container/20 border border-secondary/20 rounded-lg">
+<p class="text-body-md text-on-secondary-container">Envoyer une offre personnalisée pour son anniversaire le 15 Juin.</p>
+</div>
+<button class="w-full py-md bg-primary text-white rounded-lg font-bold hover:opacity-90 transition-opacity">Programmer Email</button>
+</div>
+<div class="p-lg glass-card rounded-xl shadow-sm col-span-2 flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex items-center gap-lg">
+<div class="text-center">
+<p class="text-headline-md font-bold">4.8</p>
+<p class="text-label-sm text-on-surface-variant">Note Client</p>
+</div>
+<div class="h-10 w-[1px] bg-outline-variant"></div>
+<div class="text-center">
+<p class="text-headline-md font-bold">92%</p>
+<p class="text-label-sm text-on-surface-variant">Taux de retour</p>
+</div>
+</div>
+<div class="flex gap-sm w-full md:w-auto">
+<button class="flex-1 md:flex-none px-lg py-md border border-outline-variant rounded-lg text-label-lg hover:bg-surface-container transition-colors">Modifier Profil</button>
+<button class="flex-1 md:flex-none px-lg py-md bg-error text-white rounded-lg text-label-lg hover:opacity-90 transition-opacity">Signaler Incident</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] flex justify-around items-center h-16 px-xs pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 duration-200">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm">AI</span>
+</div>
+</nav>
+<!-- Simple Tab Switching Script -->
+<script>
+        function switchTab(tabId) {
+            // Hide all contents
+            document.getElementById('content-sejours').classList.add('hidden');
+            document.getElementById('content-paiements').classList.add('hidden');
+            document.getElementById('content-preferences').classList.add('hidden');
+            
+            // Remove active classes from all buttons
+            document.getElementById('tab-sejours').classList.remove('active-tab');
+            document.getElementById('tab-sejours').classList.add('text-on-surface-variant');
+            document.getElementById('tab-paiements').classList.remove('active-tab');
+            document.getElementById('tab-paiements').classList.add('text-on-surface-variant');
+            document.getElementById('tab-preferences').classList.remove('active-tab');
+            document.getElementById('tab-preferences').classList.add('text-on-surface-variant');
+            
+            // Show target content
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            
+            // Set active button
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('active-tab');
+            activeBtn.classList.remove('text-on-surface-variant');
+        }
+
+        // Floating Action Button logic for focused interaction (Suppressing here as per guidelines for Details/Profile screens)
+        // If we needed a FAB, it would be here, but guidelines say suppress on Details/Profile screens.
+    </script>
+</body></html>

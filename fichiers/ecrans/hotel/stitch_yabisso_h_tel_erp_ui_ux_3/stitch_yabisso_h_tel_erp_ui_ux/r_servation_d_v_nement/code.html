@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Réservation d'Événement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-fixed": "#ffddb8",
+                        "primary-container": "#131b2e",
+                        "surface": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "primary": "#0f172a",
+                        "tertiary-container": "#2a1700",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "secondary": "#006c49",
+                        "on-tertiary-container": "#b87500",
+                        "error-container": "#ffdad6",
+                        "background": "#f7f9fb",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary-container": "#00714d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "surface-tint": "#565e74",
+                        "surface-bright": "#f7f9fb",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container": "#eceef0",
+                        "on-surface-variant": "#45464d",
+                        "on-primary-container": "#7c839b",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c6c6cd",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "12px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-shadow { shadow: 0px 1px 3px rgba(15, 23, 42, 0.08); }
+        .raised-shadow { box-shadow: 0px 4px 6px rgba(15, 23, 42, 0.12); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface pb-24">
+<!-- Top Bar Component -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm h-14 flex items-center justify-between px-margin-mobile">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Réservation</h1>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel guest, captured with soft, warm studio lighting. The person is smiling gently, conveying a sense of premium hospitality and comfort. The background is a blurred, elegant hotel lobby with deep wood accents and warm golden highlights, matching a sophisticated minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1nVccLvwebjDdFASyC-E_ppPOxa1_0fJ1_T4hNmjjIlK4AZr-EnLJxM4MjAyjreyvDw9lxz_WRuLI0J59oSonyyNfLM7JahYWpmDnADs7LqolaCUlMm3xU7sMUAtsASgKKqQsTOxQWF5eJ6ZGmmzaFgldrwjB5xFS782N-c1IfJa6fvHxkpF9DezHNP9TdlxrEsMcWxv7UO2VG7gf2lp4rLO4xfZ0XU5V8VvoVKJkN7rbsodqtwIRUA"/>
+</div>
+</header>
+<main class="mt-20 px-margin-mobile max-w-2xl mx-auto space-y-6">
+<!-- Event Summary Card (Bento-style layout) -->
+<section class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant raised-shadow flex gap-4">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A high-end jazz performance in a dimly lit, luxury gastronomic restaurant. A saxophone player is silhouetted against a backdrop of warm amber lights. In the foreground, a beautifully plated gourmet dish is visible on a dark marble table with polished silver cutlery, evoking an atmosphere of sophisticated African luxury and efficient modern service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7EBvrqWM1wd_3bxjkEKOZuhM6pBUTBB9av-4cXWJSjauklFUSfzeGbD5yEwxoOCbEdlHPTL0Ly_TLz2IM0oP65QWNFoAC3ZSOMPCVD86X10Mwx8VGnbn8wIiev5C2Edigqx9i4TZORqgprKaKuvPVyRzH2TJYusibkEe-YqGCvpTOdH2-5lO7uGqpWAFkFBc8zNlCW7ZNrBSW2lbQa7geZbSboDEb8oXSUY55FqyCQF5kwZVfueBcEg"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Jazz &amp; Gastronomie</h2>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Samedi, 24 Août 2024
+                    </p>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-label-lg text-label-lg text-secondary">Événement Exclusif</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary" data-price="85" id="unit-price">85€ / pers.</span>
+</div>
+</div>
+</section>
+<!-- Selection: Number of Guests -->
+<section class="space-y-3">
+<label class="font-label-lg text-label-lg text-on-surface-variant">Nombre de convives</label>
+<div class="flex items-center justify-between bg-surface-container-low p-sm rounded-xl border border-outline-variant">
+<button class="w-12 h-12 flex items-center justify-center rounded-lg bg-surface-container-highest text-primary active:scale-90 transition-transform" onclick="updateGuests(-1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-headline-md text-headline-md" id="guest-count">2</span>
+<button class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary text-white active:scale-90 transition-transform" onclick="updateGuests(1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</section>
+<!-- Personal Information -->
+<section class="space-y-4">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Informations Personnelles</h3>
+<div class="space-y-3">
+<div class="relative">
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface-container-lowest font-body-md" id="name" placeholder="Nom complet" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface-container-lowest font-body-md" id="email" placeholder="Email" type="email"/>
+<input class="w-full h-12 px-4 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface-container-lowest font-body-md" id="phone" placeholder="Téléphone" type="tel"/>
+</div>
+</div>
+</section>
+<!-- Special Requests -->
+<section class="space-y-3">
+<label class="font-label-lg text-label-lg text-on-surface-variant">Demandes Spéciales</label>
+<textarea class="w-full p-4 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface-container-lowest font-body-md" placeholder="Régimes alimentaires, allergies ou préférences de placement..." rows="3"></textarea>
+</section>
+<!-- Payment Section -->
+<section class="space-y-3">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Mode de Paiement</h3>
+<div class="grid grid-cols-1 gap-2">
+<label class="relative flex items-center p-4 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:bg-surface-container-low transition-colors group">
+<input checked="" class="hidden peer" name="payment" type="radio" value="card"/>
+<div class="peer-checked:border-primary peer-checked:bg-primary-container/5 absolute inset-0 rounded-xl border-2 border-transparent transition-all"></div>
+<span class="material-symbols-outlined text-primary mr-3">credit_card</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-primary">Carte de Crédit</span>
+<span class="font-label-sm text-on-surface-variant">Visa, Mastercard, Amex</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-primary opacity-0 peer-checked:opacity-100">check_circle</span>
+</label>
+<label class="relative flex items-center p-4 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:bg-surface-container-low transition-colors group">
+<input class="hidden peer" name="payment" type="radio" value="room"/>
+<div class="peer-checked:border-primary peer-checked:bg-primary-container/5 absolute inset-0 rounded-xl border-2 border-transparent transition-all"></div>
+<span class="material-symbols-outlined text-primary mr-3">key</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-primary">Porter à la chambre</span>
+<span class="font-label-sm text-on-surface-variant">Réservé aux résidents de l'hôtel</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-primary opacity-0 peer-checked:opacity-100">check_circle</span>
+</label>
+</div>
+</section>
+<!-- Summary & Total -->
+<section class="bg-primary text-white rounded-2xl p-lg space-y-4">
+<div class="flex justify-between items-center opacity-80 border-b border-white/10 pb-3">
+<span class="font-body-md">Total pour <span id="summary-guest-count">2</span> invités</span>
+<span class="font-body-md">85€ × <span id="summary-guest-count-calc">2</span></span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm">Montant Total</span>
+<span class="font-headline-lg" id="total-price">170€</span>
+</div>
+</section>
+<!-- CTA Section -->
+<div class="pt-4">
+<button class="w-full h-14 bg-primary text-white rounded-xl font-headline-sm shadow-lg hover:bg-black active:scale-95 transition-all flex items-center justify-center gap-2 group" onclick="confirmBooking()">
+<span>Confirmer la Réservation</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<p class="text-center font-label-sm text-on-surface-variant mt-4 px-8">
+                En confirmant, vous acceptez les conditions d'annulation de l'hôtel Yabisso.
+            </p>
+</div>
+</main>
+<!-- Bottom Nav Filtered (Hidden for focused task) -->
+<!-- The shared component BottomNavBar is suppressed here as this is a Task-Focused "Success/Booking" screen. -->
+<script>
+        let guestCount = 2;
+        const unitPrice = 85;
+
+        function updateGuests(val) {
+            guestCount = Math.max(1, Math.min(10, guestCount + val));
+            document.getElementById('guest-count').innerText = guestCount;
+            document.getElementById('summary-guest-count').innerText = guestCount;
+            document.getElementById('summary-guest-count-calc').innerText = guestCount;
+            
+            const total = guestCount * unitPrice;
+            document.getElementById('total-price').innerText = total + '€';
+            
+            // Subtle pulse animation on total change
+            const totalEl = document.getElementById('total-price');
+            totalEl.classList.remove('scale-105');
+            void totalEl.offsetWidth; // Trigger reflow
+            totalEl.classList.add('transition-transform', 'duration-200', 'scale-105');
+            setTimeout(() => totalEl.classList.remove('scale-105'), 200);
+        }
+
+        function confirmBooking() {
+            const name = document.getElementById('name').value;
+            if (!name) {
+                alert('Veuillez entrer votre nom pour la réservation.');
+                return;
+            }
+            
+            // Visual feedback for processing
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span><span>Traitement...</span>';
+            btn.disabled = true;
+            btn.classList.add('opacity-80');
+
+            setTimeout(() => {
+                alert('Merci ' + name + '! Votre réservation pour ' + guestCount + ' personnes a été confirmée.');
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                btn.classList.remove('opacity-80');
+            }, 1500);
+        }
+    </script>
+</body></html>

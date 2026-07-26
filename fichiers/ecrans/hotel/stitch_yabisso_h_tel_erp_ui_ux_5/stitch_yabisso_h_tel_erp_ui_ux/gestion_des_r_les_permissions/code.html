@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administrative Control - Role Management</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-high": "#e6e8ea",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-tertiary-fixed": "#001e2f",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#000000",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7f9fb",
+                    "primary-container": "#131b2e",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary": "#515f74",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "tertiary-container": "#001e2f",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "secondary-container": "#d5e3fd",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "on-tertiary-container": "#008cc7",
+                    "error-container": "#ffdad6",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "surface-tint": "#565e74",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#57657b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "sidebar-width": "280px",
+                    "container-padding": "24px",
+                    "section-gap": "32px",
+                    "unit": "4px",
+                    "stack-lg": "24px",
+                    "stack-xs": "4px",
+                    "stack-sm": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .status-pill {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        .permission-toggle:checked + .toggle-track {
+            background-color: #000000;
+        }
+        .permission-toggle:checked + .toggle-track .toggle-knob {
+            transform: translateX(14px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-highest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center px-container-padding h-16">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-size: 24px;">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Administrative Control</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="hidden md:flex gap-stack-md mr-stack-md">
+<span class="text-on-surface-variant font-label-md text-label-md">Server: US-EAST-1</span>
+<span class="text-on-surface-variant font-label-md text-label-md">Status: Healthy</span>
+</div>
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-outline-variant flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a system architect in a high-tech corporate office. The lighting is crisp and natural, with a background of blurred servers and glass partitions. The visual style is modern, minimalist, and uses a clean palette of whites, blacks, and navy blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBww5eDSldDx7eDwPcDwIS6DnUEEFm9_KvxGva8qw7fE4QP_5MGJN-sqCd8DRdTMt15mUb7qC8Psg9sdsxkEfejBV6oQmy19E-1kWK7fvwFFC4H5QkXY8DjrZMRe79L8DEXCXbHX-KLClEQwAIyLXyLaMw-TNVsXUixL1-jeeIqzIKOhIF7Tv2vsZg1J5RcPqxq8aO4N-Mr2pEYwR99E1weRRvu6R9zUseo5DK4v7h8Y4uc0NkP_DYaPQ"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- NavigationDrawer (Desktop) -->
+<aside class="hidden md:flex flex-col p-stack-md h-full fixed left-0 top-0 pt-16 w-sidebar-width bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline z-40">
+<div class="flex items-center gap-stack-sm mb-stack-lg p-stack-sm">
+<div class="w-12 h-12 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm font-black text-primary">System Architect</p>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">Security Tier 1</p>
+</div>
+</div>
+<nav class="space-y-unit flex-1">
+<a class="flex items-center gap-stack-md p-stack-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">User List</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-md bg-secondary-container dark:bg-on-primary-fixed-variant text-on-secondary-container dark:text-primary-fixed font-bold rounded-full transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">shield_person</span>
+<span class="font-body-md text-body-md">Role Management</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-body-md text-body-md">Security Logs</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span class="font-body-md text-body-md">Access Requests</span>
+</a>
+</nav>
+<div class="mt-auto p-stack-md bg-surface-container-high rounded-lg mb-stack-md">
+<div class="flex items-center justify-between mb-stack-xs">
+<span class="font-label-sm text-label-sm uppercase opacity-60">Session status</span>
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+</div>
+<p class="font-label-md text-label-md font-bold">Active Session</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Expires in 04:59:12</p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar-width p-container-padding pb-32">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mb-stack-lg">
+<div>
+<nav class="flex items-center gap-2 mb-2 text-on-surface-variant font-label-md text-label-md">
+<span>Admin</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Role Management</span>
+</nav>
+<h2 class="font-display-lg text-display-lg">User Roles &amp; Permissions</h2>
+<p class="text-on-surface-variant max-w-2xl">Define and govern access levels across the system modules. Manage granular permissions for standard and custom organizational roles.</p>
+</div>
+<button class="bg-primary text-on-primary px-stack-lg py-3 rounded flex items-center justify-center gap-stack-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+<span class="font-bold">Create New Role</span>
+</button>
+</div>
+<!-- Bento Layout Content -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Roles List Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col h-[700px] overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-headline-sm text-headline-sm">System Roles</h3>
+<span class="font-label-sm text-label-sm bg-surface-container-highest px-2 py-1 rounded">3 TOTAL</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-stack-sm space-y-unit">
+<!-- Role Item: Admin -->
+<div class="p-stack-md border border-primary bg-primary-fixed/10 rounded-lg cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-stack-xs">
+<h4 class="font-bold text-primary">System Administrator</h4>
+<span class="status-pill bg-primary text-on-primary">Full Access</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-stack-sm">Unrestricted access to all core modules and security protocols.</p>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-sm bg-on-primary-fixed-variant border-2 border-white flex items-center justify-center text-[8px] text-white">JD</div>
+<div class="w-6 h-6 rounded-sm bg-secondary border-2 border-white flex items-center justify-center text-[8px] text-white">AS</div>
+<div class="w-6 h-6 rounded-sm bg-outline border-2 border-white flex items-center justify-center text-[8px] text-white">+2</div>
+</div>
+</div>
+<!-- Role Item: Manager -->
+<div class="p-stack-md border border-outline-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-colors group">
+<div class="flex justify-between items-start mb-stack-xs">
+<h4 class="font-bold text-on-surface">Regional Manager</h4>
+<span class="status-pill bg-secondary-container text-on-secondary-container">Limited</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-stack-sm">Can manage local teams and view performance reports.</p>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-sm bg-tertiary-container border-2 border-white flex items-center justify-center text-[8px] text-white">MK</div>
+<div class="w-6 h-6 rounded-sm bg-outline border-2 border-white flex items-center justify-center text-[8px] text-white">+12</div>
+</div>
+</div>
+<!-- Role Item: Staff -->
+<div class="p-stack-md border border-outline-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-stack-xs">
+<h4 class="font-bold text-on-surface">Standard Staff</h4>
+<span class="status-pill bg-surface-container-highest text-on-surface-variant">View Only</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-stack-sm">Access to assigned tasks and personal performance logs.</p>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-sm bg-secondary-fixed-dim border-2 border-white flex items-center justify-center text-[8px] text-white">BW</div>
+<div class="w-6 h-6 rounded-sm bg-outline border-2 border-white flex items-center justify-center text-[8px] text-white">+48</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Permission Editor Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col h-[700px] overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-stack-md bg-surface-container-low">
+<div>
+<h3 class="font-headline-sm text-headline-sm flex items-center gap-2">
+                                Role Configuration: <span class="text-primary">System Administrator</span>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Last modified by Arch_01 on 12 Oct 2023</p>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="px-4 py-2 border border-outline text-on-surface hover:bg-surface-container-high transition-colors font-bold text-label-md">Discard Changes</button>
+<button class="px-4 py-2 bg-primary text-on-primary font-bold text-label-md">Save Configuration</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<div class="p-container-padding">
+<!-- Role Info -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-stack-lg">
+<div class="space-y-stack-xs">
+<label class="font-label-md text-label-md font-bold uppercase opacity-60">Role Name</label>
+<input class="w-full bg-surface border border-outline-variant p-3 focus:ring-2 focus:ring-primary outline-none transition-all" type="text" value="System Administrator"/>
+</div>
+<div class="space-y-stack-xs">
+<label class="font-label-md text-label-md font-bold uppercase opacity-60">ID Pattern</label>
+<div class="font-label-md text-label-md bg-surface-container p-3 border border-dashed border-outline-variant text-on-surface-variant">
+                                        SYS_ADMIN_LVL_1
+                                    </div>
+</div>
+</div>
+<!-- Permissions Hierarchy -->
+<h4 class="font-label-md text-label-md font-bold uppercase opacity-60 border-b border-outline-variant pb-2 mb-stack-md">Module Permissions</h4>
+<div class="space-y-stack-md">
+<!-- Module Block: User Management -->
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<div class="bg-surface-container-high p-stack-md flex items-center justify-between">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary">groups</span>
+<span class="font-bold">User Management</span>
+</div>
+<div class="flex gap-stack-md">
+<span class="font-label-sm text-label-sm opacity-60">Select all</span>
+<input checked="" class="text-primary focus:ring-0 rounded-sm" type="checkbox"/>
+</div>
+</div>
+<div class="p-0">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="font-label-sm text-label-sm text-on-surface-variant border-b border-outline-variant">
+<th class="p-stack-md font-medium">ACTION TYPE</th>
+<th class="p-stack-md font-medium text-center">VIEW</th>
+<th class="p-stack-md font-medium text-center">EDIT</th>
+<th class="p-stack-md font-medium text-center">DELETE</th>
+<th class="p-stack-md font-medium text-right">AUDIT REQ.</th>
+</tr>
+</thead>
+<tbody class="font-body-sm">
+<tr class="border-b border-outline-variant hover:bg-surface transition-colors">
+<td class="p-stack-md font-bold">User Directory</td>
+<td class="p-stack-md text-center"><input checked="" class="text-primary rounded-sm" type="checkbox"/></td>
+<td class="p-stack-md text-center"><input checked="" class="text-primary rounded-sm" type="checkbox"/></td>
+<td class="p-stack-md text-center"><input checked="" class="text-primary rounded-sm" type="checkbox"/></td>
+<td class="p-stack-md text-right"><span class="status-pill bg-error-container text-on-error-container">High Priority</span></td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface transition-colors">
+<td class="p-stack-md font-bold">Permission Assignment</td>
+<td class="p-stack-md text-center"><input checked="" class="text-primary rounded-sm" type="checkbox"/></td>
+<td class="p-stack-md text-center"><input checked="" class="text-primary rounded-sm" type="checkbox"/></td>
+<td class="p-stack-md text-center"><input checked="" class="text-primary rounded-sm" type="checkbox"/></td>
+<td class="p-stack-md text-right"><span class="status-pill bg-surface-container-highest text-on-surface-variant">Standard</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Module Block: Financials (Restricted Example) -->
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<div class="bg-surface-container-high p-stack-md flex items-center justify-between">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="font-bold">Billing &amp; Financials</span>
+</div>
+<div class="flex gap-stack-md">
+<span class="font-label-sm text-label-sm opacity-60">Global Override</span>
+<div class="relative inline-block w-10 h-6 align-middle select-none transition duration-200 ease-in">
+<input class="permission-toggle absolute block w-6 h-6 rounded-full bg-white border-4 border-outline-variant appearance-none cursor-pointer z-10 outline-none" id="toggle_financial" name="toggle" type="checkbox"/>
+<label class="toggle-track block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer" for="toggle_financial">
+<span class="toggle-knob absolute left-0 top-0 block w-6 h-6 rounded-full bg-white shadow-sm transform transition-transform duration-200 ease-in-out"></span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-stack-md bg-surface opacity-50 flex items-center justify-center h-20 italic font-body-sm text-on-surface-variant">
+                                        Sub-permissions inherited from global policy
+                                    </div>
+</div>
+<!-- Module Block: Security Logs -->
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<div class="bg-surface-container-high p-stack-md flex items-center justify-between">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<span class="font-bold">Audit &amp; Logs</span>
+</div>
+</div>
+<div class="p-0">
+<table class="w-full text-left border-collapse">
+<tbody class="font-body-sm">
+<tr class="border-b border-outline-variant hover:bg-surface transition-colors">
+<td class="p-stack-md font-bold w-1/2">Real-time Traffic Monitoring</td>
+<td class="p-stack-md text-right">
+<div class="flex gap-2 justify-end">
+<button class="px-2 py-1 bg-surface-container text-on-surface border border-outline-variant rounded font-label-md">NONE</button>
+<button class="px-2 py-1 bg-surface-container text-on-surface border border-outline-variant rounded font-label-md">READ</button>
+<button class="px-2 py-1 bg-primary text-on-primary border border-primary rounded font-label-md">FULL</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Danger Zone -->
+<div class="mt-stack-lg border-2 border-dashed border-error/30 p-stack-lg rounded-xl flex items-center justify-between bg-error-container/10">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<h4 class="font-bold text-error">Danger Zone: Revoke Access</h4>
+<p class="text-on-surface-variant font-body-sm">Permanently disable this role and remove all associated user permissions across the system.</p>
+</div>
+</div>
+<button class="bg-error text-on-error px-stack-lg py-3 rounded font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined">delete_forever</span>
+                    Decommission Role
+                </button>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline md:hidden shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-label-md text-label-md">Roles</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md text-label-md">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+</nav>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple toggle effect for permission switches
+        document.querySelectorAll('.permission-toggle').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const parentRow = this.closest('.border-outline-variant');
+                if (this.checked) {
+                    parentRow.classList.add('border-primary');
+                } else {
+                    parentRow.classList.remove('border-primary');
+                }
+            });
+        });
+
+        // Hover animation logic
+        const cards = document.querySelectorAll('.cursor-pointer');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.2s ease-out';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Payslip Detail - Payroll &amp; Billing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "primary-fixed": "#dde1ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#89f5e7",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#b8c4ff",
+                        "secondary": "#505f76",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "tertiary": "#003c36",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#d0e1fb",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#444653",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#5fcdbf",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#00201d",
+                        "secondary-fixed": "#d3e4fe",
+                        "tertiary-container": "#00554e",
+                        "surface-dim": "#d8dadc",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "surface": "#f7f9fb",
+                        "outline": "#757684",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-primary-fixed-variant": "#173bab",
+                        "inverse-surface": "#2d3133",
+                        "primary": "#00288e",
+                        "primary-container": "#1e40af",
+                        "surface-tint": "#3755c3",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c4c5d5",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-secondary-container": "#54647a",
+                        "on-background": "#191c1e",
+                        "on-primary-container": "#a8b8ff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#001453",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "sidebar-width": "280px",
+                        "stack-lg": "32px",
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "status-label": ["Inter"],
+                        "headline-md-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "status-label": ["12px", {"lineHeight": "12px", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .payslip-paper {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+        }
+        .border-dashed-v {
+            border-bottom: 1px dashed #c4c5d5;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flex items-center justify-between px-gutter w-full h-16 z-40">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-inverse-primary font-bold">Payroll &amp; Billing</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="flex flex-col items-end hidden sm:flex">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Admin View</span>
+<span class="font-body-md text-body-md font-bold">Finance Department</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional high-resolution corporate headshot of a female HR administrator with a warm smile. She is wearing a modern navy blazer against a minimalist light grey studio background. The lighting is soft and even, creating a clean, professional, and trustworthy executive appearance consistent with a high-end corporate management portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPEJa5POXBavZWm7DgRA7atZ_Qx1pKZDW8IqLL2aEoAdpkujcWpqxLRBRyuzZPITy75Ky0SwFtWjeuV7cnwxW5_avGu96clFkAFXf6f7aolEhsWsy2Brf8DtA362OihoLMfyCHl8ifEY7XXc90KYks2_yj5q4eCUABYdpV5jDnpA8XRLyAJs_Aq3LQuXRyTm0ycpKWN63niA3At8kzvPqYjBbdjNNHqf5DKsD_PLm133VyHGEnh9MqQA"/>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">settings</span>
+</div>
+</header>
+<div class="flex">
+<!-- NavigationDrawer (Desktop) -->
+<aside class="h-screen w-sidebar-width fixed left-0 top-0 hidden lg:flex flex-col py-stack-md bg-surface-container-low dark:bg-surface-container border-r border-outline-variant dark:border-outline z-30 pt-20">
+<nav class="flex flex-col gap-1 px-2">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-full transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md text-body-md">Payslips</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-body-md text-body-md">Expenses</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md text-body-md">History</span>
+</a>
+</nav>
+<div class="mt-auto px-6 py-4 border-t border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-outline">System Sync: Live</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-[280px] p-4 md:p-8 mb-20 lg:mb-0">
+<!-- Breadcrumbs & Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps cursor-pointer hover:text-primary transition-colors">PAYSLIPS</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-label-caps text-label-caps text-primary">JEAN-PIERRE KOULANGO</span>
+</nav>
+<h2 class="font-headline-sm text-headline-sm">Statement of Earnings</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant text-primary rounded-lg font-body-md text-body-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Download PDF
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2 bg-primary text-on-primary rounded-lg font-body-md text-body-md hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-[20px]">send</span>
+                        Send to Employee
+                    </button>
+</div>
+</div>
+<!-- Payslip Document View -->
+<div class="max-w-4xl mx-auto payslip-paper p-6 md:p-12 rounded-lg relative overflow-hidden">
+<!-- Branding Stripe -->
+<div class="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
+<!-- Document Header -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-xl bg-surface-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A detailed professional portrait of Jean-Pierre Koulango, a male employee in his late 30s with a composed and friendly expression. He wears a clean white collared shirt. The background is a blurred office environment with soft bokeh and natural daylight, following a corporate modernism aesthetic with blue and slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdr-5r2Vcva3VrlQ3VYT3hJ8VSFnP4hCmpUBQbV7RlvfTTbDZh_t8xOiNHNwjJotTQ3PLzoNyaqaUdVzsBKyPZu2Gnz-QgXwIMR8mD0E1hPwl2Y3fzvW4HX_BJsbbMXlSJOFvyi3Igs6PteVt187Z3g6A9m7PROfd0orOhxcerXClnDAD_lVcncMhplKGCSkxFtecZgX6vcvvDSmaFD2z3xI9wImnqxuCQd0vMfaV0yvrx3mNp-FXefQ"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm leading-tight">Jean-Pierre Koulango</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant">ID: EMP-2023-8842</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase mt-1">Full-Time Staff</span>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/30 grid grid-cols-2 gap-4">
+<div>
+<p class="font-label-caps text-[10px] text-outline mb-1 uppercase">Department</p>
+<p class="font-body-md text-body-md font-semibold">Logistics &amp; Supply</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-outline mb-1 uppercase">Role</p>
+<p class="font-body-md text-body-md font-semibold">Senior Fleet Coordinator</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/50">
+<div class="mb-4">
+<p class="font-label-caps text-[10px] text-outline mb-1 uppercase">Pay Period</p>
+<p class="font-body-lg text-body-lg font-bold text-primary">Oct 01 — Oct 15, 2023</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="font-label-caps text-[10px] text-outline mb-1 uppercase">Pay Date</p>
+<p class="font-body-md text-body-md">Oct 20, 2023</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-outline mb-1 uppercase">Bank Account</p>
+<p class="font-body-md text-body-md">**** 4492</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Earnings Table -->
+<div class="mb-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+<h4 class="font-label-caps text-label-caps text-primary font-bold">EARNINGS BREAKDOWN</h4>
+</div>
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<table class="w-full text-left font-body-md text-body-md">
+<thead class="bg-surface-container-high border-b border-outline-variant">
+<tr>
+<th class="px-6 py-3 font-semibold text-on-surface">Description</th>
+<th class="px-6 py-3 font-semibold text-on-surface text-center">Rate/Hours</th>
+<th class="px-6 py-3 font-semibold text-on-surface text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">Base Salary (Regular Hours)</td>
+<td class="px-6 py-4 text-center">80.00 hrs @ $42.50/hr</td>
+<td class="px-6 py-4 text-right font-medium">$3,400.00</td>
+</tr>
+<tr class="bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">Overtime Pay (1.5x)</td>
+<td class="px-6 py-4 text-center">6.50 hrs @ $63.75/hr</td>
+<td class="px-6 py-4 text-right font-medium">$414.38</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">Quarterly Performance Bonus</td>
+<td class="px-6 py-4 text-center">Flat Rate</td>
+<td class="px-6 py-4 text-right font-medium">$500.00</td>
+</tr>
+<tr class="bg-primary/5">
+<td class="px-6 py-4 text-right font-bold text-primary" colspan="2">GROSS PAY</td>
+<td class="px-6 py-4 text-right font-bold text-primary">$4,314.38</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Deductions & Taxes -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+<!-- Statutory Deductions -->
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-error">gavel</span>
+<h4 class="font-label-caps text-label-caps text-error font-bold">STATUTORY DEDUCTIONS</h4>
+</div>
+<ul class="space-y-3 font-body-md text-body-md">
+<li class="flex justify-between border-b border-outline-variant/20 pb-2">
+<span class="text-on-surface-variant">Federal Income Tax</span>
+<span class="font-medium">($647.16)</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-2">
+<span class="text-on-surface-variant">Social Security</span>
+<span class="font-medium">($267.49)</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-2">
+<span class="text-on-surface-variant">Medicare Tax</span>
+<span class="font-medium">($62.56)</span>
+</li>
+</ul>
+</div>
+<!-- Voluntary Deductions -->
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<h4 class="font-label-caps text-label-caps text-secondary font-bold">BENEFITS &amp; OTHERS</h4>
+</div>
+<ul class="space-y-3 font-body-md text-body-md">
+<li class="flex justify-between border-b border-outline-variant/20 pb-2">
+<span class="text-on-surface-variant">Health Insurance Premium</span>
+<span class="font-medium">($120.00)</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-2">
+<span class="text-on-surface-variant">401(k) Contribution</span>
+<span class="font-medium">($172.58)</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-2">
+<span class="text-on-surface-variant">Parking Fees</span>
+<span class="font-medium">($25.00)</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Total Net Pay Summary -->
+<div class="bg-primary text-on-primary rounded-xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-primary/20">
+<div class="text-center md:text-left">
+<p class="font-label-caps text-[12px] opacity-80 uppercase tracking-widest mb-1">Total Net Pay Amount</p>
+<h2 class="font-display-lg text-display-lg leading-none tracking-tighter">$3,019.59</h2>
+<p class="font-body-md text-body-md mt-2 opacity-90">Distributed via Direct Deposit</p>
+</div>
+<div class="h-12 w-px bg-on-primary/20 hidden md:block"></div>
+<div class="text-center md:text-right">
+<p class="font-label-caps text-[12px] opacity-80 uppercase tracking-widest mb-1">Year-to-Date Net</p>
+<p class="font-headline-sm text-headline-sm">$64,210.84</p>
+<div class="flex items-center gap-1 mt-1 justify-center md:justify-end">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="text-[10px] font-bold uppercase">Audit Verified</span>
+</div>
+</div>
+</div>
+<!-- Footer Fine Print -->
+<div class="mt-12 pt-8 border-t border-outline-variant border-dashed">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-[11px] font-body-md text-outline">
+<p>This is a computer-generated statement of earnings. It serves as an official record of income and deductions for the period specified. For any discrepancies or inquiries regarding tax calculations, please contact the Finance Department at <b>hr-finance@company.com</b> within 48 hours of pay date.</p>
+<div class="flex flex-col md:items-end gap-2">
+<p class="font-bold text-on-surface-variant uppercase">Payroll Authorization Code</p>
+<p class="font-label-caps bg-surface-container-high px-2 py-1 rounded">AUTH-PX-992-KOU-2023OCT15</p>
+<p>© 2023 Global Logistics Solutions Inc.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-1 active:bg-surface-container-highest transition-transform scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-status-label text-status-label">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-status-label text-status-label">Payslips</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-1 active:bg-surface-container-highest transition-transform scale-95" href="#">
+<span class="material-symbols-outlined">receipt</span>
+<span class="font-status-label text-status-label">Billing</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-1 active:bg-surface-container-highest transition-transform scale-95" href="#">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-status-label text-status-label">More</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for hover effects on data rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.cursor = 'pointer';
+            });
+        });
+
+        // Toggle mobile drawer placeholder logic
+        const menuBtn = document.querySelector('button.lg\\:hidden');
+        if(menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                alert('Navigation menu would expand here in a full application.');
+            });
+        }
+    </script>
+</body></html>

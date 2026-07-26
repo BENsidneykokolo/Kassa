@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Candidate Management | Recruitment Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "surface-dim": "#d8dadc",
+                    "surface-variant": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-fixed": "#271901",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-primary-container": "#7c839b",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#07006c",
+                    "surface-tint": "#565e74",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6063ee",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-tertiary-container": "#98805d",
+                    "error-container": "#ffdad6",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary": "#4648d4",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary-container": "#271901",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "inverse-surface": "#2d3133",
+                    "primary": "#000000",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary-fixed": "#fcdeb5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "pipeline-column-width": "280px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .quiet-input { border: none; border-bottom: 1px solid #76777d; background: transparent; }
+        .quiet-input:focus { outline: none; border-bottom: 1px solid #4648d4; }
+        .row-hover:hover { background-color: #f2f4f6; transition: background-color 0.2s; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed-variant overflow-hidden">
+<!-- Desktop Navigation Drawer (SideNav) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-pipeline-column-width bg-surface-container-low dark:bg-surface-container-lowest flex-col py-6 px-4 z-40">
+<div class="mb-10 px-2">
+<span class="font-label-caps text-label-caps text-primary tracking-widest">TALENT MANAGEMENT</span>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="font-body-md text-body-md">Job Openings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-full transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Candidates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="font-body-md text-body-md">Interviews</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md text-body-md">Recruitment Analytics</span>
+</a>
+</nav>
+</aside>
+<div class="md:ml-pipeline-column-width flex flex-col h-screen">
+<!-- TopAppBar -->
+<header class="w-full top-0 h-16 flex justify-between items-center px-margin-desktop bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline z-30">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate hotel administrator in a sharp navy blue suit, standing in a bright, modern lobby with floor-to-ceiling glass windows and minimalist furniture. The lighting is clean and soft, emphasizing a high-end corporate aesthetic with a palette of whites, cool grays, and deep blues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjEfp4lb3eJj14oDZh6zHOCyUAy_jRXPrWRlA6d9V7GEQYPjPXl9avG_0C2nvfmqJDJW7i-ajgYgnGo2TibHWBT0LAhgICgmLb29Di1u4tK9wg5GvbXlfugFFvWpIU5Aa8skJqKz3Oqh1ZCKbeS3UGgV0uYf7fd2a1FuFx-dmGiV4dlLePRR3-vgmT--qiBRrbmytTZwqN0c6JNVIJS-WG0IQUKPuwS8DjILqfmMQUgstJ9N3vBUA5SA"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Recruitment Portal</h1>
+</div>
+<div class="flex items-center gap-gutter">
+<button class="bg-secondary text-on-secondary px-6 py-2 rounded-full font-body-md font-semibold hover:bg-secondary-fixed-dim active:scale-95 transition-all duration-100 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Post Job
+                </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-hidden p-6 md:p-margin-desktop flex flex-col gap-6">
+<!-- Filter & Search Bar Section -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 relative">
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="quiet-input w-full pl-8 py-2 font-body-md" placeholder="Search by name, email or job title..." type="text"/>
+</div>
+<div class="md:col-span-7 flex flex-wrap items-center justify-end gap-4">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-on-surface-variant">SORT BY:</span>
+<select class="quiet-input font-body-md cursor-pointer">
+<option>Application Date</option>
+<option>Candidate Name</option>
+<option>Rating</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-on-surface-variant">POSITION:</span>
+<select class="quiet-input font-body-md cursor-pointer">
+<option>All Positions</option>
+<option>Senior UX Designer</option>
+<option>Frontend Developer</option>
+<option>Hotel Manager</option>
+</select>
+</div>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+<span class="font-body-md">Filters</span>
+</button>
+</div>
+</div>
+<!-- Bento-style Candidate List -->
+<div class="flex-1 bg-white border border-outline-variant overflow-hidden flex flex-col">
+<!-- Header -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-outline-variant bg-surface-container-low text-on-surface-variant font-label-caps uppercase tracking-wider">
+<div class="col-span-5 md:col-span-4">Candidate</div>
+<div class="hidden md:block col-span-3">Applied Position</div>
+<div class="hidden md:block col-span-2">Date Applied</div>
+<div class="col-span-7 md:col-span-3">Pipeline Stage</div>
+</div>
+<!-- Rows Container -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 items-center row-hover border-b border-outline-variant/30">
+<div class="col-span-5 md:col-span-4 flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional studio portrait of a female software engineer, wearing a minimalist gray silk blouse, set against a solid off-white background. The lighting is flat and modern, creating a professional, data-centric corporate look. The color scheme is neutral and calm, emphasizing a minimalist and reliable visual tone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJDtoKLncqNznfk7CaVE6RYqzHZhXE9p1uGySIahr4yn750k9PFayIxx_QUDDkm4OMquKq0B48w1Oz6mDjFhlY-I9w-qIjXw0iaDZ6jh5Et-8mx0fNvotPteX6TKP91pyfAGK-nJ_xOoy95hwCmBWs-y-oZUtNYS2qai0EyMzGPI7fdnjzrHkvtwMqyd37Wrdl-TyGMQI4R-w4s2HkRhH94rXydWysA9Qj_UoGk4XmxtOWsImFvTQa1g"/>
+<div>
+<div class="font-body-md font-bold text-on-surface">Alex Rivera</div>
+<div class="text-body-sm text-on-surface-variant">arivera@design.co</div>
+</div>
+</div>
+<div class="hidden md:block col-span-3">
+<div class="font-body-md">Senior UX Designer</div>
+<div class="text-body-sm text-on-surface-variant">Product Design Team</div>
+</div>
+<div class="hidden md:block col-span-2 text-on-surface-variant font-body-md">Oct 24, 2023</div>
+<div class="col-span-7 md:col-span-3 flex justify-between items-center">
+<span class="px-3 py-1 bg-secondary-container/10 text-secondary font-label-caps rounded-full border border-secondary/20">Technical Test</span>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 items-center row-hover border-b border-outline-variant/30">
+<div class="col-span-5 md:col-span-4 flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A medium shot of a male executive recruiter, wearing a tailored navy blazer and a white shirt, looking directly into the camera with a confident and professional expression. The background is a blurred office setting with cool, natural lighting. The visual style is modern corporate, focusing on authority, reliability, and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-OamQ3SAdSjsCPzY3O_2wDicMPxmILGZlqotpANneKcFKJRW7RUnzyACJGiQRvX1jR_JfXbPm8v_KQ7l2v4EFasHwfhc2V0yTHZ9xlgh868CpatPruZma2G-3XniR4Xn6XTuB8HnsCjzyieHZEest9ZG6hAhraVI92UvE3AH0ABUL99r4NxMhLJVLaFt-mZs0CHIxMIxpBBEJYTCVtMxUocPJFAm3R_cdvmCLFwKQiDcW7M-rTCWFw"/>
+<div>
+<div class="font-body-md font-bold text-on-surface">Jordan Smith</div>
+<div class="text-body-sm text-on-surface-variant">j.smith@talent.io</div>
+</div>
+</div>
+<div class="hidden md:block col-span-3">
+<div class="font-body-md">Hotel Operations Lead</div>
+<div class="text-body-sm text-on-surface-variant">Management</div>
+</div>
+<div class="hidden md:block col-span-2 text-on-surface-variant font-body-md">Oct 22, 2023</div>
+<div class="col-span-7 md:col-span-3 flex justify-between items-center">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant font-label-caps rounded-full border border-outline-variant">Screening</span>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 items-center row-hover border-b border-outline-variant/30">
+<div class="col-span-5 md:col-span-4 flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a male data scientist in a clean white laboratory environment. He is wearing professional attire, and the background features glowing screens with data visualizations in a palette of indigo and cool grays. The mood is highly analytical, authoritative, and focuses on high-density information processing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFxfJnFWI1d0wtgUmQFEX4rct2iCt9PJlOwfKQi6G4akWf_iCvO7qTcr8RdqouRVLy2IRiEs0V7eEqOBDLgpxzbDggWYdyAhCdcq8v2XWxCs60gwHvZfJoz3lZoum0uSfUciJd_BT2yJddPA7U7oGUpKTHL8s98ilDqMwx-eWc_GZ-YZFWc1MxJK-DWOIfUHqyJ_M9tB82isDNetddBCYTUH7Ce42y4bogxWwNSzepUW_kq_BzKdCLhw"/>
+<div>
+<div class="font-body-md font-bold text-on-surface">David Chen</div>
+<div class="text-body-sm text-on-surface-variant">david.chen@data.me</div>
+</div>
+</div>
+<div class="hidden md:block col-span-3">
+<div class="font-body-md">Data Analyst</div>
+<div class="text-body-sm text-on-surface-variant">Business Intelligence</div>
+</div>
+<div class="hidden md:block col-span-2 text-on-surface-variant font-body-md">Oct 20, 2023</div>
+<div class="col-span-7 md:col-span-3 flex justify-between items-center">
+<span class="px-3 py-1 bg-primary text-on-primary font-label-caps rounded-full">Interview</span>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 items-center row-hover border-b border-outline-variant/30">
+<div class="col-span-5 md:col-span-4 flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A profile photograph of a young woman with a creative professional aesthetic. She is wearing a black turtleneck and has a focused, calm expression. The lighting is dramatic but clean, highlighting her face against a soft gray background. The overall style is minimalist, sophisticated, and aligns with modern design industry standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABLTjg28FhUZMEIxLy9poRk29ZOFyk8_4ELljdXA8V09r5UWwCG4YFUfCCapLDvbOqrlV_hPf91oSgYcXjJ4jMoXetDz5GM5OPyVZtvw-5dDoxnN7fVrXxZCY4HV_xUV6nVQxSdHxehuMmGV2x4i9RHTFhPDYwKxQZe2qnQGBw8h8h0x8h-9tg-_Vykc_kG5FAm0sCh6zSxA78gXnR6K2gEw1FYrkjqSX1vs1VnaUJEkS4QbTnqE6zzw"/>
+<div>
+<div class="font-body-md font-bold text-on-surface">Sarah Connor</div>
+<div class="text-body-sm text-on-surface-variant">sarah.c@tech.com</div>
+</div>
+</div>
+<div class="hidden md:block col-span-3">
+<div class="font-body-md">Frontend Developer</div>
+<div class="text-body-sm text-on-surface-variant">Engineering</div>
+</div>
+<div class="hidden md:block col-span-2 text-on-surface-variant font-body-md">Oct 19, 2023</div>
+<div class="col-span-7 md:col-span-3 flex justify-between items-center">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-caps rounded-full border border-tertiary-fixed-dim">Final Review</span>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 items-center row-hover border-b border-outline-variant/30">
+<div class="col-span-5 md:col-span-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-on-surface-variant border border-outline-variant">MK</div>
+<div>
+<div class="font-body-md font-bold text-on-surface">Maya Kaur</div>
+<div class="text-body-sm text-on-surface-variant">maya.k@hiring.co</div>
+</div>
+</div>
+<div class="hidden md:block col-span-3">
+<div class="font-body-md">HR Business Partner</div>
+<div class="text-body-sm text-on-surface-variant">Human Resources</div>
+</div>
+<div class="hidden md:block col-span-2 text-on-surface-variant font-body-md">Oct 18, 2023</div>
+<div class="col-span-7 md:col-span-3 flex justify-between items-center">
+<span class="px-3 py-1 bg-secondary-container/10 text-secondary font-label-caps rounded-full border border-secondary/20">Technical Test</span>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+</div>
+<!-- Pagination / Footer info -->
+<div class="px-6 py-4 bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<div class="text-body-sm text-on-surface-variant">Showing 1-10 of 156 candidates</div>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors"><span class="material-symbols-outlined text-body-md" data-icon="chevron_left">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant bg-white text-primary font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors">3</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-white transition-colors"><span class="material-symbols-outlined text-body-md" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface dark:bg-inverse-surface px-2 border-t border-outline-variant dark:border-outline">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-caps text-label-caps">Jobs</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="font-label-caps text-label-caps">Talent</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-caps text-label-caps">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-caps text-label-caps">Stats</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for rows
+        document.querySelectorAll('.row-hover').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if (e.target.closest('button') || e.target.closest('select')) return;
+                row.classList.toggle('bg-secondary-fixed/30');
+                setTimeout(() => row.classList.remove('bg-secondary-fixed/30'), 200);
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('.quiet-input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.previousElementSibling.classList.add('text-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.previousElementSibling.classList.remove('text-primary');
+        });
+    </script>
+</body></html>

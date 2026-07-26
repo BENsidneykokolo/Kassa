@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Equipment Request Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9ff",
+                    "on-surface-variant": "#434655",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed": "#25005a",
+                    "on-tertiary-fixed": "#002113",
+                    "background": "#f8f9ff",
+                    "primary": "#004ac6",
+                    "surface-tint": "#0053db",
+                    "outline": "#737686",
+                    "tertiary-container": "#007d55",
+                    "primary-container": "#2563eb",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#5a00c6",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container-high": "#dce9ff",
+                    "tertiary": "#006242",
+                    "secondary-fixed": "#eaddff",
+                    "surface-variant": "#d3e4fe",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary-fixed": "#00174b",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-primary-container": "#eeefff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#bdffdb",
+                    "inverse-primary": "#b4c5ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary-fixed": "#dbe1ff",
+                    "secondary-container": "#8a4cfc",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fffbff",
+                    "on-error": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "secondary": "#712ae2",
+                    "outline-variant": "#c3c6d7",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "inverse-surface": "#213145",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container": "#e5eeff",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-sm": "12px",
+                    "base": "8px",
+                    "stack-lg": "48px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-sm": ["JetBrains Mono"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Manrope"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Manrope"],
+                    "display-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md">
+<!-- Top Navigation Anchor -->
+<header class="bg-surface-container-lowest w-full top-0 sticky border-b border-outline-variant z-50">
+<div class="flex items-center justify-between px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-70">arrow_back</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Employee Onboarding</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6">
+<a class="text-primary font-bold transition-colors" href="#">Tasks</a>
+<a class="text-on-surface-variant hover:bg-surface-container transition-colors px-3 py-1 rounded-full" href="#">Documents</a>
+<a class="text-on-surface-variant hover:bg-surface-container transition-colors px-3 py-1 rounded-full" href="#">Training</a>
+</nav>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:opacity-70">help_outline</span>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex flex-col w-80 bg-surface-container-low border-r border-outline-variant py-stack-md shrink-0">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-dim">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a smiling young corporate employee in a bright, modern office setting. The lighting is soft and natural, reflecting a clean and welcoming onboarding atmosphere. The color palette consists of soft blues and whites consistent with a professional staff ecosystem." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuOYOECWHo8hLiYkyMYylySKWVxuhsWsO3DmqLvHrqrwVEzZLxQDMW2ED_ept5bVKbvr9Sfbp60dzSjPnHOBLkFptVPjQM1vJHiyTfI65xvjVZFgDEOb3y7txGjyN3vvEk7IMJt_3m6mTM5ag7B5smQ6M21zGRMJnNHNyVcjtCWekzHhBN1BiBdYvXJ-vj92FLv3mL5rDk0wir-FRfgTEl5jSqp5JppQKMbU1mu2X3avhRTk_cc1x9uQ"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md font-bold text-primary">Welcome, Colleague</p>
+<p class="text-body-sm text-on-surface-variant">Onboarding Progress: 45%</p>
+</div>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-6 py-3 bg-primary-container text-on-primary-container rounded-full mx-2 font-bold transition-all scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+<span class="font-body-md">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-body-md">Training</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-body-md">Orientation</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 px-margin-mobile md:px-margin-desktop py-stack-md overflow-hidden">
+<header class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Equipment Request Portal</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Select the necessary gear for your role. New equipment requests are processed within 3-5 business days.</p>
+</header>
+<!-- Grid Layout for Items -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter mb-stack-lg">
+<!-- Equipment Card: Uniform -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-sm transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-quality professional corporate polo shirt in navy blue, neatly folded on a minimalist white surface. The studio lighting is bright and clean, emphasizing fabric texture and professional branding. The aesthetic is corporate and modern, fitting for a staff equipment portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuogoIooSaa25nooN4uz7agW3c3v9DZ787YYPaq1amDCSRGdTFdi3NyOjM60x0mK3wDY7S7fPQ9QPWJTK22D0MmVVXLmHMpr4frQf-9tVLDx3k7Ed8A1jwhmo8rI2nuzWOTEbZDqGUQnzWBHcD_9xd7SAu8vL9QNgW5dfiqjmMpZU-nZUXQ6_75gDXl0UdyxS1FVb4LFv0jRxCVeTROAAraRY9ox7IKKx1ubixvVmC3R-zGQD1I1d4Mg"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Standard Staff Polo</h3>
+<p class="text-body-sm text-on-surface-variant">Navy Blue, Breathable Fabric</p>
+</div>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full">Uniform</span>
+</div>
+<div class="flex gap-4 items-end mt-4">
+<div class="flex-1">
+<label class="block text-label-sm mb-1 text-on-surface-variant">Size</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
+<option>Small</option>
+<option selected="">Medium</option>
+<option>Large</option>
+<option>XL</option>
+</select>
+</div>
+<div class="w-24">
+<label class="block text-label-sm mb-1 text-on-surface-variant">Qty</label>
+<div class="flex items-center bg-surface border border-outline-variant rounded-lg">
+<button class="p-2 text-primary hover:bg-surface-container-high rounded-l-lg transition-colors">−</button>
+<input class="w-full text-center bg-transparent border-none focus:ring-0 text-body-md p-2" type="text" value="3"/>
+<button class="p-2 text-primary hover:bg-surface-container-high rounded-r-lg transition-colors">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Equipment Card: IT -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-sm transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, silver high-end workstation laptop placed on a clean wooden desk in a bright, airy office space. Minimalist design with soft bokeh background showing a modern workspace. Professional corporate lighting with cool blue accents to match the portal design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxLf_R1UHTg4XIjSJ48VSCmWPzmZ578DcvIEAfYgC-c7LO8TFYJZ-DSJrRiduVuzzxZdKY_vKER2AfUF1lZcT5PhL9dLswkm4OdNvOH0uGlZsym_9Z156UEoLb8-dJtX-ZaYDZ8dmh3NisHXEdf9KgVmLgLQu-3O5ecNhxQjoroT5KxfzxjdO3zJ6ScUjxD_RI2_rVsSPdj1KTxiSQ2jbR4k5v_sydpMYEsQ0wFcMbTgbJFm-wQR9hzw"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Workstation Laptop</h3>
+<p class="text-body-sm text-on-surface-variant">16" Display, 32GB RAM</p>
+</div>
+<span class="px-3 py-1 bg-secondary-container/10 text-secondary text-label-sm font-label-sm rounded-full">IT Gear</span>
+</div>
+<div class="flex gap-4 items-end mt-4">
+<div class="flex-1">
+<label class="block text-label-sm mb-1 text-on-surface-variant">OS Preference</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
+<option>Windows 11 Pro</option>
+<option>macOS Ventura</option>
+<option>Ubuntu LTS</option>
+</select>
+</div>
+<div class="w-24">
+<label class="block text-label-sm mb-1 text-on-surface-variant">Qty</label>
+<div class="flex items-center bg-surface border border-outline-variant rounded-lg opacity-50">
+<button class="p-2 text-on-surface-variant cursor-not-allowed" disabled="">−</button>
+<input class="w-full text-center bg-transparent border-none focus:ring-0 text-body-md p-2 cursor-default" readonly="" type="text" value="1"/>
+<button class="p-2 text-on-surface-variant cursor-not-allowed" disabled="">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Equipment Card: Safety -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-sm transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Professional noise-canceling industrial safety headphones in matte gray and yellow, positioned on a clean white laboratory-style surface. The lighting is sharp and technical, emphasizing durability and safety standards. Clean corporate aesthetic for employee PPE requests." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGMtB6tm5xWqs-IdN8zf2vvcLCGF5TfUVekqYIUUoFvM8NTcAI4rciCNOQ5xCkGxmz7hjtdnWNEPNWFo5ANbIeFbLU8ym-3D1qUxwrN4pwIqB27x5gbTOqCw49-ETavOI-4HKrNclOjLSjXiwOGeomXCX-GRgH-AnjLLVAENTCYmZCQvR9zndTKJ34e5rb18VT9w4sX4JKZAAIe1W3rLvll9cedIlAqaXT1YPIi49HBlYpFBx5oloqVQ"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Noise Cancellation Pro</h3>
+<p class="text-body-sm text-on-surface-variant">Industrial Grade Protection</p>
+</div>
+<span class="px-3 py-1 bg-tertiary-container/10 text-tertiary text-label-sm font-label-sm rounded-full">Safety</span>
+</div>
+<div class="flex gap-4 items-end mt-4">
+<div class="flex-1">
+<label class="block text-label-sm mb-1 text-on-surface-variant">Type</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
+<option>Over-Ear</option>
+<option>In-Ear Inserts</option>
+</select>
+</div>
+<div class="w-24">
+<label class="block text-label-sm mb-1 text-on-surface-variant">Qty</label>
+<div class="flex items-center bg-surface border border-outline-variant rounded-lg">
+<button class="p-2 text-primary hover:bg-surface-container-high rounded-l-lg transition-colors">−</button>
+<input class="w-full text-center bg-transparent border-none focus:ring-0 text-body-md p-2" type="text" value="1"/>
+<button class="p-2 text-primary hover:bg-surface-container-high rounded-r-lg transition-colors">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Section -->
+<div class="flex flex-col md:flex-row items-center justify-between p-gutter bg-primary/5 border border-primary/20 rounded-xl mb-stack-lg">
+<div class="mb-4 md:mb-0">
+<h4 class="font-headline-md text-body-lg font-bold text-primary">Summary of Request</h4>
+<p class="text-body-sm text-on-surface-variant">3 Items selected for your current department: Engineering.</p>
+</div>
+<button class="bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container active:scale-95 transition-all flex items-center gap-2 shadow-md shadow-primary/20">
+                    Request Equipment
+                    <span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Order History Section -->
+<section class="mt-stack-lg">
+<div class="flex items-center justify-between mb-stack-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface">Order History</h3>
+<button class="text-primary font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+                        View All <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="overflow-x-auto hide-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase">Order ID</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase">Item</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase">Date</th>
+<th class="px-6 py-4 text-label-sm text-on-surface-variant uppercase text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#ORD-8921</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">badge</span>
+</div>
+<span class="text-body-md font-medium">Access Security Badge</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">Oct 12, 2023</td>
+<td class="px-6 py-4 text-right">
+<span class="px-3 py-1 bg-tertiary-container/10 text-tertiary text-label-sm font-label-sm rounded-full">Verified</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#ORD-7740</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">chair</span>
+</div>
+<span class="text-body-md font-medium">Ergonomic Office Chair</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">Oct 10, 2023</td>
+<td class="px-6 py-4 text-right">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-label-sm font-label-sm rounded-full">Pending</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#ORD-6621</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">desktop_windows</span>
+</div>
+<span class="text-body-md font-medium">Dual 27" Monitors</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">Oct 05, 2023</td>
+<td class="px-6 py-4 text-right">
+<span class="px-3 py-1 bg-tertiary-container/10 text-tertiary text-label-sm font-label-sm rounded-full">Verified</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Right Side Context Panel (1/3 focus layout) -->
+<aside class="hidden xl:flex flex-col w-96 p-stack-md shrink-0 border-l border-outline-variant bg-surface">
+<div class="bg-surface-container-high rounded-xl p-6 mb-6">
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">info</span>
+                    Need Assistance?
+                </h4>
+<div class="space-y-4">
+<div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant">
+<p class="text-label-sm font-bold text-primary mb-1 uppercase">Policy Update</p>
+<p class="text-body-sm text-on-surface-variant">All hardware requests now require manager approval via the portal before procurement.</p>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant">
+<p class="text-label-sm font-bold text-primary mb-1 uppercase">Sizing Guide</p>
+<p class="text-body-sm text-on-surface-variant">Standard polos run slightly large. We recommend ordering one size down for a slim fit.</p>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border border-primary text-primary rounded-full font-bold hover:bg-primary/5 transition-colors">
+                    Contact IT Support
+                </button>
+</div>
+<!-- FAQ/Quick Info -->
+<div class="px-2">
+<h5 class="text-label-md font-label-md text-on-surface mb-3">Frequently Asked</h5>
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary mt-0.5">help</span>
+<span class="text-body-sm text-on-surface-variant">Can I return equipment if it doesn't fit?</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary mt-0.5">help</span>
+<span class="text-body-sm text-on-surface-variant">How often can I request new uniforms?</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary mt-0.5">help</span>
+<span class="text-body-sm text-on-surface-variant">What IT peripherals are available?</span>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+<!-- Mobile Navigation Shell (Responsive Pivot) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container border-t-0 shadow-lg flex items-center justify-around py-3 px-6 z-50">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+<span class="text-label-sm font-label-sm">Tasks</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-sm font-label-sm">Docs</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">school</span>
+<span class="text-label-sm font-label-sm">Train</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-label-sm font-label-sm">Explore</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction for quantity selectors
+        document.querySelectorAll('.flex.items-center.bg-surface.border').forEach(container => {
+            const minusBtn = container.querySelector('button:first-child');
+            const plusBtn = container.querySelector('button:last-child');
+            const input = container.querySelector('input');
+
+            if (minusBtn && plusBtn && input) {
+                minusBtn.addEventListener('click', () => {
+                    let val = parseInt(input.value);
+                    if (val > 1) input.value = val - 1;
+                });
+                plusBtn.addEventListener('click', () => {
+                    let val = parseInt(input.value);
+                    input.value = val + 1;
+                });
+            }
+        });
+    </script>
+</body></html>

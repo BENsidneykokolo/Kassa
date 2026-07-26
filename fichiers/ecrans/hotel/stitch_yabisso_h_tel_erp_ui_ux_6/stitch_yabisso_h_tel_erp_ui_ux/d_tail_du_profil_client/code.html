@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guest Profile - Guest Relations CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Hanken+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#001e2f",
+                    "surface-container": "#eceef0",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#565e74",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "on-secondary-container": "#57657b",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "on-tertiary-fixed": "#001e2f",
+                    "error": "#ba1a1a",
+                    "on-background": "#191c1e",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "on-primary-container": "#7c839b",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "secondary-fixed": "#d5e3fd",
+                    "secondary": "#515f74",
+                    "on-surface-variant": "#45464d",
+                    "primary": "#000000",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-container": "#d5e3fd",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-container": "#008cc7",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#bec6e0",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-xs": "4px",
+                    "sidebar-width": "280px",
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "section-gap": "32px",
+                    "container-padding": "24px",
+                    "unit": "4px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-sm": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Navigation Drawer (Shared Component) -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surface border-r border-outline-variant flex flex-col h-full py-container-padding z-50">
+<div class="px-gutter mb-section-gap">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Yabisso CRM</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-stack-md text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">Guest Directory</span>
+</a>
+<a class="flex items-center gap-stack-md bg-secondary-container text-on-secondary-container rounded-lg px-gutter py-stack-md" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-body-md">Guest Profiles</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-body-md">Loyalty Program</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md">Feedback & Sentiment</span>
+</a>
+</nav>
+<div class="mt-auto px-gutter pt-section-gap border-t border-outline-variant">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                    AD
+                </div>
+<div>
+<p class="font-body-md font-bold">CRM Administrator</p>
+<p class="font-label-sm text-outline">Admin Level 4</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface sticky top-0 flex justify-between items-center w-full px-container-padding h-16 z-40 border-b border-outline-variant">
+<div class="flex items-center gap-stack-md">
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Guest Profile</h2>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative">
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<button class="bg-primary text-on-primary px-gutter py-2 rounded-lg font-body-md flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                    Edit Profile
+                </button>
+</div>
+</header>
+<div class="p-container-padding">
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Guest Identity Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-xl flex flex-col md:flex-row gap-stack-lg items-center md:items-start">
+<div class="relative">
+<div class="w-32 h-32 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a sophisticated gentleman in his early 50s, wearing a bespoke charcoal suit. He is posed in a high-end hotel lobby with soft, warm architectural lighting. The style is cinematic, corporate photography, with a clean and authoritative atmosphere that fits a luxury hospitality CRM interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoh7C_qJ66ZAsnW0Rgt9gWDKPDgCgFNuZswnEVUOSWFMzWGQpiI0PYJz4tmrpJJ2t_OWcb3-kmUE4sk-jTRjJQNucn0mbT0Bgk2HYCaKnuwFKbps8Ipwzbfr0Jhu7MAxBqimvp3OqSplf9kwNO0yfy6eW_xx-ii3SOLC5avmjX-0SuSCwgt0DjIXFvj7ZQOJmjVP8ibdT5TBvU9gS56ZrGCbjhilvv0OHgeVtJr4Yry8e64LRya9npQA"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-[#E5E4E2] text-primary px-3 py-1 rounded-full border-2 border-white shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-md font-bold">PLATINUM</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-stack-md">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary">Alexander Van der Berg</h1>
+<p class="font-body-lg text-on-surface-variant">Global Managing Director at Vertex Acquisitions</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-outline uppercase tracking-wider">Lifetime Value</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">$142,850.00</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md mt-stack-lg">
+<div class="flex flex-col">
+<span class="font-label-sm text-outline">Email Address</span>
+<span class="font-body-md font-medium">a.vanderberg@vertex.com</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-outline">Phone Number</span>
+<span class="font-body-md font-medium">+31 20 555 0192</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-outline">Home Base</span>
+<span class="font-body-md font-medium">Amsterdam, NL</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions / Personalized Offer -->
+<div class="col-span-12 lg:col-span-4 bg-primary-container text-on-primary-fixed p-stack-lg rounded-xl flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline-sm text-headline-sm text-on-primary mb-stack-sm">Targeted Retention</h3>
+<p class="font-body-sm text-on-primary-container opacity-80 mb-stack-lg">Based on guest history, Alexander prefers weekend retreats in Q4. Recommend the Presidential Suite Upgrade.</p>
+<button class="w-full bg-on-primary text-primary-container py-3 rounded-lg font-body-md font-bold flex items-center justify-center gap-2 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">send</span>
+                            Send Personalized Offer
+                        </button>
+</div>
+<!-- Subtle background decoration -->
+<div class="absolute -right-12 -bottom-12 opacity-10">
+<span class="material-symbols-outlined text-[160px]" style="font-variation-settings: 'wght' 200;">campaign</span>
+</div>
+</div>
+<!-- Preferences & Allergies -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-xl">
+<div class="flex items-center gap-2 mb-stack-lg">
+<span class="material-symbols-outlined text-on-surface-variant">tune</span>
+<h3 class="font-headline-sm text-headline-sm">Preferences</h3>
+</div>
+<ul class="space-y-stack-md">
+<li class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">apartment</span>
+<span class="font-body-md">Floor Preference</span>
+</div>
+<span class="font-label-md bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">High Floor</span>
+</li>
+<li class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">hotel</span>
+<span class="font-body-md">Pillow Type</span>
+</div>
+<span class="font-label-md bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">Extra Firm</span>
+</li>
+<li class="flex items-center justify-between p-3 bg-error-container border border-error/20 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<span class="font-body-md text-on-error-container font-medium">Allergy: Nuts</span>
+</div>
+<span class="font-label-sm text-error font-bold uppercase">Critical</span>
+</li>
+<li class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">coffee</span>
+<span class="font-body-md">Morning Service</span>
+</div>
+<span class="font-label-md bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">Double Espresso</span>
+</li>
+</ul>
+</div>
+<!-- Stay History Timeline -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-xl">
+<div class="flex items-center justify-between mb-stack-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+<h3 class="font-headline-sm text-headline-sm">Stay History</h3>
+</div>
+<button class="text-on-tertiary-container font-label-md hover:underline">View All 24 Visits</button>
+</div>
+<div class="relative pl-8 space-y-stack-lg before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[30px] top-1 w-5 h-5 rounded-full bg-primary border-4 border-surface-container-lowest"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-stack-md bg-surface p-4 rounded-lg border border-outline-variant/50">
+<div>
+<h4 class="font-body-md font-bold">The Grand Metropole, London</h4>
+<p class="font-label-sm text-outline">Oct 12 — Oct 18, 2023 • 6 Nights</p>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="text-right">
+<p class="font-label-sm text-outline uppercase">Suite</p>
+<p class="font-body-sm font-medium">Presidential 402</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-outline uppercase">Total</p>
+<p class="font-body-sm font-bold">$12,450</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[30px] top-1 w-5 h-5 rounded-full bg-outline-variant border-4 border-surface-container-lowest"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-stack-md bg-surface p-4 rounded-lg border border-outline-variant/50">
+<div>
+<h4 class="font-body-md font-bold">Azure Bay Resort, Nice</h4>
+<p class="font-label-sm text-outline">Aug 02 — Aug 15, 2023 • 13 Nights</p>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="text-right">
+<p class="font-label-sm text-outline uppercase">Suite</p>
+<p class="font-body-sm font-medium">Beachfront Villa</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-outline uppercase">Total</p>
+<p class="font-body-sm font-bold">$38,200</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative">
+<div class="absolute -left-[30px] top-1 w-5 h-5 rounded-full bg-outline-variant border-4 border-surface-container-lowest"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-stack-md bg-surface p-4 rounded-lg border border-outline-variant/50">
+<div>
+<h4 class="font-body-md font-bold">Summit Lodge, St. Moritz</h4>
+<p class="font-label-sm text-outline">Jan 05 — Jan 12, 2023 • 7 Nights</p>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="text-right">
+<p class="font-label-sm text-outline uppercase">Suite</p>
+<p class="font-body-sm font-medium">Deluxe King</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-outline uppercase">Total</p>
+<p class="font-body-sm font-bold">$9,800</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Admin Notes & Audit Log -->
+<div class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="flex border-b border-outline-variant">
+<button class="px-container-padding py-stack-md font-body-md font-bold border-b-2 border-primary text-primary">Internal Notes</button>
+<button class="px-container-padding py-stack-md font-body-md text-on-surface-variant hover:bg-surface-container transition-colors">Audit Logs</button>
+<button class="px-container-padding py-stack-md font-body-md text-on-surface-variant hover:bg-surface-container transition-colors">Permissions</button>
+</div>
+<div class="p-container-padding">
+<div class="flex gap-stack-lg">
+<div class="flex-1">
+<textarea class="w-full h-24 p-3 bg-surface border border-outline-variant rounded-lg font-body-md focus:ring-2 focus:ring-on-tertiary-container outline-none transition-shadow" placeholder="Add a private note about this guest..."></textarea>
+<div class="flex justify-end mt-stack-sm">
+<button class="bg-secondary text-on-secondary px-gutter py-2 rounded-lg font-label-md">Save Note</button>
+</div>
+</div>
+<div class="hidden md:block w-72 space-y-stack-sm">
+<p class="font-label-sm text-outline uppercase">Recent Activity</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
+<p class="font-body-sm text-on-surface-variant"><span class="font-bold">L. Smith</span> updated preferences</p>
+<span class="font-label-sm text-outline ml-auto">2h ago</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
+<p class="font-body-sm text-on-surface-variant"><span class="font-bold">System</span> tiered up to Platinum</p>
+<span class="font-label-sm text-outline ml-auto">3d ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('nav a').forEach(l => {
+                    l.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'rounded-lg');
+                    l.classList.add('text-on-surface-variant');
+                });
+                this.classList.add('bg-secondary-container', 'text-on-secondary-container', 'rounded-lg');
+                this.classList.remove('text-on-surface-variant');
+            });
+        });
+
+        // Hover effect for table/timeline rows
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.backgroundColor = '#F1F5F9';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.backgroundColor = 'transparent';
+            });
+        });
+    </script>
+</body></html>

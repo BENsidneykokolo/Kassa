@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        /* Custom scrollbar for better UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#6cf8bb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#dae2fd",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#2a1700",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-container": "#00714d",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface-variant": "#45464d",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed-variant": "#005236",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed": "#2a1700",
+                        "background": "#f7f9fb",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffddb8",
+                        "primary-container": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary": "#006c49",
+                        "surface": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-primary-container": "#7c839b",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-bright": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "surface-tint": "#565e74",
+                        "on-tertiary-container": "#b87500",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#002113",
+                        "primary": "#000000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "xl": "32px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top Navigation Anchor -->
+<header class="bg-surface sticky top-0 z-40 w-full shadow-sm flex justify-between items-center px-md h-[64px]">
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="hidden md:block font-label-lg text-on-surface-variant">Admin Terminal</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-end African hotel manager in a sharp charcoal suit. The lighting is soft and cinematic, highlighting a trustworthy and sophisticated expression. The background is a blurred luxury hotel lobby with warm ambient lighting and minimalist architectural details, maintaining the professional Yabisso brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW5ksNH0Kgq193FXzw8ktD-vXdrYV7T9jcYcCEUrrdjB9e8r_6J-NS-rZxhQTs_cmS9WVzu8xfT48hbrmthVYveBv20UGRrJ9qcFxsqhEG9qLY_qpYDUzTYoZmIrYQfTEJWsU-AmqYFPt2EkquHHY0UT5LA9doSQhlEZcr3sSi4PzOJC3Rb1A9YOqe5zkQXeAxfO9k2A5zedILj93NfuIu7UFgHcWRIgZmqH6khBeoH6hxa1cnVE55CA"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-md pt-lg">
+<!-- Dashboard Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
+<div>
+<p class="font-label-lg text-on-surface-variant mb-xs">Restaurant Operations</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">Menu Management</h2>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-lg py-sm rounded-lg font-label-lg shadow-sm active:scale-95 transition-transform" onclick="toggleModal(true)">
+<span class="material-symbols-outlined">add</span>
+                Add New Dish
+            </button>
+</div>
+<!-- Bento Filter Tabs -->
+<div class="flex gap-sm mb-lg overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-lg py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-lg flex items-center gap-2">
+                All Items <span class="bg-on-secondary-container/10 px-2 rounded-full text-xs">24</span>
+</button>
+<button class="px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg hover:bg-surface-variant transition-colors">Entrées</button>
+<button class="px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg hover:bg-surface-variant transition-colors">Plats</button>
+<button class="px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg hover:bg-surface-variant transition-colors">Desserts</button>
+</div>
+<!-- Menu Content: Category Sections -->
+<div class="space-y-xl">
+<!-- Entrées Section -->
+<section>
+<div class="flex items-center gap-md mb-md">
+<h3 class="font-headline-sm text-headline-sm text-primary">Entrées</h3>
+<div class="h-[1px] flex-1 bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Menu Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A gourmet appetizer featuring seared scallops presented on a minimalist ceramic plate. The lighting is high-key and professional, accentuating the vibrant green of a pea purée and the delicate textures of the dish. The background is a clean, modern kitchen setting with soft bokeh, reflecting the sophisticated and premium atmosphere of Yabisso Hôtel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0Wn9DjEIGa5oxVZLiGvkQRBEpTnhrvuof9iWi8sO1mXeIX5zj1gbfYpt1dljViv4md9f68J10fBlvVdcE2_hTwocA5mOyQhzNx7JtZ9nr7zR0Uu3xNf4kWkTAVBlqiL5v1EQrq30vpfMTeFUtlToytA5AufB-qsB42adCM2kL9g6WaoxpEMzFQRD_55Mx9bDyH-sS5lLT6AArL-01cvPx3ps2B6sD_LGoRFFxxSMExj2sNQVzl50dqA"/>
+<div class="absolute top-md right-md bg-surface/90 backdrop-blur px-sm py-1 rounded-full font-label-md text-primary shadow-sm border border-outline-variant/30">
+                                14.50 €
+                            </div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-primary">Seared Scallops</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="font-body-md text-on-surface-variant line-clamp-2">Fresh Atlantic scallops served with a vibrant pea purée and crispy pancetta chips.</p>
+</div>
+</div>
+<!-- Menu Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A refined Caesar Salad with artisanal croutons and thin shavings of aged Parmesan, arranged artfully on a high-end white porcelain plate. The photography is professional and bright, emphasizing fresh textures and sophisticated presentation. Clean, minimalist lighting consistent with a luxury hospitality brand's digital terminal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOh3iRtpgB6xKaG4DXUyenBzwI_jlmZnmHPgTkCmxkRQ768Gd04m1F9jJL02eVHvx57LKo0ILbaYVkR1WwvQl3JNB-KOJ8cxeSeGVMV5WJrOaTVzBfh_yARa_qQDteglh3Yu3pczibRvSd0XhZRwlXQnKFhRIcq_ZzmKKxm7CjVurqFVb0LR35eAadFkD4jfO3LXy7EP-DCIAWrNAk1V29yWYwMKFpM05dNM05sqDmnj62l-zmwlzFpA"/>
+<div class="absolute top-md right-md bg-surface/90 backdrop-blur px-sm py-1 rounded-full font-label-md text-primary shadow-sm border border-outline-variant/30">
+                                12.00 €
+                            </div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-primary">Signature Caesar</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="font-body-md text-on-surface-variant line-clamp-2">Artisan romaine hearts, house-made brioche croutons, and 24-month aged parmesan shavings.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Plats Section -->
+<section>
+<div class="flex items-center gap-md mb-md">
+<h3 class="font-headline-sm text-headline-sm text-primary">Plats</h3>
+<div class="h-[1px] flex-1 bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Menu Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium beef tenderloin steak cooked medium-rare, accompanied by roasted seasonal vegetables and a rich red wine reduction. The dish is presented in a modern, elegant style on dark slate-style stoneware. The lighting is warm yet crisp, highlighting the high-quality textures of the meat in a professional food photography style for a luxury hotel menu." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAugSr5-2s0tBEifxbxYtYJx4fYXibvmR7UQRq8Dg7alddSejvUTTKvyw4j4zYRDAoFTe5YDF-KLjnqMYmQeMQ9mMimztONxg_1MHmlUrDNT9M6bkF1VJ-gwXDJB3FqWD-SkQRoNfQFOYUT3VY6Jr5znKln4B4mF3OWegf-ooqtewnaPp72ONSkyK0itoj9MgBJ43Ea-fItwGDXRRqIPKIHww9xszo1k9jm9NM_6vIYsO2jg6uY4N6FQ"/>
+<div class="absolute top-md right-md bg-surface/90 backdrop-blur px-sm py-1 rounded-full font-label-md text-primary shadow-sm border border-outline-variant/30">
+                                32.00 €
+                            </div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-primary">Black Angus Tenderloin</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="font-body-md text-on-surface-variant line-clamp-2">Prime beef tenderloin served with truffle potato gratin and a Bordelaise reduction.</p>
+</div>
+</div>
+<!-- Menu Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A delicate fillet of wild-caught salmon, pan-seared with golden skin, served over a bed of lemon-infused quinoa and charred asparagus. Professional lighting creates a fresh, healthy, and high-end aesthetic. Minimalist composition with a focus on color harmony and culinary precision for a sophisticated hospitality management interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJsw8IFO2YIikPRTCbKkrlPpASEu8VL4a_Zx7POnvNuhpctgJA7eEslYA5v7u66HBOIMQ7j5WVa0TE6NGkKlcxByQfUnf1IUwMa0uH9BsqCjva9lzIxINXUsqyzXDVwwGadJhC3x2Qwfiwt3EQul4FQ9PDys2GODJc7K1Z9HZmxkCY_TSgpF4JIYFPnRofQucwGbhGkYxG0JaPVJy3sjlY-h0sVYaasCaXRaO4yPE1amuCdk602weFMg"/>
+<div class="absolute top-md right-md bg-surface/90 backdrop-blur px-sm py-1 rounded-full font-label-md text-primary shadow-sm border border-outline-variant/30">
+                                28.50 €
+                            </div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-primary">Wild Salmon Fillet</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="font-body-md text-on-surface-variant line-clamp-2">Sustainable wild salmon, quinoa medley, and seasonal garden greens with citrus vinaigrette.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-[80px] px-sm pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-sm text-label-sm font-bold">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</div>
+</nav>
+<!-- Floating Action Button (Mobile) -->
+<button class="md:hidden fixed bottom-24 right-md w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40" onclick="toggleModal(true)">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- Modal Overlay: Add Dish Form -->
+<div class="fixed inset-0 z-[60] hidden" id="addDishModal">
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-sm" onclick="toggleModal(false)"></div>
+<div class="absolute bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:max-w-xl glass-panel md:rounded-xl border-t md:border border-outline-variant shadow-2xl overflow-hidden animate-slide-up">
+<div class="p-lg">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-primary">Add New Menu Item</h2>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors" onclick="toggleModal(false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Dish Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-2 focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="e.g. Lobster Thermidor" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Category</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-2 focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none">
+<option>Entrées</option>
+<option>Plats</option>
+<option>Desserts</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Price (€)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-2 focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="0.00" step="0.01" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Description</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-2 focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none resize-none" placeholder="Briefly describe the ingredients and preparation..." rows="3"></textarea>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant">Image Upload</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-lg flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary mb-2">upload_file</span>
+<p class="font-label-lg text-on-surface-variant">Click to browse or drag &amp; drop</p>
+<p class="font-label-sm text-on-surface-variant/60">High-resolution JPEG or PNG preferred</p>
+</div>
+</div>
+<div class="pt-lg flex gap-md">
+<button class="flex-1 py-3 font-label-lg text-on-surface-variant border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors" onclick="toggleModal(false)" type="button">
+                            Cancel
+                        </button>
+<button class="flex-1 py-3 font-label-lg bg-primary text-on-primary rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all" type="submit">
+                            Save Dish
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+        function toggleModal(show) {
+            const modal = document.getElementById('addDishModal');
+            if (show) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Add small animation logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.group').forEach(el => {
+            el.classList.add('transform', 'transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(el);
+        });
+    </script>
+<style>
+        @keyframes slide-up {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (min-width: 768px) {
+            .animate-slide-up {
+                animation: none;
+            }
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

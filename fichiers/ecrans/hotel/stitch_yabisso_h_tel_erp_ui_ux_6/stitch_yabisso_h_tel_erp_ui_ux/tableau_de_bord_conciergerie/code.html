@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Concierge Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Manrope:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-tertiary-fixed": "#261900",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-container": "#d0e1fb",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary-container": "#261900",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#515f78",
+                    "inverse-primary": "#b9c7e4",
+                    "on-surface-variant": "#44474d",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "on-background": "#191c1e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "background": "#f7f9fb",
+                    "tertiary": "#000000",
+                    "primary-container": "#0d1c32",
+                    "tertiary-fixed": "#ffdea5",
+                    "inverse-surface": "#2d3133",
+                    "secondary": "#505f76",
+                    "on-tertiary-container": "#a17f3b",
+                    "on-primary-fixed": "#0d1c32",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed": "#d6e3ff",
+                    "on-tertiary-fixed-variant": "#5d4201",
+                    "primary": "#000000",
+                    "surface-container": "#eceef0",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d8dadc",
+                    "surface": "#f7f9fb",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c5c6cd",
+                    "tertiary-fixed-dim": "#e9c176",
+                    "on-secondary-container": "#54647a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-error-container": "#93000a",
+                    "outline": "#75777e",
+                    "on-primary-fixed-variant": "#39475f",
+                    "on-primary-container": "#76849f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "unit": "8px",
+                    "container-max": "1440px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "label-sm": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "headline-lg": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        . VIP-gradient {
+            background: linear-gradient(135deg, #a17f3b 0%, #ffdea5 100%);
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-background border-b border-outline-variant transition-all">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8">
+<nav class="flex gap-6 items-center">
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">DIRECTORY</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">REPORTS</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">SETTINGS</a>
+</nav>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline shadow-sm active:scale-95 transition-transform cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel executive concierge, wearing a sharp charcoal navy suit with a gold lapel pin. The background is a blurred, high-end hotel lobby with warm lighting and marble accents. The composition is clean and centered, reflecting a high-touch, authoritative service professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTAQTN9c4f0X8pCjTdS6xoOVGnc_6TdijGK3AiR_ZUFyxPud61eJ504a2rHpjKK-xgsDk_QcXrOzWRp6NvGtMagojoJzgma8iMR0vKBwmB0wQENTHAes6_Qv-HSvq8bFoDCfWMOnK5mLxH9X4rRhUFp1BBGSt4Ub1KlhKMsslVCZJYOu0jLMjHbbUwynnhgTPni-39ytLGZni6cUOlzr_KEVhirLF03DKD8-xYh34hACGgcp3PhIP3Sw"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Header Section -->
+<section class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-2 uppercase tracking-widest">Digital Concierge Suite</p>
+<h2 class="font-display-lg text-display-lg text-primary">Service Overview</h2>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-DEFAULT font-label-sm text-label-sm flex items-center gap-2 hover:opacity-90 transition-opacity active:scale-95 shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                    NEW SERVICE REQUEST
+                </button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Active Guest Requests (Main Panel) -->
+<div class="md:col-span-8 space-y-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-md text-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">notification_important</span>
+                            Active Requests
+                        </h3>
+<span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full">12 PENDING</span>
+</div>
+<div class="space-y-4">
+<!-- Request Card 1 -->
+<div class="flex items-center justify-between p-4 border-l-4 border-primary bg-surface-bright hover:shadow-md transition-shadow">
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-high p-3 rounded-full">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-primary">Valet: Rolls Royce Cullinan</p>
+<p class="font-body-md text-body-md text-secondary">Suite 402 — Mr. Alexander Vance</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-error mb-1">IMMEDIATE</p>
+<p class="font-label-sm text-label-sm text-outline">Requested 4 mins ago</p>
+</div>
+</div>
+<!-- Request Card 2 -->
+<div class="flex items-center justify-between p-4 border-l-4 border-outline-variant bg-surface-container-lowest hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-high p-3 rounded-full">
+<span class="material-symbols-outlined text-primary">local_laundry_service</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-primary">Express Laundry Pick-up</p>
+<p class="font-body-md text-body-md text-secondary">Suite 1105 — Ms. Elena Rodriguez</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-1">IN PROGRESS</p>
+<p class="font-label-sm text-label-sm text-outline">Scheduled for 14:00</p>
+</div>
+</div>
+<!-- Request Card 3 -->
+<div class="flex items-center justify-between p-4 border-l-4 border-outline-variant bg-surface-container-lowest hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-high p-3 rounded-full">
+<span class="material-symbols-outlined text-primary">confirmation_number</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-primary">Theatre: 'The Inheritance' (Front Row)</p>
+<p class="font-body-md text-body-md text-secondary">Penthouse — The Sterling Party</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-secondary mb-1">QUEUED</p>
+<p class="font-label-sm text-label-sm text-outline">Book by 17:00</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border-t border-outline-variant font-label-sm text-label-sm text-secondary hover:text-primary transition-colors flex justify-center items-center gap-2">
+                        VIEW ALL REQUESTS <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Special Occasions Tracker -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
+<h3 class="font-title-md text-title-md text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">celebration</span>
+                        Special Occasions Today
+                    </h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="p-4 bg-tertiary-fixed rounded-xl flex items-start gap-4">
+<div class="text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-3xl">cake</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-tertiary-fixed">25th Anniversary</p>
+<p class="font-body-md text-body-md text-on-tertiary-fixed-variant">Room 808 — The Grahams</p>
+<div class="mt-2 inline-block px-2 py-1 bg-on-tertiary-fixed text-tertiary-fixed text-[10px] font-bold rounded">CHAMPAGNE PREPPED</div>
+</div>
+</div>
+<div class="p-4 bg-secondary-container rounded-xl flex items-start gap-4">
+<div class="text-on-secondary-container">
+<span class="material-symbols-outlined text-3xl">workspace_premium</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-secondary-container">Retirement Dinner</p>
+<p class="font-body-md text-body-md text-on-secondary-container">Private Room 2 — Dr. Aris Thorne</p>
+<div class="mt-2 inline-block px-2 py-1 bg-on-secondary-container text-secondary-container text-[10px] font-bold rounded">FLORALS ARRIVED</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- VIP Arrival List & Timeline (Sidebar) -->
+<div class="md:col-span-4 space-y-gutter">
+<!-- VIP Arrivals -->
+<div class="bg-primary text-on-primary p-6 rounded-lg shadow-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10 transform translate-x-10 -translate-y-10">
+<span class="material-symbols-outlined text-[120px]">star</span>
+</div>
+<h3 class="font-title-md text-title-md mb-6 relative z-10 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+                        VIP Arrivals
+                    </h3>
+<div class="space-y-6 relative z-10">
+<div class="flex gap-4 items-center border-b border-on-primary/10 pb-4">
+<div class="w-12 h-12 rounded-full border-2 border-on-tertiary-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a high-profile female diplomat in her 50s, elegant and poised, with a background suggestive of a private jet interior. Soft, natural lighting. Luxury aesthetic with subtle golden tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbfw1ZTDl-l7j7cAHn5VlXHJ5xbRN0xxtwspvNklcqSLJc_LuhjZAO-R-_OGk1IqnQCerAVWxTSODjtTvO-iKsRiuxri9Alh39rCJ-UQDui_PLp22AlHIJGNmcXb2nChJWp8wxsHVk7Kz6UdLP-TzlAfJh8-FoojyRkU-MYNofUpJK0GY1PagbQ7x6WQq6GpLj6XnHNR2SiKtmmR8NDngxFGzDqWa8CmlmUxZ3wwvMayXz51qy9tkozg"/>
+</div>
+<div class="flex-1">
+<p class="font-title-md text-title-md">Ambassador Wu</p>
+<p class="font-label-sm text-label-sm opacity-70">ETA: 14:15 — LIMOUSINE 1</p>
+</div>
+<div class="bg-on-tertiary-container text-tertiary-container text-[10px] px-2 py-1 font-bold rounded">PENTHOUSE B</div>
+</div>
+<div class="flex gap-4 items-center border-b border-on-primary/10 pb-4">
+<div class="w-12 h-12 rounded-full border-2 border-on-tertiary-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of a sophisticated technology entrepreneur in his late 30s, casual yet expensive attire, background showing a modern architectural marvel. High-contrast, minimalist lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGoD4FqUNbOJMLXd1i2ClakvKOiBtqL_IwyZEK4HNGYpLLBB9sVGLQksDgqW5Q0eWf-lVJAVxk7VVVqXv4RPCGnIel28AY_bnF2Ewp5mP0i8phhesWisXsjdxsE8kJcADg9G9fhITQjxh-0g3YHNfE1whE_RN6cmJRralU-LT82f3QeQSSr-FTcDvYqiJEAaQ1j-GpB-V_MI5G07uF2jpDUneah7TXtOTMU_6VkbtJ7v0nks1A-wWFtw"/>
+</div>
+<div class="flex-1">
+<p class="font-title-md text-title-md">Julian Rossi</p>
+<p class="font-label-sm text-label-sm opacity-70">ETA: 16:50 — HELIPORT</p>
+</div>
+<div class="bg-on-tertiary-container text-tertiary-container text-[10px] px-2 py-1 font-bold rounded">SUITE 1201</div>
+</div>
+</div>
+<button class="w-full mt-4 text-center font-label-sm text-label-sm hover:underline py-2">MANAGE ALL VIPs</button>
+</div>
+<!-- Reservation Timeline -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
+<h3 class="font-title-md text-title-md text-primary mb-6">Transport Timeline</h3>
+<div class="space-y-4">
+<div class="relative pl-6 border-l border-outline-variant pb-6">
+<div class="absolute -left-[5px] top-1 w-2 h-2 bg-primary rounded-full"></div>
+<p class="font-label-sm text-label-sm text-secondary">14:00</p>
+<p class="font-title-md text-title-md text-primary">Airport Transfer - Departure</p>
+<p class="font-body-md text-body-md text-outline">Mr. & Mrs. Dupont (Lobby)</p>
+</div>
+<div class="relative pl-6 border-l border-outline-variant pb-6">
+<div class="absolute -left-[5px] top-1 w-2 h-2 bg-outline rounded-full"></div>
+<p class="font-label-sm text-label-sm text-secondary">15:30</p>
+<p class="font-title-md text-title-md text-primary">Private Tour - Return</p>
+<p class="font-body-md text-body-md text-outline">Lady Kensington (Valet)</p>
+</div>
+<div class="relative pl-6 border-l border-outline-variant">
+<div class="absolute -left-[5px] top-1 w-2 h-2 bg-outline rounded-full"></div>
+<p class="font-label-sm text-label-sm text-secondary">19:00</p>
+<p class="font-title-md text-title-md text-primary">Dinner Chauffeur - Departure</p>
+<p class="font-body-md text-body-md text-outline">VIP Party (Suite 101)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-unit pb-safe h-20 bg-surface-container-lowest border-t border-outline-variant rounded-t-xl shadow-sm md:hidden">
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-secondary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined">concierge</span>
+<span class="font-label-sm text-label-sm">Concierge</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">CRM</span>
+</a>
+</nav>
+<!-- Floating Action Button (Mobile) -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center md:hidden active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<script>
+        // Subtle interaction: Shadow lift on card hover
+        document.querySelectorAll('.bg-surface-container-lowest, .bg-surface-bright').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = "0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = "";
+            });
+        });
+
+        // Time ticker for dashboard
+        const updateTime = () => {
+            const now = new Date();
+            // Just a placeholder to show activity
+        };
+        setInterval(updateTime, 60000);
+    </script>
+</body></html>

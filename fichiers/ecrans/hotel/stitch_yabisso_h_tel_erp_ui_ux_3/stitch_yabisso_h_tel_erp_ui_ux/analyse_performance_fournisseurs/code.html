@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Supplier Performance Analytics | Yabisso Professional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "on-surface": "#191c1e",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary": "#006c49",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6cf8bb",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#4edea3",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-container": "#131b2e",
+                        "surface": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-container": "#7c839b",
+                        "surface-tint": "#565e74",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#b87500",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#00714d",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary": "#000000",
+                        "outline-variant": "#c6c6cd",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#2a1700",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .bento-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.08);
+            border-radius: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            box-shadow: 0px 4px 6px rgba(15, 23, 42, 0.12);
+        }
+        .chart-bar {
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- Desktop Navigation Drawer -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md z-50 bg-surface-container-low w-80 rounded-r-xl shadow-sm hidden md:flex">
+<div class="mb-xl flex items-center gap-md px-sm">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">apartment</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">Yabisso</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Luxury Hotel Group</p>
+</div>
+</div>
+<nav class="flex-1 space-y-xs">
+<div class="px-sm py-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest opacity-50 mb-xs">Operations</div>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 ease-in-out font-label-lg text-label-lg rounded-lg" href="#">
+<span class="material-symbols-outlined">factory</span>
+<span>Suppliers</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 ease-in-out font-label-lg text-label-lg rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-md p-md bg-secondary-container text-on-secondary-container font-semibold rounded-lg transition-all duration-300 ease-in-out font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Performance</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high transition-all duration-300 ease-in-out font-label-lg text-label-lg rounded-lg" href="#">
+<span class="material-symbols-outlined">contact_phone</span>
+<span>Contacts</span>
+</a>
+</nav>
+<div class="mt-auto p-md bg-surface-container-high rounded-xl flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a senior F&amp;B director in a tailored charcoal suit, set against a blurred luxury hotel kitchen background. The lighting is warm and sophisticated, emphasizing professional leadership and operational excellence in a high-end hospitality environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFSZxdT5t4UWKXeKdmMtAvl9VjdxMJ2T9vrALPiEZSYhjSDGELn6vzhJdKJoogPToCnSQBGvbZm1bgfsAlH1iNWdUEuBYBZPr89_xbCNojJOkN88VOV8rQnxJd15yHGpRyoXOfdzEwQKYpoae_gCKNodJe4OtN0fUJjRpz447mWzhU_Pmr90HtE3QM_tsf4FwclwQ4WxUc69t4833hz-xGGhS5yDV_fxwVNHdS_EIe1cCdIofZzh6-IA"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Executive Chef Profile</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">F&amp;B Operations</p>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-50">v2.4.0</p>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-80 min-h-screen pb-24 md:pb-md">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center h-16 px-md w-full sticky top-0 z-40 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<button class="md:hidden p-sm hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary">Supplier Performance</h2>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center font-bold text-on-primary-fixed">
+                    EC
+                </div>
+</div>
+</header>
+<!-- Content Body -->
+<div class="p-md lg:p-lg space-y-lg max-w-7xl mx-auto">
+<!-- Quick Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="bento-card p-md border-l-4 border-l-secondary">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Avg. Reliability</p>
+<div class="flex items-end gap-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">94.2%</span>
+<span class="text-secondary font-label-md text-label-md flex items-center mb-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> 2.4%
+                        </span>
+</div>
+</div>
+<div class="bento-card p-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Avg. Lead Time</p>
+<div class="flex items-end gap-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">1.8 Days</span>
+<span class="text-error font-label-md text-label-md flex items-center mb-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> 0.3d
+                        </span>
+</div>
+</div>
+<div class="bento-card p-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Active Suppliers</p>
+<div class="flex items-end gap-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">42</span>
+<span class="text-on-surface-variant font-label-md text-label-md mb-1">Total Network</span>
+</div>
+</div>
+<div class="bento-card p-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Contract Compliance</p>
+<div class="flex items-end gap-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">88%</span>
+<div class="w-16 bg-surface-container h-1.5 rounded-full mb-3 ml-2 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytics Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Lead Time Trends (Chart) -->
+<div class="lg:col-span-2 bento-card p-lg flex flex-col">
+<div class="flex justify-between items-start mb-xl">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Reliability &amp; Lead Time Trends</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Performance metrics across the last 6 months</p>
+</div>
+<div class="flex gap-xs bg-surface-container-low p-1 rounded-lg">
+<button class="px-md py-1 bg-surface rounded-md shadow-sm font-label-md text-label-md">All</button>
+<button class="px-md py-1 font-label-md text-label-md text-on-surface-variant">F&amp;B</button>
+<button class="px-md py-1 font-label-md text-label-md text-on-surface-variant">Linen</button>
+</div>
+</div>
+<div class="flex-1 flex items-end justify-between gap-md h-64 border-b border-outline-variant pb-xs relative">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="border-t border-outline h-0"></div>
+<div class="border-t border-outline h-0"></div>
+<div class="border-t border-outline h-0"></div>
+<div class="border-t border-outline h-0"></div>
+</div>
+<!-- Bars -->
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full max-w-[40px] bg-primary rounded-t-lg chart-bar hover:bg-primary-container cursor-pointer" style="height: 65%;"></div>
+<p class="mt-sm font-label-sm text-label-sm text-on-surface-variant">Jan</p>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full max-w-[40px] bg-primary rounded-t-lg chart-bar hover:bg-primary-container cursor-pointer" style="height: 85%;"></div>
+<p class="mt-sm font-label-sm text-label-sm text-on-surface-variant">Feb</p>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full max-w-[40px] bg-primary rounded-t-lg chart-bar hover:bg-primary-container cursor-pointer" style="height: 75%;"></div>
+<p class="mt-sm font-label-sm text-label-sm text-on-surface-variant">Mar</p>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full max-w-[40px] bg-primary rounded-t-lg chart-bar hover:bg-primary-container cursor-pointer" style="height: 92%;"></div>
+<p class="mt-sm font-label-sm text-label-sm text-on-surface-variant">Apr</p>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full max-w-[40px] bg-primary rounded-t-lg chart-bar hover:bg-primary-container cursor-pointer" style="height: 80%;"></div>
+<p class="mt-sm font-label-sm text-label-sm text-on-surface-variant">May</p>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full max-w-[40px] bg-primary rounded-t-lg chart-bar hover:bg-primary-container cursor-pointer" style="height: 95%;"></div>
+<p class="mt-sm font-label-sm text-label-sm text-on-surface-variant">Jun</p>
+</div>
+</div>
+</div>
+<!-- Leaderboard -->
+<div class="bento-card p-lg overflow-hidden flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">Top Performing Suppliers</h3>
+<div class="space-y-md flex-1">
+<div class="flex items-center gap-md group">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-tertiary-fixed text-on-tertiary-fixed font-bold">1</div>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg text-on-surface group-hover:text-secondary transition-colors">Savannah Organic Farm</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Produce &amp; Dairy</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-secondary">99.2%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Score</p>
+</div>
+</div>
+<div class="flex items-center gap-md group">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold">2</div>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg text-on-surface group-hover:text-secondary transition-colors">Elite Linens Ltd</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Textiles</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-secondary">97.8%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Score</p>
+</div>
+</div>
+<div class="flex items-center gap-md group">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold">3</div>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg text-on-surface group-hover:text-secondary transition-colors">Coastal Seafood Co.</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Fresh Catch</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-secondary">96.5%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Score</p>
+</div>
+</div>
+<div class="flex items-center gap-md group">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold">4</div>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg text-on-surface group-hover:text-secondary transition-colors">Premium Roasts Africa</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Coffee &amp; Beverage</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-secondary">94.1%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Score</p>
+</div>
+</div>
+</div>
+<button class="mt-xl w-full py-md border border-outline-variant rounded-xl font-label-lg text-label-lg hover:bg-surface-container-low transition-colors">View All Rankings</button>
+</div>
+<!-- Price Trends & Heatmap -->
+<div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bento-card p-lg">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Price Volatility Index</h3>
+<span class="material-symbols-outlined text-on-surface-variant">info</span>
+</div>
+<div class="space-y-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="font-body-md text-body-md">Imported Wines</span>
+</div>
+<span class="font-label-lg text-label-lg text-error">+14.2%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="font-body-md text-body-md">Local Poultry</span>
+</div>
+<span class="font-label-lg text-label-lg text-secondary">-2.1%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div>
+<span class="font-body-md text-body-md">Dry Goods</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">+0.5%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-3 h-3 rounded-full bg-primary-fixed-dim"></div>
+<span class="font-body-md text-body-md">Cleaning Supplies</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">+1.2%</span>
+</div>
+</div>
+</div>
+<div class="bento-card overflow-hidden relative min-h-[240px]">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A sophisticated data visualization map of the African continent with glowing nodes representing supply chain logistics and shipping routes. The aesthetic is tech-focused with a dark navy and emerald green color scheme, featuring crisp typography and professional interface elements that suggest high-level supply chain visibility for a luxury hospitality group." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbTgWHsNqq8rz_yVNcFMDbkTGCIT4stCKEN0jKHT9-xgpzIwa9EZhkTqW-7lMBD7re1foDnxtPZd8q8ri4GaSkMnHwS9oXprVoTAT8jT2CQhPIroG_3zLtG7wmQrqnTQGCe4xLCIqZFXzwHh6qikMUVoHOV59yYcHOWLRf0SOX0o5HFMF1-0ISbCJREmSf3PrMzCSxX2gpK7GitypoKtvASYW1MicezeQVMup66-EvZia4yEyDVIuflw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<h4 class="font-headline-sm text-headline-sm text-on-primary">Supply Chain Resilience</h4>
+<p class="font-body-md text-body-md text-on-primary/80">Regional reliability mapping for Q3 procurement strategy.</p>
+<button class="mt-md px-lg py-sm bg-white text-primary font-label-lg text-label-lg rounded-lg">Open Map</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-sm pb-safe bg-surface-container-lowest shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-sm text-label-sm">Directory</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<script>
+        // Subtle chart animation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach(bar => {
+                const finalHeight = bar.style.height;
+                bar.style.height = '0px';
+                setTimeout(() => {
+                    bar.style.height = finalHeight;
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

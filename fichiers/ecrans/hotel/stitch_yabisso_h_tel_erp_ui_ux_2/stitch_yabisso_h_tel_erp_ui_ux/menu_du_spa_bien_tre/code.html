@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Spa - Menu de Soins</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Libre+Caslon+Text:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#e9e8e6",
+                      "surface-container-low": "#f4f3f1",
+                      "secondary-fixed": "#f1e1bc",
+                      "outline-variant": "#c3c8c1",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#526255",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#eee9e3",
+                      "surface": "#faf9f7",
+                      "on-secondary-fixed-variant": "#50462a",
+                      "primary-fixed-dim": "#bacbba",
+                      "primary-container": "#5d6d5f",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#efeeec",
+                      "on-error": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-background": "#1a1c1b",
+                      "background": "#faf9f7",
+                      "inverse-primary": "#bacbba",
+                      "secondary": "#695d40",
+                      "surface-dim": "#dadad8",
+                      "on-primary-fixed": "#101f14",
+                      "on-primary-fixed-variant": "#3b4a3e",
+                      "secondary-container": "#eedeb9",
+                      "on-surface": "#1a1c1b",
+                      "surface-bright": "#faf9f7",
+                      "surface-container-highest": "#e3e2e0",
+                      "on-surface-variant": "#434843",
+                      "tertiary-container": "#6c6964",
+                      "on-secondary-fixed": "#221b04",
+                      "inverse-surface": "#2f3130",
+                      "primary-fixed": "#d6e7d6",
+                      "tertiary-fixed": "#e7e2dc",
+                      "on-secondary-container": "#6d6244",
+                      "on-primary-container": "#ddeedd",
+                      "tertiary-fixed-dim": "#cac6c0",
+                      "secondary-fixed-dim": "#d4c5a1",
+                      "on-tertiary-fixed": "#1d1b18",
+                      "tertiary": "#53514c",
+                      "surface-variant": "#e3e2e0",
+                      "outline": "#747872",
+                      "inverse-on-surface": "#f1f1ef",
+                      "on-primary": "#ffffff",
+                      "primary": "#455548",
+                      "on-tertiary-fixed-variant": "#494642"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "section-gap-md": "80px",
+                      "container-max": "1200px",
+                      "margin-mobile": "20px",
+                      "gutter": "24px",
+                      "section-gap-lg": "120px"
+              },
+              "fontFamily": {
+                      "body-md": ["Hanken Grotesk"],
+                      "headline-md": ["Libre Caslon Text"],
+                      "label-caps": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "display-lg-mobile": ["Libre Caslon Text"],
+                      "display-lg": ["Libre Caslon Text"],
+                      "headline-sm": ["Libre Caslon Text"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #faf9f7;
+            color: #1a1c1b;
+            scroll-behavior: smooth;
+        }
+        .glass-nav {
+            background: rgba(250, 249, 247, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .btn-hover-scale:active {
+            transform: scale(0.98);
+        }
+        .mask-image {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        }
+        .fade-in {
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md bg-background text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-[0px_20px_40px_rgba(93,109,95,0.05)] h-16 flex justify-between items-center px-margin-mobile md:px-gutter">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="spa">spa</span>
+<h1 class="font-headline-md text-headline-sm text-primary tracking-tight">Yabisso Spa</h1>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<nav class="flex gap-6">
+<a class="font-label-caps text-label-caps text-primary" href="#">Menu</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:opacity-80 transition-opacity" href="#">Schedule</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:opacity-80 transition-opacity" href="#">Staff</a>
+</nav>
+<button class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</button>
+</div>
+<button class="md:hidden material-symbols-outlined text-primary" data-icon="menu">menu</button>
+</header>
+<main class="pt-24 pb-32 max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+<!-- Hero Section: Rituel Yabisso Signature -->
+<section class="fade-in mb-section-gap-lg">
+<div class="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-xl overflow-hidden bg-surface-container-low flex items-center">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A serene close-up photograph of smooth, dark volcanic hot stones resting on a bed of fine white sand next to a small glass vial of golden massage oil. The lighting is soft and warm, casting long delicate shadows, evoking a sense of pure relaxation and luxury. The color palette is dominated by earthy sage greens, creamy whites, and warm ambers, fitting the Yabisso Hotel's organic minimalist aesthetic. Soft focus in the background shows a hint of tropical greenery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzJwFwGyXHq0YDaVr7x91SMaalCcrKLHR2HFYostN8AyC5ilKvxI4DPqwxY81ZdP14aBXFnkeZzl63WityHe1BcDzssGOVGi14EbZ7tyj5a1B_UvSnWYOReG6p2l34AYK3nIawzN70thFf1mNl7CUXHE99eitPcrhDMec3heGM-TDvTpfZdVIAqgaOLAIgLnehbjt4GRL3IpzRuBdIOxqsyJEQLPp5qOpB0Jv3IKHsV_K7lg2_3XW-JQ"/>
+</div>
+<div class="relative z-10 p-8 md:p-16 max-w-2xl bg-surface/40 backdrop-blur-sm m-4 md:m-12 rounded-lg border border-white/20">
+<span class="font-label-caps text-label-caps text-primary mb-2 block">Coup de cœur</span>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-4 text-primary">Rituel Yabisso Signature</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 italic">Un voyage sensoriel holistique combinant pierres chaudes volcaniques et huiles essentielles rares pour une détente absolue.</p>
+<div class="flex items-center gap-6 mb-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="schedule">schedule</span>
+<span class="font-label-caps text-label-caps">90 min</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="payments">payments</span>
+<span class="font-label-caps text-label-caps">180 €</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 font-label-caps text-label-caps rounded-full btn-hover-scale transition-all hover:shadow-lg">Réserver l'Expérience</button>
+</div>
+</div>
+</section>
+<!-- Categories Filter -->
+<nav class="mb-12 flex flex-wrap gap-4 justify-center">
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps shadow-sm">Tout voir</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors">Massages</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors">Soins du Visage</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors">Rituels Signature</button>
+</nav>
+<!-- Menu Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+<!-- Category: Massages -->
+<div class="lg:col-span-3">
+<h3 class="font-headline-md text-headline-md text-primary mb-8 flex items-center gap-4">
+                    Massages <span class="h-px flex-grow bg-outline-variant"></span>
+</h3>
+</div>
+<!-- Item 1 -->
+<div class="group flex flex-col h-full bg-surface-container-lowest rounded-xl overflow-hidden transition-all hover:shadow-[0px_20px_40px_rgba(93,109,95,0.05)]">
+<div class="aspect-[4/3] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist overhead shot of a person receiving a therapeutic massage in a dimly lit, serene spa environment. Soft hands apply light-colored cream to a relaxed back. The environment is composed of natural textures like wood and linen, reflecting the Yabisso Hotel's organic aesthetic. The lighting is low and atmospheric, emphasizing tranquility and wellness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEgus4P9uaMeLCP4PFB9hEkD_WEPLeA9t-aHtoVjmlb_EdmcAXhMnitnb8Eq2qLXzYVozFU1ZyJluDvV6skDUedmgiOKYkXY4olIqioRPbKniFrQp1anLPfzCbDZQ0Qf05DKTF-BRFzBtAZspu6FsFJ71vBKNwCHiUJC0Pw49FUaFgelE-kAiwDFHEiDAU91AHyyDvSIy0eCjmDqzFX_rccwdzXS7GAauZhcWiVo0jzVeX2_r2RhIGUg"/>
+<span class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-caps text-[10px] text-primary">Escale Détente</span>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Massage Suédois</h4>
+<span class="font-label-caps text-label-caps text-secondary">95 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Techniques de pressions fluides pour soulager les tensions musculaires et stimuler la circulation.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="flex items-center gap-1 font-label-caps text-[10px] text-outline">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span> 60 min
+                        </span>
+<button class="border border-secondary text-secondary px-6 py-2 rounded-full font-label-caps text-label-caps btn-hover-scale hover:bg-secondary/5 transition-all">Réserver</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group flex flex-col h-full bg-surface-container-lowest rounded-xl overflow-hidden transition-all hover:shadow-[0px_20px_40px_rgba(93,109,95,0.05)]">
+<div class="aspect-[4/3] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro photograph of an aromatic herbal compress ball and fresh ginger root on a slate tile. Steam rises softly in the background. The aesthetic is clean and high-end, utilizing a palette of deep charcoal, earthy browns, and soft ivory. Perfect for a luxury spa menu, emphasizing the natural ingredients used in treatments." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgpWROW3ai-LU1eZSjUciQq0rcd4k3lx-SK7vud4V4hjVmix_HGsSLwxBHutNfTB35btS9fLDSVlAoezR_bO-osa6TFyPmfJrH8j48oLa0Ar6dt0kT-zviPzOAs7ZVw6fjBFel824ojvTpnXzEcat5hsTgE0mHTtCpPIbNd0LKI4y3U3SUvHlU17MWbiV6i9m6vhCIzvSi6cNPDTZ_GT2VxAB55nL2_Keu1CjZXnUmP8D3ayCWM44xIQ"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Réflexologie Plantaire</h4>
+<span class="font-label-caps text-label-caps text-secondary">85 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Massage ciblé des zones réflexes des pieds pour harmoniser l'énergie vitale du corps entier.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="flex items-center gap-1 font-label-caps text-[10px] text-outline">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span> 50 min
+                        </span>
+<button class="border border-secondary text-secondary px-6 py-2 rounded-full font-label-caps text-label-caps btn-hover-scale hover:bg-secondary/5 transition-all">Réserver</button>
+</div>
+</div>
+</div>
+<!-- Category: Soins Visage -->
+<div class="lg:col-span-3 mt-section-gap-md">
+<h3 class="font-headline-md text-headline-md text-primary mb-8 flex items-center gap-4">
+                    Soins du Visage <span class="h-px flex-grow bg-outline-variant"></span>
+</h3>
+</div>
+<!-- Item 3 -->
+<div class="group flex flex-col h-full bg-surface-container-lowest rounded-xl overflow-hidden transition-all hover:shadow-[0px_20px_40px_rgba(93,109,95,0.05)]">
+<div class="aspect-[4/3] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A bright, high-key photograph of a luxury facial treatment being applied. A white clay mask is spread elegantly on skin using a wooden brush. Clear glass bowls containing floral waters and botanical extracts are visible on a marble surface. The mood is clean, professional, and refreshing, emphasizing botanical luxury and pure ingredients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoNdF05fmC6utFQPi8cTecpTj0h163KBEaQpTqaCvOLMoaJcHRcR-1mAOGl2xjOnnqw1ovMjIhj9mcsTSO-mZA3GM_-EDQvZjdB7PlzcllEAoe0Tu-r-D5rVAKuhWOZSxQqWlzWyWKjvMSQtavnFaupaJhzCoYjeME5PbTkCJuLMU4PA4A8xiVTkzhABcP-N4X5XQ_MMBmOaF6n5IOJURBjfC07Dxrt-TtbmYGB_Svqnb6QavQANEIMw"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Éclat de Soie</h4>
+<span class="font-label-caps text-label-caps text-secondary">110 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Soin illuminateur aux extraits de perles et de soie pour un teint radieux et une peau veloutée.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="flex items-center gap-1 font-label-caps text-[10px] text-outline">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span> 60 min
+                        </span>
+<button class="border border-secondary text-secondary px-6 py-2 rounded-full font-label-caps text-label-caps btn-hover-scale hover:bg-secondary/5 transition-all">Réserver</button>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group flex flex-col h-full bg-surface-container-lowest rounded-xl overflow-hidden transition-all hover:shadow-[0px_20px_40px_rgba(93,109,95,0.05)]">
+<div class="aspect-[4/3] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Macro view of fresh aloe vera leaves and cool blue gel on a minimalist ceramic plate. Droplets of water sit on the leaves, signifying freshness and hydration. The aesthetic is extremely minimalist and clean, utilizing shades of sage green and soft blue, aligned with a premium hotel wellness branch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeNEE2RBdhMS_2a18l7BusfPOYtrlCn7hwKHriRiEgIRPmPEds9u5_e9fxJeNiBERBP5WdNCu-luAmjeITuFZLvHQV3aaiTEvxIQkuZYTeiLgitL_uNPNjSCLY-5xelNewagBKbfug4pEay7RffSFQRP5E245omgNkTgocpWricSni8pu-6KcJLlEmCf3Q-0-jJ3Xg-mYIfi95RBkQ6o-33kT9a3NjK6HPZ51z5zytzZYedSe7nD7hJg"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Hydratation Intense</h4>
+<span class="font-label-caps text-label-caps text-secondary">90 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Un bain d'hydratation profonde pour les peaux assoiffées, utilisant des actifs botaniques marins.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="flex items-center gap-1 font-label-caps text-[10px] text-outline">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span> 45 min
+                        </span>
+<button class="border border-secondary text-secondary px-6 py-2 rounded-full font-label-caps text-label-caps btn-hover-scale hover:bg-secondary/5 transition-all">Réserver</button>
+</div>
+</div>
+</div>
+<!-- Category: Rituels Signature -->
+<div class="lg:col-span-3 mt-section-gap-md">
+<h3 class="font-headline-md text-headline-md text-primary mb-8 flex items-center gap-4">
+                    Rituels Signature <span class="h-px flex-grow bg-outline-variant"></span>
+</h3>
+</div>
+<!-- Item 5 -->
+<div class="group flex flex-col h-full bg-surface-container-lowest rounded-xl overflow-hidden transition-all hover:shadow-[0px_20px_40px_rgba(93,109,95,0.05)]">
+<div class="aspect-[4/3] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A luxury spa suite featuring a deep copper bathtub filled with milky water and floating white jasmine petals. The room is designed with natural stone walls and warm wood accents. The atmosphere is intimate and ultra-luxurious, with soft golden lighting. This visual represents a high-end signature ritual for two people, focusing on immersion and quiet luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHyGRDofYog5jOni_m5Ef5jsJPq4wlP17slMswwhdOacLdiYXrn6GU_syvNhFmkJxUt2EKTmp7h0gkJxmi-7fNVRwjgWtsJsgicD-5rY4CGywxDbCwcuyD8BeeUoEKSi7IuLJZOIZQhmgScJIheuKkWB7M5UxTdpg6bBgYiZkRZ5HrvQ2Whivu2k1FoZHAbbpV0KuHa2S4g2kilDRIiHSdoAkSarwu9oZJX2ea-iu5Os4OeV3a8T5l8w"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Rituel Bain de Lait</h4>
+<span class="font-label-caps text-label-caps text-secondary">140 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Immersion relaxante dans un bain lacté aux pétales de fleurs, suivi d'un modelage enveloppant.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="flex items-center gap-1 font-label-caps text-[10px] text-outline">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span> 75 min
+                        </span>
+<button class="border border-secondary text-secondary px-6 py-2 rounded-full font-label-caps text-label-caps btn-hover-scale hover:bg-secondary/5 transition-all">Réserver</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Atmospheric Footer Card -->
+<section class="mt-section-gap-lg">
+<div class="bg-primary-container p-12 rounded-xl text-on-primary-container flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="max-w-xl">
+<h2 class="font-headline-md text-headline-md mb-4 text-on-primary-container">Besoin d'un conseil ?</h2>
+<p class="font-body-lg text-body-lg opacity-90">Nos experts spa sont à votre disposition pour créer un programme de soins personnalisé adapté à vos besoins uniques.</p>
+</div>
+<div class="flex flex-col gap-4 w-full md:w-auto">
+<button class="bg-surface text-primary px-8 py-4 rounded-full font-label-caps text-label-caps btn-hover-scale hover:shadow-xl transition-all text-center">Appeler le Spa (Ext. 402)</button>
+<p class="font-label-caps text-[10px] text-center opacity-70">Ouvert tous les jours de 9h00 à 21h00</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 bg-surface/90 backdrop-blur-md pb-safe px-4 z-50 border-t border-surface-container-low">
+<button class="flex flex-col items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-[10px]">Menu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-caps text-[10px]">Schedule</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-caps text-[10px]">Staff</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-[10px]">Inventory</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-[10px]">Insights</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Intersection Observer for fade-in animations on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.group').forEach(el => observer.observe(el));
+    </script>
+</body></html>

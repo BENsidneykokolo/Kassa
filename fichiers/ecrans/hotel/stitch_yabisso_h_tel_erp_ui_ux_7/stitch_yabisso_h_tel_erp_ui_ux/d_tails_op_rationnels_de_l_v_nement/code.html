@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Details | Gala de Bienfaisance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Libre+Caslon+Text:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#39475f",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-primary-fixed": "#0d1c32",
+                    "tertiary-fixed": "#ffdea5",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-variant": "#e0e3e5",
+                    "surface-tint": "#515f78",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-container": "#76849f",
+                    "on-secondary-container": "#54647a",
+                    "inverse-primary": "#b9c7e4",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#261900",
+                    "tertiary": "#000000",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-container": "#0d1c32",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface-bright": "#f7f9fb",
+                    "secondary": "#505f76",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9c176",
+                    "outline": "#75777e",
+                    "inverse-surface": "#2d3133",
+                    "secondary-container": "#d0e1fb",
+                    "on-tertiary-container": "#a17f3b",
+                    "background": "#f7f9fb",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#5d4201",
+                    "on-surface": "#191c1e",
+                    "outline-variant": "#c5c6cd",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed": "#d6e3ff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#261900",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                    "title-md": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "body-md": ["Manrope"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "headline-sm": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "headline-md": ["28px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "headline-sm": ["22px", {"lineHeight": "1.2", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for minimalist look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        
+        .card-ambient-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .active-nav-bg {
+            background-color: #d0e1fb;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full bg-surface-container-highest flex justify-between items-center px-6 md:px-16 h-16 w-full z-50 border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Administrative Control</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center h-full">
+<a class="text-primary font-bold transition-colors duration-200" href="#">Gala de Bienfaisance</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-3 py-1 rounded" href="#">Past Events</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-3 py-1 rounded" href="#">Archived</a>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior event administrator, a sophisticated man in his 50s wearing a charcoal tailored suit. He has a calm and authoritative expression, photographed in a high-end office with soft, natural side lighting that emphasizes texture and depth. The background is a minimalist, blurred workspace in cool tones of slate and white, reflecting a luxury corporate atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGDwSw7lgWsKi9OxWceowvbMH7q142psdGYcKy9a9HDI2GkpHrY1G7MHMxd3GM4vIqY-WQGkkoF_yeWptrrHKI9a0tObiLW41v4s3ESKOeSzvbI8sV12D5XHZOlfnbwExONSd8WC7r0joNTEpgon2NR0GHx-f8i9eXU3xVKZvCurPg_QdCJp_A2orXuMSG1zOEIX0rStZvV-Gh2WMxzkgqM09XMFqRE3nYTd3SRJxhy7Sjw6LmbH2_SQ"/>
+</div>
+</div>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-low border-r border-outline-variant hidden md:flex flex-col pt-24 p-6 z-40">
+<div class="mb-10 flex items-center gap-4 px-2">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary flex items-center justify-center text-white font-bold">SA</div>
+<div>
+<p class="font-title-md text-title-md text-primary leading-tight">System Architect</p>
+<p class="text-xs font-label-sm text-on-surface-variant uppercase tracking-widest">Security Tier 1</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 rounded-full group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">User List</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-full" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+<span class="font-body-md">Role Management</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 rounded-full group" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-body-md">Security Logs</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 rounded-full group" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span class="font-body-md">Access Requests</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container rounded-xl">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<p class="text-[10px] font-label-sm text-on-surface-variant uppercase">Active Session</p>
+</div>
+<p class="text-[11px] text-on-surface-variant">Last accessed: 14:32:01</p>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-[280px] pt-24 pb-20 px-6 md:px-16 max-w-screen-2xl mx-auto">
+<!-- Header Section -->
+<section class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-on-tertiary-container text-on-tertiary-fixed text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-tighter">VIP Event</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Project Code: GB-2024-09</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-primary">Gala de Bienfaisance</h2>
+<div class="flex items-center gap-4 mt-4 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-label-sm">October 24, 2024</span>
+</div>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-label-sm">The Grand Hall, Central Wing</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 border border-outline text-primary font-title-md hover:bg-surface-container transition-colors">Print ROS</button>
+<button class="px-6 py-3 bg-primary text-white font-title-md hover:opacity-90 transition-opacity">Edit Details</button>
+</div>
+</section>
+<!-- Bento Layout -->
+<div class="bento-grid">
+<!-- Schedule Section -->
+<div class="col-span-12 lg:col-span-8 bg-white border border-outline-variant p-8 card-ambient-shadow">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline-sm text-headline-sm text-primary">Schedule of the Day</h3>
+<span class="text-on-surface-variant font-label-sm">Duration: 12 Hours</span>
+</div>
+<div class="space-y-6 relative before:absolute before:left-3 before:top-4 before:bottom-4 before:w-px before:bg-outline-variant">
+<div class="relative pl-12">
+<div class="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-title-md text-primary">09:00 AM — Loading &amp; Setup</p>
+<p class="text-on-surface-variant mt-1">Arrival of florists and equipment hire teams. Stage construction begins.</p>
+</div>
+<span class="bg-surface-container-low px-3 py-1 text-xs font-bold rounded">LOGISTICS</span>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-title-md text-primary">02:00 PM — Catering Arrival</p>
+<p class="text-on-surface-variant mt-1">Kitchen staff setup. Prep for Hors d'oeuvres and cold storage verification.</p>
+</div>
+<span class="bg-surface-container-low px-3 py-1 text-xs font-bold rounded">CATERING</span>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-title-md text-primary">06:00 PM — Doors Open &amp; Welcome</p>
+<p class="text-on-surface-variant mt-1">Champagne reception with live string quartet in the foyer.</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 text-xs font-bold rounded">GUEST ACCESS</span>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-title-md text-primary">08:00 PM — Gala Dinner Commences</p>
+<p class="text-on-surface-variant mt-1">Three-course formal service begins accompanied by keynote address.</p>
+</div>
+<span class="bg-surface-container-low px-3 py-1 text-xs font-bold rounded">SERVICE</span>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-1 top-2 w-4 h-4 bg-outline-variant rounded-full border-4 border-white"></div>
+<div class="flex justify-between items-start opacity-60">
+<div>
+<p class="font-title-md text-title-md text-primary">11:30 PM — Carriages &amp; Wrap</p>
+<p class="text-on-surface-variant mt-1">Event conclusion. Breakdown of high-value equipment.</p>
+</div>
+<span class="bg-surface-container-low px-3 py-1 text-xs font-bold rounded">LOGISTICS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Organizer Contact -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-white border border-outline-variant p-8 card-ambient-shadow">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Event Organizer</h3>
+<div class="flex items-center gap-5 mb-8">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-fixed-dim">
+<img class="w-full h-full object-cover" data-alt="A portrait of a high-end luxury event coordinator, an elegant woman in her late 30s with a professional and welcoming smile. She wears a minimalist silk blouse in a soft cream color. The setting is a bright, upscale hotel lobby with marble floors and soft bokeh lighting that creates a feeling of luxury and exclusive service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC81DJMtjpko9zW1_LFKp2ww8ZXhefRRevrnPSDDUIqG5Z-EMgkrxxPmqv69im1HFeAXJtXgnh27-hW6WFdmKlcBonFEDJtcmQc4LEwFc42N-Gv-zCpwv6f7wrFth6K8iZhN3Do4F9O19nH4raUBJrQ6bYkDkc3WSKfeI6i9l1DsSqEMx6oAvJUR_Rl4TwXxsX_S4LqWouXsO3w4lwxzo2NfLH8jQG3uesi0AjosiTxiYLyJ-9jhhvTTQ"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-primary">Eleanor Sterling</p>
+<p class="text-on-surface-variant text-sm">Sterling &amp; Co. Elite Events</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined">call</span>
+<span class="font-body-md">+1 (555) 892-0041</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-body-md">e.sterling@sterlingevents.com</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined">encrypted</span>
+<span class="font-body-md">Secured Comms Active</span>
+</div>
+</div>
+<button class="w-full mt-8 py-3 border border-outline text-primary font-bold hover:bg-surface-container transition-all">Direct Message</button>
+</div>
+<!-- Quick Metrics/Stats -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-secondary-container p-6 border border-outline-variant">
+<p class="text-[10px] font-label-sm uppercase tracking-wider text-on-secondary-container">Confirmed Guests</p>
+<p class="text-3xl font-display-lg mt-2">240</p>
+</div>
+<div class="bg-white p-6 border border-outline-variant">
+<p class="text-[10px] font-label-sm uppercase tracking-wider text-on-surface-variant">Budget Status</p>
+<p class="text-3xl font-display-lg mt-2 text-green-700">92%</p>
+</div>
+</div>
+</div>
+<!-- Layout Requirements -->
+<div class="col-span-12 lg:col-span-5 bg-white border border-outline-variant p-8 card-ambient-shadow">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Room Layout Plan</h3>
+<div class="aspect-video bg-surface-container-low border border-outline-variant flex flex-col items-center justify-center relative group overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist 2D architectural blueprint floor plan of a grand banquet hall. The layout shows circular dining tables perfectly aligned in a grid, a central dance floor, and a stage at the far end. Lines are sharp and professional in slate blue on a soft white background. Labels for kitchen access, emergency exits, and VIP lounge are indicated with subtle typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7SFBHWBNQ-QxZKA5FU0pkUwO08IafQ_ECxOIyc_A9zia-1gOEt45g9Rx-Ahu9oIKjibrbyCtROD-bB4G9L3Bz060UEthLkoO9H3VArXuP0j7gzKjc1PbVz5dX_361kMJ6n9Cz3WMaVVPyq6QDXd1G1PDazDANO8cBJ2hgabYatFZrQW10pu2T0OD9nGcT0NRyz0SNk694_lK9u9xCKmrwbcsu2CfutrI0YN9YM0egxjJ_86PhfMY9gg"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-zoom-in">
+<span class="text-white font-bold bg-primary/60 px-4 py-2 rounded-full">Expand Blueprint</span>
+</div>
+</div>
+<div class="mt-6 space-y-3">
+<div class="flex justify-between border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Table Count</span>
+<span class="font-bold">24 Round (10 pax)</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Stage Size</span>
+<span class="font-bold">24' x 12' Modular</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">AV Setup</span>
+<span class="font-bold">Dual 4K Projectors</span>
+</div>
+</div>
+</div>
+<!-- Catering Menu -->
+<div class="col-span-12 lg:col-span-7 bg-primary text-white p-8 card-ambient-shadow">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Catering: The Autumn Collection</h3>
+<p class="text-primary-fixed-dim font-label-sm uppercase tracking-widest">Selected by Executive Chef Julian Vance</p>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed text-4xl">restaurant_menu</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<p class="text-tertiary-fixed text-[10px] font-bold uppercase tracking-widest mb-4">The Prelude</p>
+<div class="space-y-4">
+<div>
+<p class="font-title-md border-l-2 border-tertiary-fixed pl-3 mb-1">Forest Truffle Consommé</p>
+<p class="text-sm text-surface-variant">Wild foraged mushrooms, pine essence, gold leaf.</p>
+</div>
+<div>
+<p class="font-title-md border-l-2 border-tertiary-fixed pl-3 mb-1">Blue Fin Tuna Crudo</p>
+<p class="text-sm text-surface-variant">Citrus vinaigrette, radish micro-greens.</p>
+</div>
+</div>
+</div>
+<div>
+<p class="text-tertiary-fixed text-[10px] font-bold uppercase tracking-widest mb-4">The Main</p>
+<div class="space-y-4">
+<div>
+<p class="font-title-md border-l-2 border-tertiary-fixed pl-3 mb-1">48-Hour Braised Wagyu</p>
+<p class="text-sm text-surface-variant">Celeriac purée, charred shallots, bordelaise.</p>
+</div>
+<div>
+<p class="font-title-md border-l-2 border-tertiary-fixed pl-3 mb-1">Poached Atlantic Turbot</p>
+<p class="text-sm text-surface-variant">Saffron emulsion, heirloom carrots, samphire.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-white/10 flex items-center gap-10">
+<div>
+<p class="text-[10px] font-bold text-tertiary-fixed mb-1 uppercase">Wine Pairing</p>
+<p class="text-sm italic">Grand Cru Selection (Vintage 2012)</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-tertiary-fixed mb-1 uppercase">Dietary Adjustments</p>
+<p class="text-sm">12 Vegan / 8 Gluten Free</p>
+</div>
+</div>
+</div>
+<!-- Banquet Team Checklist -->
+<div class="col-span-12 bg-white border border-outline-variant p-8 card-ambient-shadow">
+<div class="flex justify-between items-center mb-10">
+<h3 class="font-headline-sm text-headline-sm text-primary">Banquet Team Operations Checklist</h3>
+<div class="flex items-center gap-4">
+<span class="text-sm font-bold text-primary">Progress: 68%</span>
+<div class="w-48 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[68%]"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-6">
+<label class="flex items-start gap-4 p-4 border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input checked="" class="mt-1 w-5 h-5 border-outline rounded text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-primary group-hover:underline">Inventory Verification</p>
+<p class="text-xs text-on-surface-variant">Count of glassware and silverware complete.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input checked="" class="mt-1 w-5 h-5 border-outline rounded text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-primary group-hover:underline">Linen Steaming</p>
+<p class="text-xs text-on-surface-variant">White floor-length linens pressed and placed.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 border-outline rounded text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-primary group-hover:underline">Table Setting (Final Review)</p>
+<p class="text-xs text-on-surface-variant">Alignment check on all 24 place settings.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input checked="" class="mt-1 w-5 h-5 border-outline rounded text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-primary group-hover:underline">Place Card Distribution</p>
+<p class="text-xs text-on-surface-variant">Guest names sorted and placed per seating chart.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 border-outline rounded text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-primary group-hover:underline">Briefing: Menu Allergy Matrix</p>
+<p class="text-xs text-on-surface-variant">Staff meeting for dietary restricted guests.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 border-outline rounded text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-primary group-hover:underline">Champagne Temperature Check</p>
+<p class="text-xs text-on-surface-variant">Final chilling verification (target 8°C).</p>
+</div>
+</label>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest border-t border-outline-variant md:hidden shadow-sm">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary font-bold active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-md text-label-md">Roles</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md text-label-md">Logs</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Requests</span>
+</button>
+</nav>
+<!-- Micro-interaction script -->
+<script>
+        document.querySelectorAll('label').forEach(label => {
+            const checkbox = label.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', function() {
+                if(this.checked) {
+                    label.classList.add('bg-surface-container-low');
+                    label.style.opacity = "0.7";
+                } else {
+                    label.classList.remove('bg-surface-container-low');
+                    label.style.opacity = "1";
+                }
+            });
+        });
+
+        // Subtle parallax/reveal for bento items
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.card-ambient-shadow');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 50) {
+                    card.style.opacity = "1";
+                    card.style.transform = "translateY(0)";
+                }
+            });
+        });
+    </script>
+</body></html>

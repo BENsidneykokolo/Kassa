@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luxury ERP - Market Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f7f9fb",
+                        "tertiary-fixed-dim": "#e9c176",
+                        "on-primary-fixed": "#0d1c32",
+                        "tertiary": "#000000",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed-variant": "#5d4201",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdea5",
+                        "on-primary-fixed-variant": "#39475f",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#505f76",
+                        "outline-variant": "#c5c6cd",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#76849f",
+                        "primary-fixed": "#d6e3ff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#a17f3b",
+                        "inverse-primary": "#b9c7e4",
+                        "on-tertiary-fixed": "#261900",
+                        "background": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#44474d",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "outline": "#75777e",
+                        "surface-tint": "#515f78",
+                        "primary": "#000000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "tertiary-container": "#261900",
+                        "primary-container": "#0d1c32"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "title-md": ["Manrope"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "headline-lg-mobile": ["Libre Caslon Text"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .luxury-card {
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        .luxury-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: #CBD5E1;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #000;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline docked full-width top-0 z-[60] fixed">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Event Stock Management</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8">
+<span class="font-label-sm text-label-sm text-primary dark:text-inverse-primary font-bold cursor-pointer">Market Intelligence</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors cursor-pointer px-2 py-1">Operations</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors cursor-pointer px-2 py-1">Concierge</span>
+</nav>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant cursor-pointer active:opacity-80">
+<img class="w-full h-full object-cover" data-alt="A professional, high-end profile portrait of a luxury hotel executive, shot in a minimalist studio with soft, directional lighting. The aesthetic is clean and corporate, featuring a neutral color palette of charcoal and whites, reflecting a sense of calm authority and digital concierge sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGLKxH-x8b5CbuEtcLYDsHRNFMPB6uY0jXYAbVHKwJJOZNGDlTQ-bkDn7L_OtmzcZ2w1lLhp8r83Cw08hhKhhK2VJYqFllvnR65kIJ8mmX-eph8eE9aJqxIEa5BKIeggvVPVuXma33K7LGyx9dq7dNR3KM3QMrJ4WXudB5CmZ99hqBxiGNE83ADQs5o3TSSvFs1yzFU_9NmLN_fn433mNONV9WXJ4iNZfb82leqsMUMN07pKfaoVmKkA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation Drawer -->
+<aside class="h-full w-80 fixed left-0 top-0 bg-surface-container-low dark:bg-inverse-surface flex flex-col py-8 gap-4 z-50 hidden md:flex border-r border-outline-variant pt-24">
+<div class="px-8 mb-8">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">Luxury ERP</span>
+</div>
+<nav class="flex flex-col gap-2">
+<div class="flex items-center gap-4 py-3 px-6 mx-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex items-center gap-4 py-3 px-6 mx-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">inventory_2</span>
+<span class="font-label-sm text-label-sm">Warehouse Movements</span>
+</div>
+<div class="flex items-center gap-4 py-3 px-6 mx-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">category</span>
+<span class="font-label-sm text-label-sm">Inventory Categories</span>
+</div>
+<div class="flex items-center gap-4 py-3 px-6 bg-secondary-container text-on-secondary-container rounded-full mx-2 font-bold transition-all duration-200 ease-in-out cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</div>
+</nav>
+<div class="mt-auto px-8 py-4 border-t border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">SYSTEM VERSION 4.2.1</p>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:pl-80 pt-24 min-h-screen">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-8">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div class="space-y-2">
+<span class="font-label-sm text-label-sm text-on-primary-container tracking-[0.2em] uppercase">Market Intelligence</span>
+<h2 class="font-display-lg text-display-lg text-tertiary">Yabisso Hôtel Benchmarking</h2>
+<p class="text-on-surface-variant max-w-xl font-body-md">Performance analysis against the Competitive Set (CompSet). Reviewing market penetration and strategic positioning.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-lowest border border-outline px-6 py-2 font-label-sm text-label-sm hover:bg-surface-container transition-colors">EXPORT DATA</button>
+<button class="bg-primary text-on-primary px-8 py-2 font-label-sm text-label-sm hover:opacity-90 transition-opacity">UPDATE COMPSET</button>
+</div>
+</div>
+<!-- Bento Grid Metrics -->
+<div class="bento-grid">
+<!-- Primary Market Index Card -->
+<div class="col-span-12 md:col-span-4 luxury-card bg-surface-container-lowest p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 translate-x-12 -translate-y-12">
+<span class="material-symbols-outlined text-[120px]">trending_up</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-6">MARKET PENETRATION INDEX (MPI)</span>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-display-lg text-primary">104.2</span>
+<span class="font-label-sm text-label-sm text-green-600">+2.4% vs LY</span>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant">
+<p class="text-xs text-on-surface-variant leading-relaxed">Your hotel is capturing 4.2% more than its fair share of market room nights.</p>
+</div>
+</div>
+<!-- ARI Card -->
+<div class="col-span-12 md:col-span-4 luxury-card bg-surface-container-lowest p-8">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-6">AVERAGE RATE INDEX (ARI)</span>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-display-lg text-primary">112.8</span>
+<span class="font-label-sm text-label-sm text-green-600 font-bold">+5.1% vs LY</span>
+</div>
+<div class="mt-8 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-[85%] h-full bg-primary"></div>
+</div>
+<div class="mt-4 flex justify-between font-label-sm text-[10px] text-on-surface-variant">
+<span>COMPSET AVG: 100</span>
+<span>YABISSO: 112.8</span>
+</div>
+</div>
+<!-- RGI Card -->
+<div class="col-span-12 md:col-span-4 luxury-card bg-primary text-on-primary p-8 relative overflow-hidden">
+
+<span class="font-label-sm text-label-sm text-on-primary/60 block mb-6 z-10 relative">REVENUE GENERATION INDEX (RGI)</span>
+<div class="flex items-baseline gap-2 z-10 relative">
+<span class="text-5xl font-display-lg">117.5</span>
+<span class="font-label-sm text-label-sm text-tertiary-fixed-dim">TOP PERFORMER</span>
+</div>
+<div class="mt-8 pt-6 border-t border-on-primary/20 z-10 relative">
+<p class="text-xs text-on-primary/70 leading-relaxed italic">Market leader in yield efficiency across the premium leisure segment in Abidjan.</p>
+</div>
+</div>
+<!-- Visual Map of Positioning -->
+<div class="col-span-12 md:col-span-8 luxury-card bg-surface-container-lowest p-8 flex flex-col">
+<div class="flex justify-between items-center mb-12">
+<h3 class="font-title-md text-title-md text-primary">Market Positioning Map</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-primary"></div><span class="font-label-sm text-[10px]">Yabisso</span></div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-outline"></div><span class="font-label-sm text-[10px]">CompSet</span></div>
+</div>
+</div>
+<div class="flex-grow min-h-[400px] border-l border-b border-outline-variant relative">
+<!-- Y-Axis Label -->
+<div class="absolute -left-12 top-1/2 -rotate-90 font-label-sm text-label-sm text-on-surface-variant">ADR PREMIUM</div>
+<!-- X-Axis Label -->
+<div class="absolute -bottom-10 left-1/2 -translate-x-1/2 font-label-sm text-label-sm text-on-surface-variant">SERVICE SCORE (GSS)</div>
+<!-- Map Grid Lines -->
+<div class="absolute inset-0 grid grid-cols-4 grid-rows-4 opacity-10">
+<div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div>
+<div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div>
+<div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div>
+<div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div><div class="border-r border-t border-outline"></div>
+</div>
+<!-- Data Points -->
+<!-- Main Hotel -->
+<div class="absolute top-[20%] left-[85%] w-6 h-6 bg-primary rounded-full ring-8 ring-primary/10 flex items-center justify-center group cursor-pointer">
+<div class="hidden group-hover:block absolute bottom-full mb-4 bg-primary text-on-primary p-3 w-48 text-[10px] rounded-lg">
+<strong>Yabisso Hôtel</strong><br/>ADR: $420 | GSS: 9.4/10<br/>High value, high quality quadrant.
+                            </div>
+</div>
+<!-- Comp 1 -->
+<div class="absolute top-[40%] left-[60%] w-4 h-4 bg-outline rounded-full"></div>
+<!-- Comp 2 -->
+<div class="absolute top-[70%] left-[40%] w-4 h-4 bg-outline rounded-full"></div>
+<!-- Comp 3 -->
+<div class="absolute top-[25%] left-[30%] w-4 h-4 bg-outline rounded-full"></div>
+<!-- Comp 4 -->
+<div class="absolute top-[55%] left-[75%] w-4 h-4 bg-outline rounded-full"></div>
+</div>
+</div>
+<!-- Performance Trends -->
+<div class="col-span-12 md:col-span-4 luxury-card bg-surface-container-lowest p-8 flex flex-col">
+<h3 class="font-title-md text-title-md text-primary mb-8">Competitive Shift</h3>
+<div class="space-y-6 flex-grow">
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-low p-2 -mx-2 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm">Hôtel Grand Palace</span>
+<span class="text-[10px] text-on-surface-variant">Losing market share in MICE</span>
+</div>
+<span class="material-symbols-outlined text-error">trending_down</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-low p-2 -mx-2 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm">Riviera Boutique</span>
+<span class="text-[10px] text-on-surface-variant">Aggressive pricing on OTAs</span>
+</div>
+<span class="material-symbols-outlined text-primary">trending_flat</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-low p-2 -mx-2 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm">The Ivory Tower</span>
+<span class="text-[10px] text-on-surface-variant">Improving GSS through renovation</span>
+</div>
+<span class="material-symbols-outlined text-green-600">trending_up</span>
+</div>
+</div>
+<div class="mt-8 p-6 bg-surface-container-high rounded-lg">
+<div class="flex gap-3 items-center mb-2">
+<span class="material-symbols-outlined text-primary text-sm">info</span>
+<span class="font-label-sm text-[11px] tracking-wider">MARKET INSIGHT</span>
+</div>
+<p class="text-xs italic leading-relaxed text-on-surface-variant">Corporate travel demand in the Plateau district is up 12% MoM. Recommend increasing mid-week BAR.</p>
+</div>
+</div>
+<!-- Strategic Recommendations Section -->
+<div class="col-span-12 luxury-card bg-surface-container-lowest overflow-hidden">
+<div class="grid grid-cols-1 md:grid-cols-3">
+<div class="p-10 bg-primary-container text-on-primary-container">
+<h3 class="font-headline-lg text-headline-lg mb-4">Strategic<br/>Directives</h3>
+<p class="font-body-md opacity-80 mb-8">Q4 Market capture roadmap based on current benchmarking data.</p>
+<button class="w-full border border-on-primary-container/30 py-3 font-label-sm text-label-sm hover:bg-on-primary-container hover:text-primary-container transition-all">APPROVE ACTION PLAN</button>
+</div>
+<div class="col-span-2 p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full border border-primary flex items-center justify-center font-bold text-xs">01</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Yield Maximization</span>
+</div>
+<h4 class="font-title-md text-title-md">Protect ADR Premium</h4>
+<p class="text-xs text-on-surface-variant leading-loose">While CompSet is discounting for November, data shows Yabisso's demand elasticity remains low. Maintain rate levels and enhance value through exclusive concierge perks instead of price reductions.</p>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full border border-primary flex items-center justify-center font-bold text-xs">02</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Market Penetration</span>
+</div>
+<h4 class="font-title-md text-title-md">MICE Capture Strategy</h4>
+<p class="text-xs text-on-surface-variant leading-loose">Grand Palace is faltering in service consistency. Initiate targeted outreach to top-tier financial firms for their year-end executive retreats to bridge the MPI gap on weekends.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed CompSet Table -->
+<div class="mt-12 bg-surface-container-lowest border border-outline-variant overflow-hidden">
+<div class="px-8 py-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-md text-title-md">Competitor Performance Detail</h3>
+<div class="flex gap-2">
+<span class="bg-surface-container-high px-3 py-1 text-[10px] font-label-sm rounded-full">MONTH-TO-DATE</span>
+<span class="bg-primary text-on-primary px-3 py-1 text-[10px] font-label-sm rounded-full">TRAIL 12 MONTHS</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+<th class="px-8 py-4 font-bold">Property Name</th>
+<th class="px-8 py-4 font-bold">Occ %</th>
+<th class="px-8 py-4 font-bold">ADR ($)</th>
+<th class="px-8 py-4 font-bold">RevPAR ($)</th>
+<th class="px-8 py-4 font-bold text-right">Market Share</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-bright transition-colors font-body-md group">
+<td class="px-8 py-6 font-bold flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+                                    Yabisso Hôtel
+                                </td>
+<td class="px-8 py-6">78.4%</td>
+<td class="px-8 py-6">$420.00</td>
+<td class="px-8 py-6">$329.28</td>
+<td class="px-8 py-6 text-right font-bold text-primary">24.5%</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors font-body-md opacity-80">
+<td class="px-8 py-6 pl-12">Hôtel Grand Palace</td>
+<td class="px-8 py-6">82.1%</td>
+<td class="px-8 py-6">$345.00</td>
+<td class="px-8 py-6">$283.24</td>
+<td class="px-8 py-6 text-right">21.2%</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors font-body-md opacity-80">
+<td class="px-8 py-6 pl-12">Riviera Boutique</td>
+<td class="px-8 py-6">74.2%</td>
+<td class="px-8 py-6">$390.00</td>
+<td class="px-8 py-6">$289.38</td>
+<td class="px-8 py-6 text-right">18.8%</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors font-body-md opacity-80">
+<td class="px-8 py-6 pl-12">The Ivory Tower</td>
+<td class="px-8 py-6">69.5%</td>
+<td class="px-8 py-6">$380.00</td>
+<td class="px-8 py-6">$264.10</td>
+<td class="px-8 py-6 text-right">16.5%</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors font-body-md opacity-80">
+<td class="px-8 py-6 pl-12">CompSet Average</td>
+<td class="px-8 py-6 italic">75.2%</td>
+<td class="px-8 py-6 italic">$372.50</td>
+<td class="px-8 py-6 italic">$280.12</td>
+<td class="px-8 py-6 text-right italic">100%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Status</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-label-sm text-label-sm">Move</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">layers</span>
+<span class="font-label-sm text-label-sm">Stock</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-sm text-label-sm">Trends</span>
+</div>
+</nav>
+<!-- Floating Action Button for Strategy Approval (Contextual) -->
+<div class="fixed bottom-12 right-12 z-40 hidden md:block group">
+<div class="bg-primary text-on-primary w-16 h-16 rounded-full flex items-center justify-center shadow-2xl cursor-pointer hover:scale-110 transition-transform active:scale-90">
+<span class="material-symbols-outlined text-3xl">task_alt</span>
+</div>
+<span class="absolute right-20 top-1/2 -translate-y-1/2 bg-surface-container-lowest px-4 py-2 text-[10px] font-label-sm border border-outline whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">APPROVE PERFORMANCE REPORT</span>
+</div>
+<script>
+        // Simple micro-interaction for the map points
+        document.querySelectorAll('.luxury-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

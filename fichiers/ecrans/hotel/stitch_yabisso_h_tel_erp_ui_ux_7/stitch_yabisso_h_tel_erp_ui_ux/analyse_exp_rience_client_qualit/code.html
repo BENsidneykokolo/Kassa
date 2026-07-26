@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guest Experience &amp; Quality Analytics</title>
+<!-- Google Fonts: Libre Caslon Text & Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f7f9fb",
+                        "tertiary-fixed-dim": "#e9c176",
+                        "on-primary-fixed": "#0d1c32",
+                        "tertiary": "#000000",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed-variant": "#5d4201",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdea5",
+                        "on-primary-fixed-variant": "#39475f",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#505f76",
+                        "outline-variant": "#c5c6cd",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#76849f",
+                        "primary-fixed": "#d6e3ff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#a17f3b",
+                        "inverse-primary": "#b9c7e4",
+                        "on-tertiary-fixed": "#261900",
+                        "background": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#44474d",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "outline": "#75777e",
+                        "surface-tint": "#515f78",
+                        "primary": "#000000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "tertiary-container": "#261900",
+                        "primary-container": "#0d1c32"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "title-md": ["Manrope"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "headline-lg-mobile": ["Libre Caslon Text"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .luxury-shadow {
+            box-shadow: 0 10px 30px -15px rgba(13, 28, 50, 0.08);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 border-b border-outline-variant flex justify-between items-center w-full px-margin-desktop py-4 z-40 fixed">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80">menu</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Event Stock Management</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8">
+<span class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer px-2 py-1 rounded">ANALYTICS</span>
+<span class="font-label-sm text-label-sm text-primary font-bold cursor-pointer px-2 py-1 rounded">EXPERIENCE</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer px-2 py-1 rounded">REPORTS</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant cursor-pointer active:opacity-80">
+<img class="w-full h-full object-cover" data-alt="Close-up professional headshot of a high-end hospitality executive in a navy suit, clean minimalist lighting, soft focus background of a luxury hotel lobby. The image conveys authority, calm reliability, and sophisticated service, consistent with the minimalist luxury brand aesthetic of deep navy and light slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQBSq6tDXAKYoFnGaiUS6qhspXtPW7NFXM_UetWStZTZDsUwCxwMhQxok0QDT0Vixc37gPSCYXH9cv9JZjdIhomwsUMSwLU_dQbjDi3cNxGEF-Lt_IGufOcSNUdYsbpsJWoNMr3sbZQ0AuX9IuI4klmg65RfkZb_oyQ8NaghwfzdKVpeFFIu-T4ZmJ8xc_Ck1uGzlxK5u0dtxovQ5eHufBEKOJxzpT9JywoTNaPjkLzmyEnjo3zEddNg"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="hidden md:flex flex-col h-screen py-8 gap-4 bg-surface-container-low h-full w-80 fixed left-0 top-0 pt-24 border-r border-outline-variant z-30">
+<div class="px-8 mb-6">
+<h2 class="font-headline-lg text-headline-lg text-primary">Luxury ERP</h2>
+</div>
+<nav class="flex flex-col gap-2">
+<div class="flex items-center gap-4 px-8 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 cursor-pointer mx-2">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex items-center gap-4 px-8 py-3 bg-secondary-container text-on-secondary-container rounded-full mx-2 font-bold transition-all duration-200 cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm uppercase">Analytics</span>
+</div>
+<div class="flex items-center gap-4 px-8 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 cursor-pointer mx-2">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm">Warehouse Movements</span>
+</div>
+<div class="flex items-center gap-4 px-8 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 cursor-pointer mx-2">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-sm text-label-sm">Inventory Categories</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:pl-80 pt-24 pb-20 md:pb-8 min-h-screen">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-8">
+<!-- Executive Summary Header -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="font-label-sm text-label-sm text-on-primary-container tracking-widest uppercase mb-2 block">Executive Quality Summary</span>
+<h2 class="font-headline-lg text-headline-lg text-primary md:text-display-lg md:font-display-lg leading-tight">Refining the Guest <br/>Journey through Data</h2>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 bg-primary text-on-primary font-label-sm text-label-sm rounded-lg hover:opacity-90 transition-opacity">EXPORT STRATEGIC PDF</button>
+<button class="px-6 py-3 bg-transparent border border-outline text-primary font-label-sm text-label-sm rounded-lg hover:bg-surface-container-low transition-colors">QUARTERLY ARCHIVE</button>
+</div>
+</div>
+</section>
+<!-- Key Performance Indicators (Bento Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-12">
+<!-- NPS Score -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 flex flex-col justify-between h-64 luxury-shadow group hover:border-primary transition-all">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">NET PROMOTER SCORE</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-display-lg text-display-lg text-primary">84</p>
+</div>
+<div class="flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+4.2% VS LAST MONTH</span>
+</div>
+</div>
+<!-- Sentiment Index -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 flex flex-col justify-between h-64 luxury-shadow group hover:border-primary transition-all">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">SENTIMENT INDEX</span>
+<span class="material-symbols-outlined text-on-primary-container">psychology</span>
+</div>
+<p class="font-display-lg text-display-lg text-primary">Highly Positive</p>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+</div>
+<!-- GSS (Guest Satisfaction Score) -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 flex flex-col justify-between h-64 luxury-shadow group hover:border-primary transition-all">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">GSS PER DEPT.</span>
+<span class="material-symbols-outlined text-on-primary-container">room_service</span>
+</div>
+<p class="font-display-lg text-display-lg text-primary">4.9<span class="text-headline-lg text-outline">/5.0</span></p>
+</div>
+<div class="flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span>CONSISTENT ACROSS 12 UNITS</span>
+</div>
+</div>
+<!-- Guest Lifetime Value Correlation -->
+<div class="bg-primary text-on-primary p-8 flex flex-col justify-between h-64 luxury-shadow">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm opacity-70">SPEND CORRELATION</span>
+<span class="material-symbols-outlined text-on-primary">insights</span>
+</div>
+<p class="font-title-md text-title-md">High satisfaction leads to 34% higher repeat bookings.</p>
+</div>
+<div class="font-label-sm text-label-sm tracking-widest underline cursor-pointer">VIEW FULL MATRIX</div>
+</div>
+</section>
+<!-- Main Analytics Section (Asymmetric Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Departmental Drilldown -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Sentiment & Correlation Chart Area -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 luxury-shadow relative overflow-hidden h-[500px]">
+<div class="relative z-10 flex flex-col h-full">
+<h3 class="font-title-md text-title-md text-primary mb-2">Service Quality Correlation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Correlation between response time and guest sentiment across departments.</p>
+<!-- Custom Chart Placeholder (Visual Representation) -->
+<div class="flex-grow flex items-end gap-12 pb-8">
+<div class="flex-1 flex flex-col items-center gap-4">
+<div class="w-full bg-surface-container-high rounded-t-lg relative group overflow-hidden" style="height: 80%;">
+<div class="absolute bottom-0 w-full bg-primary h-[85%] transition-all group-hover:opacity-80"></div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 font-label-sm text-label-sm text-on-primary">9.4</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Concierge</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-4">
+<div class="w-full bg-surface-container-high rounded-t-lg relative group overflow-hidden" style="height: 60%;">
+<div class="absolute bottom-0 w-full bg-primary h-[95%] transition-all group-hover:opacity-80"></div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 font-label-sm text-label-sm text-on-primary">9.8</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Valet</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-4">
+<div class="w-full bg-surface-container-high rounded-t-lg relative group overflow-hidden" style="height: 100%;">
+<div class="absolute bottom-0 w-full bg-primary h-[70%] transition-all group-hover:opacity-80"></div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 font-label-sm text-label-sm text-on-primary">8.2</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Housekeeping</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-4">
+<div class="w-full bg-surface-container-high rounded-t-lg relative group overflow-hidden" style="height: 75%;">
+<div class="absolute bottom-0 w-full bg-primary h-[88%] transition-all group-hover:opacity-80"></div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 font-label-sm text-label-sm text-on-primary">9.1</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Dining</span>
+</div>
+</div>
+<!-- Decorative background element -->
+
+</div>
+</div>
+<!-- Reviews & Sentiment Snippets -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 luxury-shadow">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-title-md text-title-md text-primary">High-Impact Guest Feedback</h3>
+<span class="font-label-sm text-label-sm text-primary underline cursor-pointer">ALL REVIEWS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="border-l-2 border-primary pl-6 py-2">
+<div class="flex items-center gap-2 mb-2">
+<div class="bg-primary-fixed text-on-primary-fixed text-[10px] px-2 py-0.5 font-bold rounded">POSITIVE</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">L. Hamilton • Suite 402</span>
+</div>
+<p class="font-body-md text-body-md italic text-primary">"The proactive nature of the concierge team in securing last-minute reservations was exceptional. Truly digital concierge experience."</p>
+</div>
+<div class="border-l-2 border-tertiary-fixed-dim pl-6 py-2">
+<div class="flex items-center gap-2 mb-2">
+<div class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-0.5 font-bold rounded">NEUTRAL</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">S. Jobs • Penthouse</span>
+</div>
+<p class="font-body-md text-body-md italic text-primary">"Stock levels for specific vintage wines were low during the gala. However, the alternative suggested was adequate."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Contextual Side Info -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- NPS Trends Card -->
+<div class="bg-surface-container-high border border-outline-variant p-8 luxury-shadow h-auto">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-6 tracking-widest uppercase">NPS Quarterly Trend</h3>
+<div class="space-y-6">
+<div class="flex items-end gap-4 h-32">
+<div class="flex-1 bg-surface-variant h-[60%] rounded-sm"></div>
+<div class="flex-1 bg-surface-variant h-[75%] rounded-sm"></div>
+<div class="flex-1 bg-primary h-[85%] rounded-sm relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-[10px]">CURRENT</div>
+</div>
+<div class="flex-1 bg-surface-variant h-[80%] rounded-sm"></div>
+</div>
+<div class="border-t border-outline-variant pt-6">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-sm text-label-sm">Target NPS</span>
+<span class="font-title-md text-title-md">88</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">Closing the gap by prioritizing valet efficiency and room turnaround times.</p>
+</div>
+</div>
+</div>
+<!-- Image with Narrative Overlay -->
+<div class="relative h-96 group overflow-hidden luxury-shadow">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A serene, ultra-luxurious lounge area with deep velvet furniture, sharp minimalist architectural lines, and large floor-to-ceiling windows showing a dusk city skyline. The lighting is low and warm, creating a high-contrast, moody atmosphere. This represents the ultimate guest experience of calm and exclusive luxury, echoing the brand's digital concierge personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMbmhOB_mSYNiWNkxxyOqdU7GsWxkKxOICz4TnOAjIuMv0bXOhVcvGdvbcZ-y_qzb6f6lPowFDQjIoc7LVa17ioyYbnpmX6KI5sRuysLUqvet0vriOZ6nvqxvIW84zEpn_Xm-Hn84NIKgnpMFWnxC4Z5XT4ru1_nimw0UXXtasRu28uagBKLUhkctMruBilgU7iA_9JrZ6XuPqyhT1lqtAPM6qA3u4-YMHbxpLjUrTuS0pIHlK8nc-DA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 text-on-primary">
+<span class="font-label-sm text-label-sm opacity-80 mb-2 block uppercase tracking-widest">Quality Insight</span>
+<h4 class="font-headline-lg text-headline-lg leading-tight mb-4">Atmosphere is a <br/>Silent Service</h4>
+<button class="flex items-center gap-2 font-label-sm text-label-sm border-b border-on-primary pb-1">READ WHITE PAPER <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</div>
+<!-- Small Correlation Metric -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 luxury-shadow">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase">Satisfaction/Spend</h4>
+<p class="font-title-md text-title-md text-primary">+15% per +0.5 GSS</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface border-t border-outline-variant shadow-lg">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Status</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-label-sm text-label-sm">Move</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-sm text-label-sm">Stock</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-sm text-label-sm">Trends</span>
+</div>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Subtle parallax or hover effects can be added here
+            const cards = document.querySelectorAll('.luxury-shadow');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-4px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body></html>

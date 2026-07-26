@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Suivi de l'Intégration (RH) - Yabisso</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Shared Components Logic & Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#eaddff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container": "#e5eeff",
+                    "on-secondary-container": "#fffbff",
+                    "primary": "#004ac6",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "surface-tint": "#0053db",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#bdffdb",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#007d55",
+                    "on-secondary-fixed": "#25005a",
+                    "background": "#f8f9ff",
+                    "on-primary-container": "#eeefff",
+                    "surface-variant": "#d3e4fe",
+                    "outline": "#737686",
+                    "surface-container-high": "#dce9ff",
+                    "surface": "#f8f9ff",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#213145",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#5a00c6",
+                    "on-tertiary-fixed": "#002113",
+                    "secondary": "#712ae2",
+                    "on-primary-fixed": "#00174b",
+                    "surface-bright": "#f8f9ff",
+                    "primary-container": "#2563eb",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-surface": "#0b1c30",
+                    "tertiary": "#006242",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "secondary-container": "#8a4cfc",
+                    "outline-variant": "#c3c6d7",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dbe1ff",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px",
+                    "stack-lg": "48px",
+                    "base": "8px",
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F8FAFC;
+        }
+        .circular-progress {
+            --size: 48px;
+            --half-size: calc(var(--size) / 2);
+            --stroke-width: 4px;
+            --radius: calc(var(--half-size) - (var(--stroke-width) / 2));
+            --circumference: calc(2 * pi * var(--radius));
+            width: var(--size);
+            height: var(--size);
+        }
+        .circular-progress circle {
+            cx: var(--half-size);
+            cy: var(--half-size);
+            r: var(--radius);
+            stroke-width: var(--stroke-width);
+            fill: none;
+            stroke-linecap: round;
+        }
+        .circular-progress circle.bg {
+            stroke: #E2E8F0;
+        }
+        .circular-progress circle.fg {
+            stroke: #004ac6;
+            transition: stroke-dasharray 0.5s ease;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- Navigation Drawer (Mandatory Shell Component) -->
+<nav class="h-full w-80 fixed left-0 top-0 bg-surface flex flex-col py-stack-md bg-surface-container-low border-r border-outline-variant shadow-sm hidden md:flex z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Yabisso RH</h1>
+</div>
+<div class="px-4 mb-10 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager in a bright office setting. The lighting is soft and natural, emphasizing a welcoming and authoritative atmosphere. The color palette is clean with neutral tones and a subtle touch of corporate blue. High resolution and modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFdKvLVN2ZMb-_S5cDco1gzJaivZC0Bzdh_AQDO9QAWG1fW0TY_Kdb7RsKtMezo1CiUkxtpksZKElEx2qVkGGEBgglrEEOIhZoDOsXBupToZHV4mj6yJWYfXWXxFU5REVSQng5WIChZedC_33eefUTC3OnaQE39Fu0EbVjLAf8gCj1U5PPhhMdUEjJjKP7d3qjkGVAtuQVmAGoo_Kc7K7haSYLmvvTOf1qrvFA6Uk0bONCTNeUs6LcUw"/>
+</div>
+<div>
+<p class="font-headline-md text-[16px] font-bold text-on-surface">Admin RH</p>
+<p class="font-body-sm text-on-surface-variant">Suivi global actif</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 px-2">
+<!-- Labels from JSON: ["Tasks", "Documents", "Training", "Orientation"] -->
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span class="font-body-md">Tasks</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 bg-primary-container text-on-primary-container rounded-full mx-2 font-bold transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-body-md">Suivi Intégration</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-body-md">Training</span>
+</a>
+</div>
+</nav>
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex items-center justify-between px-margin-mobile md:pl-80 md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Suivi de l'Intégration (RH)</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-64" placeholder="Rechercher un employé..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="md:pl-80 min-h-screen">
+<div class="max-w-container-max mx-auto p-margin-mobile md:p-margin-desktop space-y-stack-md">
+<!-- Filters & Stats Header -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="md:col-span-3 flex flex-wrap gap-stack-sm items-center">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:opacity-90 transition-all">Tous</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-all">Réception (Front Office)</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-all">Entretien (Housekeeping)</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-all">Restauration</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-all">Administration</button>
+</div>
+<div class="bg-primary-container p-4 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-on-primary-container font-label-sm uppercase tracking-wider">En cours</p>
+<p class="text-on-primary-container font-headline-md text-[28px] font-extrabold">24</p>
+</div>
+<span class="material-symbols-outlined text-on-primary-container text-4xl opacity-50">group</span>
+</div>
+</section>
+<!-- Employee List (Bento-ish Grid) -->
+<section class="grid grid-cols-1 lg:grid-cols-1 gap-4">
+<!-- Table Header (Desktop Only) -->
+<div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-surface-container text-outline font-label-sm uppercase tracking-widest rounded-t-xl">
+<div class="col-span-4">Employé</div>
+<div class="col-span-2">Date de début</div>
+<div class="col-span-2">Département</div>
+<div class="col-span-2">Status</div>
+<div class="col-span-2 text-right">Progression</div>
+</div>
+<!-- List Items -->
+<div class="space-y-3">
+<!-- Row 1 -->
+<div class="glass-card rounded-xl p-4 md:px-6 hover:shadow-md transition-all cursor-pointer group">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center gap-4">
+<div class="col-span-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A detailed portrait of a young professional woman with a friendly smile, representing a new hotel employee. She is wearing a modern corporate uniform in soft navy blue. The background is a blurred, high-end lobby with warm ambient lighting. Professional, bright, and welcoming design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT5iwxvPvQFyDIQRrucq14XAAp0lVraknRCAGtzGXw68tEnnGSAYIhH0HfHbs7rW76yzacNVZqbSHo7uoFa4H_1SqvajcYtk5hGviRT2YzkBAP6Qg_uZSPCz7ZtHOL8AzA0x_0fGRbw_ZyI1-DIBL0Wuvc7seaAT-TiA2ADhBs0rPZGy8PitK9OxwlY2SYtGr0bexInB9tHq5jKiO7xmxtJ2r3JHU_68QSMYu9xwv_RUM8JPFLE7vwDw"/>
+</div>
+<div>
+<h4 class="font-body-md font-bold text-on-surface">Amandine Leroy</h4>
+<p class="text-body-sm text-on-surface-variant">leroy.a@yabisso.fr</p>
+</div>
+</div>
+<div class="col-span-2 font-body-sm text-on-surface">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Début</div>
+                                12 Oct 2023
+                            </div>
+<div class="col-span-2">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Département</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-label-sm">Front Office</span>
+</div>
+<div class="col-span-2">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Status</div>
+<span class="flex items-center gap-2 text-body-sm text-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                    Vérification doc.
+                                </span>
+</div>
+<div class="col-span-2 flex justify-between md:justify-end items-center gap-4">
+<div class="md:hidden text-outline font-label-sm uppercase">Progression</div>
+<div class="relative circular-progress flex items-center justify-center">
+<svg class="w-full h-full rotate-[-90deg]">
+<circle class="bg"></circle>
+<circle class="fg" style="stroke-dasharray: 100 138.2; stroke-dashoffset: 0;"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold">72%</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="glass-card rounded-xl p-4 md:px-6 hover:shadow-md transition-all cursor-pointer group">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center gap-4">
+<div class="col-span-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean-shaven young man in his late 20s, dressed in a professional culinary or hospitality service shirt. He has a focused and confident expression. The background shows a modern, bright kitchen area with stainless steel accents. Corporate photography style, high-key lighting, emphasizing professional reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHMtV_WWRFF3RZjsW9jjshQSeDrwEdTLY6mhfwECtY8uHpysXXUgtXxKB6TKu065mgeY92LuGE4PS5Uqqkm5OE7V9RvBBbAUkiNYkIRvRhoNrZ8jGbNDmuewwkyleuQ608lT8HQymN2cIbSiLkv7MYjqLIotbmpZ_Ql0rEgAqOCu511DUwA4dZltoKmXdgs_iBkHl8jpWsvmtaBPsDo0AoAscstAwxuwuKndrTrWtV8JeE-GTVWL7gTw"/>
+</div>
+<div>
+<h4 class="font-body-md font-bold text-on-surface">Marc Dubois</h4>
+<p class="text-body-sm text-on-surface-variant">dubois.m@yabisso.fr</p>
+</div>
+</div>
+<div class="col-span-2 font-body-sm text-on-surface">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Début</div>
+                                15 Oct 2023
+                            </div>
+<div class="col-span-2">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Département</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm">Restauration</span>
+</div>
+<div class="col-span-2">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Status</div>
+<span class="flex items-center gap-2 text-body-sm text-on-surface">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                                    Formation Hygiène
+                                </span>
+</div>
+<div class="col-span-2 flex justify-between md:justify-end items-center gap-4">
+<div class="md:hidden text-outline font-label-sm uppercase">Progression</div>
+<div class="relative circular-progress flex items-center justify-center">
+<svg class="w-full h-full rotate-[-90deg]">
+<circle class="bg"></circle>
+<circle class="fg" style="stroke-dasharray: 62 138.2; stroke-dashoffset: 0;"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold">45%</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="glass-card rounded-xl p-4 md:px-6 hover:shadow-md transition-all cursor-pointer group">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center gap-4">
+<div class="col-span-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A mature woman with a kind and organized appearance, wearing a professional gray blazer. She looks ready for administrative tasks in a modern office. The setting is a minimalist workspace with clean lines and soft lighting. Professional branding aesthetic with a focus on trust and competence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7hJr0kEIzYausWKgghpb4TJwMuI7HXxp26I728_9JffbWR825RT6Af0vf4erFg761BFwteZQnalnM5PgXdB4m1DBqrx-5ZQUo3ctONUi5ibB9z2zmj0vbSp_TwYzH27l-EsBfc5P_YpiBrdvtVUcMeK7FpIFy7E2vrY-lyrPYbuAljebDCZS5FNESO1o2GnT9NQTcqaCFv0NVbkfvhU6U4BaItXWFaRNmGbILMFJATCh2BXFdkPItCA"/>
+</div>
+<div>
+<h4 class="font-body-md font-bold text-on-surface">Sophie Laurent</h4>
+<p class="text-body-sm text-on-surface-variant">laurent.s@yabisso.fr</p>
+</div>
+</div>
+<div class="col-span-2 font-body-sm text-on-surface">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Début</div>
+                                01 Nov 2023
+                            </div>
+<div class="col-span-2">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Département</div>
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-sm">Entretien</span>
+</div>
+<div class="col-span-2">
+<div class="md:hidden text-outline font-label-sm uppercase mb-1">Status</div>
+<span class="flex items-center gap-2 text-body-sm text-on-surface">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+                                    Finalisé
+                                </span>
+</div>
+<div class="col-span-2 flex justify-between md:justify-end items-center gap-4">
+<div class="md:hidden text-outline font-label-sm uppercase">Progression</div>
+<div class="relative circular-progress flex items-center justify-center">
+<svg class="w-full h-full rotate-[-90deg]">
+<circle class="bg"></circle>
+<circle class="fg" style="stroke: #007d55; stroke-dasharray: 138.2 138.2; stroke-dashoffset: 0;"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold">100%</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Floating Action Button (FAB) contextually relevant -->
+<div class="fixed bottom-8 right-8 flex flex-col gap-4">
+<button class="bg-secondary shadow-lg text-on-secondary p-4 rounded-full flex items-center gap-2 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">person_add</span>
+<span class="hidden md:inline font-bold">Nouvelle Recrue</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Micro-interaction for circular progress animation on load -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rows = document.querySelectorAll('.glass-card');
+            rows.forEach((row, index) => {
+                row.style.opacity = '0';
+                row.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    row.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Basic Filter logic placeholder
+        const filterButtons = document.querySelectorAll('button[class*="rounded-full"]');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('bg-primary')) return;
+                
+                // Toggle active state visualization
+                document.querySelector('.bg-primary').className = "bg-white border border-outline-variant text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-all";
+                btn.className = "bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:opacity-90 transition-all";
+            });
+        });
+    </script>
+</body></html>

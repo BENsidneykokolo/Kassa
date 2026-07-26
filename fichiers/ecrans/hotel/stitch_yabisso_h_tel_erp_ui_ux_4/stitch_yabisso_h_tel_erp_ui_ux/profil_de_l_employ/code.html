@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Profile - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#a8b8ff",
+                      "on-secondary-fixed": "#0b1c30",
+                      "on-secondary-container": "#54647a",
+                      "on-background": "#191c1e",
+                      "outline-variant": "#c4c5d5",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#001453",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#173bab",
+                      "on-tertiary-fixed-variant": "#005049",
+                      "surface": "#f7f9fb",
+                      "outline": "#757684",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#6bd8cb",
+                      "on-surface": "#191c1e",
+                      "surface-tint": "#3755c3",
+                      "primary": "#00288e",
+                      "primary-container": "#1e40af",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#444653",
+                      "tertiary-container": "#00554e",
+                      "surface-dim": "#d8dadc",
+                      "secondary-fixed": "#d3e4fe",
+                      "surface-container-low": "#f2f4f6",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "on-tertiary-fixed": "#00201d",
+                      "surface-container-high": "#e6e8ea",
+                      "on-tertiary-container": "#5fcdbf",
+                      "secondary": "#505f76",
+                      "inverse-primary": "#b8c4ff",
+                      "surface-container-highest": "#e0e3e5",
+                      "tertiary-fixed": "#89f5e7",
+                      "primary-fixed": "#dde1ff",
+                      "primary-fixed-dim": "#b8c4ff",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#e0e3e5",
+                      "surface-bright": "#f7f9fb",
+                      "secondary-container": "#d0e1fb",
+                      "background": "#f7f9fb",
+                      "tertiary": "#003c36",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "on-secondary-fixed-variant": "#38485d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "sidebar-width": "280px",
+                      "stack-sm": "8px",
+                      "container-padding": "24px",
+                      "stack-lg": "32px",
+                      "unit": "4px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Hanken Grotesk"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "headline-md-mobile": ["Hanken Grotesk"],
+                      "status-label": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-md": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "status-label": ["12px", {"lineHeight": "12px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .zebra-table tr:nth-child(even) {
+            background-color: #F1F5F9;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-stack-md">
+<button class="md:hidden p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a senior HR manager, an elegant woman in her late 40s with a warm and confident expression. She is wearing a tailored navy blue blazer. The background is a clean, softly lit corporate office with subtle glass textures and modern architectural lines, matching the primary blue and white design system of Yabisso Hôtel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0bqWr-11qYLkHI7FYjFeWxjMRLdJuuoBSLu0Yyqdy4QBZqhC0oO5vhdRcOckgNWp9Wml2y71OZETGSRHlR23UYfxnk3OY9IS5g0Lt5-1C7yY0SZQc_q4XEvZZ4cXA_Jq91cnVPp6jQYtyZDLYPIzYey4h49amgwdU3Rjsybq-_m8af7hnRLkCBHwhGPpZZcjgbgOZQiBVtrX9vPKdHRBCQW0RUuE9_RgfthIJOG7MaU69VPHuKZKeJg"/>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-24 px-gutter md:px-container-padding max-w-7xl mx-auto">
+<!-- Profile Hero Section -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-lg mb-stack-lg">
+<!-- Left: Bio Card -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md flex flex-col md:flex-row gap-stack-md items-start md:items-center">
+<div class="relative w-24 h-24 md:w-32 md:h-32 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a senior concierge staff member at a luxury hotel. He is a middle-aged man with graying hair, wearing a pristine formal uniform with golden lapel pins. His expression is welcoming and professional. The lighting is soft and high-end, reflecting a corporate modernism aesthetic with a focus on hospitality excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl9m3tx0as3Sf75cdG_XsCe91hogfxn9Z8tWqfTAFFeVhieROeBg89l-ke332YsHWIDvFxOMjgzuUwQIymTY-9_0g3kpUIdIj9Q9eNoWo2w2keLVhblJLtQQAekuNG_H2ijHMaqigte3IjMeja25W7Wfp0HN_Or-MqXrbHCqgPkTMOo9rT0ZVzx9En70m0hmSLe6hg0tU23Zv9XVEX0Fx7II2ZVSL3XACFsIUFtX59WzSn_e2VptteWw"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-stack-sm flex-wrap">
+<h2 class="font-headline-md text-headline-md">Jean-Pierre Koulango</h2>
+<span class="px-2 py-0.5 bg-green-100 text-green-800 text-status-label font-status-label rounded-full">ACTIVE</span>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">GUEST SERVICES | SENIOR CONCIERGE</p>
+<p class="text-body-md text-on-surface-variant mt-2 max-w-md">12 years of excellence in hospitality management. Overseeing front-of-house operations and VIP guest relations.</p>
+<!-- Performance Rating -->
+<div class="mt-4 flex items-center gap-2">
+<div class="flex text-amber-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+<span class="font-headline-sm text-headline-sm">4.8</span>
+<span class="text-body-md text-on-surface-variant">(92 Reviews)</span>
+</div>
+</div>
+<!-- Quick Actions Desktop -->
+<div class="hidden md:flex flex-col gap-2 shrink-0">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-body-md flex items-center justify-center gap-2 transition hover:bg-primary-container">
+<span class="material-symbols-outlined text-sm">mail</span> Message
+                    </button>
+<button class="border border-outline text-on-surface px-4 py-2 rounded-lg font-body-md flex items-center justify-center gap-2 transition hover:bg-surface-container">
+<span class="material-symbols-outlined text-sm">edit</span> Edit Profile
+                    </button>
+<button class="text-error bg-error-container/20 px-4 py-2 rounded-lg font-body-md flex items-center justify-center gap-2 transition hover:bg-error-container/40">
+<span class="material-symbols-outlined text-sm">event_busy</span> Request Leave
+                    </button>
+</div>
+</div>
+<!-- Right: Attendance Summary Card -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md flex flex-col justify-center items-center text-center">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4">Attendance: Oct 2023</p>
+<div class="relative w-32 h-32 mb-4">
+<svg class="w-full h-full" viewbox="0 0 36 36">
+<path class="text-surface-variant stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+<path class="text-primary stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="88, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-headline-md">22/25</span>
+<span class="text-[10px] text-on-surface-variant">Days Present</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 w-full border-t border-outline-variant pt-4">
+<div>
+<p class="text-[10px] text-on-surface-variant font-label-caps">LATE ARRIVALS</p>
+<p class="font-headline-sm text-headline-sm text-error">1</p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant font-label-caps">OT HOURS</p>
+<p class="font-headline-sm text-headline-sm text-tertiary-container text-[#00554e]">12.5</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Sections -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+<!-- Contact Info (Small) -->
+<div class="lg:col-span-4 space-y-stack-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
+<h3 class="font-label-caps text-label-caps mb-4 text-on-surface-variant border-b border-outline-variant pb-2">CONTACT INFORMATION</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">mail</span>
+<div>
+<p class="text-[10px] text-on-surface-variant">EMAIL</p>
+<p class="text-body-md">j.koulango@yabisso.com</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">phone</span>
+<div>
+<p class="text-[10px] text-on-surface-variant">PHONE</p>
+<p class="text-body-md">+225 07 45 89 22 10</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<div>
+<p class="text-[10px] text-on-surface-variant">OFFICE LOCATION</p>
+<p class="text-body-md">Lobby West Wing, Desk 4</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">cake</span>
+<div>
+<p class="text-[10px] text-on-surface-variant">DOB</p>
+<p class="text-body-md">March 14, 1978</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
+<h3 class="font-label-caps text-label-caps mb-4 text-on-surface-variant border-b border-outline-variant pb-2">EMERGENCY CONTACT</h3>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-body-md font-semibold">Marie Koulango</p>
+<p class="text-body-md text-on-surface-variant">Spouse • +225 01 22 33 44 55</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Shift Schedule (Large) -->
+<div class="lg:col-span-8">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md h-full">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">UPCOMING WEEK SCHEDULE</h3>
+<div class="flex items-center gap-2">
+<button class="p-1 hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<span class="text-body-md font-semibold">Oct 23 - Oct 29</span>
+<button class="p-1 hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<div class="min-w-[600px]">
+<div class="grid grid-cols-7 gap-px bg-outline-variant border border-outline-variant">
+<!-- Days header -->
+<div class="bg-surface-container-low p-3 text-center"><p class="text-xs font-label-caps">MON</p><p class="font-bold">23</p></div>
+<div class="bg-surface-container-low p-3 text-center"><p class="text-xs font-label-caps">TUE</p><p class="font-bold">24</p></div>
+<div class="bg-surface-container-low p-3 text-center"><p class="text-xs font-label-caps">WED</p><p class="font-bold">25</p></div>
+<div class="bg-surface-container-low p-3 text-center"><p class="text-xs font-label-caps">THU</p><p class="font-bold">26</p></div>
+<div class="bg-surface-container-low p-3 text-center"><p class="text-xs font-label-caps">FRI</p><p class="font-bold">27</p></div>
+<div class="bg-surface-container-low p-3 text-center text-error"><p class="text-xs font-label-caps">SAT</p><p class="font-bold">28</p></div>
+<div class="bg-surface-container-low p-3 text-center text-error"><p class="text-xs font-label-caps">SUN</p><p class="font-bold">29</p></div>
+<!-- Shifts Row -->
+<div class="bg-surface p-2 h-32">
+<div class="h-full bg-primary-container/10 border-l-4 border-primary p-2 rounded">
+<p class="text-[10px] font-bold text-primary">MORNING</p>
+<p class="text-xs">06:00 - 14:00</p>
+</div>
+</div>
+<div class="bg-surface p-2 h-32">
+<div class="h-full bg-primary-container/10 border-l-4 border-primary p-2 rounded">
+<p class="text-[10px] font-bold text-primary">MORNING</p>
+<p class="text-xs">06:00 - 14:00</p>
+</div>
+</div>
+<div class="bg-surface p-2 h-32">
+<div class="h-full bg-primary-container/10 border-l-4 border-primary p-2 rounded">
+<p class="text-[10px] font-bold text-primary">MORNING</p>
+<p class="text-xs">06:00 - 14:00</p>
+</div>
+</div>
+<div class="bg-surface p-2 h-32">
+<div class="h-full bg-secondary-container/20 border-l-4 border-secondary p-2 rounded">
+<p class="text-[10px] font-bold text-secondary">MID-SHIFT</p>
+<p class="text-xs">10:00 - 18:00</p>
+</div>
+</div>
+<div class="bg-surface p-2 h-32">
+<div class="h-full bg-primary-container/10 border-l-4 border-primary p-2 rounded">
+<p class="text-[10px] font-bold text-primary">MORNING</p>
+<p class="text-xs">06:00 - 14:00</p>
+</div>
+</div>
+<div class="bg-surface p-2 h-32 flex items-center justify-center opacity-50">
+<span class="text-xs font-label-caps">OFF</span>
+</div>
+<div class="bg-surface p-2 h-32 flex items-center justify-center opacity-50">
+<span class="text-xs font-label-caps">OFF</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex flex-wrap gap-4 items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary border-l-2 border-primary"></div>
+<span class="text-xs text-on-surface-variant">Morning Shift</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-secondary border-l-2 border-secondary"></div>
+<span class="text-xs text-on-surface-variant">Mid-Shift</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-tertiary border-l-2 border-tertiary"></div>
+<span class="text-xs text-on-surface-variant">Night Shift</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Performance Timeline / History -->
+<section class="mt-stack-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">PERFORMANCE MILESTONES</h3>
+<button class="text-primary text-body-md font-semibold">View All History</button>
+</div>
+<div class="p-4">
+<table class="w-full zebra-table text-left border-collapse">
+<thead>
+<tr class="font-label-caps text-[10px] text-on-surface-variant uppercase">
+<th class="p-3">Review Date</th>
+<th class="p-3">Evaluator</th>
+<th class="p-3">Rating</th>
+<th class="p-3">Key Feedback</th>
+<th class="p-3">Action</th>
+</tr>
+</thead>
+<tbody class="text-body-md">
+<tr>
+<td class="p-3">Sept 15, 2023</td>
+<td class="p-3">Sarah Mitchell (HR)</td>
+<td class="p-3">
+<div class="flex text-amber-400 scale-75 origin-left">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="p-3">Exceeded VIP guest satisfaction targets.</td>
+<td class="p-3"><button class="text-primary material-symbols-outlined">visibility</button></td>
+</tr>
+<tr>
+<td class="p-3">June 10, 2023</td>
+<td class="p-3">David Okafor (GM)</td>
+<td class="p-3">
+<div class="flex text-amber-400 scale-75 origin-left">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+</td>
+<td class="p-3">Consistently high performance, minor attendance issue.</td>
+<td class="p-3"><button class="text-primary material-symbols-outlined">visibility</button></td>
+</tr>
+<tr>
+<td class="p-3">Mar 22, 2023</td>
+<td class="p-3">Sarah Mitchell (HR)</td>
+<td class="p-3">
+<div class="flex text-amber-400 scale-75 origin-left">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="p-3">Leader in peer-to-peer mentoring this quarter.</td>
+<td class="p-3"><button class="text-primary material-symbols-outlined">visibility</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center h-20 px-2 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-status-label font-status-label mt-1">Directory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-status-label font-status-label mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-status-label font-status-label mt-1">Insights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-status-label font-status-label mt-1">Payroll</span>
+</a>
+</nav>
+<!-- Side Navigation (Desktop Only) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-surface-container-low border-r border-outline-variant p-4">
+<nav class="space-y-2">
+<a class="flex items-center gap-3 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">Directory</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md">Schedule</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md">Payroll</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg bg-secondary-container text-on-secondary-container font-semibold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-body-md">Insights</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<div class="flex items-center gap-3 px-3">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+<span class="font-body-md text-on-surface-variant">Settings</span>
+</div>
+</div>
+</aside>
+<script>
+        // Micro-interactions for performance ratings
+        document.querySelectorAll('.zebra-table tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.boxShadow = 'inset 4px 0 0 #00288e';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body></html>

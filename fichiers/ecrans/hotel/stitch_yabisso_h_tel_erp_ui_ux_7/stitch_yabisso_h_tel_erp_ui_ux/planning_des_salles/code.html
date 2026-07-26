@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administrative Control - Banquet &amp; Conference Scheduling</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: 160px repeat(7, 1fr);
+        }
+        .time-marker-line {
+            background-image: linear-gradient(to right, #E2E8F0 1px, transparent 1px);
+            background-size: calc(100% / 7) 100%;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary-fixed-variant": "#39475f",
+                "secondary-fixed": "#d3e4fe",
+                "on-primary-fixed": "#0d1c32",
+                "tertiary-fixed": "#ffdea5",
+                "inverse-on-surface": "#eff1f3",
+                "surface-variant": "#e0e3e5",
+                "surface-tint": "#515f78",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-low": "#f2f4f6",
+                "surface-container-high": "#e6e8ea",
+                "on-primary-container": "#76849f",
+                "on-secondary-container": "#54647a",
+                "inverse-primary": "#b9c7e4",
+                "primary-fixed-dim": "#b9c7e4",
+                "on-secondary": "#ffffff",
+                "on-surface-variant": "#44474d",
+                "surface-container": "#eceef0",
+                "tertiary-container": "#261900",
+                "tertiary": "#000000",
+                "surface-container-highest": "#e0e3e5",
+                "primary-container": "#0d1c32",
+                "on-secondary-fixed-variant": "#38485d",
+                "on-error-container": "#93000a",
+                "secondary-fixed-dim": "#b7c8e1",
+                "surface-bright": "#f7f9fb",
+                "secondary": "#505f76",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "tertiary-fixed-dim": "#e9c176",
+                "outline": "#75777e",
+                "inverse-surface": "#2d3133",
+                "secondary-container": "#d0e1fb",
+                "on-tertiary-container": "#a17f3b",
+                "background": "#f7f9fb",
+                "surface": "#f7f9fb",
+                "on-tertiary-fixed-variant": "#5d4201",
+                "on-surface": "#191c1e",
+                "outline-variant": "#c5c6cd",
+                "on-secondary-fixed": "#0b1c30",
+                "surface-dim": "#d8dadc",
+                "primary-fixed": "#d6e3ff",
+                "on-tertiary": "#ffffff",
+                "primary": "#000000",
+                "on-tertiary-fixed": "#261900",
+                "on-error": "#ffffff",
+                "on-background": "#191c1e",
+                "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "margin-mobile": "20px",
+                "margin-desktop": "64px",
+                "gutter": "24px",
+                "unit": "8px",
+                "container-max": "1440px",
+                "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                "title-md": ["Manrope"],
+                "label-sm": ["Manrope"],
+                "headline-lg-mobile": ["Libre Caslon Text"],
+                "body-md": ["Manrope"],
+                "display-lg": ["Libre Caslon Text"],
+                "headline-lg": ["Libre Caslon Text"],
+                "headline-sm": ["Libre Caslon Text"],
+                "headline-md": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                "headline-sm": ["20px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-highest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center px-margin-desktop h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Administrative Control</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-primary-fixed-dim font-bold transition-colors duration-200" href="#">Scheduling</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">Inventory</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">Analytics</a>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center border border-outline-variant">
+<img class="w-full h-full rounded-full object-cover" data-alt="Professional headshot of a senior system architect in a high-end office environment. The lighting is soft and directional, emphasizing a clean, authoritative look. Minimalist background with subtle architectural details in a neutral palette of slates and whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbnXuOT40Y0iwVTPQ_trW8ufkrIztRDV9j_wo39kwPgUG439zkpG-pubVrR48iuWnm0EFfVKwFcETyXAmhRgT3Ft53-kUi2Wd1qCWU14Sd06UxctKP0XIh67auxwzE6z8m62-Di1SkHXiPBvizEYJ6MLWgc5MpaGbZBHCJsFDQKqdIh3Mi50zQsTjbXNoQZfIpIsKRfXb5mpM0p8jDvE0C3IF92bgSSdpeIVSDJT-vXWvvWz6QRxWE2Q"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline hidden md:flex flex-col p-8 pt-24 z-40">
+<div class="flex flex-col gap-6 mb-12">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container text-on-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary">System Architect</h2>
+<p class="text-label-sm text-on-surface-variant">Security Tier 1</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 p-4 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">User List</span>
+</a>
+<a class="flex items-center gap-4 p-4 bg-secondary-container dark:bg-on-primary-fixed-variant text-on-secondary-container dark:text-primary-fixed font-bold rounded-full transition-all duration-150" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md">Schedules</span>
+</a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-body-md">Security Logs</span>
+</a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span class="font-body-md">Access Requests</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-high rounded-xl border border-outline-variant">
+<p class="text-label-sm uppercase tracking-widest text-on-surface-variant mb-2">Active Session</p>
+<div class="flex items-center gap-2 text-primary font-bold">
+<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span>Authorized</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:pl-sidebar-width pt-16 min-h-screen">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Header & Filters Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+<div>
+<span class="text-label-sm text-on-tertiary-container bg-tertiary-container px-3 py-1 rounded-full uppercase tracking-tighter mb-4 inline-block">Digital Concierge Portal</span>
+<h2 class="font-display-lg text-display-lg text-primary">Space Management</h2>
+<p class="text-on-surface-variant mt-2 max-w-xl">Curate and manage reservations across the property's primary social anchors. Authoritative oversight for high-touch hospitality.</p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 font-title-md rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                        New Reservation
+                    </button>
+<button class="border border-outline text-primary px-8 py-3 font-title-md rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filters
+                    </button>
+</div>
+</section>
+<!-- Weekly Overview Grid -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<!-- Week Selector Header -->
+<div class="p-6 border-b border-outline-variant flex items-center justify-between bg-surface-bright">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<h3 class="font-title-md text-title-md text-primary">October 14 – 20, 2023</h3>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<span class="h-6 w-px bg-outline-variant"></span>
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="px-4 py-1.5 text-label-sm bg-white shadow-sm rounded">WEEK</button>
+<button class="px-4 py-1.5 text-label-sm text-on-surface-variant">MONTH</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-label-sm text-on-surface-variant">Confirmed</span>
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim ml-4"></span>
+<span class="text-label-sm text-on-surface-variant">VIP Event</span>
+</div>
+</div>
+<!-- Timeline Container -->
+<div class="overflow-x-auto hide-scrollbar">
+<div class="min-w-[1000px]">
+<!-- Days Row -->
+<div class="timeline-grid border-b border-outline-variant">
+<div class="p-6 bg-surface-container-low font-label-sm text-on-surface-variant uppercase tracking-widest flex items-center">Resource</div>
+<div class="p-6 text-center border-l border-outline-variant">
+<p class="text-label-sm text-on-surface-variant uppercase">Mon</p>
+<p class="font-title-md text-2xl mt-1">14</p>
+</div>
+<div class="p-6 text-center border-l border-outline-variant bg-surface-container-low">
+<p class="text-label-sm text-primary uppercase">Tue</p>
+<p class="font-title-md text-2xl mt-1 text-primary">15</p>
+</div>
+<div class="p-6 text-center border-l border-outline-variant">
+<p class="text-label-sm text-on-surface-variant uppercase">Wed</p>
+<p class="font-title-md text-2xl mt-1">16</p>
+</div>
+<div class="p-6 text-center border-l border-outline-variant">
+<p class="text-label-sm text-on-surface-variant uppercase">Thu</p>
+<p class="font-title-md text-2xl mt-1">17</p>
+</div>
+<div class="p-6 text-center border-l border-outline-variant">
+<p class="text-label-sm text-on-surface-variant uppercase">Fri</p>
+<p class="font-title-md text-2xl mt-1">18</p>
+</div>
+<div class="p-6 text-center border-l border-outline-variant">
+<p class="text-label-sm text-on-surface-variant uppercase">Sat</p>
+<p class="font-title-md text-2xl mt-1">19</p>
+</div>
+<div class="p-6 text-center border-l border-outline-variant">
+<p class="text-label-sm text-on-surface-variant uppercase">Sun</p>
+<p class="font-title-md text-2xl mt-1 text-primary">20</p>
+</div>
+</div>
+<!-- Grand Ballroom Row -->
+<div class="timeline-grid border-b border-outline-variant relative group hover:bg-surface-container-lowest transition-colors">
+<div class="p-6 border-r border-outline-variant flex flex-col justify-center gap-1">
+<p class="font-title-md text-primary">Grand Ballroom</p>
+<p class="text-label-sm text-on-surface-variant">Cap: 450</p>
+</div>
+<div class="col-span-7 relative py-4 time-marker-line">
+<!-- Reservation 1 -->
+<div class="absolute left-[5%] w-[25%] top-4 bottom-4 bg-primary text-on-primary p-4 rounded-lg shadow-sm border-l-4 border-tertiary-fixed-dim cursor-pointer z-10 overflow-hidden">
+<div class="flex justify-between items-start mb-1">
+<p class="font-bold text-sm truncate">Ambassador Global Summit</p>
+<span class="text-[10px] bg-white/20 px-2 py-0.5 rounded">VIP</span>
+</div>
+<p class="text-xs opacity-80">Full Day • High Security</p>
+</div>
+<!-- Reservation 2 -->
+<div class="absolute left-[45%] w-[12%] top-6 bottom-6 bg-secondary text-white p-3 rounded-lg shadow-sm cursor-pointer z-10 overflow-hidden">
+<p class="font-bold text-[10px] truncate">Hedge Fund Quarterly</p>
+<p class="text-[9px] opacity-80">14:00 - 18:00</p>
+</div>
+<!-- Reservation 3 -->
+<div class="absolute left-[72%] w-[20%] top-4 bottom-4 bg-primary text-on-primary p-4 rounded-lg shadow-sm cursor-pointer z-10 overflow-hidden">
+<p class="font-bold text-sm truncate">Gala Dinner: Horizon Fund</p>
+<p class="text-xs opacity-80">18:00 - 01:00</p>
+</div>
+</div>
+</div>
+<!-- Sapphire Suite Row -->
+<div class="timeline-grid border-b border-outline-variant relative group">
+<div class="p-6 border-r border-outline-variant flex flex-col justify-center gap-1">
+<p class="font-title-md text-primary">Sapphire Suite</p>
+<p class="text-label-sm text-on-surface-variant">Cap: 40</p>
+</div>
+<div class="col-span-7 relative py-4 time-marker-line">
+<!-- Reservation 1 -->
+<div class="absolute left-[18%] w-[10%] top-6 bottom-6 bg-secondary text-white p-3 rounded-lg shadow-sm cursor-pointer z-10">
+<p class="font-bold text-[10px] truncate">Private Board Meeting</p>
+</div>
+<!-- Reservation 2 -->
+<div class="absolute left-[44%] w-[14%] top-4 bottom-4 bg-secondary text-white p-4 rounded-lg shadow-sm cursor-pointer z-10">
+<p class="font-bold text-sm truncate">Art Curator Lunch</p>
+<p class="text-xs opacity-80">11:00 - 15:00</p>
+</div>
+<!-- Reservation 3 -->
+<div class="absolute left-[88%] w-[8%] top-6 bottom-6 bg-secondary-container text-on-secondary-container border border-outline-variant p-2 rounded-lg shadow-sm cursor-pointer z-10">
+<p class="font-bold text-[10px] truncate">Prep Session</p>
+</div>
+</div>
+</div>
+<!-- Terrace Garden Row -->
+<div class="timeline-grid border-b border-outline-variant relative group">
+<div class="p-6 border-r border-outline-variant flex flex-col justify-center gap-1">
+<p class="font-title-md text-primary">Terrace Garden</p>
+<p class="text-label-sm text-on-surface-variant">Outdoor</p>
+</div>
+<div class="col-span-7 relative py-4 time-marker-line">
+<!-- Reservation 1 -->
+<div class="absolute left-[30%] w-[35%] top-4 bottom-4 bg-tertiary-fixed text-on-tertiary-fixed border border-on-tertiary-fixed-variant/20 p-4 rounded-lg shadow-sm cursor-pointer z-10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-sm">wb_sunny</span>
+<p class="font-bold text-sm truncate">Royal Wedding Reception</p>
+</div>
+<p class="text-xs opacity-80">Reserved: Weather Permitting</p>
+</div>
+</div>
+</div>
+<!-- Emerald Lounge Row -->
+<div class="timeline-grid relative group">
+<div class="p-6 border-r border-outline-variant flex flex-col justify-center gap-1">
+<p class="font-title-md text-primary">Emerald Lounge</p>
+<p class="text-label-sm text-on-surface-variant">Cap: 12</p>
+</div>
+<div class="col-span-7 relative py-4 time-marker-line h-32">
+<div class="h-full w-full flex items-center justify-center italic text-on-surface-variant opacity-40">No reservations currently scheduled for this period</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Insights Section (Bento Style) -->
+<section class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+<h4 class="font-headline-sm text-headline-sm text-primary mb-6">Occupancy Insights</h4>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Weekly Utilization</p>
+<p class="text-3xl font-title-md text-primary">82%</p>
+<div class="w-full bg-surface-container-high h-1 mt-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Revenue Pace</p>
+<p class="text-3xl font-title-md text-primary">+14%</p>
+<p class="text-xs text-emerald-600 mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> vs Last Week
+                            </p>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">VIP Count</p>
+<p class="text-3xl font-title-md text-primary">06</p>
+<p class="text-xs text-on-surface-variant mt-2">Active High-Profile</p>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Pending Inquiries</p>
+<p class="text-3xl font-title-md text-primary">12</p>
+<p class="text-xs text-on-surface-variant mt-2">Requires Review</p>
+</div>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-8 flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-headline-sm text-headline-sm mb-4">Concierge Note</h4>
+<p class="text-on-primary-container text-body-md italic leading-relaxed">
+                            "The Ambassador Global Summit on Tuesday requires additional security clearance for all catering staff. Please ensure lists are submitted by 08:00."
+                        </p>
+</div>
+<div class="mt-8 relative z-10">
+<button class="bg-white text-primary px-6 py-2 rounded-lg font-bold text-sm hover:bg-opacity-90 transition-all">Acknowledge Requirement</button>
+</div>
+<!-- Aesthetic abstract background element -->
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-tertiary-fixed-dim opacity-10 rounded-full blur-3xl"></div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedules</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md text-label-md">Logs</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Requests</span>
+</button>
+</nav>
+<script>
+        // Simple interaction for the reservation cards
+        document.querySelectorAll('.absolute.rounded-lg').forEach(card => {
+            card.addEventListener('click', () => {
+                alert('Accessing Detailed Reservation: ' + card.innerText.split('\n')[0]);
+            });
+            
+            // Hover effect
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('scale-[1.02]');
+                card.style.zIndex = "50";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('scale-[1.02]');
+                card.style.zIndex = "10";
+            });
+        });
+
+        // Add visual interest to the timeline grid lines
+        document.querySelectorAll('.time-marker-line').forEach(line => {
+            line.addEventListener('mousemove', (e) => {
+                const rect = line.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                // Create a temporary indicator
+                let indicator = line.querySelector('.time-hover-indicator');
+                if (!indicator) {
+                    indicator = document.createElement('div');
+                    indicator.className = 'time-hover-indicator absolute top-0 bottom-0 w-px bg-primary/20 pointer-events-none z-0';
+                    line.appendChild(indicator);
+                }
+                indicator.style.left = `${x}px`;
+            });
+            line.addEventListener('mouseleave', () => {
+                const indicator = line.querySelector('.time-hover-indicator');
+                if (indicator) indicator.remove();
+            });
+        });
+    </script>
+</body></html>

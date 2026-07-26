@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Report Maintenance Issue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e0e3e5",
+                    "outline": "#76777d",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-container": "#7c839b",
+                    "background": "#f7f9fb",
+                    "on-tertiary-container": "#b87500",
+                    "tertiary-container": "#2a1700",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#565e74",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "on-secondary-container": "#00714d",
+                    "primary": "#000000",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed": "#dae2fd",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary-container": "#6cf8bb",
+                    "outline-variant": "#c6c6cd",
+                    "primary-container": "#131b2e",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#000000",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary": "#006c49",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-bright": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-high": "#e6e8ea",
+                    "surface": "#f7f9fb",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "unit": "4px",
+                    "sm": "8px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .priority-chip input:checked + label {
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8e0;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 z-50 shadow-sm border-b border-outline-variant flex justify-between items-center px-md h-14 w-full">
+<div class="flex items-center gap-sm">
+<button class="p-2 transition-colors duration-200 hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Maintenance Operations</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a hotel staff member, wearing a clean uniform, in a brightly lit modern office setting. The lighting is soft and professional, reflecting a high-end luxury hospitality brand. The background is slightly blurred, focusing on the calm and efficient expression of the staff member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYM5iKP581e8MrLCMOlD_PGWN-TuR24lFsR_8ZXKBFB-5RJ4fdbyqx3_z4Qm1gMuHUJM8xSYHbh0_V0bV940ZNBoAYzlm0hSlAVBWKw0rGhIKuWeywnUfKL9KhRWwwQzpH0K-u-eQD1UYVPhw3bnzlbqZ1S_t43ZZNVEgvG4-rSw19k7buePIPbiW7O51pvNuRU58bJFgj9zrqx_AKzQ4Hcg0An0Z4jtsthlYQc2GchgutIdQRh2uuMw"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center p-md md:p-lg max-w-2xl mx-auto w-full pb-24">
+<section class="w-full mb-lg text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">New Request</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Log a maintenance issue for immediate staff attention.</p>
+</section>
+<form class="w-full space-y-md" id="maintenanceForm">
+<!-- Location -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-sm">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+                    Location
+                </label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-md py-3 font-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Room number or area (e.g. Suite 402, Gym)" type="text"/>
+</div>
+<!-- Category -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-sm">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined text-lg" data-icon="category">category</span>
+                    Issue Category
+                </label>
+<select class="w-full bg-white border border-outline-variant rounded-lg px-md py-3 font-body-md focus:ring-2 focus:ring-primary focus:border-primary appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Select category</option>
+<option>Electrical</option>
+<option>Plumbing</option>
+<option>HVAC / AC</option>
+<option>Furniture / Carpentry</option>
+<option>Housekeeping Request</option>
+<option>Other</option>
+</select>
+</div>
+<!-- Description -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-sm">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined text-lg" data-icon="description">description</span>
+                    Description
+                </label>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg px-md py-3 font-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none" placeholder="Describe the issue in detail..." rows="4"></textarea>
+</div>
+<!-- Priority -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-sm">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined text-lg" data-icon="priority_high">priority_high</span>
+                    Priority Level
+                </label>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+<div class="priority-chip">
+<input class="hidden" id="low" name="priority" type="radio" value="low"/>
+<label class="flex items-center justify-center px-4 py-3 rounded-lg border border-outline-variant bg-white font-label-md text-label-md cursor-pointer transition-all hover:bg-surface-container" for="low">Low</label>
+</div>
+<div class="priority-chip">
+<input checked="" class="hidden" id="medium" name="priority" type="radio" value="medium"/>
+<label class="flex items-center justify-center px-4 py-3 rounded-lg border border-outline-variant bg-white font-label-md text-label-md cursor-pointer transition-all hover:bg-surface-container" for="medium">Medium</label>
+</div>
+<div class="priority-chip">
+<input class="hidden" id="high" name="priority" type="radio" value="high"/>
+<label class="flex items-center justify-center px-4 py-3 rounded-lg border border-outline-variant bg-white font-label-md text-label-md cursor-pointer transition-all hover:bg-surface-container" for="high">High</label>
+</div>
+<div class="priority-chip">
+<input class="hidden" id="urgent" name="priority" type="radio" value="urgent"/>
+<label class="flex items-center justify-center px-4 py-3 rounded-lg border border-outline-variant bg-white font-label-md text-label-md cursor-pointer transition-all hover:bg-surface-container border-error text-error" for="urgent">Urgent</label>
+</div>
+</div>
+</div>
+<!-- Upload Photo -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-sm">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined text-lg" data-icon="photo_camera">photo_camera</span>
+                    Upload Photo
+                </label>
+<div class="flex flex-col items-center justify-center border-2 border-dashed border-outline-variant rounded-xl p-lg bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group" onclick="document.getElementById('fileInput').click()">
+<input accept="image/*" capture="environment" class="hidden" id="fileInput" type="file"/>
+<span class="material-symbols-outlined text-4xl text-outline group-hover:text-primary transition-colors" data-icon="add_a_photo">add_a_photo</span>
+<p class="font-body-md text-body-md text-outline mt-sm group-hover:text-primary">Tap to take or upload a photo</p>
+</div>
+</div>
+<!-- Submit -->
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-headline-sm text-headline-sm shadow-md hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-sm mt-xl" type="submit">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                Submit Request
+            </button>
+</form>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-sm pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="font-label-sm text-label-sm">Interventions</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-label-sm text-label-sm font-bold">New Request</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm">Audit Log</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for form submission
+        document.getElementById('maintenanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalContent = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span> Sending...`;
+            
+            setTimeout(() => {
+                btn.classList.replace('bg-primary', 'bg-secondary');
+                btn.innerHTML = `<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span> Request Sent!`;
+                
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.classList.replace('bg-secondary', 'bg-primary');
+                    btn.innerHTML = originalContent;
+                    document.getElementById('maintenanceForm').reset();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Photo Preview Interaction (Simple mock)
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const container = this.closest('div');
+            if (this.files && this.files[0]) {
+                container.innerHTML = `
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden border border-outline-variant shadow-sm">
+                        <img src="placeholder" data-alt="A photograph of a simulated maintenance issue, such as a leaking faucet or a damaged electrical outlet, taken in a high-end hotel room setting. The lighting is realistic, emphasizing the textures and the specific problem area clearly for documentation. The image has a professional and clean aesthetic." class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                            <button onclick="location.reload()" class="bg-white p-2 rounded-full text-error">
+                                <span class="material-symbols-outlined" data-icon="delete">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="font-label-md text-label-md text-on-secondary-container mt-sm">Photo attached successfully</p>
+                `;
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Job Openings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "surface-dim": "#d8dadc",
+                    "surface-variant": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-fixed": "#271901",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-primary-container": "#7c839b",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#07006c",
+                    "surface-tint": "#565e74",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6063ee",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-tertiary-container": "#98805d",
+                    "error-container": "#ffdad6",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary": "#4648d4",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary-container": "#271901",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "inverse-surface": "#2d3133",
+                    "primary": "#000000",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary-fixed": "#fcdeb5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "pipeline-column-width": "280px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                    "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                    "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .quiet-input {
+            border: none;
+            border-bottom: 1px solid #76777d;
+            background: transparent;
+            padding: 8px 0;
+            transition: all 0.2s ease;
+        }
+        .quiet-input:focus {
+            outline: none;
+            border-bottom: 2px solid #4648d4;
+            box-shadow: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Sidebar / Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-screen sticky top-0 w-pipeline-column-width bg-surface-container-low border-r border-outline-variant p-6 space-y-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Yabisso Hôtel</span>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="font-label-caps text-label-caps text-primary mb-4">Talent Management</div>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-body-md">Job Openings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">Candidates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-body-md">Interviews</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md">Recruitment Analytics</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a hospitality executive for a luxury hotel recruitment portal. The subject is a woman in her 40s with a confident, welcoming smile, wearing a tailored charcoal suit. The background is a blurred, high-end hotel lobby with warm lighting and minimalist architectural details. The style is crisp and corporate with a clean, light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXOv1iH61arRTMOGo2xvF56pZ30J2cyFOuGsbjHtXkcVj1MI2sglcD1UAqb-PbQNNucogn2U8T4ze1n1CCx_wVZncde2ThaFAZ9WTlQoKiRizVU--8G8SWBix8BOneY8rhJzfL2DqE7cMnoYGeK4h03kewHP5gh62sE5Gk7FkLWm0BZqmGR2xeiPDOM2HKbHOlTbaxBViJ9iPtzqnv7YCglGFR-5ttqiPxOt0hMLyP0sUUfAwnOxvdjQ"/>
+</div>
+<div>
+<div class="font-body-md font-bold">Admin User</div>
+<div class="font-body-sm text-on-surface-variant">HR Director</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-h-screen">
+<!-- Top App Bar (Mobile & Header Context) -->
+<header class="w-full h-16 px-6 md:px-margin-desktop bg-surface border-b border-outline-variant flex justify-between items-center z-40 sticky top-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Recruitment Portal</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-secondary text-on-secondary px-6 py-2 rounded-lg font-body-md font-semibold hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                    Create New Job
+                </button>
+<button class="text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-6 md:p-margin-desktop space-y-8 flex-1">
+<!-- Page Hero / Summary -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Active Openings</h2>
+<p class="font-body-md text-on-surface-variant mt-2 max-w-2xl">Manage and monitor current job vacancies across all departments at Yabisso Hôtel. Track applicant counts and listing status in real-time.</p>
+</div>
+<div class="flex gap-4 p-4 bg-surface-container rounded-xl">
+<div class="px-4 border-r border-outline-variant">
+<div class="font-label-caps text-label-caps text-secondary uppercase">Active</div>
+<div class="font-headline-lg text-headline-lg">12</div>
+</div>
+<div class="px-4 border-r border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Draft</div>
+<div class="font-headline-lg text-headline-lg">4</div>
+</div>
+<div class="px-4">
+<div class="font-label-caps text-label-caps text-error uppercase">Total</div>
+<div class="font-headline-lg text-headline-lg">16</div>
+</div>
+</div>
+</div>
+<!-- Filter Controls -->
+<div class="flex flex-col md:flex-row items-center gap-4 bg-white p-4 rounded-xl border border-outline-variant shadow-sm">
+<div class="relative flex-1 w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-background border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary-container focus:outline-none font-body-md" placeholder="Search by job title or keyword..." type="text"/>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<select class="bg-background border border-outline-variant rounded-lg px-4 py-2 font-body-md text-on-surface focus:outline-none w-full md:w-48">
+<option>All Departments</option>
+<option>Front Office</option>
+<option>Kitchen</option>
+<option>Housekeeping</option>
+<option>Management</option>
+</select>
+<select class="bg-background border border-outline-variant rounded-lg px-4 py-2 font-body-md text-on-surface focus:outline-none w-full md:w-48">
+<option>All Types</option>
+<option>Full-time</option>
+<option>Part-time</option>
+<option>Seasonal</option>
+<option>Contract</option>
+</select>
+<button class="bg-surface-container hover:bg-surface-variant p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</div>
+<!-- Job Listing High-Density Grid/List -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Job Row Item 1 -->
+<div class="group bg-white border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-secondary transition-all duration-300">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined">concierge</span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h3 class="font-body-md font-bold text-on-surface text-lg">Senior Receptionist</h3>
+<span class="px-2 py-0.5 bg-green-100 text-green-700 font-label-caps text-label-caps rounded">ACTIVE</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">room_service</span>
+                                    Front Office
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    Full-time
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                    Posted 2 days ago
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8 border-t md:border-t-0 md:border-l border-outline-variant pt-4 md:pt-0 md:pl-8">
+<div class="text-center">
+<div class="font-headline-lg text-headline-lg text-secondary">24</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Applicants</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+<span class="font-label-caps text-label-caps text-on-surface-variant">External</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors" title="Edit Listing">
+<span class="material-symbols-outlined text-on-surface-variant">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors" title="View Details">
+<span class="material-symbols-outlined text-on-surface-variant">open_in_new</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Job Row Item 2 -->
+<div class="group bg-white border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-secondary transition-all duration-300">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined">skillet</span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h3 class="font-body-md font-bold text-on-surface text-lg">Executive Sous Chef</h3>
+<span class="px-2 py-0.5 bg-yellow-100 text-yellow-700 font-label-caps text-label-caps rounded">DRAFT</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">restaurant</span>
+                                    Kitchen
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    Full-time
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">history</span>
+                                    Updated 5h ago
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8 border-t md:border-t-0 md:border-l border-outline-variant pt-4 md:pt-0 md:pl-8">
+<div class="text-center opacity-50">
+<div class="font-headline-lg text-headline-lg text-on-surface-variant">0</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Applicants</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<label class="relative inline-flex items-center cursor-not-allowed">
+<input class="sr-only peer" disabled="" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 transition-all"></div>
+</label>
+<span class="font-label-caps text-label-caps text-on-surface-variant opacity-50">Offline</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">publish</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Job Row Item 3 -->
+<div class="group bg-white border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-secondary transition-all duration-300">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined">cleaning_services</span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h3 class="font-body-md font-bold text-on-surface text-lg">Housekeeping Supervisor</h3>
+<span class="px-2 py-0.5 bg-green-100 text-green-700 font-label-caps text-label-caps rounded">ACTIVE</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">home</span>
+                                    Housekeeping
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                    Seasonal
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                                    Ends Sept 2024
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8 border-t md:border-t-0 md:border-l border-outline-variant pt-4 md:pt-0 md:pl-8">
+<div class="text-center">
+<div class="font-headline-lg text-headline-lg text-secondary">42</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Applicants</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-secondary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</label>
+<span class="font-label-caps text-label-caps text-on-surface-variant">External</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">open_in_new</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Job Row Item 4 -->
+<div class="group bg-white border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-secondary transition-all duration-300">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-12 h-12 rounded-lg bg-surface-dim flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h3 class="font-body-md font-bold text-on-surface text-lg">Valet Parking Attendant</h3>
+<span class="px-2 py-0.5 bg-gray-100 text-gray-500 font-label-caps text-label-caps rounded">CLOSED</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">room_service</span>
+                                    Front Office
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    Part-time
+                                </span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">event</span>
+                                    Closed Jun 12
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8 border-t md:border-t-0 md:border-l border-outline-variant pt-4 md:pt-0 md:pl-8">
+<div class="text-center opacity-70">
+<div class="font-headline-lg text-headline-lg text-on-surface-variant">12</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Applicants</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<label class="relative inline-flex items-center opacity-50">
+<input class="sr-only peer" disabled="" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full"></div>
+</label>
+<span class="font-label-caps text-label-caps text-on-surface-variant opacity-50">Inactive</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">restore</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">visibility</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant px-2">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-caps text-label-caps">Jobs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-label-caps text-label-caps">Talent</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-label-caps">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-caps text-label-caps">Stats</span>
+</a>
+</nav>
+<!-- Floating Action Button (Mobile Only Context) -->
+<button class="md:hidden fixed bottom-20 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</main>
+<script>
+        // Micro-interactions for hover effects and filter logic simulation
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-md');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-md');
+            });
+        });
+
+        // Simple mock search filter
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.group').forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body></html>

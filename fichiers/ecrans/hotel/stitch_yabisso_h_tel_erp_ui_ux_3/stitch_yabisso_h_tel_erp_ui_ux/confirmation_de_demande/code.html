@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .success-check-animation {
+            animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e8ea",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary-container": "#7c839b",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "tertiary": "#000000",
+                        "tertiary-container": "#2a1700",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#2d3133",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-container": "#b87500",
+                        "surface-tint": "#565e74",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-bright": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary": "#006c49",
+                        "outline": "#76777d",
+                        "on-secondary-container": "#00714d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "outline-variant": "#c6c6cd",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#131b2e",
+                        "on-surface-variant": "#45464d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "12px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex items-center justify-between px-margin-mobile h-14 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">person</span>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Events &amp; Experiences</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">notifications</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-14 pb-20 flex flex-col items-center px-margin-mobile">
+<!-- Success Illustration & Header Section -->
+<div class="mt-xl text-center flex flex-col items-center max-w-lg">
+<div class="relative mb-lg">
+<div class="absolute inset-0 pointer-events-none" id="confetti-container"></div>
+<div class="w-24 h-24 rounded-full bg-secondary-container flex items-center justify-center success-check-animation shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-sm">Demande Envoyée !</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">
+                Votre demande de devis pour un événement privé a bien été transmise à nos équipes.
+            </p>
+</div>
+<!-- Summary Card -->
+<div class="mt-lg w-full max-w-md bg-surface-container-low border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex flex-col gap-md">
+<div class="flex justify-between items-center pb-md border-b border-outline-variant">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Référence de la demande</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">#EV-8294</span>
+</div>
+<div class="flex gap-md items-start">
+<div class="mt-1">
+<span class="material-symbols-outlined text-secondary">schedule</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary">Délai de réponse attendu</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Nos experts vous répondront sous 24h ouvrées.</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-md rounded-lg flex items-center gap-md">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Un e-mail de confirmation a été envoyé à votre adresse.</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-xl w-full max-w-md flex flex-col gap-md">
+<button class="w-full h-[52px] bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:opacity-90 active:scale-95 transition-all shadow-md" onclick="window.location.reload()">
+                Retour à l'accueil
+            </button>
+<button class="w-full h-[52px] bg-transparent border border-primary text-primary rounded-lg font-label-lg text-label-lg hover:bg-surface-container-high active:scale-95 transition-all">
+                Explorer d'autres expériences
+            </button>
+</div>
+<!-- Help Link -->
+<div class="mt-xl text-center">
+<a class="flex items-center justify-center gap-xs font-label-lg text-label-lg text-secondary hover:underline" href="#">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+                Une question urgente ? Contactez la conciergerie
+            </a>
+</div>
+<!-- Decorative Spacer -->
+<div class="mt-lg h-40 w-full overflow-hidden opacity-10">
+<div class="flex gap-4 items-center justify-center grayscale">
+<img class="w-24 h-24 rounded-lg object-cover" data-alt="A luxurious minimalist hotel lounge area with high ceilings, marble floors, and contemporary African art pieces. The lighting is soft and golden, creating a professional yet welcoming hospitality environment. The color palette consists of deep charcoals, warm beiges, and clean whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDynTQV3X-pxOKHFCfwUKJ5l_el9dINRMXei93d252QBphAOMHdnED9PYGt3wKMXyuFX9Sdn8TLt9Q1qJlFcQs3y_FsBgipw6MIiUZuynZSkLHTDcPWPB81yxi8046PDSKXwdPfHvsDYK3FivqzNSvf6x2M8X_dW5phH8AxR6KHuTBvqGvG-KAthUWztU1HQpXvpVKSa1TiocLirjWa-OzJolqoD5tv7Js8ao_NM1P_WaN6W7xqlesQKA"/>
+<img class="w-24 h-24 rounded-lg object-cover" data-alt="A close-up shot of a professional event concierge at Yabisso Hotel, dressed in a sleek black uniform, smiling warmly. The background is a blurred high-end hotel lobby with elegant architectural details and soft ambient lighting. The mood is sophisticated and reliable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT_Q5pXUAx0U5FDlja7ei_0SneXJdWIVr3J5XOfbVg6yfdnqtwkNi8yUIxWHGCP2v49ROhh9K6AkI8nI7mk_-7le--3_lICEYpnRb3W3TS1PfJcQvRgCRj-fxDX_RuwWY7fNkpJjDeM86Z4KJq-i2E8uDbaqrn5QFqFmVlNlvl3cU1iyLu0I1l15cowCjcz6-ABqKK6bwfAu5ydiyfogz6Nq6-dCerVXlzOWDCaPHabwdGnQ6MI17Z7g"/>
+<img class="w-24 h-24 rounded-lg object-cover" data-alt="A top-down view of a minimalist banquet table set for a private event, featuring crisp white linens, modern black cutlery, and a small, tasteful floral arrangement. The aesthetic is clean, premium, and perfectly aligned with high-end hospitality standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd5CKng0nrp24P0c24iuH3hXXmdzH1Lek6DWHsnssa6w3kFE-KS4jxMtYrmJMVXn75FMTs8R9U7a3kFuOAHQoC9KE5yJVJL8S6-9EXGtsu7j4NNlN9OT9SDiR6OPp6tBhIG00THkq44MFAD4Db8O96PPUe83g27yFU0qKjl544FfP-8MTCct60nBACtAJc0FQ7Oe3mzQ6QDZtW4QsgtBB2_EYhrQry1auZicHkhmts2tg0eBMbWQaX7g"/>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Events context - Events tab active) -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-gutter-mobile pb-safe bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline shadow-lg z-50 rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-surface-container-lowest active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim font-semibold active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_available</span>
+<span class="font-label-sm text-label-sm">Events</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-surface-container-lowest active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">room_service</span>
+<span class="font-label-sm text-label-sm">Services</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-surface-container-lowest active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple confetti effect for celebration
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#006c49', '#6cf8bb', '#000000', '#dae2fd'];
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                container.appendChild(confetti);
+                
+                const velocityX = (Math.random() - 0.5) * 10;
+                const velocityY = (Math.random() - 0.5) * 10;
+                let opacity = 1;
+                
+                let posX = 50;
+                let posY = 50;
+                
+                const animate = () => {
+                    posX += velocityX;
+                    posY += velocityY;
+                    opacity -= 0.01;
+                    
+                    confetti.style.left = posX + '%';
+                    confetti.style.top = posY + '%';
+                    confetti.style.opacity = opacity;
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        confetti.remove();
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            }
+        }
+
+        // Run after a slight delay to let the initial animation breathe
+        setTimeout(createConfetti, 300);
+    </script>
+</body></html>

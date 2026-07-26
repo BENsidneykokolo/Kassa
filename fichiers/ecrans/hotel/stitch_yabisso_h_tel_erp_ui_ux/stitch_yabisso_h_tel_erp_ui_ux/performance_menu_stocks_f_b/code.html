@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Restaurant Engineering</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid #E2E8F0; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+        .custom-shadow { shadow-sm: 0px 1px 3px rgba(15, 23, 42, 0.08); }
+        @media (max-width: 768px) { .bento-grid { display: flex; flex-direction: column; } }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-container": "#6cf8bb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "secondary": "#006c49",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container-high": "#e6e8ea",
+                        "on-surface-variant": "#45464d",
+                        "on-surface": "#191c1e",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "error-container": "#ffdad6",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-container": "#2a1700",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary-fixed": "#002113",
+                        "surface": "#f7f9fb",
+                        "primary-container": "#131b2e",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#00714d",
+                        "on-primary-fixed": "#131b2e",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-container": "#b87500",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#565e74",
+                        "on-primary-container": "#7c839b"
+                    },
+                    "spacing": {
+                        "xs": "4px", "sm": "8px", "md": "16px", "lg": "24px", "xl": "32px", "unit": "4px", "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"], "label-lg": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "headline-md": ["Inter"], "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none flex justify-between items-center px-margin-mobile md:px-lg h-14 w-full">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary cursor-pointer hover:bg-surface-container transition-colors p-2 rounded-full">menu</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant cursor-pointer hover:bg-surface-container transition-colors p-2 rounded-full">notifications</span>
+<div class="h-8 w-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-label-md">JD</div>
+</div>
+</header>
+<main class="pt-20 pb-24 px-margin-mobile md:px-lg max-w-7xl mx-auto">
+<!-- Dashboard Header -->
+<div class="mb-lg">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-xs">Menu Engineering &amp; Stocks</h2>
+<p class="text-body-md text-on-surface-variant">Analyse de la rentabilité du restaurant et impact sur les inventaires.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Matrix Summary: Stars vs Dogs -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-center mb-md">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+                        Matrice de Performance
+                    </h3>
+<div class="flex gap-xs">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm">STARS (Haute)</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant text-label-sm">DOGS (Basse)</span>
+</div>
+</div>
+<div class="relative h-64 w-full border-l-2 border-b-2 border-outline rounded-bl-lg mb-md flex items-end">
+<!-- Labels -->
+<div class="absolute -left-10 top-1/2 -rotate-90 text-label-md text-outline uppercase tracking-widest">Popularité</div>
+<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-label-md text-outline uppercase tracking-widest">Marge de Profit</div>
+<!-- Plotting Data Points -->
+<div class="absolute bottom-[80%] left-[85%] flex flex-col items-center group cursor-help">
+<div class="w-4 h-4 bg-secondary rounded-full shadow-lg scale-125"></div>
+<span class="text-label-sm mt-1 font-bold">Filet de Capitaine</span>
+</div>
+<div class="absolute bottom-[70%] left-[70%] flex flex-col items-center group cursor-help">
+<div class="w-3 h-3 bg-secondary opacity-70 rounded-full"></div>
+<span class="text-label-sm mt-1">Poulet Moambe</span>
+</div>
+<div class="absolute bottom-[20%] left-[15%] flex flex-col items-center group cursor-help">
+<div class="w-3 h-3 bg-error rounded-full"></div>
+<span class="text-label-sm mt-1">Salade César Standard</span>
+</div>
+<div class="absolute bottom-[40%] left-[25%] flex flex-col items-center group cursor-help">
+<div class="w-3 h-3 bg-error-container rounded-full border border-error"></div>
+<span class="text-label-sm mt-1">Omelette Nature</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mt-lg">
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="text-label-sm text-secondary font-bold uppercase mb-xs">Top Star</p>
+<p class="text-headline-sm font-headline-sm">Filet de Capitaine</p>
+<p class="text-body-md text-on-surface-variant">Profit: +42% | Popularité: 88%</p>
+</div>
+<div class="p-md rounded-lg bg-error-container/30 border border-error/20">
+<p class="text-label-sm text-error font-bold uppercase mb-xs">Critical Dog</p>
+<p class="text-headline-sm font-headline-sm">Salade César</p>
+<p class="text-body-md text-on-surface-variant">Profit: -12% | Popularité: 14%</p>
+</div>
+</div>
+</div>
+<!-- Inventory Value Donut (Liquor, Meat, Produce) -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)] flex flex-col items-center">
+<h3 class="text-headline-sm font-headline-sm w-full text-left mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+                    Valeur Stock
+                </h3>
+<div class="relative w-48 h-48 flex items-center justify-center mb-lg">
+<!-- Donut Chart Simulated with Conic Gradient -->
+<div class="w-full h-full rounded-full" style="background: conic-gradient(#006c49 0% 45%, #ffb95f 45% 75%, #131b2e 75% 100%);"></div>
+<div class="absolute w-32 h-32 bg-surface-container-lowest rounded-full flex flex-col items-center justify-center">
+<span class="text-label-md text-on-surface-variant">Total</span>
+<span class="text-headline-md font-bold">12.4M FCFA</span>
+</div>
+</div>
+<div class="w-full space-y-sm">
+<div class="flex items-center justify-between text-body-md">
+<div class="flex items-center gap-xs"><div class="w-3 h-3 rounded-full bg-secondary"></div> Viandes &amp; Poissons</div>
+<span class="font-bold">45%</span>
+</div>
+<div class="flex items-center justify-between text-body-md">
+<div class="flex items-center gap-xs"><div class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div> Produits Frais</div>
+<span class="font-bold">30%</span>
+</div>
+<div class="flex items-center justify-between text-body-md">
+<div class="flex items-center gap-xs"><div class="w-3 h-3 rounded-full bg-primary-container"></div> Boissons &amp; Alcools</div>
+<span class="font-bold">25%</span>
+</div>
+</div>
+</div>
+<!-- Top 5 Most Profitable Dishes -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<h3 class="text-headline-sm font-headline-sm mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-tertiary-container">payments</span>
+                    Plats les Plus Rentables
+                </h3>
+<div class="space-y-md">
+<div class="flex items-center gap-md p-sm hover:bg-surface-container-low transition-colors rounded-lg">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" data-alt="A gourmet close-up shot of a perfectly grilled fish fillet served with local spices and a side of plantains. The lighting is warm and cinematic, emphasizing the texture and freshness of the food. High-end food photography style with soft bokeh background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeQ-jgpUuO3TxsbAjIRruqugH9CNiwetAEoW26ZgjvcwLuNv-qzqkpRZP-h5IW6c9M6TrMZtoCiixMs51Sn30apYZJK8UVygpUi80n63fpeVci9yX3ovpxz74Y8F7zFaqwWvHQSiEA0PupMgowTeCrnffnPWX_s4yut3OGMCRRPrHCu4_-nyvj0VO1LEog_HLe8WMttRmq8EtBviHOtBnHGLCTjnQtpXFNGaLU14kQT_J7hHZTIprRfQ')"></div>
+<div class="flex-1">
+<p class="text-label-lg font-bold">Capitaine Braisé</p>
+<p class="text-label-md text-on-surface-variant">Marge: 14.500 FCFA</p>
+</div>
+<div class="text-right">
+<span class="text-secondary font-bold">+18%</span>
+</div>
+</div>
+<div class="flex items-center gap-md p-sm hover:bg-surface-container-low transition-colors rounded-lg">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" data-alt="A traditional Moambe chicken dish in a rich, deep red palm nut sauce, served in a professional white ceramic bowl. The scene is lit with natural daylight to showcase the authentic colors and textures of luxury Congolese cuisine. Elegant and appetizing presentation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBaD5f6c3CELG_fs-teG5a-oW8ClSnVFotwF3xL4CILZEoHoYz5VlfCDlh40DO0zm4Or67LfreT9ussKH2spWVF75js3hVEaVm2Z7dVGLBIWDc3QM-ljnWM2CMNh6sSaDoJ_HbuTSs-W1UWgwFfTEK54uGd1oHy7EfldO9991Ghl9cMPTo_VMUenN0SEIyx3d8NLVg31ARxAZPPjjOtTisJldVU7216eEDQP7Fnph9WDXyaxaBTnfKCkQ')"></div>
+<div class="flex-1">
+<p class="text-label-lg font-bold">Poulet à la Moambe</p>
+<p class="text-label-md text-on-surface-variant">Marge: 12.200 FCFA</p>
+</div>
+<div class="text-right">
+<span class="text-secondary font-bold">+12%</span>
+</div>
+</div>
+<div class="flex items-center gap-md p-sm hover:bg-surface-container-low transition-colors rounded-lg">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" data-alt="Thin slices of premium beef carpaccio arranged artistically on a slate plate with micro-greens and balsamic reduction. Minimalist high-end plating in a modern luxury restaurant setting. The colors are muted and sophisticated." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBq9QJG-C8pBaKk5x2QJd_KgP3wryd2HX3hLVZosZ9YOi7AADPTNSshin4eHZmTKFeGwsaIoVPIZHiAcBFuwi74Ldg0jvV2_Td6u_6qoQ4OXCY4SdQEDSocGpsIx6a1jluR6f0NQeXxFkj1kzcjrsepuXUZqyW6K4E6H6Z-hQmY2sBRWuxf42mC8MPrGcFck1lVP9kKDZUXZCH6HDaG_zJfbksFQ0xe9-F4g0fXInizzsQfluRYdYriAA')"></div>
+<div class="flex-1">
+<p class="text-label-lg font-bold">Carpaccio de Bœuf</p>
+<p class="text-label-md text-on-surface-variant">Marge: 11.800 FCFA</p>
+</div>
+<div class="text-right">
+<span class="text-secondary font-bold">+9%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stock Depletion Alerts -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<h3 class="text-headline-sm font-headline-sm mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-error">warning</span>
+                    Alertes de Stock Critique
+                </h3>
+<div class="space-y-sm">
+<div class="p-md rounded-xl border-l-4 border-error bg-error-container/10 flex justify-between items-center">
+<div>
+<p class="text-label-lg font-bold">Vin Rouge - Château Margaux</p>
+<p class="text-label-md text-on-surface-variant">Restant: 2 bouteilles</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold">Commander</button>
+</div>
+<div class="p-md rounded-xl border-l-4 border-error bg-error-container/10 flex justify-between items-center">
+<div>
+<p class="text-label-lg font-bold">Crevettes Tigrées (KG)</p>
+<p class="text-label-md text-on-surface-variant">Restant: 1.5 KG (Seuil: 5 KG)</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-bold">Commander</button>
+</div>
+<div class="p-md rounded-xl border-l-4 border-tertiary-fixed-dim bg-surface-container-high flex justify-between items-center">
+<div>
+<p class="text-label-lg font-bold">Huile de Palme Raffinée</p>
+<p class="text-label-md text-on-surface-variant">Restant: 10L (Seuil: 15L)</p>
+</div>
+<button class="border border-outline text-primary px-4 py-2 rounded-lg text-label-md font-bold">Voir Fournisseurs</button>
+</div>
+</div>
+</div>
+<!-- Food Waste Metrics -->
+<div class="col-span-12 bg-primary-container text-on-primary-container rounded-xl p-lg flex flex-col md:flex-row gap-lg items-center shadow-lg">
+<div class="flex-1">
+<h3 class="text-headline-md font-headline-md mb-xs">Indice de Gaspillage Alimentaire</h3>
+<p class="text-on-primary-container/80 text-body-md mb-md">Analyse du gaspillage sur les 7 derniers jours par rapport au volume total.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="bg-white/10 p-md rounded-lg backdrop-blur-sm">
+<p class="text-label-sm uppercase tracking-wider opacity-70">Pertes Cuisine</p>
+<p class="text-headline-sm font-bold">4.2%</p>
+</div>
+<div class="bg-white/10 p-md rounded-lg backdrop-blur-sm">
+<p class="text-label-sm uppercase tracking-wider opacity-70">Retour Assiette</p>
+<p class="text-headline-sm font-bold">2.8%</p>
+</div>
+<div class="bg-white/10 p-md rounded-lg backdrop-blur-sm">
+<p class="text-label-sm uppercase tracking-wider opacity-70">Valeur Perdue</p>
+<p class="text-headline-sm font-bold">850k FCFA</p>
+</div>
+<div class="bg-white/10 p-md rounded-lg backdrop-blur-sm">
+<p class="text-label-sm uppercase tracking-wider opacity-70">Action Requise</p>
+<p class="text-headline-sm font-bold text-secondary-fixed-dim">Audit Portion</p>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/3 flex justify-center">
+<div class="relative w-32 h-32">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-white/10" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary-fixed-dim" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364" stroke-dashoffset="300" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-bold text-headline-sm">-15%</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- NavigationDrawer (Mobile Interaction Simulation) -->
+<div class="fixed inset-y-0 left-0 w-72 bg-surface-container-low dark:bg-inverse-surface shadow-xl transform -translate-x-full transition-transform duration-300 z-50 rounded-r-xl" id="drawer">
+<div class="flex flex-col h-full py-lg">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-cover bg-center" data-alt="Portrait of a professional hotel general manager, middle-aged, elegant suit, confident and welcoming expression, luxury lobby background with soft lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDyJdvD3zFxwaQZk5I8x9kJ8p7daon_4H7F4t1Q75uyFJdNv4XNKXdFVPBf4fRoAUjBpywMQ4xR_96yeVeKtvBo2h6VxyRKYUCeZASpV3Z6_BhdgvipCUmm0mjy45ddQpiA9oB-qpvKd4zY-3qMz2MIETp6jrqi8DLiEl0lbXerMQbUndu2q80YAYLbDtDX3YxJJWrm5zVgAckLq_tesF4Kxnt4gjkMFplFZIIW64KMbXODb4DCWjUlQg')"></div>
+<div>
+<p class="text-label-lg font-bold text-primary">Directeur Général</p>
+<p class="text-label-sm text-on-surface-variant">Yabisso Grand Hotel</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs px-sm">
+<div class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg">Paramètres</span>
+</div>
+<div class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg px-md py-sm cursor-pointer">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-lg">Rapports Stocks</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg">Stocks Cuisine</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">build</span>
+<span class="text-label-lg">Maintenance</span>
+</div>
+</nav>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] rounded-t-xl flex justify-around items-center h-16 px-xs pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="text-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm">AI</span>
+</div>
+</nav>
+<script>
+        // Simple Micro-interactions
+        const menuBtn = document.querySelector('header span:first-child');
+        const drawer = document.getElementById('drawer');
+        let drawerOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            drawerOpen = !drawerOpen;
+            drawer.style.transform = drawerOpen ? 'translateX(0)' : 'translateX(-100%)';
+        });
+
+        // Close drawer on click outside
+        document.addEventListener('click', (e) => {
+            if (drawerOpen && !drawer.contains(e.target) && !menuBtn.contains(e.target)) {
+                drawerOpen = false;
+                drawer.style.transform = 'translateX(-100%)';
+            }
+        });
+    </script>
+</body></html>

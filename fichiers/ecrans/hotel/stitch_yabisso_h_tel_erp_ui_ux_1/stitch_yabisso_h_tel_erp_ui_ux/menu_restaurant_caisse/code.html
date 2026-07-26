@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Restaurant POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "primary-fixed": "#dae2fd",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-secondary-container": "#00714d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-bright": "#f7f9fb",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "outline": "#76777d",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed": "#002113",
+                    "surface-variant": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary": "#006c49",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-tertiary-fixed": "#2a1700",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary-container": "#b87500",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-tint": "#565e74",
+                    "surface-container": "#eceef0",
+                    "inverse-primary": "#bec6e0",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "tertiary-container": "#2a1700",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "gutter-mobile": "12px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f9fb;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e2e8e5;
+        border-radius: 10px;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface mb-20 md:mb-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm w-full top-0 sticky z-40 flex justify-between items-center px-md h-[64px]">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-full" data-icon="menu">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-primary font-bold font-label-lg text-label-lg" href="#">POS</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-lg font-label-lg text-label-lg" href="#">Tableau de bord</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-lg font-label-lg text-label-lg" href="#">Historique</a>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a hotel manager in a sharp charcoal suit against a minimalist light grey background. The lighting is soft and corporate, highlighting clean lines and a professional demeanor. The image quality is high-resolution with a focus on sophisticated executive style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsr3T7402AocJJSECUDIWqdJIfhSyxVO0lT2UWkHCI3P0boOFNkSLyqfsuxO2xAI75chm3FerCIASuwLHWh9mIjU1b2XjNph-7xd9v8X_N0hquwWZy29WAK2Nv6MosU1R74vPO_VOOzy7B_MRDIuoSOlyCMjBq9tda7S4MTx1cVWN19vvzo-fFz_9sKZvIyuGdGrE8muqltoR7ZYM4JeN5i3qbyyNWhOoWLCsj-GuuVIhThlihwesg2w"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto p-md lg:p-lg space-y-lg">
+<!-- Search & Filter Bar -->
+<section class="flex flex-col md:flex-row gap-md items-center justify-between">
+<div class="relative w-full md:max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Rechercher un plat, une boisson..." type="text"/>
+</div>
+<div class="flex gap-sm overflow-x-auto w-full md:w-auto pb-xs custom-scrollbar">
+<button class="px-lg py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-lg text-label-lg whitespace-nowrap">Tout</button>
+<button class="px-lg py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all font-label-lg text-label-lg whitespace-nowrap">Favoris</button>
+<button class="px-lg py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all font-label-lg text-label-lg whitespace-nowrap">Nouveautés</button>
+</div>
+</section>
+<!-- Category Bento Grid -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="group relative h-32 md:h-40 rounded-2xl overflow-hidden cursor-pointer shadow-sm active:scale-95 transition-transform">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Gourmet French appetizers arranged beautifully on a minimalist ceramic plate. Fresh ingredients like microgreens and heirloom tomatoes are visible under warm, natural morning light. The background is a clean white marble countertop, emphasizing a high-end restaurant aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuALmnmJmdCq937wowfHOsan7L9Es54SZ2T0QLg7GPGhWBV_UAy0pBxSpil5z7JpyvUxRD4SiVyLyLAtLG68uGb8YW99HWudhEvMqQShFoh2Xm7j6M9bLQYupf0fmVNaIl49fm2FEAvrAsOyMvM4o5o9eHjPHheHjQI83t83zOYttSgdpeX-PJcm02SHluKEz8bfWLjY2qErDIqUC-yHBp547Ds--4ueXCyqgaJUrRgjqq6k7_1tRKWPZw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-md">
+<span class="text-white font-headline-sm text-headline-sm">Entrées</span>
+</div>
+</div>
+<div class="group relative h-32 md:h-40 rounded-2xl overflow-hidden cursor-pointer shadow-sm active:scale-95 transition-transform">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="A masterfully plated main course featuring a perfectly seared steak with seasonal roasted vegetables. The lighting is moody and sophisticated, reminiscent of an upscale dinner setting. Rich textures of the meat and vibrant colors of the vegetables stand out against a dark slate background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBWe0uWltwpvYbGQGReD5kmHiDuaNZc3f0ATovd0h9KfatPwrH5XdRoip_1z4-ttFVVbZpOSz9YdjNVESEY9NtSWeZFVR0IqckOyttsAnE2tJPhAFCai_57tFCKrzawHrlWdkUG51Mk_uemL4CUNiuPmVJcdA8GGBbQmpaRv5IATuOL36UC4xW96u9pFiZXP95HxFORxsX0mWIwdHzDPRhUMXZsmBowjZNDebDx41zCXKjuwTo9yuUsqA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-md">
+<span class="text-white font-headline-sm text-headline-sm">Plats</span>
+</div>
+</div>
+<div class="group relative h-32 md:h-40 rounded-2xl overflow-hidden cursor-pointer shadow-sm active:scale-95 transition-transform border-2 border-secondary">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Elegant chocolate fondant dessert with a molten center, served with a scoop of vanilla bean ice cream and fresh raspberries. The plating is artistic and clean, photographed with a shallow depth of field in a bright, modern cafe atmosphere. High-end luxury food photography." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1fMHSwqpmb9zbb0NSvEBwN4A2BA1ZwoOmhKEFVCJfNYInF6nsie03fkYNY-AWShlstyOxGrc84U0qd5K8Pdca88f9Umlpe0m2LItLNPFy9yZQZhrDK9cD9GAcBLAJWiUEelV6YGfzZk9K-UwKTknBiXc6Cewvd7HI0M5M4C-9XlCA2KLFOzqCdOheRJxy35DN8djKptY9QF7-bMiXjr2R67mfK05iAt1wYmLnFR-tYb6yVJ2LDPGw5g')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-md">
+<div class="flex flex-col">
+<span class="text-white font-headline-sm text-headline-sm">Desserts</span>
+<span class="text-secondary-fixed text-[10px] uppercase tracking-wider font-bold">Sélectionné</span>
+</div>
+</div>
+</div>
+<div class="group relative h-32 md:h-40 rounded-2xl overflow-hidden cursor-pointer shadow-sm active:scale-95 transition-transform">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="A collection of premium craft cocktails and fresh fruit juices in tall glass carafes. The drinks are colorful and refreshing, garnished with mint leaves and citrus slices. Set against a bright, airy background with soft bokeh, conveying a sophisticated bar or lounge vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDGvcAgh5MWMDUZ3n6V4gRAFsj8X4nApbxtKtBTTLF_SbKCZmTpxTjiKyl6-E7srP61-6V8aP82NOwGm-C7mx5WoduYVhA7wGlNV7svB3NehrjBaVUNtU9RoKkakcSlrIWB3oHH24Ff4UmJNmxCZrvo--WwhDe9XF64b-Krhy5Y6fQbH7EPlIdXvUqnGMsxZRg5OKEzmwXD22YPw6YT6Sk8CjgTafmx0uFa7gEMleyTcEqJDWTQzatgLw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-md">
+<span class="text-white font-headline-sm text-headline-sm">Boissons</span>
+</div>
+</div>
+</section>
+<!-- Product List -->
+<section class="space-y-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Sélection Desserts</h2>
+<span class="font-label-md text-label-md text-on-surface-variant">12 produits trouvés</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-md border border-outline-variant shadow-sm hover:shadow-md transition-all group flex gap-md items-center">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of a classic Italian Tiramisu served in a modern glass bowl. Layers of espresso-soaked ladyfingers and creamy mascarpone are dusted with fine cocoa powder. The lighting is soft and appetizing, focusing on the rich textures and elegant presentation in a premium hotel setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuc3RV6jzNk5oclau5b-XmGbdYno5I9v6T5yaBS7aIdb430AFsp2wVd_-cl5kR6EVgw-CMHrBPNbqLw2Lo163IYopINfT_wyuaAvX2SU4HZoUhpuOTDRL1FWx-82kGXNgbvjAEbeUew2Qtw5B8-bemfFp2vVJt0OwNRdzw7wqKTKT19mOKfCsYj5w4D2eSwTQLDoGqV-vme7f8UohBjocUQzoIM-rZPOZcN8rgi7Izx9Wd4SzD_v8Tgw"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-24">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Tiramisu Signature</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Café éthiopien, mascarpone artisanal</p>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">12.00€</span>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform" onclick="addToCart('Tiramisu', 12)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-md border border-outline-variant shadow-sm hover:shadow-md transition-all group flex gap-md items-center">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A decadent dark chocolate lava cake with a flowing molten center, dusted with powdered sugar and garnished with a sprig of fresh mint. The cake is served on a minimalist white porcelain plate in a high-end restaurant atmosphere with warm, directional lighting that creates beautiful highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlqfFf8xmdwmPWCxOHStwQDEhVRNoSuMTtn-vOgHJjNizA1f3-JwiDWveaz3IHyZX4YQs1uH9qpJgZZqK-lGD2-PcaxLQEjJJMuVVEiCKaNLM4WG7_lwlZeFoMG_NGaYQSHwmVO-B76fCCIwHp-BB3GzhPEz3s7S2beCgIXgZMF3v-zDim3iRKDgeDKCiUL4cbb6zViU2rA0zRRoA3V_NSIEBHxQ2z4ZOLSJNR7yfNy-BaFvGniT0TTQ"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-24">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Fondant Chocolat Noir</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Cœur coulant, vanille de Madagascar</p>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">14.50€</span>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform" onclick="addToCart('Fondant', 14.5)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl p-md border border-outline-variant shadow-sm hover:shadow-md transition-all group flex gap-md items-center">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Exotic fruit platter featuring dragon fruit, passion fruit, and fresh mango slices arranged artistically on a slate platter. The colors are vibrant and tropical. The lighting is bright and summery, emphasizing freshness and quality in a luxury resort or hotel restaurant environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADBiwBA4A_fZ36Fxed8NkXHYrr9esijDVIS4TCCw08mURETqc9ovogOKjpLR1IOuTMYrHOJmtVeIQzHNoNB-0coZ5lGSnmtgRxvH8XO1BExC-ge5UbMcnSk50w2lQNO0eujaZ6s1bJummwEGQV-VvXkIBtNhxIeqLrA19D1gmQL5xzynMAu-wRGXBYPB_PXzyILnnvTQNDIM5O_m6ACKL1YUsPN5XeIObrlCjGvKT3YdGHpfeC9xh1Lw"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-24">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Assiette Fruits Exotiques</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Sélection de saison, menthe fraîche</p>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">10.00€</span>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform" onclick="addToCart('Assiette Fruits', 10)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-2xl p-md border border-outline-variant shadow-sm hover:shadow-md transition-all group flex gap-md items-center">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Delicate vanilla bean panna cotta served with a vibrant raspberry coulis and fresh berries on top. The dessert is presented in a modern, shallow glass bowl. The scene is bright, clean, and elegant, capturing the smooth texture and refined look of premium hospitality pastry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5ejI5ChhCRVt6rHNAZSJGJ95I95ZzX2Nlc36or1PRoJrEG_odbeVhaRZikWAUwb09zH5ycI7xuvuw7Bj3Lt6naHJXQCfERY49SfumhjwQwfx9GGzSMr5Ob9IOB-vregbXGmD-5lFI6u81rBaJkLYDbMA8T1ErYDEZY3E9VjC3fQZ0K0UPVIR90IzvQL2dJOVqwWPSGFvorPEPDNMXYfR2IwoQHjuNZE1wgCSfwwL8WxfGk-s-WtRQ5w"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-24">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Panna Cotta Framboise</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Crème onctueuse, coulis maison</p>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">11.00€</span>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform" onclick="addToCart('Panna Cotta', 11)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-surface-container-lowest rounded-2xl p-md border border-outline-variant shadow-sm hover:shadow-md transition-all group flex gap-md items-center">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Artisanal French cheese plate featuring a selection of aged Brie, Roquefort, and Comté served with walnuts and dried apricots. The arrangement is rustic yet professional, presented on a dark wooden board under warm ambient lighting typical of an upscale dining room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqS9nFFQilMlxocI-o_uH-L4JTKuXFIj3znpaafcBX_jnWFkzEkKQf5iBoUoETa4s-prwVAGPWtvzzxDX2YW0rZbehqguVHs-RiqOkVpaYNR1LxaO1KQriyRRv904iM24pyg9y8D-Q5eSeVv4kEfHDiCI9HxPu8-Dj4NBSHkxezvnz2D8yp20O28Z_SMtydp0j3tikJgRD4-kc6eFcpYjBUcSg959PYG4ftkpMIt_40m3JSHsb592JQ"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-24">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Plateau de Fromages Affinés</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Sélection du chef, noix et miel</p>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">16.00€</span>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform" onclick="addToCart('Fromages', 16)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="bg-surface-container-lowest rounded-2xl p-md border border-outline-variant shadow-sm hover:shadow-md transition-all group flex gap-md items-center">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Classic French tarte tatin with caramelized apples and a golden buttery crust, served warm with a side of crème fraîche. The photography captures the glistening caramel and the flaky layers of the pastry in high detail. Modern high-end food styling in a professional kitchen setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXq_9Prg7A2U9zdf1Ls6FiPItSDx2G9RD5BXaKqEDDEbgNVs5bFBqnXCanCK1tkG-cHZITmXKezz3V9g-QILYFZlCC6DVkWXjTs7LukUjX8jabr4ZMiJxTGitInr3K4knrdO2-YLyEjStv2ayC5bsgkF-GZW6Fb8HPGsyiG8BOyvcdybzfHlGQdzNM1xSXy2CpzkuF6Eup-nwnvEIi4kHqAnpqgc_egxG8lxuHgneeYiZncvMws3Bbag"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-24">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Tarte Tatin Maison</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Pommes caramélisées, crème double</p>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">13.50€</span>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform" onclick="addToCart('Tarte Tatin', 13.5)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button: Voir le panier -->
+<div class="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-50 flex items-center gap-md">
+<div class="hidden opacity-0 translate-y-4 transition-all duration-300 bg-primary text-white px-md py-2 rounded-lg shadow-lg font-label-md text-label-md" id="cart-toast">
+            Produit ajouté !
+        </div>
+<button class="bg-primary text-on-primary px-lg py-4 rounded-full shadow-lg flex items-center gap-sm hover:scale-105 active:scale-95 transition-all group">
+<span class="material-symbols-outlined" data-weight="fill">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Voir le panier</span>
+<span class="bg-secondary-container text-on-secondary-container rounded-full px-2 py-0.5 text-[10px] font-bold" id="cart-count">0</span>
+</button>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface dark:bg-surface-container-lowest border-t border-outline-variant shadow-lg flex justify-around items-center h-[80px] px-sm pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-sm text-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm">AI</span>
+</div>
+</nav>
+<script>
+        let cartItems = 0;
+        
+        function addToCart(name, price) {
+            cartItems++;
+            const counter = document.getElementById('cart-count');
+            const toast = document.getElementById('cart-toast');
+            
+            counter.innerText = cartItems;
+            counter.classList.add('scale-150');
+            setTimeout(() => counter.classList.remove('scale-150'), 200);
+            
+            // Show toast
+            toast.innerText = `${name} ajouté !`;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-4');
+            }, 10);
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 2000);
+        }
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.02]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.02]');
+        });
+    </script>
+</body></html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bienvenue &amp; Tableau de Bord Intégration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#eaddff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container": "#e5eeff",
+                    "on-secondary-container": "#fffbff",
+                    "primary": "#004ac6",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "surface-tint": "#0053db",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#bdffdb",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#007d55",
+                    "on-secondary-fixed": "#25005a",
+                    "background": "#f8f9ff",
+                    "on-primary-container": "#eeefff",
+                    "surface-variant": "#d3e4fe",
+                    "outline": "#737686",
+                    "surface-container-high": "#dce9ff",
+                    "surface": "#f8f9ff",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#213145",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#5a00c6",
+                    "on-tertiary-fixed": "#002113",
+                    "secondary": "#712ae2",
+                    "on-primary-fixed": "#00174b",
+                    "surface-bright": "#f8f9ff",
+                    "primary-container": "#2563eb",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-surface": "#0b1c30",
+                    "tertiary": "#006242",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "secondary-container": "#8a4cfc",
+                    "outline-variant": "#c3c6d7",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dbe1ff",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px",
+                    "stack-lg": "48px",
+                    "base": "8px",
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+        }
+        .step-completed {
+            background-color: #eaf1ff;
+            border-color: #004ac6;
+        }
+        .checklist-item:hover .checkbox-visual {
+            border-color: #004ac6;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky bg-surface-container-lowest border-b border-outline-variant z-50">
+<div class="flex items-center justify-between px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<div class="cursor-pointer active:opacity-70 text-primary">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Tableau de Bord Intégration</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="hidden md:inline">Aide</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">
+                    JP
+                </div>
+</div>
+</div>
+</header>
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex flex-col h-full w-80 fixed left-0 top-0 pt-20 bg-surface-container-low border-r border-outline-variant z-40">
+<div class="flex flex-col h-full py-stack-md">
+<!-- Profile Section -->
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a friendly male corporate employee named Jean-Pierre, wearing a smart casual blazer. He has a welcoming smile and is set against a clean, softly lit office background with hints of corporate blue and white. High-end professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG9dikwIjkLMfTBhFhiJyYHdqa7hRa9f5mquiVrgvXlWTpOKEZ5hPLMmNq490n_FAVrJg0ncgV7-QIJ59yArYrupKgGFo5zyNbRNN6gm1YXK5q0njqqli-9yMlUFyT0zj-pOtCQWYQ8V615_63GLxOAwpsPiXlsLx73Agiq_hpi65lKKhP0Zy1quOK2hFw-iYNHl33SfLXS0EJ11g7HQHwo8rwDiJQU-Tj7UyZBLtGCrRDJ94LB0vYJQ"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md font-bold text-primary">Bienvenue, Jean-Pierre</p>
+<p class="text-body-sm text-on-surface-variant">Intégration : 45%</p>
+</div>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-1000 ease-out" style="width: 45%;"></div>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-1 px-4">
+<a class="flex items-center gap-4 py-3 px-4 bg-primary-container text-on-primary-container rounded-full font-bold scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-body-md text-body-md">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="font-body-md text-body-md">Tâches</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-md text-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-body-md text-body-md">Formation</span>
+</a>
+</nav>
+<!-- Support Card -->
+<div class="mt-auto mx-4 p-4 rounded-xl bg-white border border-outline-variant">
+<p class="text-body-sm font-bold text-primary mb-1">Besoin d'aide ?</p>
+<p class="text-body-sm text-on-surface-variant mb-3">Consultez notre base de connaissances RH.</p>
+<button class="w-full py-2 bg-surface-container text-primary font-label-md text-label-md rounded-lg hover:bg-surface-container-high transition-colors">
+                    Ouvrir le guide
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-80 min-h-screen pb-stack-lg">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-8">
+<!-- Hero Welcome Section -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-background mb-2">Félicitations, Jean-Pierre !</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                            C'est un plaisir de vous compter parmi nous. Votre parcours d'intégration avance bien. Terminons les étapes d'aujourd'hui pour finaliser votre arrivée.
+                        </p>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-outline-variant">
+<div class="relative w-16 h-16">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="96.7" stroke-width="6"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-primary text-sm">45%</span>
+</div>
+<div>
+<p class="font-bold text-on-background">Progression Globale</p>
+<p class="text-body-sm text-on-surface-variant">Phase : Orientation</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Main Checklist (2/3 width) -->
+<div class="md:col-span-2 space-y-stack-md">
+<section class="bg-white p-stack-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-stack-sm">
+<h3 class="font-headline-md text-headline-md text-on-background">Checklist du Jour</h3>
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-label-sm font-label-sm">3 tâches restantes</span>
+</div>
+<div class="space-y-3">
+<!-- Task 1: Completed -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface-container-low border border-primary transition-all checklist-item">
+<div class="w-6 h-6 rounded bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div class="flex-grow">
+<p class="font-bold text-on-background">Signer le contrat de travail</p>
+<p class="text-body-sm text-on-surface-variant">Validé le 24 Octobre à 09:15</p>
+</div>
+<div class="text-tertiary font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                    Vérifié
+                                </div>
+</div>
+<!-- Task 2: Pending -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-white border border-outline-variant hover:border-primary cursor-pointer transition-all checklist-item">
+<div class="w-6 h-6 rounded border-2 border-outline-variant checkbox-visual flex items-center justify-center"></div>
+<div class="flex-grow">
+<p class="font-bold text-on-background">Regarder la vidéo de sécurité</p>
+<p class="text-body-sm text-on-surface-variant">Durée : 12 minutes</p>
+</div>
+<button class="px-4 py-1.5 bg-primary text-white rounded-lg text-label-sm font-label-sm hover:opacity-90 transition-opacity">
+                                    Commencer
+                                </button>
+</div>
+<!-- Task 3: Pending -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-white border border-outline-variant hover:border-primary cursor-pointer transition-all checklist-item">
+<div class="w-6 h-6 rounded border-2 border-outline-variant checkbox-visual flex items-center justify-center"></div>
+<div class="flex-grow">
+<p class="font-bold text-on-background">Rencontrer l'équipe technique</p>
+<p class="text-body-sm text-on-surface-variant">Aujourd'hui à 14:00 - Salle Eiffel</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="calendar_today">calendar_today</span>
+</div>
+<!-- Task 4: Pending -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-white border border-outline-variant hover:border-primary cursor-pointer transition-all checklist-item opacity-60">
+<div class="w-6 h-6 rounded border-2 border-outline-variant checkbox-visual flex items-center justify-center"></div>
+<div class="flex-grow">
+<p class="font-bold text-on-background">Configuration du poste de travail</p>
+<p class="text-body-sm text-on-surface-variant">Débloqué après la vidéo de sécurité</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lock">lock</span>
+</div>
+</div>
+</section>
+<!-- Instructional Callout -->
+<div class="p-4 rounded-xl bg-surface-container border border-primary-container flex gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl" data-icon="info" style="font-variation-settings: 'FILL' 1;">info</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Informations Importantes</h4>
+<p class="text-body-sm text-on-surface-variant">
+                                Pour toute question concernant vos accès informatiques, n'hésitez pas à solliciter notre support technique via le portail interne ou directement auprès de votre mentor.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Sidebar Content (1/3 width) -->
+<div class="space-y-stack-md">
+<!-- Mentor Card -->
+<section class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col items-center text-center">
+<h3 class="font-headline-md text-body-lg font-bold text-on-background self-start mb-6">Votre Mentor</h3>
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 ring-4 ring-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female senior manager named Sophie, with a warm, encouraging facial expression. She is wearing a modern business-casual outfit. The lighting is soft and professional, capturing a mood of mentorship and accessibility within a bright corporate office environment. High resolution, clear detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfWqzY78ORbQOsVn46wPe6U3OC_eOjaxKl8HJYUw-OqLnZnTnyv30-A7x1mtoftuVd078HKoJSlTuiDYEACTnMjJHpIc12Eted5RpnG1fZA_T0KqV9HilAjDLX4mXtwNJhsG6kR4OgNm_SM6aPN-yTTnKArDgvQWiLnC-ewE3CLJDKlgmksrLU4VHi1phWhzgqO8uRGBu5njt3f7XOK1P0v_IEL1rm5FGQpcSWJ9DyAP1iCC29F_j7jw"/>
+</div>
+<h4 class="font-bold text-on-background text-lg">Sophie Lefebvre</h4>
+<p class="text-body-sm text-on-surface-variant mb-6">Senior Project Manager</p>
+<div class="w-full flex flex-col gap-2">
+<button class="w-full py-2.5 bg-primary text-white rounded-lg font-bold hover:bg-primary-fixed-variant transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="chat">chat</span>
+                                Contacter Sophie
+                            </button>
+<button class="w-full py-2.5 border border-primary text-primary rounded-lg font-bold hover:bg-surface-container-low transition-colors">
+                                Prendre rendez-vous
+                            </button>
+</div>
+</section>
+<!-- Training Progress Card -->
+<section class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-headline-md text-body-lg font-bold text-on-background mb-4">Formations</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="text-on-surface-variant">Culture Entreprise</span>
+<span class="font-bold text-primary">80%</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 80%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="text-on-surface-variant">Outils Digitaux</span>
+<span class="font-bold text-primary">25%</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 25%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="text-on-surface-variant">Conformité RGPD</span>
+<span class="font-bold text-primary">0%</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<a class="block text-center mt-6 text-primary font-bold text-body-sm hover:underline" href="#">
+                            Voir tout le catalogue
+                        </a>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant px-4 py-2 flex justify-around items-center z-50">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="text-[10px]">Tâches</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-[10px]">Docs</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-[10px]">Apprendre</span>
+</button>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        // Simple interactive checklist effect
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            if (!item.classList.contains('opacity-60')) {
+                item.addEventListener('click', function() {
+                    const checkbox = this.querySelector('.checkbox-visual');
+                    if (checkbox && !checkbox.classList.contains('bg-primary')) {
+                        checkbox.classList.add('bg-primary', 'border-primary');
+                        checkbox.innerHTML = '<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: \'wght\' 700;">check</span>';
+                        this.classList.add('bg-surface-container-low', 'border-primary');
+                        
+                        // Small toast notification simulation
+                        console.log("Tâche complétée !");
+                    }
+                });
+            }
+        });
+
+        // Atmospheric effect: gentle fade in of the canvas
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('main').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('main').style.transition = 'opacity 0.8s ease-out';
+                document.querySelector('main').style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body></html>

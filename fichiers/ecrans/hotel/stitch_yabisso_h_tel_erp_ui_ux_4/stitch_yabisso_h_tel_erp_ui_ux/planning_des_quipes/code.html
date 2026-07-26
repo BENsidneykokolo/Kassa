@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shift Scheduling | Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#a8b8ff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-container": "#54647a",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c4c5d5",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#001453",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#173bab",
+                    "on-tertiary-fixed-variant": "#005049",
+                    "surface": "#f7f9fb",
+                    "outline": "#757684",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#6bd8cb",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#3755c3",
+                    "primary": "#00288e",
+                    "primary-container": "#1e40af",
+                    "inverse-surface": "#2d3133",
+                    "on-surface-variant": "#444653",
+                    "tertiary-container": "#00554e",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#d3e4fe",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-tertiary-fixed": "#00201d",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-container": "#5fcdbf",
+                    "secondary": "#505f76",
+                    "inverse-primary": "#b8c4ff",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#89f5e7",
+                    "primary-fixed": "#dde1ff",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#d0e1fb",
+                    "background": "#f7f9fb",
+                    "tertiary": "#003c36",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-secondary-fixed-variant": "#38485d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "sidebar-width": "280px",
+                    "stack-sm": "8px",
+                    "container-padding": "24px",
+                    "stack-lg": "32px",
+                    "unit": "4px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-md-mobile": ["Hanken Grotesk"],
+                    "status-label": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Shift Gradients */
+        .shift-morning { background: linear-gradient(135deg, #d3e4fe 0%, #ffffff 100%); border-left: 4px solid #00288e; }
+        .shift-afternoon { background: linear-gradient(135deg, #fef3c7 0%, #ffffff 100%); border-left: 4px solid #d97706; }
+        .shift-night { background: linear-gradient(135deg, #e0e7ff 0%, #ffffff 100%); border-left: 4px solid #4338ca; }
+        .shift-open { background: repeating-linear-gradient(45deg, #f2f4f6, #f2f4f6 10px, #ffffff 10px, #ffffff 20px); border: 1px dashed #757684; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-24 md:pb-0 md:pt-16">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a hospitality HR manager in a clean white studio environment. The manager has a warm, confident expression, wearing a tailored navy blue blazer. The lighting is soft and even, emphasizing a high-end corporate modernism aesthetic with a focus on professional reliability and organized calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB25E7y9bOLtIshRkfFmQUF8Hk1wzfPqWMpK37__UNFurafV1JEwXKVD2VRWpZU7ctGRMsLxdKUrnPjYpoM9_9vxZtG223xLqGjsiHwVlMZU-B6wBO1XDvM7ZrmRAXnwfA4P9fKXGKS1alO11NO-GjUYHhDU3ycKVItWpmIbjsk84FEVb0ceg3CkKqtk1cCztVxTiA5fLk6FP4iTedJ9cofkZ73a8XUUI2byjRK9PX7vxnHWML5Hde1Aw"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-gutter py-stack-lg">
+<!-- Dashboard Header / Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-stack-lg gap-stack-md">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Department Roster</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Food &amp; Beverage (F&amp;B)</h2>
+</div>
+<div class="flex items-center bg-surface-container-low p-1 rounded-xl border border-outline-variant">
+<button class="px-4 py-2 flex items-center gap-2 hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<div class="px-6 py-1 text-center min-w-[200px]">
+<span class="font-body-md font-semibold text-on-surface">Oct 23 — Oct 29, 2023</span>
+</div>
+<button class="px-4 py-2 flex items-center gap-2 hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="bg-primary text-on-primary px-stack-md py-2 rounded-lg font-status-label flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Create Shift
+                </button>
+<button class="bg-surface-container-lowest border border-outline text-on-surface-variant px-stack-md py-2 rounded-lg font-status-label flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                    Filters
+                </button>
+</div>
+</div>
+<!-- Shift Grid Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<!-- Grid Header (Days) -->
+<div class="grid grid-cols-8 border-b border-outline-variant bg-surface-container-low">
+<div class="p-stack-md border-r border-outline-variant flex items-center justify-center bg-surface-container-high">
+<span class="font-label-caps text-label-caps text-secondary">STAFF</span>
+</div>
+<div class="p-stack-md border-r border-outline-variant flex flex-col items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">MON</span>
+<span class="font-headline-sm text-headline-sm">23</span>
+</div>
+<div class="p-stack-md border-r border-outline-variant flex flex-col items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TUE</span>
+<span class="font-headline-sm text-headline-sm">24</span>
+</div>
+<div class="p-stack-md border-r border-outline-variant flex flex-col items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant text-primary">WED</span>
+<span class="font-headline-sm text-headline-sm text-primary">25</span>
+</div>
+<div class="p-stack-md border-r border-outline-variant flex flex-col items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">THU</span>
+<span class="font-headline-sm text-headline-sm">26</span>
+</div>
+<div class="p-stack-md border-r border-outline-variant flex flex-col items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">FRI</span>
+<span class="font-headline-sm text-headline-sm">27</span>
+</div>
+<div class="p-stack-md border-r border-outline-variant flex flex-col items-center bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SAT</span>
+<span class="font-headline-sm text-headline-sm">28</span>
+</div>
+<div class="p-stack-md flex flex-col items-center bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SUN</span>
+<span class="font-headline-sm text-headline-sm text-error">29</span>
+</div>
+</div>
+<!-- Grid Rows (Employees) -->
+<div class="flex flex-col">
+<!-- Employee Row 1 -->
+<div class="grid grid-cols-8 border-b border-outline-variant hover:bg-surface-variant/10 transition-colors group">
+<div class="p-stack-md border-r border-outline-variant flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="Close-up profile photo of a professional hotel server, friendly and attentive, set against a blurred high-end restaurant background with soft warm lighting. The aesthetic is clean and professional, focusing on a member of a high-performance hospitality team in a luxury setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUJJuBipzfFQ3ab0tm5ZJ940jphxixtRgfCqStl98Hcvb6Wb9aI3SkOYxVrYGMtjaDttaml22-5OdowW0iuzRsLUihLF3TcPYn5dkIXDZXaP7EQmhoRhKVmz-hC_9tBLtzXVQ9BSGpEVsDCAtME8b4JRfvQyMQe1stSeOAlemKQ234UJRz4fnuA3wKcqYBW3PBCICHWM9TSnYohXFw2Oi8YEx_5JUrtT1-_MnKaZDMdgavuQHztdXAzg"/>
+<div>
+<p class="font-body-md font-semibold text-on-surface truncate">Jean Dupont</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">Head Waiter</p>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-morning p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-primary">MORNING</span>
+<p class="font-body-md text-[11px] font-bold">06:00 - 14:00</p>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-morning p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-primary">MORNING</span>
+<p class="font-body-md text-[11px] font-bold">06:00 - 14:00</p>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-2 border-r border-outline-variant bg-primary/5">
+<div class="bg-surface-container-low/50 p-2 rounded-lg h-full flex items-center justify-center">
+<span class="font-label-caps text-[10px] text-outline">OFF</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-afternoon p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-secondary">AFTERNOON</span>
+<p class="font-body-md text-[11px] font-bold">14:00 - 22:00</p>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-2 border-r border-outline-variant relative">
+<div class="shift-afternoon p-2 rounded-lg h-full flex flex-col justify-between border-red-500 border-2">
+<span class="font-status-label text-[10px] text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span> CONFLICT
+                            </span>
+<p class="font-body-md text-[11px] font-bold">14:00 - 22:00</p>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-2 border-r border-outline-variant bg-surface-container-low">
+<div class="bg-surface-container-low/50 p-2 rounded-lg h-full flex items-center justify-center">
+<span class="font-label-caps text-[10px] text-outline">OFF</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-2 bg-surface-container-low">
+<div class="bg-surface-container-low/50 p-2 rounded-lg h-full flex items-center justify-center">
+<span class="font-label-caps text-[10px] text-outline">OFF</span>
+</div>
+</div>
+</div>
+<!-- Employee Row 2 (Open Shift Example) -->
+<div class="grid grid-cols-8 border-b border-outline-variant hover:bg-surface-variant/10 transition-colors">
+<div class="p-stack-md border-r border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-dashed border-outline-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface-variant italic">Unassigned</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">Barista</p>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-open p-2 rounded-lg h-full flex flex-col justify-center items-center gap-1 cursor-pointer hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<span class="font-status-label text-[10px]">CLAIMABLE</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-2 border-r border-outline-variant"></div>
+<!-- Wed -->
+<div class="p-2 border-r border-outline-variant bg-primary/5">
+<div class="shift-night p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-indigo-700 uppercase">Night</span>
+<p class="font-body-md text-[11px] font-bold">22:00 - 06:00</p>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-2 border-r border-outline-variant"></div>
+<!-- Fri -->
+<div class="p-2 border-r border-outline-variant"></div>
+<!-- Sat -->
+<div class="p-2 border-r border-outline-variant bg-surface-container-low"></div>
+<!-- Sun -->
+<div class="p-2 bg-surface-container-low"></div>
+</div>
+<!-- Employee Row 3 -->
+<div class="grid grid-cols-8 border-b border-outline-variant hover:bg-surface-variant/10 transition-colors group">
+<div class="p-stack-md border-r border-outline-variant flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="Close-up of a smiling young woman working as a professional hotel concierge. She is wearing a neat uniform with a small gold name tag. The background features a high-end hotel lobby with elegant marble textures and warm architectural lighting. The style is sophisticated and corporate modernism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9EC2S8SbyBlOBkkuFOhfghS2Uno8rU71un2LPWYUr_huXGF9Uf1hxO0HUrMnYrehZEp8yWCzyukJBdI9SsmhqOVAoUHe5thNPmaxwsf-VKny7fnpRtD0shG53FVnL_j_HlU7XJ2jCJuGUXMeR5Tpmm8RvDlUcDlTGoT82jfdwMVzb_GMVa1OciLj8XCuMBDYyyc50-7IWAHvWl-JCNUpN06DXyuuc_g06HuA2HsbELPipIjy2J86osQ"/>
+<div>
+<p class="font-body-md font-semibold text-on-surface">Marie Claire</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">Barista</p>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-2 border-r border-outline-variant"></div>
+<!-- Tue -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-afternoon p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-secondary">AFTERNOON</span>
+<p class="font-body-md text-[11px] font-bold">14:00 - 22:00</p>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-2 border-r border-outline-variant bg-primary/5">
+<div class="shift-afternoon p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-secondary">AFTERNOON</span>
+<p class="font-body-md text-[11px] font-bold">14:00 - 22:00</p>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-afternoon p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-secondary">AFTERNOON</span>
+<p class="font-body-md text-[11px] font-bold">14:00 - 22:00</p>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-2 border-r border-outline-variant">
+<div class="shift-morning p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-primary">MORNING</span>
+<p class="font-body-md text-[11px] font-bold">06:00 - 14:00</p>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-2 border-r border-outline-variant bg-surface-container-low">
+<div class="shift-night p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-indigo-700">NIGHT</span>
+<p class="font-body-md text-[11px] font-bold">22:00 - 06:00</p>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-2 bg-surface-container-low">
+<div class="shift-night p-2 rounded-lg h-full flex flex-col justify-between">
+<span class="font-status-label text-[10px] text-indigo-700">NIGHT</span>
+<p class="font-body-md text-[11px] font-bold">22:00 - 06:00</p>
+</div>
+</div>
+</div>
+<!-- Employee Row 4 (Vacation) -->
+<div class="grid grid-cols-8 border-b border-outline-variant hover:bg-surface-variant/10 transition-colors group">
+<div class="p-stack-md border-r border-outline-variant flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A portrait of an experienced hotel sommelier in a formal uniform, holding a professional wine opener. The setting is a dimly lit, sophisticated wine cellar with rows of wooden racks. The lighting is cinematic, highlighting the professional expertise and reliability of the staff in a luxury hospitality context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFCeXLSW-uHJZyT4fDYIImRHWCIssdUWWTxdemx9Zk5KUWGDj1fyX4GhSWgBFVAkwhrLVfxKJ0i8mMIp49iecA3ZLw6pwIC81sKrtF2EzAVfhS5Da0ZerzSPLpOsuUJn8xWVMIqnRRLvOQYBVgHeEDuMU_Y_Ox443TiIcN0MIuHPMyVEujx191q8oygwkQ0HnYPMTqm19kn81x023gGH5G838K_XJb12I0OHG1J0LKPVta1psZcw-u3Q"/>
+<div>
+<p class="font-body-md font-semibold text-on-surface">Marc V.</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">Sommelier</p>
+</div>
+</div>
+<div class="col-span-7 bg-tertiary-fixed/20 flex items-center justify-center">
+<span class="font-label-caps text-on-tertiary-fixed-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">beach_access</span> APPROVED LEAVE: ANNUAL VACATION (OCT 23 - OCT 29)
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Shift Legend & Summary Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg mt-stack-lg">
+<!-- Legend -->
+<div class="bg-surface-container-lowest p-stack-md border border-outline-variant rounded-xl">
+<h3 class="font-label-caps text-on-surface-variant mb-4">Shift Legend</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-primary rounded"></div>
+<span class="font-body-md">Morning (06:00 - 14:00)</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-secondary rounded" style="background-color: #d97706;"></div>
+<span class="font-body-md">Afternoon (14:00 - 22:00)</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-indigo-700 rounded"></div>
+<span class="font-body-md">Night (22:00 - 06:00)</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 border border-dashed border-outline-variant rounded"></div>
+<span class="font-body-md text-on-surface-variant">Open / Unassigned</span>
+</div>
+</div>
+</div>
+<!-- Stats Card 1 -->
+<div class="bg-surface-container-lowest p-stack-md border border-outline-variant rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant">Conflicts Found</p>
+<p class="font-headline-md text-error">2 Alerts</p>
+<p class="text-[11px] text-on-surface-variant mt-1">Double bookings or overtime issues</p>
+</div>
+</div>
+<!-- Stats Card 2 -->
+<div class="bg-surface-container-lowest p-stack-md border border-outline-variant rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant">Coverage</p>
+<p class="font-headline-md text-on-surface">94% Fill Rate</p>
+<p class="text-[11px] text-on-surface-variant mt-1">3 open shifts remaining this week</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center h-20 px-2 pb-safe w-full">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">group</span>
+<span class="font-status-label text-status-label">Directory</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-status-label text-status-label">Schedule</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-status-label text-status-label">Payroll</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-status-label text-status-label">Insights</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for hover effects or simple tab switching if needed
+        document.querySelectorAll('.group').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.boxShadow = 'inset 4px 0 0 0 #00288e';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body></html>

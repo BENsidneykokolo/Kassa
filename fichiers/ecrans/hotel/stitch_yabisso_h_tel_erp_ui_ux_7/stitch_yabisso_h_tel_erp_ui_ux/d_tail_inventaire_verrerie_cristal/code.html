@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luxe Glassware &amp; Crystal | Event Stock Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Components Logic & Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#000000",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#a17f3b",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "surface-tint": "#515f78",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "tertiary-fixed-dim": "#e9c176",
+                        "on-primary-container": "#76849f",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface": "#f7f9fb",
+                        "outline-variant": "#c5c6cd",
+                        "on-error-container": "#93000a",
+                        "secondary": "#505f76",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed-variant": "#5d4201",
+                        "secondary-container": "#d0e1fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "title-md": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .caslon { font-family: 'Libre Caslon Text', serif; }
+        
+        /* Subtle Tonal Layering */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            border-color: #000000;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 border-b border-outline-variant flex justify-between items-center w-full px-margin-desktop py-4 sticky z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80">menu</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Event Stock Management</h1>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Warehouse</a>
+<a class="text-primary font-bold px-2 py-1" href="#">Inventory</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Analytics</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a professional executive in a high-end office setting. The lighting is soft and natural, emphasizing a calm and authoritative presence. The background is a blurred minimalist office with charcoal and silver accents, maintaining a luxury professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBba97OM_BnTRDjDqAMIiyGOl5DSV1qDgILB2FXnNA3fNFdjj9k8QxGDLPeRDFrjmFF9jiA77lpf4HOq2l9AnlpdswhF1klwbpeKFftbOgLJIlRybHlbqgaLYQYPL5qQOaPI8GHN3wHR65I5V_Jba0HDYbFABu4MDHzkj4RitlDYeka2qZO_kXrOpgOOQIdrBPk1buR3YTSHljOCRoG-BcYtCofdXqP3aL28fPanWBYVuF400RAHqtPYg"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="hidden md:flex flex-col h-screen py-8 gap-4 bg-surface-container-low fixed left-0 top-0 w-80 z-40 mt-20 border-r border-outline-variant">
+<div class="px-8 mb-6">
+<h2 class="font-headline-lg text-headline-lg text-primary">Luxury ERP</h2>
+</div>
+<div class="flex flex-col gap-2">
+<div class="text-on-surface-variant mx-2 hover:bg-surface-container-highest flex items-center gap-4 px-6 py-3 transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="text-on-surface-variant mx-2 hover:bg-surface-container-highest flex items-center gap-4 px-6 py-3 transition-all duration-200">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm">Warehouse Movements</span>
+</div>
+<div class="bg-secondary-container text-on-secondary-container rounded-full mx-2 font-bold flex items-center gap-4 px-6 py-3 transition-all duration-200">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-sm text-label-sm">Inventory Categories</span>
+</div>
+<div class="text-on-surface-variant mx-2 hover:bg-surface-container-highest flex items-center gap-4 px-6 py-3 transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-80 px-margin-mobile md:px-margin-desktop py-12">
+<!-- Header Section -->
+<section class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mb-4">
+<span>INVENTORY</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary">LUXE GLASSWARE &amp; CRYSTAL</span>
+</nav>
+<h2 class="font-display-lg text-display-lg text-primary mb-2">Luxe Glassware &amp; Crystal</h2>
+<p class="text-on-surface-variant font-body-md text-body-md max-w-2xl">Premium stemware and bespoke crystal pieces curated for high-profile events and private galas.</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-none font-label-sm text-label-sm flex items-center gap-3 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">fact_check</span>
+                QUICK AUDIT
+            </button>
+</section>
+<!-- Stats Overview (Asymmetric Layout) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="md:col-span-1 glass-card p-6 flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">TOTAL PIECES</span>
+<span class="font-display-lg text-display-lg text-primary">2,480</span>
+</div>
+<div class="md:col-span-1 glass-card p-6 flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">ON-SITE (BALLROOM)</span>
+<span class="font-display-lg text-display-lg text-primary">840</span>
+</div>
+<div class="md:col-span-2 bg-primary-container p-6 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-label-sm text-on-primary-container">CONDITION STATUS</span>
+<span class="material-symbols-outlined text-on-primary-container">monitoring</span>
+</div>
+<div class="flex gap-8 mt-4">
+<div class="flex flex-col">
+<span class="text-surface font-title-md text-title-md">96%</span>
+<span class="text-on-primary-container font-label-sm text-label-sm">PRISTINE</span>
+</div>
+<div class="flex flex-col">
+<span class="text-surface font-title-md text-title-md">3%</span>
+<span class="text-on-primary-container font-label-sm text-label-sm">SERVICEABLE</span>
+</div>
+<div class="flex flex-col">
+<span class="text-error font-title-md text-title-md">1%</span>
+<span class="text-on-primary-container font-label-sm text-label-sm">DAMAGED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid of Items -->
+<section class="mb-16">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-md text-title-md text-primary">Catalog Assets</h3>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer">filter_list</span>
+<span class="material-symbols-outlined cursor-pointer">grid_view</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-gutter gap-y-12">
+<!-- Item 1 -->
+<div class="group">
+<div class="aspect-[4/5] overflow-hidden mb-4 relative bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro photograph of an exquisite Baccarat crystal wine glass standing on a dark reflective surface. The lighting creates sharp, elegant highlights through the intricate diamond-cut pattern of the crystal. The aesthetic is ultra-luxurious, minimalist, and high-contrast, reflecting a premium concierge event style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7CeqJU50lj5KrqoLMVmlP7LBF4cwQMzU70sZyNfeFNqzYO45H2bQVF-RXcEao7wvGVl9xV3SNs1pDyMWYcZES_nGb9dTaWISurlf063jkpV3rl3pOkFwDh3bpvX-d389jY_HpvaWIM8qg48aZjCZKchAyTgxqvMwiOOmTSfehaBJtC3wavlcFgZkgdc89DNcblwMnk51mDLpJy1ylHt_N1d3del86AFBDEHuhTvDzaBzATY0xVZHRAQ"/>
+<div class="absolute top-4 right-4">
+<span class="bg-surface/90 backdrop-blur px-2 py-1 font-label-sm text-label-sm text-primary">VIP GOLD</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Harcourt 1841 Goblet</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-1">Warehouse A • Bin 42</p>
+</div>
+<div class="text-right">
+<span class="block font-title-md text-title-md">420</span>
+<span class="bg-green-100 text-green-800 px-2 py-0.5 font-label-sm text-[10px] rounded-full">NEW</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group">
+<div class="aspect-[4/5] overflow-hidden mb-4 relative bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up shot of several slim, minimalist champagne flutes arranged in a geometric formation. The glassware is perfectly transparent with a subtle amber liquid inside. The environment is a clean, bright white studio setting with soft shadows, evoking a sense of calm and exclusive access." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSMjlB-9W96OOhTNTFYLxhAj9OUtzXu12-nxKIlxkFIPxW9ZfX6jCqq7ESDUVNuIJlcWjaZ1DhOLD0_ElGksDntFaO1GFQjUpatN6n6HeGdyXc1FjmInKtK3CCzgPIXZrw2nH5_TcYAAlvOAULlka977hBaZRcmuUpWHCzn6UHIqwsW2AMJAbeYde8URcW3oPFmnQeaiW-rPZWiKpc-PP8uxA15iyq-VDkF2Ty0OESGHRtGB8DYs83aA"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Zalto Champagne Flute</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-1">Imperial Ballroom</p>
+</div>
+<div class="text-right">
+<span class="block font-title-md text-title-md">180</span>
+<span class="bg-blue-100 text-blue-800 px-2 py-0.5 font-label-sm text-[10px] rounded-full uppercase">Good</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group">
+<div class="aspect-[4/5] overflow-hidden mb-4 relative bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A collection of vintage-style crystal whiskey decanters with ornate stoppers, displayed on a dark mahogany tray. The lighting is low-key and dramatic, picking up the golden hues of the crystal. The overall mood is authoritative and discreet, typical of a high-end concierge service for private galas." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF_D0gSLnceN7aNqx-DwJvhxZx4Wus1BdKEHYv7_E-uwz55iojne_kWRQPBYIFl5yOktneN77_W0L8zOQrq2Ftwedkb-1LdtNSrbnYNE-qoeU_FD2-XqrKdHiiYQkXGgrFqYvFHCdb-BOls4swBFmV3fGBbePE7WbAsEQSvt_W-84Z-gZFvAJ82SVQArR3aCqwLf8xwMihDKhHQt1aMSCOBfmPmjmJAt-UUZP03pkfNcDe1G_Ws6KfjA"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Heritage Decanter Set</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-1">Warehouse A • Vault</p>
+</div>
+<div class="text-right">
+<span class="block font-title-md text-title-md">24</span>
+<span class="bg-green-100 text-green-800 px-2 py-0.5 font-label-sm text-[10px] rounded-full uppercase">New</span>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group">
+<div class="aspect-[4/5] overflow-hidden mb-4 relative bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist modern crystal water carafes standing on a slate countertop. The design is sleek with sharp edges and no ornamentation. Soft morning light enters from a side window, creating long, clean shadows on the surface. The visual style is functional yet deeply sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmkbmCJQ1YYhesn6aoKBDJSeupi5ocFQQog_5iz70QcfbNC_RGzxUADP6xK3to8VmguGoixWWa2O9VthNCm_97hv5MkFfpepCNdG4nstwnsVDXosaw9aP3o3W7uUQaK1mzksWfPfr1ewaeemaYrWeA7A6p3j5YZstEsjgWMAAlBxJfNFwXfnP11l_-KGJGZQfMm5hq0p0_wqUhpBqK2h3dFahZ6cSYacSQDq-ampnpKObpq9q26PQl0A"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Nordic Pure Carafe</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-1">Imperial Ballroom</p>
+</div>
+<div class="text-right">
+<span class="block font-title-md text-title-md">112</span>
+<span class="bg-red-100 text-red-800 px-2 py-0.5 font-label-sm text-[10px] rounded-full uppercase">Damaged (2)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stock History Log -->
+<section class="max-w-4xl">
+<h3 class="font-title-md text-title-md text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">history</span>
+                Stock History Log
+            </h3>
+<div class="border-l-2 border-outline-variant ml-3 pl-8 space-y-10">
+<!-- Log Entry 1 -->
+<div class="relative">
+<div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">OCT 24, 2023 • 09:15 AM</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 font-label-sm text-[10px]">MOVEMENT COMPLETE</span>
+</div>
+<h5 class="font-title-md text-title-md mt-2">Relocation to Imperial Ballroom</h5>
+<p class="text-on-surface-variant font-body-md text-body-md mt-1">840 Harcourt Goblets moved from Warehouse A for 'Gala of Lights' event. Verified by Admin James S.</p>
+</div>
+<!-- Log Entry 2 -->
+<div class="relative">
+<div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">OCT 22, 2023 • 04:30 PM</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 font-label-sm text-[10px]">AUDIT PERFORMED</span>
+</div>
+<h5 class="font-title-md text-title-md mt-2">Quarterly Inventory Audit</h5>
+<p class="text-on-surface-variant font-body-md text-body-md mt-1">Full category count completed. 2 items flagged as damaged in Warehouse A. Adjusted stock levels.</p>
+</div>
+<!-- Log Entry 3 -->
+<div class="relative">
+<div class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">OCT 15, 2023 • 11:00 AM</span>
+<span class="bg-primary-container text-surface px-3 py-1 font-label-sm text-[10px]">NEW PROCUREMENT</span>
+</div>
+<h5 class="font-title-md text-title-md mt-2">Baccarat Crystal Shipment</h5>
+<p class="text-on-surface-variant font-body-md text-body-md mt-1">Received 120 Harcourt Goblets. Inspected and logged into Warehouse A Vault.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface border-t border-outline-variant shadow-lg">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Status</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-label-sm text-label-sm">Move</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-sm text-label-sm">Stock</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-sm text-label-sm">Trends</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('nav a, aside div').forEach(el => {
+            el.addEventListener('click', function(e) {
+                // Prevent real navigation for demo
+                if(this.tagName === 'A') e.preventDefault();
+                console.log('Navigating to:', this.innerText.trim());
+            });
+        });
+
+        // Add a "scroll" effect to the header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+                header.style.backgroundColor = 'rgba(247, 249, 251, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.classList.remove('shadow-sm');
+                header.style.backgroundColor = '#f7f9fb';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body></html>

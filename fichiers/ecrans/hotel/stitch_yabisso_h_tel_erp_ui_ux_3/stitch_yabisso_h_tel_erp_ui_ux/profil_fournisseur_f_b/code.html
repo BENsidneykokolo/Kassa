@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "on-surface": "#191c1e",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary": "#006c49",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#6cf8bb",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-container": "#7c839b",
+                    "surface-tint": "#565e74",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#b87500",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#000000",
+                    "on-secondary-container": "#00714d",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-container": "#eceef0",
+                    "outline": "#76777d",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed": "#2a1700",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#2a1700",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md z-50 bg-surface-container-low w-80 rounded-r-xl shadow-sm hidden md:flex">
+<div class="mb-xl flex items-center gap-sm px-sm">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">factory</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">Yabisso</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Luxury Hotel Group</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-md px-md py-3 bg-secondary-container text-on-secondary-container font-semibold rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">factory</span>
+<span class="font-label-lg text-label-lg">Suppliers</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-lg text-label-lg">Performance</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">contact_phone</span>
+<span class="font-label-lg text-label-lg">Contacts</span>
+</a>
+</nav>
+<div class="mt-auto p-md bg-surface-container-high rounded-xl flex items-center gap-md">
+<img class="w-10 h-10 rounded-full border-2 border-on-primary shadow-sm" data-alt="A professional headshot of a luxury hotel executive chef in a clean white uniform, standing in a high-end stainless steel kitchen with soft, professional lighting. The style is modern minimalist with a sophisticated color palette of whites and greys." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-eCBWVsxhRLQr9voupwo4sp99D2rwvFfIeiO9w8bpEsXYL2j1qm-zaTXaifXTlszLtTZgYQdwBy52Ei9ZwPZJnu7sIbk4UGnuL2ABoOZo1Kx3ADW47uLOhrfWXNOVwQYg_hXS9JIGBbTPdjCBmAibAXXzcYpEYtOPIVShur6wvu-SouFKTvQxrpKPB3I9TLd_zH_3Y3TvntSjvjFxS2DlyWLIruNfIM39p9eWSauhkSONkwQaf8QsmA"/>
+<div class="overflow-hidden">
+<p class="font-label-lg text-label-lg truncate">Executive Chef</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">F&amp;B Operations</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-80 pb-24 md:pb-0 min-h-screen">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center h-16 px-md w-full sticky top-0 z-40 bg-surface border-b border-outline-variant transition-colors duration-200">
+<div class="flex items-center gap-sm">
+<button class="md:hidden p-sm hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary">Supplier Profile</h2>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center bg-surface-container-low border border-outline-variant rounded-full px-md py-1">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-48" placeholder="Search orders..." type="text"/>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A small circular avatar of a professional logo for a hospitality management firm, featuring a stylized letter Y in deep blue and gold. The background is a crisp white, conveying high-end reliability and executive quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnTTiEb53ls7Gj7oQCO9s2yUenwTmc4JqYds3fJ5HdFjOKritvUnlwFpIShw2gg8Wewz1KyMEtLc-6__929Sre4VgTNwUIprZqjO0jJytYLJ12QpMqFirEoJpIGqrqi1Gpu7zuZvqchX4T2DJoIVZ1CyGP_l6HevlJmfu3JhwaR2gnIIPT-2OP7fT7W5Q6AMB8KhOavaASjjEvd_rwHlFp9LD9RMdVwHTWF2xjbN0TBgAGwlkoiQuWPA"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-md lg:p-xl max-w-7xl mx-auto space-y-lg">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-xs text-on-surface-variant">
+<span class="font-label-md text-label-md">Suppliers</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-label-md text-label-md text-primary font-bold">Ocean Fresh Seafood Ltd</span>
+</nav>
+<!-- Hero Bento Header -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Company Info Card -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex flex-col md:flex-row gap-lg items-start">
+<div class="w-24 h-24 rounded-xl bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-[48px]" style="font-variation-settings: 'FILL' 1;">sailing</span>
+</div>
+<div class="flex-1 space-y-sm">
+<div class="flex flex-wrap items-center gap-sm">
+<h3 class="font-headline-lg text-headline-lg text-primary">Ocean Fresh Seafood Ltd</h3>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">Preferred Vendor</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Premium Atlantic &amp; Indian Ocean seafood distributor specializing in sustainable luxury catch for high-end hospitality groups.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md pt-sm">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-label-md text-label-md">42 Harbour Quay, Cape Town, 8001</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">public</span>
+<a class="font-label-md text-label-md text-secondary hover:underline" href="#">www.oceanfreshseafood.com</a>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span class="font-label-md text-label-md">+27 21 555 0123</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span class="font-label-md text-label-md">orders@oceanfresh.com</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Card -->
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl border border-outline shadow-sm flex flex-col justify-between">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-white">Active Contract</h4>
+<p class="font-body-md text-body-md opacity-80 mt-xs">Valid until Dec 31, 2024</p>
+</div>
+<div class="space-y-sm mt-md">
+<button class="w-full py-3 bg-secondary-container text-on-secondary-container font-label-lg text-label-lg rounded-lg hover:brightness-110 transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">receipt_long</span>
+                            Create Purchase Order
+                        </button>
+<button class="w-full py-3 bg-white/10 text-white font-label-lg text-label-lg rounded-lg hover:bg-white/20 transition-all border border-white/20">
+                            Download Agreement
+                        </button>
+</div>
+</div>
+</div>
+<!-- Performance Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-xs">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Delivery Accuracy</p>
+<div class="flex items-end justify-between">
+<h5 class="font-headline-lg text-headline-lg text-primary">98.4%</h5>
+<span class="flex items-center text-secondary font-label-md text-label-md mb-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> 1.2%
+                        </span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-sm">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 98.4%"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-xs">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Price Stability</p>
+<div class="flex items-end justify-between">
+<h5 class="font-headline-lg text-headline-lg text-primary">Low Vol</h5>
+<span class="px-sm py-0.5 bg-surface-container text-on-surface-variant rounded-full font-label-sm text-label-sm mb-1">Stable</span>
+</div>
+<div class="flex gap-1 mt-sm">
+<div class="h-6 w-1/6 bg-secondary-container rounded-sm"></div>
+<div class="h-4 w-1/6 bg-secondary-container rounded-sm self-end"></div>
+<div class="h-5 w-1/6 bg-secondary-container rounded-sm self-end"></div>
+<div class="h-7 w-1/6 bg-secondary-container rounded-sm self-end"></div>
+<div class="h-6 w-1/6 bg-secondary-container rounded-sm self-end"></div>
+<div class="h-8 w-1/6 bg-secondary rounded-sm self-end"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-xs">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avg. Lead Time</p>
+<div class="flex items-end justify-between">
+<h5 class="font-headline-lg text-headline-lg text-primary">18 hrs</h5>
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Direct Dock</span>
+</div>
+<div class="flex items-center gap-xs mt-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<span class="font-label-sm text-label-sm">Consistent performance</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm space-y-xs">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Spend (YTD)</p>
+<div class="flex items-end justify-between">
+<h5 class="font-headline-lg text-headline-lg text-primary">$1.2M</h5>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mb-1">payments</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-sm">Across 14 regional properties</p>
+</div>
+</div>
+<!-- Content Split: Products and Orders -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+<!-- Products List Section -->
+<section class="space-y-md">
+<div class="flex justify-between items-end">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Supplied Products</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Core inventory provided by this supplier</p>
+</div>
+<button class="text-secondary font-label-md text-label-md hover:underline">View All 42 Products</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant">
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant">Product</th>
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant">Category</th>
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant text-right">Unit Price</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up macro photography of fresh Atlantic Salmon fillets with vibrant orange color and white marbling, resting on crushed ice in a high-end luxury food setting. The lighting is crisp and cold, emphasizing freshness and quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk34Gd8T8z8OUKf5NaPLHLxzkGAW1nwI3gT9IbajSasc29MpDIWhj_8ZauoGbVKhenOMZDmTh4TLxbxeADzarVcUU2DBz9pGd0xhO8mFSfIckVz5jR6rqgCPP8qYkJhGWk3ajbkyWZsIG7MZf-0W7B1BGmvpsVVnBDQX-mcrEqlMZLp_bfwReqABG_N03q8JbRrostJtjKcwChEeMNtqL9Xhp2Yjp8fNpHb-y4qt68x7YbjviyGA7G5w"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Atlantic Salmon</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Prime Fillet, Skin-on</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-sm py-1 bg-surface-variant text-on-surface-variant rounded font-label-sm text-label-sm">Chilled Fish</span>
+</td>
+<td class="px-md py-4 text-right">
+<p class="font-label-lg text-label-lg">$24.50</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">per kg</p>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional culinary photo of large Tiger Prawns presented on a bed of dark seaweed and sea salt. The prawns have a polished, high-gloss shell. The aesthetic is ultra-modern and minimalist with a focus on premium texture and color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC_FBjcV2Y0sahzsVEdDCdpLYM3uLcx6cz0OzXs4_kqzJaqdBtWGBLA7AlQ-G0bpr15_Fez4GD4achPZVlxvquKi166UW-crUXOiTGlT_5MuVgABzuz3z1IdvYF6uhlE9aat1pdT6dWd2BVCQJ8XSX9FrNK97S7ZzZRd81322XBshwA65xo1y0MwAm9HhjnqnJqbTUJLX-PL9Ec6a8qJkkhSYjbU9Z0CizMUnZ7lZ-bL_CgSViyqnhNA"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Jumbo Tiger Prawns</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">U-10, Shell-on</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-sm py-1 bg-surface-variant text-on-surface-variant rounded font-label-sm text-label-sm">Shellfish</span>
+</td>
+<td class="px-md py-4 text-right">
+<p class="font-label-lg text-label-lg">$38.00</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">per box</p>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="High-end studio photography of freshly shucked oysters on a minimalist slate platter with a wedge of lemon. Soft, diffused lighting creates a clean, bright, light-mode feel. The composition is artistic and emphasizes the luxury nature of the seafood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6PgnsWYRyy-ZdcPqISXIDbG1TyzCV-2XL2B6m46HjCxXtq4zwrSa3Cgk-HRM0qnne9fvA1knZ8lpyNkKDw8mjUrcQmLLzd9Nwt8EDnU4_zD2oi-CC1CTxL7lP1-dbpulVHFKxuAFVnrObx23pBQr8pUTTpJLIeWHbq2LenUYszeLbRANvCnS1TrgPkhhU3d_9AS-WBBnoMrbKFqmiG1nFF6w2Qf6LT_47UgRqtmRy8Kn_crz9rnVf2g"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Pacific Oysters</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Grade A, Dozen</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-sm py-1 bg-surface-variant text-on-surface-variant rounded font-label-sm text-label-sm">Shellfish</span>
+</td>
+<td class="px-md py-4 text-right">
+<p class="font-label-lg text-label-lg">$18.90</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">per doz</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Recent Orders Section -->
+<section class="space-y-md">
+<div class="flex justify-between items-end">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Recent Purchase Orders</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Latest transactions and fulfillment status</p>
+</div>
+<button class="text-secondary font-label-md text-label-md hover:underline">Purchase History</button>
+</div>
+<div class="space-y-sm">
+<!-- Order Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex items-center justify-between group hover:border-secondary transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<div class="flex items-center gap-sm">
+<p class="font-label-lg text-label-lg">PO-2024-8842</p>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold uppercase">Delivered</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Yesterday at 08:45 AM • Main Kitchen</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg">$4,240.00</p>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex items-center justify-between group hover:border-secondary transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<div class="flex items-center gap-sm">
+<p class="font-label-lg text-label-lg">PO-2024-8901</p>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed-variant rounded text-[10px] font-bold uppercase">In Transit</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Exp: Today at 04:00 PM • Beach Club</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg">$1,850.50</p>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Order Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex items-center justify-between group hover:border-secondary transition-all cursor-pointer opacity-80">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<div class="flex items-center gap-sm">
+<p class="font-label-lg text-label-lg">PO-2024-8712</p>
+<span class="px-2 py-0.5 bg-surface-variant text-on-surface-variant rounded text-[10px] font-bold uppercase">Completed</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Oct 12, 2023 • Main Kitchen</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg">$3,900.00</p>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Notes Section with Glassmorphism -->
+<div class="glass-card p-lg rounded-2xl border border-outline-variant shadow-md flex flex-col md:flex-row gap-lg items-center">
+<div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[32px]">verified_user</span>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="font-headline-sm text-headline-sm text-primary">Compliance Status</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Ocean Fresh Seafood Ltd has passed all quarterly food safety inspections. Current health certificate is active until June 2025. Last audit score: 96/100.</p>
+</div>
+<button class="px-lg py-2.5 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:bg-on-surface-variant transition-all shrink-0">
+                    View Audit Logs
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-sm pb-safe bg-surface-container-lowest shadow-lg md:hidden rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-sm text-label-sm">Directory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<!-- Floating Action Button (Contextual for Mobile) -->
+<button class="fixed bottom-24 right-md w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center md:hidden z-40 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // If this were a real app, we'd handle routing here.
+                // Just keeping the UI feel for now.
+            });
+        });
+    </script>
+</body></html>

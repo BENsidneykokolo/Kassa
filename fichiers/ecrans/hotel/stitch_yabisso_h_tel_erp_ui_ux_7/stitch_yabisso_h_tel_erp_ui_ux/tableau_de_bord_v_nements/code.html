@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administrative Control - Events &amp; Banquets</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Libre+Caslon+Text:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#39475f",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-primary-fixed": "#0d1c32",
+                    "tertiary-fixed": "#ffdea5",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-variant": "#e0e3e5",
+                    "surface-tint": "#515f78",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-container": "#76849f",
+                    "on-secondary-container": "#54647a",
+                    "inverse-primary": "#b9c7e4",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#261900",
+                    "tertiary": "#000000",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-container": "#0d1c32",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface-bright": "#f7f9fb",
+                    "secondary": "#505f76",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9c176",
+                    "outline": "#75777e",
+                    "inverse-surface": "#2d3133",
+                    "secondary-container": "#d0e1fb",
+                    "on-tertiary-container": "#a17f3b",
+                    "background": "#f7f9fb",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#5d4201",
+                    "on-surface": "#191c1e",
+                    "outline-variant": "#c5c6cd",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed": "#d6e3ff",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#000000",
+                    "on-tertiary-fixed": "#261900",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px",
+                    "container-padding": "32px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "title-md": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "body-md": ["Manrope"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "headline-sm": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.2", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .luxury-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        @media (max-width: 768px) {
+            .desktop-only { display: none; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface-container-highest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline z-50 transition-colors duration-200">
+<div class="flex justify-between items-center px-container-padding h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-size: 24px;">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Administrative Control</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-primary dark:text-primary-fixed-dim font-bold font-title-md text-title-md transition-colors" href="#">Events</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high font-title-md text-title-md px-3 py-1 rounded transition-colors" href="#">Banquets</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high font-title-md text-title-md px-3 py-1 rounded transition-colors" href="#">Revenue</a>
+</nav>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-end, professional portrait of a senior event executive in a minimalist studio. The lighting is soft and cinematic, highlighting the sophisticated, authoritative presence. The color palette is composed of muted slates and crisp whites, reflecting a luxury hospitality environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQZmqXWpWK1khhLEvlzP2F20OF-y_E1zdV_3Z_0aleMvC8ElTbdwVlXyP-OfWCcHBSK_SjTaQJFtx23e1XCUA4kWMXRaluTzar64jTysgtMnVGIMI9_yis26FolcY22_RpYmlk-VvJ2cTiqWgFj5duLe0n3GNsm1yzbMX04uzisVRThxf7pFFzUQUpw_Kp7DCT0hNPFBMDoB9GLtSir6JryeK2gLnU1VW4F9auDJxrxpkj9iOWdo0qwQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation (Drawer) -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline hidden md:flex flex-col p-stack-md z-40 pt-20">
+<div class="mb-8 px-2 flex flex-col items-start gap-1">
+<h2 class="font-headline-sm text-headline-sm font-black text-primary">System Architect</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Security Tier 1</p>
+<div class="mt-2 px-3 py-1 bg-primary text-on-primary text-[10px] uppercase tracking-widest font-bold rounded-full">Active Session</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-primary-fixed-variant text-on-secondary-container dark:text-primary-fixed font-bold rounded-full transition-all duration-150" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">User List</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-150" href="#">
+<span class="material-symbols-outlined">shield_person</span>
+<span class="font-body-md text-body-md">Role Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-150" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-body-md text-body-md">Security Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-150" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span class="font-body-md text-body-md">Access Requests</span>
+</a>
+</nav>
+<div class="mt-auto p-4 glass-card border border-outline-variant rounded-xl mb-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2">QUICK STATS</p>
+<div class="h-1 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+<p class="mt-2 font-body-md text-[13px] text-on-surface">67% Hall Occupancy</p>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-sidebar-width pt-24 pb-24 px-6 md:px-margin-desktop max-w-container-max mx-auto min-h-screen">
+<!-- Dashboard Header -->
+<div class="mb-12">
+<h2 class="font-display-lg text-display-lg text-primary mb-2">Banquets &amp; Events Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">A high-fidelity analysis of departmental performance and logistical forecasting for the current fiscal month.</p>
+</div>
+<!-- KPI Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-12">
+<!-- Main Revenue Card -->
+<div class="md:col-span-2 bg-primary text-on-primary p-8 rounded-xl luxury-shadow flex flex-col justify-between relative overflow-hidden">
+
+<div class="relative z-10">
+<p class="font-label-sm text-label-sm text-secondary-fixed opacity-80 uppercase tracking-[0.2em] mb-4">Total Revenue MTD</p>
+<h3 class="font-display-lg text-[42px] leading-none mb-2">$842,500.00</h3>
+<div class="flex items-center gap-2 text-primary-fixed-dim">
+<span class="material-symbols-outlined" style="font-size: 18px;">trending_up</span>
+<span class="font-label-sm text-label-sm">+12.4% vs prev. month</span>
+</div>
+</div>
+<div class="mt-12 flex justify-between items-end relative z-10">
+<div class="flex gap-1">
+<div class="w-1 h-8 bg-on-primary-container"></div>
+<div class="w-1 h-12 bg-on-primary-container"></div>
+<div class="w-1 h-16 bg-on-primary"></div>
+<div class="w-1 h-10 bg-on-primary"></div>
+<div class="w-1 h-20 bg-primary-fixed"></div>
+</div>
+<button class="px-6 py-2 bg-on-primary text-primary font-bold font-label-sm text-label-sm rounded-full">REVENUE REPORT</button>
+</div>
+</div>
+<!-- Occupancy Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-xl luxury-shadow flex flex-col items-center justify-center text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-6">Hall Occupancy</p>
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="109.3" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute font-headline-lg text-headline-lg text-primary">70%</span>
+</div>
+<p class="mt-6 font-body-md text-body-md font-semibold text-primary">14 / 20 Halls Booked</p>
+</div>
+<!-- Booking Velocity -->
+<div class="bg-surface-container-low border border-outline-variant p-8 rounded-xl flex flex-col justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Pending Requests</p>
+<h3 class="font-headline-lg text-headline-lg text-primary">28</h3>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span>Urgent</span>
+<span class="text-error">04</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error w-1/4"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Major Events & Breakdown -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Upcoming Major Events -->
+<div class="lg:col-span-2 space-y-gutter">
+<div class="flex justify-between items-end mb-4">
+<h4 class="font-headline-md text-headline-md text-primary">Upcoming Major Engagements</h4>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary underline" href="#">View Calendar</a>
+</div>
+<!-- Event Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl flex gap-6 hover:shadow-lg transition-shadow duration-300 group">
+<div class="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="An ultra-luxury corporate gala setup with sharp architectural lighting. The scene features long, pristine white tables, minimalist floral arrangements, and a high-contrast aesthetic with deep navy shadows and bright highlights. The mood is exclusive, refined, and executive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCfKXyjiKuoAE82fq-Ru-tz1kt0YDOvKen_r3wDe0VlK6jeKa173JAlsL5kfRDtlz_eOS5gk151wvU8EqYbVMFpGsBpUnLP8yY5luUHbjTWSUD8xGJmJtknk-GhUo-I6ZAbr0cMw3m7fz4tRdCM9uJ-0o7MfOTv4ysh1-5GlOitfEwxzyfIKw3JzZr39F7-utntn1yqSub0MNABUEt2-IEhrjvYZmn4ZWaDAkqEH-tYmyuFxUHCa0WTQ"/>
+<div class="absolute top-2 left-2 px-2 py-1 bg-primary/80 backdrop-blur text-on-primary text-[10px] font-bold rounded">CORPORATE</div>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h5 class="font-title-md text-title-md text-primary">Global Fintech Summit Gala</h5>
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-[10px] rounded-full">VIP ACCREDITED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Imperial Ballroom • June 12th, 19:00</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4 mt-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-dim"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-primary"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-outline-variant flex items-center justify-center text-[10px]">+4</div>
+</div>
+<button class="text-primary font-bold font-label-sm text-label-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                DETAILS <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl flex gap-6 hover:shadow-lg transition-shadow duration-300 group">
+<div class="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A minimalist, high-end wedding reception in a grand banquet hall. The style is modern luxury with monochrome tones, crystal accents, and cinematic lighting. The composition is clean and focused, reflecting a premium digital concierge experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy53tyV5U3U_M_2K7YycQ5TApqhFTRkR59pGOWcKBBoQZrNzJIOuiOvFEz7-NIDemMRd4CEFUMoNXc5U89ITou3gFnItpAPNhInh-mcyafYKAOF_uwYHgQ6t77t2FY0GB0X3ALsVZsnGIjnlpkfgE9KOsTguqbs5uPC7uokWsS-kSLuRF-_zhjqx9bd-elY9lSbuVTxFX8VZLbGn9pJFZUqIqnXrzqlIYMJC8892aY4V3nw067dD5wXQ"/>
+<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-on-secondary text-[10px] font-bold rounded">WEDDING</div>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h5 class="font-title-md text-title-md text-primary">The Rothschild-Vane Nuptials</h5>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant font-label-sm text-[10px] rounded-full">HIGH PROFILE</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Starlight Pavilion • June 15th, 16:30</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4 mt-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-dim"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-primary"></div>
+</div>
+<button class="text-primary font-bold font-label-sm text-label-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                DETAILS <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Breakdown & Analytics -->
+<div class="flex flex-col gap-gutter">
+<div class="bg-surface-container-low border border-outline-variant p-8 rounded-xl h-full">
+<h4 class="font-title-md text-title-md text-primary mb-8">Event Type Distribution</h4>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md font-bold text-primary">Corporate</span>
+<span class="font-body-md text-body-md text-on-surface-variant">45%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full">
+<div class="h-full bg-primary w-[45%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md font-bold text-primary">Weddings</span>
+<span class="font-body-md text-body-md text-on-surface-variant">35%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full">
+<div class="h-full bg-on-secondary-container w-[35%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md font-bold text-primary">Private / VIP</span>
+<span class="font-body-md text-body-md text-on-surface-variant">20%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full">
+<div class="h-full bg-tertiary-fixed-dim w-[20%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-12 p-4 bg-surface-container-lowest border border-outline-variant rounded-lg italic text-[13px] text-on-surface-variant">
+                        "Corporate bookings have increased by 8% this week, primarily driven by international tech summits."
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant md:hidden">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-label-md text-label-md">Roles</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md text-label-md">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for dashboard elements
+        document.querySelectorAll('.luxury-shadow').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'transform 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Initialize any specific dashboard logic here
+        console.log("Event Dashboard Initialized - Executive View");
+    </script>
+</body></html>

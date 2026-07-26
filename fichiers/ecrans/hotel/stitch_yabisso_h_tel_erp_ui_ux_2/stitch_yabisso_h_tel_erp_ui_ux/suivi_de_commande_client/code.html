@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Suivi de Commande - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-container": "#2a1700",
+                    "primary-container": "#131b2e",
+                    "outline": "#76777d",
+                    "surface-tint": "#565e74",
+                    "primary": "#000000",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-dim": "#d8dadc",
+                    "on-surface-variant": "#45464d",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed": "#2a1700",
+                    "background": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed": "#dae2fd",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary-container": "#b87500",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container": "#eceef0",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#2d3133",
+                    "secondary": "#006c49",
+                    "outline-variant": "#c6c6cd",
+                    "on-background": "#191c1e",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#00714d",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e0e3e5",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary": "#000000",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-bright": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "xl": "32px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .progress-line {
+            background: linear-gradient(90deg, #006c49 var(--progress, 50%), #e0e3e5 var(--progress, 50%));
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant shadow-sm flex items-center justify-between px-md h-14">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary p-2 active:scale-95 transition-transform">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel staff member, wearing a clean, modern black uniform. The background is a soft-focus shot of a sophisticated hotel lobby with warm lighting and marble textures, reflecting a high-end African hospitality brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPUQtM4YFTcpgYuqzsfZSICf-D53hPgawZrFIpuCzonKgpRczaKcv8QAqDRPo7EnVbit85bbm-MCc20z7gzLjdlLmiE2wSeyFRTI72l8tGbURmzjB2q0yanO-kQVh0L7VH5BWSXkjKSd70YjAFjKgL8eoaZwxitmsBezqxoiEVhT-qGtxBbTsnSNpsY2sS9HQmVhjcYli_2fJRN73yIRH0yl1k8mXlO-a5hXTIV7Z0PdfqbOrHKuhppA"/>
+</div>
+</div>
+</header>
+<main class="pt-20 px-md max-w-2xl mx-auto space-y-lg">
+<!-- Order Header & Live Animation -->
+<section class="space-y-sm">
+<div class="flex justify-between items-end">
+<div>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">En cours</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Suivi de Commande</h2>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Arrivée prévue</p>
+<p class="font-headline-sm text-headline-sm text-primary">12:45</p>
+</div>
+</div>
+<!-- Atmospheric Shader Background Card -->
+<div class="relative h-48 rounded-xl overflow-hidden shadow-sm bg-primary-container">
+
+<div class="absolute inset-0 flex flex-col items-center justify-center text-on-primary text-center p-md">
+<div class="bg-secondary-container text-on-secondary-container px-lg py-sm rounded-full mb-md animate-pulse-soft">
+<span class="font-label-lg text-label-lg">En préparation...</span>
+</div>
+<p class="font-body-md text-body-md text-on-primary-container max-w-[240px]">Notre chef prépare votre repas avec le plus grand soin.</p>
+</div>
+</div>
+</section>
+<!-- Status Progress Tracker -->
+<section class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="relative flex justify-between items-start">
+<!-- Progress Line -->
+<div class="absolute top-4 left-0 w-full h-1 bg-surface-container-highest rounded-full z-0">
+<div class="h-full bg-secondary w-2/3 rounded-full"></div>
+</div>
+<!-- Step 1: Ordered -->
+<div class="relative z-10 flex flex-col items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Commandé</span>
+<span class="text-[10px] text-on-surface-variant">12:15</span>
+</div>
+<!-- Step 2: Preparing (Active) -->
+<div class="relative z-10 flex flex-col items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center ring-4 ring-secondary-container">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Préparation</span>
+<span class="text-[10px] text-on-surface-variant">En cours</span>
+</div>
+<!-- Step 3: Out for Delivery -->
+<div class="relative z-10 flex flex-col items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">delivery_dining</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Livraison</span>
+</div>
+<!-- Step 4: Arrived -->
+<div class="relative z-10 flex flex-col items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">home_pin</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Arrivé</span>
+</div>
+</div>
+</section>
+<!-- Order Summary -->
+<section class="space-y-md">
+<h3 class="font-headline-sm text-headline-sm px-sm">Détails de la commande</h3>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm divide-y divide-outline-variant">
+<!-- Item 1 -->
+<div class="p-md flex gap-md items-center">
+<div class="w-16 h-16 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A gourmet close-up shot of a prime beef steak served with roasted vegetables on a minimalist dark plate. The lighting is dramatic and warm, emphasizing the texture of the food. The style is modern, professional food photography for a high-end luxury hotel service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRDMqmvwcwer_ozwe6d7uRbvN1YTXlce7bTVeFC_WoFMsjEbzjr4eiRqW48Zqle_-jFCGYte7KtxWgEMwOa2uo4kgW9vYyQ7dgDbpdnrIC51EWzw4Eh6svLC1WlSylQLmOEEVASwJ-1er2UN5i6mC66jcwaV8MCY-y2iIj5jJeETkNyVdVlfGG88jfyqCiai0Cl3P03tEXkxbqwvfdGwkd5Q_oxJhnnlkTbzrD8pxSaOcQvYKIJd8Gbg"/>
+</div>
+<div class="flex-grow">
+<p class="font-label-lg text-label-lg text-on-surface">Filet de Bœuf aux Morilles</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Cuisson à point, Sauce poivre</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface-variant block">x1</span>
+<span class="font-body-md text-body-md text-on-surface">32.00€</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-md flex gap-md items-center">
+<div class="w-16 h-16 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A sophisticated glass of chilled white wine on a clean white tablecloth. The condensation on the glass suggests freshness. Soft ambient lighting of a luxury hotel restaurant in the background with muted neutral tones and elegant glass accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBsNqcTrhQ_9kdEZPPb3Hd8Mhnd_TuZZ8pJQAd_Dkma1Q3ONw3v_RiCn88zUgGsDH8eQWNxpblOQb3dyJFE055RA14zXNi8zKsj9jzE3M5H9PQwb9aN0j72bHWyCKv87wSv-22cAbIlzPolGlP6ireQmikMoppork3X8BUBuLT-KqLOja6GEEFS9ItCu32Pbl2Fod0ajCW4KvImezUwl1F23rwtxtPUxsuH4GOfhGQMKpbi8_bH6taEw"/>
+</div>
+<div class="flex-grow">
+<p class="font-label-lg text-label-lg text-on-surface">Chardonnay Réserve</p>
+<p class="font-body-md text-body-md text-on-surface-variant">75cl - 2021</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface-variant block">x1</span>
+<span class="font-body-md text-body-md text-on-surface">45.00€</span>
+</div>
+</div>
+<!-- Total Row -->
+<div class="p-md flex justify-between items-center bg-surface-container-low">
+<span class="font-label-lg text-label-lg text-on-surface">Total</span>
+<span class="font-headline-sm text-headline-sm text-primary">77.00€</span>
+</div>
+</div>
+</section>
+<!-- Service Action -->
+<section class="flex flex-col gap-md">
+<button class="w-full h-14 bg-primary text-on-primary rounded-xl font-label-lg flex items-center justify-center gap-sm active:scale-[0.98] transition-all shadow-md" onclick="window.location.href='tel:+33000000000'">
+<span class="material-symbols-outlined">call</span>
+                Appeler le Service Client
+            </button>
+<p class="text-center font-body-md text-body-md text-on-surface-variant px-xl">
+                Besoin d'ajouter un couvert ou de modifier votre commande ? Nos équipes sont à votre disposition.
+            </p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface shadow-lg flex justify-around items-center h-16 px-4 pb-safe border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">countertops</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for the status dots
+        document.querySelectorAll('.active\\:scale-90').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simulating progress bar update for visual flair
+        const progressBar = document.querySelector('.bg-secondary.w-2\\/3');
+        if (progressBar) {
+            let width = 66;
+            setInterval(() => {
+                width = 66 + (Math.sin(Date.now() / 1000) * 2);
+                progressBar.style.width = `${width}%`;
+            }, 50);
+        }
+    </script>
+</body></html>

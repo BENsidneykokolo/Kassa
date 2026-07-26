@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Rapports Financiers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#2a1700",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#b87500",
+                        "on-surface-variant": "#45464d",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#6cf8bb",
+                        "background": "#f7f9fb",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#000000",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary": "#006c49",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-fixed": "#dae2fd",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-container": "#00714d",
+                        "on-background": "#191c1e",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c6c6cd",
+                        "surface-tint": "#565e74",
+                        "on-surface": "#191c1e",
+                        "primary-container": "#131b2e",
+                        "primary": "#000000",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface": "#f7f9fb",
+                        "outline": "#76777d",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "gutter-mobile": "12px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .chart-gradient { background: linear-gradient(180deg, rgba(0, 108, 73, 0.1) 0%, rgba(247, 249, 251, 0) 100%); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+        @media (max-width: 768px) { .bento-grid { grid-template-columns: 1fr; } }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.08); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface mb-20 md:mb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 flex justify-between items-center px-margin-mobile md:px-lg h-14 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container transition-colors p-2 rounded-full">menu</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">Rapports Financiers</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full">search</button>
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary p-2 hover:bg-surface-container rounded-full">notifications</button>
+</div>
+</header>
+<main class="pt-20 pb-24 px-4 md:px-lg max-w-7xl mx-auto">
+<!-- Date Range & Export Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg">
+<div class="flex items-center bg-surface-container-low rounded-xl p-1 shadow-sm border border-outline-variant">
+<button class="px-4 py-1.5 text-label-md font-label-md bg-white text-primary rounded-lg shadow-sm">Mois</button>
+<button class="px-4 py-1.5 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors">Semaine</button>
+<button class="px-4 py-1.5 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors">Jour</button>
+<button class="px-4 py-1.5 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors">Année</button>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-4 py-2 border border-outline text-label-lg font-label-lg rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                    Excel
+                </button>
+<button class="flex items-center gap-xs px-4 py-2 bg-primary text-white text-label-lg font-label-lg rounded-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                    Exporter PDF
+                </button>
+</div>
+</div>
+<!-- KPI Grid -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-md mb-lg">
+<!-- Total Revenue -->
+<div class="glass-card p-md rounded-xl">
+<p class="text-label-md font-label-md text-on-surface-variant mb-xs">Revenu Total</p>
+<div class="flex items-baseline gap-xs">
+<h2 class="text-headline-md font-headline-md text-primary">€428,500</h2>
+<span class="text-secondary text-label-sm font-label-sm">+12.4%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-md overflow-hidden">
+<div class="bg-secondary h-full w-3/4"></div>
+</div>
+</div>
+<!-- ADR -->
+<div class="glass-card p-md rounded-xl">
+<p class="text-label-md font-label-md text-on-surface-variant mb-xs">ADR</p>
+<div class="flex items-baseline gap-xs">
+<h2 class="text-headline-md font-headline-md text-primary">€342.10</h2>
+<span class="text-secondary text-label-sm font-label-sm">+5.2%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-md overflow-hidden">
+<div class="bg-secondary h-full w-1/2"></div>
+</div>
+</div>
+<!-- RevPAR -->
+<div class="glass-card p-md rounded-xl">
+<p class="text-label-md font-label-md text-on-surface-variant mb-xs">RevPAR</p>
+<div class="flex items-baseline gap-xs">
+<h2 class="text-headline-md font-headline-md text-primary">€284.45</h2>
+<span class="text-error text-label-sm font-label-sm">-2.1%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-md overflow-hidden">
+<div class="bg-error h-full w-2/3"></div>
+</div>
+</div>
+<!-- Net Profit -->
+<div class="glass-card p-md rounded-xl">
+<p class="text-label-md font-label-md text-on-surface-variant mb-xs">Bénéfice Net</p>
+<div class="flex items-baseline gap-xs">
+<h2 class="text-headline-md font-headline-md text-primary">€156,200</h2>
+<span class="text-secondary text-label-sm font-label-sm">+18.0%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full mt-md overflow-hidden">
+<div class="bg-secondary h-full w-[85%]"></div>
+</div>
+</div>
+</div>
+<!-- Charts Bento Grid -->
+<div class="bento-grid mb-lg">
+<!-- Main Trend Chart -->
+<div class="col-span-12 lg:col-span-8 glass-card p-lg rounded-xl flex flex-col">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="text-headline-sm font-headline-sm">Tendance du Revenu Mensuel</h3>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="text-label-md font-label-md">2024</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="text-label-md font-label-md">2023</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Simple CSS/SVG Trend Line Representation -->
+<svg class="w-full h-full preserve-3d" viewbox="0 0 1000 300">
+<path d="M0,250 Q100,200 200,220 T400,150 T600,100 T800,130 T1000,50" fill="none" stroke="#000000" stroke-width="3"></path>
+<path d="M0,250 Q100,200 200,220 T400,150 T600,100 T800,130 T1000,50 V300 H0 Z" fill="rgba(0,0,0,0.03)"></path>
+<path d="M0,280 Q150,260 300,270 T600,200 T1000,180" fill="none" stroke="#c6c6cd" stroke-dasharray="8,4" stroke-width="2"></path>
+</svg>
+<div class="absolute bottom-0 left-0 w-full flex justify-between px-2 text-label-sm font-label-sm text-on-surface-variant">
+<span>Jan</span><span>Mar</span><span>Mai</span><span>Juil</span><span>Sep</span><span>Nov</span>
+</div>
+</div>
+</div>
+<!-- Department Breakdown -->
+<div class="col-span-12 lg:col-span-4 glass-card p-lg rounded-xl flex flex-col">
+<h3 class="text-headline-sm font-headline-sm mb-lg">Par Département</h3>
+<div class="flex-grow flex items-center justify-center relative py-md">
+<div class="w-40 h-40 rounded-full border-[16px] border-surface-container-high relative flex items-center justify-center">
+<div class="absolute inset-[-16px] w-40 h-40 rounded-full border-[16px] border-transparent border-t-secondary border-r-secondary border-b-secondary-container" style="transform: rotate(45deg);"></div>
+<div class="text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Rooms</p>
+<p class="text-headline-sm font-headline-sm">62%</p>
+</div>
+</div>
+</div>
+<div class="space-y-sm mt-md">
+<div class="flex justify-between items-center text-label-md">
+<div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-secondary"></span> Chambres</div>
+<span class="font-bold">€265,670</span>
+</div>
+<div class="flex justify-between items-center text-label-md">
+<div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Restaurant</div>
+<span class="font-bold">€85,700</span>
+</div>
+<div class="flex justify-between items-center text-label-md">
+<div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Bar</div>
+<span class="font-bold">€42,130</span>
+</div>
+<div class="flex justify-between items-center text-label-md">
+<div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-outline"></span> Spa &amp; Bien-être</div>
+<span class="font-bold">€35,000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdown Table -->
+<div class="glass-card rounded-xl overflow-hidden mb-lg">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-lowest">
+<h3 class="text-headline-sm font-headline-sm">Analyse détaillée de la croissance</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-label-sm font-label-sm text-on-surface-variant">
+<tr>
+<th class="px-lg py-4">CATÉGORIE</th>
+<th class="px-lg py-4">REVENU ACTUEL</th>
+<th class="px-lg py-4">PÉRIODE PRÉC.</th>
+<th class="px-lg py-4">CROISSANCE</th>
+<th class="px-lg py-4">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-body-md font-body-md">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-4 font-bold text-primary">Logement Deluxe</td>
+<td class="px-lg py-4">€142,500</td>
+<td class="px-lg py-4">€128,000</td>
+<td class="px-lg py-4 text-secondary">+11.3%</td>
+<td class="px-lg py-4"><span class="bg-secondary/10 text-secondary px-2 py-1 rounded text-label-sm font-label-sm">Optimal</span></td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-4 font-bold text-primary">Logement Suite</td>
+<td class="px-lg py-4">€98,200</td>
+<td class="px-lg py-4">€102,500</td>
+<td class="px-lg py-4 text-error">-4.2%</td>
+<td class="px-lg py-4"><span class="bg-error/10 text-error px-2 py-1 rounded text-label-sm font-label-sm">Attention</span></td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-4 font-bold text-primary">Restauration Gourmet</td>
+<td class="px-lg py-4">€64,300</td>
+<td class="px-lg py-4">€52,100</td>
+<td class="px-lg py-4 text-secondary">+23.4%</td>
+<td class="px-lg py-4"><span class="bg-secondary/10 text-secondary px-2 py-1 rounded text-label-sm font-label-sm">Croissance</span></td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-4 font-bold text-primary">Services Spa</td>
+<td class="px-lg py-4">€35,000</td>
+<td class="px-lg py-4">€33,200</td>
+<td class="px-lg py-4 text-secondary">+5.4%</td>
+<td class="px-lg py-4"><span class="bg-secondary/10 text-secondary px-2 py-1 rounded text-label-sm font-label-sm">Stable</span></td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-4 font-bold text-primary">Événements &amp; Banquets</td>
+<td class="px-lg py-4">€88,500</td>
+<td class="px-lg py-4">€45,000</td>
+<td class="px-lg py-4 text-secondary">+96.7%</td>
+<td class="px-lg py-4"><span class="bg-secondary/10 text-secondary px-2 py-1 rounded text-label-sm font-label-sm">Pic Saison</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Navigation Drawer (Desktop Only) -->
+<aside class="hidden lg:flex fixed left-0 top-14 bottom-0 w-64 bg-surface-container-low border-r border-outline-variant flex-col py-lg px-md">
+<div class="flex items-center gap-md mb-xl p-md">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel general manager, middle-aged, wearing a sharp charcoal suit and white shirt. The background is a blurred high-end hotel lobby with warm ambient lighting and marble textures. The style is professional and authoritative, with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxAtuDasNCpmYivRn-9Ju1K6TfpvGwWXrFMM1Py4AvS3iFVeakza5zpkgTGlGHFbjAt_LAgqLVWm-5Rg16sYoo4YyckyrkuQd3H_3yCLy4hFrOyn8C1E6qMe9kY2NjH3t6XO9-DNqrbflFYZzmgzlXO9NSAeQhD_x4R6NGoWrRhkAhUE1PB2pDbIyKZMpwtvlhzSt3FcgyPSM2Gl9JEj9WWuqVkCYjYmAZAfG3VUu-xxHAEX4FkljhHg"/>
+</div>
+<div>
+<p class="text-label-lg font-label-lg text-primary">Directeur Général</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Yabisso Grand Hotel</p>
+</div>
+</div>
+<nav class="space-y-sm">
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg font-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-lg font-label-lg">CRM</span>
+</a>
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-lg font-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg font-label-lg">Stocks</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+</aside>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface dark:bg-inverse-surface h-16 flex justify-around items-center px-xs pb-safe rounded-t-xl shadow-[0px_-2px_10px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm font-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="text-label-sm font-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 transition-transform">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-sm font-label-sm">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm">AI</span>
+</div>
+</nav>
+<script>
+        // Simple interactive simulation for date range switching
+        const rangeButtons = document.querySelectorAll('.flex.items-center.bg-surface-container-low button');
+        rangeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                rangeButtons.forEach(b => {
+                    b.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.add('bg-white', 'text-primary', 'shadow-sm');
+                btn.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

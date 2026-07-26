@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guest Relations CRM | Guest Directory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#001e2f",
+                    "surface-container": "#eceef0",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#565e74",
+                    "primary-container": "#131b2e",
+                    "surface": "#f7f9fb",
+                    "on-secondary-container": "#57657b",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "on-tertiary-fixed": "#001e2f",
+                    "error": "#ba1a1a",
+                    "on-background": "#191c1e",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "on-primary-container": "#7c839b",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "secondary-fixed": "#d5e3fd",
+                    "secondary": "#515f74",
+                    "on-surface-variant": "#45464d",
+                    "primary": "#000000",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary-container": "#d5e3fd",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-container": "#008cc7",
+                    "inverse-surface": "#2d3133",
+                    "inverse-primary": "#bec6e0",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-xs": "4px",
+                    "sidebar-width": "280px",
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "section-gap": "32px",
+                    "container-padding": "24px",
+                    "unit": "4px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-sm": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8e0; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Navigation Drawer (Shared Component) -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surface dark:bg-surface-dim border-r border-outline-variant dark:border-outline flex flex-col h-full py-container-padding z-50">
+<div class="px-gutter mb-stack-lg">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold tracking-tight">CRM.GUEST</h1>
+</div>
+<div class="flex items-center gap-stack-md px-gutter mb-section-gap">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a female CRM administrator in a corporate setting, soft studio lighting, high-end professional aesthetic with a clean white and slate gray color palette, focused and authoritative expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8rpwtS5iY4aXs2Pvmyn3Au0dXMYM_VraP0am6ti3MEH_XI78XAWdn_2DfsnAqvASivLmaQL2xEeyIBwIQYHvEm9VnWXBIxETRNQ4jbaPp75YQd_q_jW05AOWGTAdRXlXVTFb8Kp8h_3Im8gBSGyVF4fQzdRb-BvITobwTcbcMJ7qpXzuUA7HXS2_kjxJgsFAn8N7DYd9nvFaBA6BtxhGx9BnelBNG4UYjwsk2184EwHSGgD27D7lYQw"/>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">CRM Administrator</p>
+<p class="font-label-sm text-label-sm text-outline">Admin Level 4</p>
+</div>
+</div>
+<nav class="flex-1 px-stack-sm space-y-unit">
+<!-- Active: Guest Directory -->
+<a class="flex items-center gap-stack-md bg-secondary-container dark:bg-tertiary-container text-on-secondary-container dark:text-on-tertiary-container rounded-lg px-gutter py-stack-md transition-opacity duration-150 active:opacity-90" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">Guest Directory</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-body-md text-body-md">Guest Profiles</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-body-md text-body-md">Loyalty Program</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md text-body-md">Feedback &amp; Sentiment</span>
+</a>
+</nav>
+<div class="mt-auto px-gutter pt-stack-lg border-t border-outline-variant">
+<p class="font-label-sm text-label-sm text-outline-variant uppercase">System Status</p>
+<div class="flex items-center gap-stack-xs mt-stack-sm">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="font-label-md text-label-md">Server: Global-01</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-sidebar-width min-h-screen flex flex-col">
+<!-- Top App Bar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-container-padding h-16 sticky top-0 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline z-40">
+<div class="flex items-center gap-stack-md">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Guest Relations CRM</h2>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="hidden md:flex gap-stack-md">
+<button class="font-body-md text-body-md text-outline hover:text-primary transition-colors">Documentation</button>
+<button class="font-body-md text-body-md text-outline hover:text-primary transition-colors">Support</button>
+</div>
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 active:scale-95 transition-transform relative">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-container-padding flex-1">
+<!-- Filters & Search Bar Section -->
+<section class="mb-section-gap">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-stack-lg">
+<div class="flex-1 max-w-2xl">
+<h3 class="font-display-lg text-display-lg text-on-surface mb-stack-sm">Guest Directory</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg">Access and manage comprehensive guest records across the global network.</p>
+<!-- Precision Search Input -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-white border border-outline-variant rounded-lg pl-12 pr-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-outline-variant" placeholder="Search by name, email, or reservation ID..." type="text"/>
+</div>
+</div>
+<div class="flex flex-wrap gap-stack-md">
+<!-- Custom Selects styled as Systematic Inputs -->
+<div class="flex flex-col gap-stack-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Status</label>
+<select class="bg-white border border-outline-variant rounded-lg px-gutter py-2.5 font-body-sm text-body-sm focus:ring-2 focus:ring-primary outline-none">
+<option>All Guests</option>
+<option>In-house</option>
+<option>Upcoming</option>
+<option>Past</option>
+</select>
+</div>
+<div class="flex flex-col gap-stack-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Loyalty Tier</label>
+<select class="bg-white border border-outline-variant rounded-lg px-gutter py-2.5 font-body-sm text-body-sm focus:ring-2 focus:ring-primary outline-none">
+<option>Any Tier</option>
+<option>VIP</option>
+<option>Platinum</option>
+<option>Gold</option>
+</select>
+</div>
+<button class="self-end bg-primary text-on-primary h-[42px] px-gutter rounded-lg font-body-md text-body-md flex items-center gap-stack-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+                            Advanced Filter
+                        </button>
+</div>
+</div>
+</section>
+<!-- Bento Grid Content / Data Table Alternative -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Guest List - The Primary Information Density Area -->
+<div class="xl:col-span-8 bg-white border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+<div class="px-gutter py-stack-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-md text-label-md uppercase text-outline">Directory Results (2,481)</span>
+<div class="flex gap-stack-sm">
+<button class="p-1 hover:bg-surface-container rounded transition-colors"><span class="material-symbols-outlined text-outline">view_list</span></button>
+<button class="p-1 hover:bg-surface-container rounded transition-colors"><span class="material-symbols-outlined text-outline">grid_view</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest">
+<th class="px-gutter py-stack-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Guest Name</th>
+<th class="px-gutter py-stack-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Tier</th>
+<th class="px-gutter py-stack-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Status</th>
+<th class="px-gutter py-stack-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Last Stay</th>
+<th class="px-gutter py-stack-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Guest Row 1: VIP In-house -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-secondary-container">
+<img class="w-full h-full object-cover" data-alt="Portrait of a sophisticated male guest, middle-aged with graying hair, wearing a high-end tailored suit. Clean minimalist studio background with soft lighting, matching the luxury hotel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu7nsvXZ5CMnqlMNSH_M2eyGArpOGnXK-5XBm-GpF7hzw33Y0oCSYmlfdYcfvAhLze1Iguso3Rd9RbtI7cmR_2-Oxo8dfIkQGoK-FsIxNKSoTRZH3O2UEr0MPNOaf7Z6GAon9idrCoaKRdS64M3A3DBe0fNUvo8amSbExaZPGbIS6Xx12gXUIVBlyDG84omfYJVzFUWGgjNTZHh_tTFBYP-i3QLttz-1cZ046mS1tpkxaQ4CWNF9jwdg"/>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">Alexander Vance</p>
+<p class="font-label-sm text-label-sm text-outline">avance.executive@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="px-stack-sm py-0.5 rounded-full bg-primary-container text-primary-fixed text-[10px] font-bold uppercase tracking-wider">VIP</span>
+</td>
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-xs">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="font-body-sm text-body-sm">In-house</span>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<p class="font-label-md text-label-md text-on-surface">Oct 24, 2023</p>
+<p class="font-label-sm text-label-sm text-outline">Suite 402</p>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<!-- Guest Row 2: Platinum Upcoming -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-secondary-container">
+<img class="w-full h-full object-cover" data-alt="Close up of a female guest with a vibrant, modern professional look. Minimalist bright composition, high-fidelity corporate photography with a focus on reliability and security." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5n92lvlOjrugcEi79KmyGZOi9No8ndTCjCaiL3z-x7AN1pKTgqL4qBqUwS8yDYICz-KVgVKup5bR6LTdU0W16NWnv-M0s6atm-CV2jO59Dx8ScFkKNnCw1Xb0XTmVvUzJPXn_MaGTakuImHA3d2CpaWlK0znS4FftDasPTuD9YX0p8Q1EzMc-PJb3LLeMv53eLUVattQs1lAhJXPUplYi5V931FsuyO7lr3hvJ_BzsFUrwroPa8z2SA"/>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">Elena Rodriguez</p>
+<p class="font-label-sm text-label-sm text-outline">elena.r@global-tech.co</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="px-stack-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Platinum</span>
+</td>
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-xs text-on-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">Upcoming</span>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<p class="font-label-md text-label-md text-on-surface">Nov 12, 2023</p>
+<p class="font-label-sm text-label-sm text-outline">Standard King</p>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<!-- Guest Row 3: Gold Past -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-secondary-container">
+<div class="w-full h-full flex items-center justify-center bg-surface-container-high text-on-surface-variant font-bold">JD</div>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">Julian D'Amico</p>
+<p class="font-label-sm text-label-sm text-outline">julian.damico@media.it</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="px-stack-sm py-0.5 rounded-full bg-orange-100 text-orange-800 text-[10px] font-bold uppercase tracking-wider">Gold</span>
+</td>
+<td class="px-gutter py-stack-md text-outline">
+<span class="font-body-sm text-body-sm">Past</span>
+</td>
+<td class="px-gutter py-stack-md">
+<p class="font-label-md text-label-md text-on-surface">Sep 05, 2023</p>
+<p class="font-label-sm text-label-sm text-outline">Executive Loft</p>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<!-- Guest Row 4: VIP Past -->
+<tr class="hover:bg-surface-container-low transition-colors group border-b-0">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-secondary-container">
+<img class="w-full h-full object-cover" data-alt="Portrait of an elderly gentleman with an air of distinction and authority. High-end lighting, corporate minimalist aesthetic, soft navy and slate background palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOUq0ojZTjCEm59DLGSq8pGxSJl3_3V71h6mzIubhEsG69g7gegenkrmbe7zW3-6Vp80TcXCLMp-DsI6cUFNKpdToKgFOkc2XdLP6zwEIKp9e0wqCzShVKJw5EIyegcdKJk71_GdV0scQgHlvMlaM1mAV-4MPyuwRmYT6NnRi0to2aPxUdq3C3KIcKcpW9Ml44VVF4YYkhqwpa_yiy7Ajmt8nxjPsBDgKED8rREsmpdXrw9DNxhzbqOA"/>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">Arthur Sterling</p>
+<p class="font-label-sm text-label-sm text-outline">sterling.a@investment.com</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="px-stack-sm py-0.5 rounded-full bg-primary-container text-primary-fixed text-[10px] font-bold uppercase tracking-wider">VIP</span>
+</td>
+<td class="px-gutter py-stack-md text-outline">
+<span class="font-body-sm text-body-sm">Past</span>
+</td>
+<td class="px-gutter py-stack-md">
+<p class="font-label-md text-label-md text-on-surface">Aug 22, 2023</p>
+<p class="font-label-sm text-label-sm text-outline">Penthouse 1</p>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-auto px-gutter py-4 border-t border-outline-variant bg-surface-container-low flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-outline">Showing 1-4 of 2,481 entries</p>
+<div class="flex gap-stack-xs">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-white hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-primary bg-primary text-on-primary text-label-md font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-white hover:bg-surface-container transition-colors text-label-md">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-white hover:bg-surface-container transition-colors text-label-md">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-white hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Sidebar / Insights Column -->
+<div class="xl:col-span-4 space-y-gutter">
+<!-- Quick Statistics Card -->
+<div class="bg-primary text-on-primary rounded-lg p-gutter shadow-md overflow-hidden relative">
+<!-- Abstract Background Detail -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<h4 class="font-label-md text-label-md uppercase opacity-70 mb-stack-lg">Daily Pulse</h4>
+<div class="grid grid-cols-2 gap-stack-lg">
+<div>
+<p class="text-4xl font-bold font-display-lg">142</p>
+<p class="font-label-sm text-label-sm opacity-80">Arrivals Today</p>
+</div>
+<div>
+<p class="text-4xl font-bold font-display-lg">38</p>
+<p class="font-label-sm text-label-sm opacity-80">VIP Members</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity / Audit Log -->
+<div class="bg-white border border-outline-variant rounded-lg p-gutter">
+<div class="flex justify-between items-center mb-stack-lg">
+<h4 class="font-headline-sm text-headline-sm">Audit Log</h4>
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<div class="space-y-stack-lg relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[1px] before:bg-outline-variant">
+<!-- Log Item 1 -->
+<div class="flex gap-stack-md relative z-10">
+<div class="w-6 h-6 rounded-full bg-white border-4 border-secondary-container flex-shrink-0 mt-1"></div>
+<div>
+<p class="font-body-sm text-body-sm leading-tight"><span class="font-bold">System</span> updated tier for Guest #8821 to <span class="text-on-tertiary-container font-bold">VIP</span></p>
+<p class="font-label-sm text-label-sm text-outline mt-1 font-label-md">14:22 · IP: 192.168.1.4</p>
+</div>
+</div>
+<!-- Log Item 2 -->
+<div class="flex gap-stack-md relative z-10">
+<div class="w-6 h-6 rounded-full bg-white border-4 border-surface-container flex-shrink-0 mt-1"></div>
+<div>
+<p class="font-body-sm text-body-sm leading-tight"><span class="font-bold">Admin-4</span> revoked access for API-Key 'GDS-Alpha'</p>
+<p class="font-label-sm text-label-sm text-outline mt-1 font-label-md">12:05 · IP: 10.0.0.12</p>
+</div>
+</div>
+<!-- Log Item 3 -->
+<div class="flex gap-stack-md relative z-10">
+<div class="w-6 h-6 rounded-full bg-white border-4 border-error-container flex-shrink-0 mt-1"></div>
+<div>
+<p class="font-body-sm text-body-sm leading-tight text-error font-bold">Failed Login Attempt</p>
+<p class="font-body-sm text-body-sm">User: 'FrontDesk_2'</p>
+<p class="font-label-sm text-label-sm text-outline mt-1 font-label-md">09:15 · IP: 172.16.0.8</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-stack-lg py-2 border border-outline-variant rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container transition-colors">View All Logs</button>
+</div>
+<!-- Visual Indicator Card -->
+<div class="bg-surface-container-highest rounded-lg p-gutter overflow-hidden h-48 relative">
+
+<div class="relative z-10 flex flex-col h-full justify-between">
+<h4 class="font-label-md text-label-md uppercase text-primary">Sentiment Map</h4>
+<div>
+<p class="text-3xl font-bold font-display-lg text-primary">94.2%</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Global Guest Satisfaction Score</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Technical Info -->
+<footer class="mt-auto py-stack-lg px-container-padding bg-surface-container-lowest border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="flex items-center gap-stack-lg">
+<p class="font-label-sm text-label-sm text-outline">© 2023 YABISSO PROFESSIONAL SYSTEMS</p>
+<div class="h-4 w-[1px] bg-outline-variant hidden md:block"></div>
+<p class="font-label-sm text-label-sm text-outline">SESSION TIMEOUT: 24:00m</p>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="font-label-sm text-label-sm text-outline">ENCRYPTION: AES-256</span>
+<span class="material-symbols-outlined text-green-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB - Only for Home/Directory/Dashboard -->
+<button class="fixed bottom-container-padding right-container-padding w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all group z-50">
+<span class="material-symbols-outlined text-[28px]">person_add</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-3 py-1 rounded text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">New Guest Entry</span>
+</button>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // In a real app, this would navigate to the profile
+                console.log('Navigating to guest profile...');
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(val) ? '' : 'none';
+            });
+        });
+    </script>
+</body></html>

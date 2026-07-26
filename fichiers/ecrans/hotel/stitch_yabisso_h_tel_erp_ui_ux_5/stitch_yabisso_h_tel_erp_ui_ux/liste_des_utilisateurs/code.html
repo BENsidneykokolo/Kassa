@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administrative Control - User Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hanken+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-high": "#e6e8ea",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-tertiary-fixed": "#001e2f",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#000000",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7f9fb",
+                    "primary-container": "#131b2e",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary": "#515f74",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "tertiary-container": "#001e2f",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "secondary-container": "#d5e3fd",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "on-tertiary-container": "#008cc7",
+                    "error-container": "#ffdad6",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "surface-tint": "#565e74",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#57657b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "sidebar-width": "280px",
+                    "container-padding": "24px",
+                    "section-gap": "32px",
+                    "unit": "4px",
+                    "stack-lg": "24px",
+                    "stack-xs": "4px",
+                    "stack-sm": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #f7f9fb; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8e0; border-radius: 10px; }
+        .status-pill-active { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-pill-inactive { background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface-container-highest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline z-50 flex justify-between items-center px-container-padding h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Administrative Control</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-6 mr-6">
+<span class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim font-bold cursor-pointer transition-colors duration-200">System Dashboard</span>
+<span class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant px-2 py-1 rounded transition-colors duration-200 cursor-pointer">Network Health</span>
+</div>
+<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a senior system administrator in a high-tech corporate environment. The lighting is crisp and cool, emphasizing a modern minimalist office with glass walls and server racks in the soft-focus background. He wears a dark tailored suit reflecting the authoritative and secure brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpBxPOgF3BlSZ7XG9DYmUsyxsx2I4LbNacbfTCSHV6rSfrh7JTHYPmYV6Fk0R0BsOG4KdqNke1zZe1SMcP3XjticyOp58PZAtWbceX3SIsXj9m0dAyzlo487ZJmQN5tOMrqey_MRJ4QV6oirvLyhMwDC1p6_zcGqXwEHX27aqIcz5GqmpAnelN2JRyUkWn1YfGFt3LEMNBvkfESbg6NkPEN1ylVNa41MbaFmLvHsEpSp7z6To75mNhXg"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline hidden md:flex flex-col pt-16 z-40">
+<div class="flex flex-col p-stack-md h-full">
+<!-- Profile Header -->
+<div class="flex flex-col gap-1 p-4 mb-6 bg-surface-container rounded-lg border border-outline-variant">
+<p class="font-headline-sm text-headline-sm font-black text-primary">System Architect</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Security Tier 1</p>
+<span class="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-on-tertiary-container uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Active Session
+                </span>
+</div>
+<!-- Nav Items -->
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-primary-fixed-variant text-on-secondary-container dark:text-primary-fixed font-bold rounded-full transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">User List</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">shield_person</span>
+<span class="font-body-md text-body-md">Role Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-body-md text-body-md">Security Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-full transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span class="font-body-md text-body-md">Access Requests</span>
+</a>
+</nav>
+<!-- Bottom of Drawer -->
+<div class="mt-auto p-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 border border-outline text-on-surface font-semibold hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">logout</span>
+                    Sign Out
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:pl-sidebar-width pt-16 pb-20 md:pb-0 min-h-screen">
+<div class="p-container-padding max-w-[1600px] mx-auto">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-section-gap">
+<div>
+<h2 class="font-display-lg text-display-lg text-primary mb-1">User Directory</h2>
+<p class="text-on-surface-variant font-body-md max-w-lg">Manage organizational access, modify departmental roles, and monitor authentication status for all system personnel.</p>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary font-semibold hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined">person_add</span>
+<span>ADD NEW USER</span>
+</button>
+</div>
+<!-- Bento Filter Bar -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Search -->
+<div class="lg:col-span-5 bg-surface-container-lowest border border-outline-variant p-4 flex items-center gap-3 focus-within:ring-2 focus-within:ring-primary-container transition-all">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-md text-on-surface placeholder:text-outline-variant" placeholder="Search by name, email, or employee ID..." type="text"/>
+</div>
+<!-- Filters -->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant p-4 flex items-center justify-between gap-4">
+<div class="flex items-center gap-2 flex-1">
+<span class="material-symbols-outlined text-outline text-sm">domain</span>
+<select class="bg-transparent border-none focus:ring-0 w-full font-body-md text-on-surface p-0 cursor-pointer">
+<option value="">All Departments</option>
+<option value="front-office">Front Office</option>
+<option value="fb">Food & Beverage</option>
+<option value="housekeeping">Housekeeping</option>
+<option value="admin">Administration</option>
+</select>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-2 flex-1">
+<span class="material-symbols-outlined text-outline text-sm">verified</span>
+<select class="bg-transparent border-none focus:ring-0 w-full font-body-md text-on-surface p-0 cursor-pointer">
+<option value="">Any Status</option>
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
+</select>
+</div>
+</div>
+<!-- Stats Summary -->
+<div class="lg:col-span-3 bg-surface-container border border-outline-variant p-4 flex items-center justify-around">
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Total Users</p>
+<p class="font-headline-sm text-headline-sm font-bold">1,284</p>
+</div>
+<div class="text-center border-l border-outline-variant pl-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Active Now</p>
+<p class="font-headline-sm text-headline-sm font-bold text-on-tertiary-container">42</p>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant overflow-hidden shadow-sm">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Employee</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">ID</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Department</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Access Tier</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- User Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female employee with a confident expression. The environment is a brightly lit, modern office lobby with glass and steel elements. She is dressed in business attire, reflecting the formal and secure administrative atmosphere of the ERP system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR18J3sv0AZN5IrTyPYB6QHcEbkn8AlaOVy49gmQcQb74krBW_pxtGFQdiyluTTGxGGY2n9LGwkuG_wHTmdgzb8cXiXv1uJprbUWV5MF7_NYLikP1HMoV8dJ7LK90JGkBtj6QTPW90DJ-7COIw_2KjoJM5ZZ3LhCxSCBp6irrNDlTtLtlsvJCTd9fjJvnvVHsKd7RvI8JLX5sNYLdBkDIVMmzsCLIvE5K7OZMoHbs_39tX4mBWOtPugQ"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Elena Rodriguez</p>
+<p class="text-xs text-on-surface-variant font-label-md">elena.r@corporate.er</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md">#ER-9902</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium">Front Office</span>
+</td>
+<td class="px-6 py-4">
+<span class="status-pill-active px-3 py-1 rounded-full text-[11px] font-bold uppercase">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm text-on-surface-variant">Standard User</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">
+                                            JM
+                                        </div>
+<div>
+<p class="font-semibold text-on-surface">James McAllister</p>
+<p class="text-xs text-on-surface-variant font-label-md">james.m@corporate.er</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md">#ER-1024</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium">Admin</span>
+</td>
+<td class="px-6 py-4">
+<span class="status-pill-active px-3 py-1 rounded-full text-[11px] font-bold uppercase">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-bold text-on-tertiary-container">Superuser</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male hotel manager in a sharp professional uniform. He is standing in a sophisticated hotel lounge with warm, upscale lighting. The style is crisp and corporate, matching the stoic and reliable brand aesthetic of the administrative ERP." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBonoLHgE36nwH5B_euBNY4wxeCO75qoFGgS4OMfpWBfhCEMC2-t3Fkbnin9y8KismxrjhYEcblqjewEKfY_1-mSNi1aaTESnDhXykNc774nBNyoUAOgvKnZT8BW9jCs76Xx796KXHgX4yyU3i7sImT0gJwbol-jhvODJclbeLSlyVYih1eAnqwitb4_RqnhRbbytCAojkkq9kIRNVJJA1kUnBFEVamGaVuviHkLZ60qG2oSqmXVrCEww"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Arthur Chen</p>
+<p class="text-xs text-on-surface-variant font-label-md">a.chen@corporate.er</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md">#ER-5521</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium">F&B</span>
+</td>
+<td class="px-6 py-4">
+<span class="status-pill-inactive px-3 py-1 rounded-full text-[11px] font-bold uppercase">Inactive</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm text-on-surface-variant">Service Access</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 4 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A focused headshot of a female administrative officer in a minimalist workspace. Soft natural lighting from large windows illuminates the clean lines of her surroundings. The color palette is composed of neutrals and slate, emphasizing the systematic and professional identity of the ERP." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7-p59I_Z6R2JoQ3Gk94QA-jjEcXY0jXls9_tdWiu7d0wLxtSbkIRyWBteAIt3KRvDebSJhbHPH1Zzng4rqMlM_bsUrpZfsm1dGtoUsncgvLJurYADJXbxT3_V-f2YjmpVzhmwdIb-m9zs-KFR_qWkwJLxNafIBnOjEQJKAIwK5jhPpZTpRlP97zkaHzTHCVUOOmTt-5NPQVly8IYCcX325RSnZd3c1D7dt6oNhInMR_FRbYTG6-9N8w"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant font-label-md">s.jenkins@corporate.er</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md">#ER-2119</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium">Housekeeping</span>
+</td>
+<td class="px-6 py-4">
+<span class="status-pill-active px-3 py-1 rounded-full text-[11px] font-bold uppercase">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm text-on-surface-variant">Manager Tier</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 5 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">
+                                            BK
+                                        </div>
+<div>
+<p class="font-semibold text-on-surface">Bhavin Kumar</p>
+<p class="text-xs text-on-surface-variant font-label-md">bhavin.k@corporate.er</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md">#ER-4001</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium">F&B</span>
+</td>
+<td class="px-6 py-4">
+<span class="status-pill-active px-3 py-1 rounded-full text-[11px] font-bold uppercase">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm text-on-surface-variant">Standard User</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-outline-variant">
+<p class="text-label-md font-label-md text-on-surface-variant">Showing 1 to 5 of 1,284 entries</p>
+<div class="flex items-center gap-1">
+<button class="p-2 text-outline-variant hover:text-primary disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors font-bold text-xs">2</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors font-bold text-xs">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors font-bold text-xs">129</button>
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-sm">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-label-md text-label-md">Roles</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md text-label-md">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', function() {
+                // Example click interaction for the list
+                console.log('User record selected');
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput.parentElement;
+        searchInput.addEventListener('focus', () => {
+            searchContainer.classList.add('border-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchContainer.classList.remove('border-primary');
+        });
+    </script>
+</body></html>

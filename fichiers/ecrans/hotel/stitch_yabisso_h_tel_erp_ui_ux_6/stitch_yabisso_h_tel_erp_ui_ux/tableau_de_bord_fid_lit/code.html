@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loyalty Program Dashboard - Guest Relations CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hanken+Grotesk:wght@600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active-indicator {
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 24px;
+            background-color: currentColor;
+            border-radius: 0 4px 4px 0;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CBD5E1;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#001e2f",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#565e74",
+                        "primary-container": "#131b2e",
+                        "surface": "#f7f9fb",
+                        "on-secondary-container": "#57657b",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-highest": "#e0e3e5",
+                        "background": "#f7f9fb",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "on-tertiary-fixed": "#001e2f",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "on-primary-container": "#7c839b",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "secondary-fixed": "#d5e3fd",
+                        "secondary": "#515f74",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary": "#000000",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-container": "#d5e3fd",
+                        "on-surface": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed": "#c9e6ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-container": "#008cc7",
+                        "inverse-surface": "#2d3133",
+                        "inverse-primary": "#bec6e0",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-xs": "4px",
+                        "sidebar-width": "280px",
+                        "gutter": "16px",
+                        "stack-md": "16px",
+                        "section-gap": "32px",
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- Navigation Drawer -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surface dark:bg-surface-dim border-r border-outline-variant dark:border-outline flex flex-col h-full py-container-padding z-50">
+<div class="px-gutter mb-section-gap">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold tracking-tight">CRM.OS</h1>
+</div>
+<div class="px-stack-sm mb-section-gap flex flex-col gap-stack-xs">
+<div class="flex items-center gap-stack-md px-gutter py-stack-md">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">person_search</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-surface">CRM Administrator</span>
+<span class="text-label-sm text-outline">Admin Level 4</span>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1 px-stack-sm flex-grow">
+<!-- Guest Directory -->
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary">group</span>
+<span class="font-body-md">Guest Directory</span>
+</a>
+<!-- Guest Profiles -->
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary">person_search</span>
+<span class="font-body-md">Guest Profiles</span>
+</a>
+<!-- Loyalty Program (ACTIVE) -->
+<a class="flex items-center gap-stack-md bg-secondary-container dark:bg-tertiary-container text-on-secondary-container dark:text-on-tertiary-container rounded-lg px-gutter py-stack-md relative transition-opacity duration-150" href="#">
+<div class="absolute left-0 w-1 h-6 bg-primary rounded-r-full"></div>
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-body-md font-semibold">Loyalty Program</span>
+</a>
+<!-- Feedback & Sentiment -->
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-gutter py-stack-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary">analytics</span>
+<span class="font-body-md">Feedback & Sentiment</span>
+</a>
+</nav>
+<div class="px-gutter mt-auto pt-container-padding border-t border-outline-variant">
+<div class="flex items-center gap-stack-md text-outline text-body-sm">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Security Shield Active</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-container-padding h-16 sticky top-0 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline z-40">
+<div class="flex items-center gap-stack-md">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Loyalty Insights</h2>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="hidden md:flex items-center bg-surface-container-low border border-outline-variant px-stack-md py-stack-xs rounded-lg gap-stack-sm">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48 p-0" placeholder="Search members..." type="text"/>
+</div>
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-transform active:scale-95 relative">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-bold text-label-md">
+                    JD
+                </div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<section class="p-container-padding flex flex-col gap-section-gap">
+<!-- Key Metrics Bar -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-stack-sm">
+<span class="text-label-md text-outline">TOTAL MEMBERS</span>
+<span class="material-symbols-outlined text-primary-fixed-dim">groups</span>
+</div>
+<div class="text-display-lg font-display-lg text-primary">12,842</div>
+<div class="flex items-center gap-1 mt-stack-xs">
+<span class="text-label-sm text-green-600 font-bold">+12%</span>
+<span class="text-label-sm text-outline">vs last month</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-stack-sm">
+<span class="text-label-md text-outline">ACTIVE REDEMPTIONS</span>
+<span class="material-symbols-outlined text-primary-fixed-dim">card_giftcard</span>
+</div>
+<div class="text-display-lg font-display-lg text-primary">458</div>
+<div class="flex items-center gap-1 mt-stack-xs">
+<span class="text-label-sm text-on-secondary-container">23 Pending approval</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-stack-sm">
+<span class="text-label-md text-outline">AVG. STAY DURATION</span>
+<span class="material-symbols-outlined text-primary-fixed-dim">calendar_today</span>
+</div>
+<div class="text-display-lg font-display-lg text-primary">4.2 <span class="text-headline-sm font-normal text-outline">days</span></div>
+<div class="flex items-center gap-1 mt-stack-xs">
+<span class="text-label-sm text-green-600 font-bold">+0.5</span>
+<span class="text-label-sm text-outline">increased loyalty</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-stack-sm">
+<span class="text-label-md text-outline">RETENTION RATE</span>
+<span class="material-symbols-outlined text-primary-fixed-dim">trending_up</span>
+</div>
+<div class="text-display-lg font-display-lg text-primary">89.4%</div>
+<div class="flex items-center gap-1 mt-stack-xs">
+<span class="text-label-sm text-on-primary-container font-medium">92% Target reached</span>
+</div>
+</div>
+</div>
+<!-- Distribution & Rewards Bento -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Tier Distribution Chart Area -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg">
+<div class="flex justify-between items-center mb-stack-lg">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Tier Distribution</h3>
+<p class="text-body-sm text-outline">Breakdown of member base by status level</p>
+</div>
+<button class="flex items-center gap-stack-xs text-label-md text-outline hover:text-primary transition-colors">
+<span>Details</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+<div class="flex flex-col gap-stack-lg">
+<!-- Custom Visual Bar Chart -->
+<div class="h-12 w-full flex rounded-full overflow-hidden">
+<div class="h-full bg-slate-100 hover:brightness-95 transition-all w-[45%] relative group cursor-help">
+<div class="absolute inset-0 flex items-center justify-center text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">SILVER (5,778)</div>
+</div>
+<div class="h-full bg-slate-300 hover:brightness-95 transition-all w-[30%] relative group cursor-help">
+<div class="absolute inset-0 flex items-center justify-center text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">GOLD (3,852)</div>
+</div>
+<div class="h-full bg-primary hover:brightness-110 transition-all w-[15%] relative group cursor-help">
+<div class="absolute inset-0 flex items-center justify-center text-label-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">PLATINUM (1,926)</div>
+</div>
+<div class="h-full bg-black hover:bg-gray-800 transition-all w-[10%] relative group cursor-help">
+<div class="absolute inset-0 flex items-center justify-center text-label-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">DIAMOND (1,286)</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter mt-stack-md">
+<div class="flex flex-col border-l-2 border-slate-200 pl-stack-md">
+<span class="text-label-sm text-outline font-bold">SILVER</span>
+<span class="text-headline-sm font-bold">45%</span>
+<span class="text-label-sm text-outline">Entry Level</span>
+</div>
+<div class="flex flex-col border-l-2 border-slate-400 pl-stack-md">
+<span class="text-label-sm text-outline font-bold uppercase">Gold</span>
+<span class="text-headline-sm font-bold">30%</span>
+<span class="text-label-sm text-outline">Frequent Stay</span>
+</div>
+<div class="flex flex-col border-l-2 border-primary pl-stack-md">
+<span class="text-label-sm text-primary font-bold uppercase">Platinum</span>
+<span class="text-headline-sm font-bold">15%</span>
+<span class="text-label-sm text-outline">Priority Plus</span>
+</div>
+<div class="flex flex-col border-l-2 border-black pl-stack-md">
+<span class="text-label-sm text-black font-bold uppercase">Diamond</span>
+<span class="text-headline-sm font-bold">10%</span>
+<span class="text-label-sm text-outline">Global Elite</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Upcoming Rewards Claim -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-stack-lg">Upcoming Rewards</h3>
+<div class="flex-grow flex flex-col gap-stack-md overflow-y-auto max-h-[280px] pr-2">
+<!-- Reward Item -->
+<div class="flex items-center gap-stack-md p-stack-sm rounded-lg hover:bg-surface transition-colors border border-transparent hover:border-outline-variant">
+<div class="w-12 h-12 rounded bg-secondary-container flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">restaurant</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-body-sm">Complimentary Dinner</span>
+<span class="text-label-sm text-outline">A. Thompson (Diamond)</span>
+</div>
+<button class="ml-auto p-2 text-primary hover:bg-primary-fixed rounded transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Reward Item -->
+<div class="flex items-center gap-stack-md p-stack-sm rounded-lg hover:bg-surface transition-colors border border-transparent hover:border-outline-variant">
+<div class="w-12 h-12 rounded bg-tertiary-fixed flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">spa</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-body-sm">Suite Upgrade & Spa</span>
+<span class="text-label-sm text-outline">L. Chen (Platinum)</span>
+</div>
+<button class="ml-auto p-2 text-primary hover:bg-primary-fixed rounded transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Reward Item -->
+<div class="flex items-center gap-stack-md p-stack-sm rounded-lg hover:bg-surface transition-colors border border-transparent hover:border-outline-variant">
+<div class="w-12 h-12 rounded bg-surface-container-highest flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">flight_takeoff</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-body-sm">Airport Transfer</span>
+<span class="text-label-sm text-outline">M. Rossi (Gold)</span>
+</div>
+<button class="ml-auto p-2 text-primary hover:bg-primary-fixed rounded transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+<button class="mt-stack-lg w-full py-stack-md bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-opacity">View All Redemptions</button>
+</div>
+</div>
+<!-- Guest of the Month & Recent Upgrades -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Guest of the Month Candidates -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+<div class="p-stack-lg border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1">stars</span>
+                            Guest of the Month Candidates
+                        </h3>
+</div>
+<div class="flex flex-col">
+<table class="w-full text-left">
+<thead class="bg-surface text-label-md text-outline border-b border-outline-variant">
+<tr>
+<th class="px-gutter py-stack-md font-bold uppercase">Guest Name</th>
+<th class="px-gutter py-stack-md font-bold uppercase">Stays (YTD)</th>
+<th class="px-gutter py-stack-md font-bold uppercase text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded border border-outline-variant bg-cover bg-center flex-shrink-0" data-alt="A professional headshot of a middle-aged businessman with a warm smile, wearing a sharp charcoal suit and standing in a modern, brightly lit hotel lobby. The lighting is sophisticated and directional, emphasizing high-fidelity corporate aesthetics with a soft, clean focus. Neutral slate and white tones dominate the background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB7Iuw4nz_d0GHAPwSAZskFmu1lWFvL8oywFgZfYrmIUTYKT5oOCw6dCojYpakxCcdImOyhBsT_x2kCDnKQZB91r0G3431KkD6-oV5Q2U-TPWDPVB5RnTV4CmEkVidfnMuHvDGqxsdh3qaLAVzFG3MyqJFtjym5WWBVxqdnd2iMkQqdN4n4qEnv-J7cRXX6Qw0wUzHFjGVpcC4AYtBVhBNqMb1R4IcgnG5idbnrYNdGZeuhdgKgIAn4Hg')"></div>
+<div class="flex flex-col">
+<span class="font-bold text-body-md text-primary">Marcus Halloway</span>
+<span class="text-label-sm text-outline font-label-md">ID: G-88902</span>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="font-label-md text-body-md">24 Stays</span>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="bg-primary text-on-primary px-stack-md py-1 rounded text-label-md hover:scale-105 transition-transform">Nominate</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded border border-outline-variant bg-cover bg-center flex-shrink-0" data-alt="Close-up portrait of a professional woman in her 30s with a confident expression, dressed in a minimal ivory silk blouse. The setting is a luxury lounge with warm, ambient evening lighting. The overall visual style is elegant, systematic, and clean, aligned with a modern minimalist corporate identity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4ArJNSFuSij70ocaxVj5zvdCg2qJtIbY17xgYYj0FuupwrEY_rq0zrcE7cTRkxGg_h1t-L8baPLwY8nLpfsfXRbwkOq7oSJ6c8e0It8ziRjNBO9DK2eDXOL_1kZ32cK4j0eaKvb0HoUK5oGB2WmpNtzp4ZD-yeeOARSFuW_SQf5BzKMfNJnlVCbebn1CYGEIX58colT2gxiCXwivQz0Jk_DwedVfIaiZcIsFwoFbnQ_CSqKeBtjtySw')"></div>
+<div class="flex flex-col">
+<span class="font-bold text-body-md text-primary">Sarah Jenkins</span>
+<span class="text-label-sm text-outline font-label-md">ID: G-45122</span>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="font-label-md text-body-md">19 Stays</span>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="bg-primary text-on-primary px-stack-md py-1 rounded text-label-md hover:scale-105 transition-transform">Nominate</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded border border-outline-variant bg-cover bg-center flex-shrink-0" data-alt="Portrait of an elderly gentleman with silver hair and a thoughtful expression, wearing a navy blue blazer over a crisp white shirt. The background is a blurred library or quiet hotel study area with high-end architectural details. Professional lighting creates a sharp yet approachable presence." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9sePiau6LG_8t4UOaV3T0X-G7QI08Sl_grsA9ppw24XL9YRkm15hkOTzeMa9IU39GV_IQ-Kw-z10GVR9zz5DZqGqLVLLxr1mnkNesrdjrOr-EZSAGOsDYUIp3ZRF-wBknXrPry8vVPb5HSF7QTXVQHoWhbyUA7PRD4vYpkBxw95Jl7YztT-NS9T58dHDCxmDKcwn8O9Oy4IU-OZg0DCIWbk511tbifYpWQ7EscOstV_gy24ijn46EqQ')"></div>
+<div class="flex flex-col">
+<span class="font-bold text-body-md text-primary">David Abernathy</span>
+<span class="text-label-sm text-outline font-label-md">ID: G-10293</span>
+</div>
+</div>
+</td>
+<td class="px-gutter py-stack-md">
+<span class="font-label-md text-body-md">18 Stays</span>
+</td>
+<td class="px-gutter py-stack-md text-right">
+<button class="bg-primary text-on-primary px-stack-md py-1 rounded text-label-md hover:scale-105 transition-transform">Nominate</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Recent Tier Upgrades -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col">
+<div class="p-stack-lg border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+                            Recent Tier Upgrades
+                        </h3>
+</div>
+<div class="p-stack-lg flex flex-col gap-gutter overflow-y-auto">
+<!-- Upgrade Log Item -->
+<div class="flex items-start gap-stack-md pb-gutter border-b border-outline-variant last:border-0 last:pb-0">
+<div class="w-2 h-full bg-primary-fixed-dim rounded-full mt-2 self-stretch"></div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex justify-between items-center">
+<span class="text-body-md font-bold">Elena Rodriguez</span>
+<span class="text-label-sm text-outline font-label-md uppercase">Just Now</span>
+</div>
+<div class="flex items-center gap-stack-sm text-body-sm">
+<span class="text-slate-400">Gold</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+<span class="font-bold text-primary">Platinum</span>
+</div>
+<p class="text-body-sm text-outline mt-stack-xs">Qualification met: 40 nights completed in calendar year.</p>
+</div>
+</div>
+<!-- Upgrade Log Item -->
+<div class="flex items-start gap-stack-md pb-gutter border-b border-outline-variant last:border-0 last:pb-0">
+<div class="w-2 h-full bg-primary-fixed-dim rounded-full mt-2 self-stretch"></div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex justify-between items-center">
+<span class="text-body-md font-bold">Kenji Sato</span>
+<span class="text-label-sm text-outline font-label-md uppercase">2h ago</span>
+</div>
+<div class="flex items-center gap-stack-sm text-body-sm">
+<span class="text-slate-400">Silver</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+<span class="font-bold text-primary">Gold</span>
+</div>
+<p class="text-body-sm text-outline mt-stack-xs">Qualification met: Spend threshold of $5,000 exceeded.</p>
+</div>
+</div>
+<!-- Upgrade Log Item -->
+<div class="flex items-start gap-stack-md pb-gutter border-b border-outline-variant last:border-0 last:pb-0">
+<div class="w-2 h-full bg-primary-fixed-dim rounded-full mt-2 self-stretch"></div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex justify-between items-center">
+<span class="text-body-md font-bold">Sophie Mueller</span>
+<span class="text-label-sm text-outline font-label-md uppercase">5h ago</span>
+</div>
+<div class="flex items-center gap-stack-sm text-body-sm">
+<span class="text-slate-400">Platinum</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+<span class="font-bold text-primary font-black">Diamond</span>
+</div>
+<p class="text-body-sm text-outline mt-stack-xs">Invitation-only status awarded for exceptional tenure and brand loyalty.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Program Performance Area -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-gutter mb-stack-lg">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Program Performance Metrics</h3>
+<p class="text-body-sm text-outline">Real-time engagement and operational health</p>
+</div>
+<div class="flex items-center gap-stack-md">
+<select class="bg-surface border-outline-variant text-label-md rounded px-stack-md py-1 focus:ring-primary focus:border-primary">
+<option>Last 30 Days</option>
+<option>Year to Date</option>
+<option>Last Quarter</option>
+</select>
+<button class="bg-surface-container-high text-on-surface-variant p-2 rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<div class="flex flex-col gap-stack-md p-stack-lg bg-surface rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-outline font-bold">POINTS VELOCITY</span>
+<span class="text-label-sm text-green-600">+18.2%</span>
+</div>
+<div class="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[72%]"></div>
+</div>
+<p class="text-body-sm">Points earned outweigh redemptions by 2.4x</p>
+</div>
+<div class="flex flex-col gap-stack-md p-stack-lg bg-surface rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-outline font-bold">DIGITAL ADOPTION</span>
+<span class="text-label-sm text-green-600">+5.4%</span>
+</div>
+<div class="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[88%]"></div>
+</div>
+<p class="text-body-sm">88% of Gold+ members use the mobile app check-in</p>
+</div>
+<div class="flex flex-col gap-stack-md p-stack-lg bg-surface rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-label-md text-outline font-bold">NP SCORE</span>
+<span class="text-label-sm text-on-primary-container">Target: 85</span>
+</div>
+<div class="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[82%]"></div>
+</div>
+<p class="text-body-sm">Consistent satisfaction across Platinum members</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="mt-auto p-gutter border-t border-outline-variant flex justify-between items-center text-label-sm text-outline">
+<p>© 2024 CRM.OS Global Guest Relations. Confidential Admin Access Level 4.</p>
+<div class="flex gap-stack-lg">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Audit Logs</a>
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+</main>
+<!-- Floating Action Button Contextual Check -->
+<!-- FAB is suppressed on dashboard/detail focused pages as per requirement, 
+         but can be added if primary action is "Add Member" -->
+<button class="fixed bottom-gutter right-gutter w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+<script>
+        // Micro-interaction for NOMINATE buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.innerText === 'Nominate') {
+                btn.addEventListener('click', () => {
+                    const originalText = btn.innerText;
+                    btn.innerText = 'Pending Review...';
+                    btn.classList.replace('bg-primary', 'bg-secondary-container');
+                    btn.classList.replace('text-on-primary', 'text-on-secondary-container');
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        btn.innerText = 'Nominated';
+                        btn.classList.add('opacity-50');
+                    }, 1200);
+                });
+            }
+        });
+    </script>
+</body></html>

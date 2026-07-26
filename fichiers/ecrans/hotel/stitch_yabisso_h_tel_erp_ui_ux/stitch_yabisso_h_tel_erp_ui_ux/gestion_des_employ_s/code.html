@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Staff Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "secondary": "#006c49",
+                "inverse-primary": "#bec6e0",
+                "surface-container-highest": "#e0e3e5",
+                "tertiary-fixed": "#ffddb8",
+                "primary-fixed-dim": "#bec6e0",
+                "primary-fixed": "#dae2fd",
+                "error-container": "#ffdad6",
+                "on-error-container": "#93000a",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#e0e3e5",
+                "surface-bright": "#f7f9fb",
+                "background": "#f7f9fb",
+                "secondary-container": "#6cf8bb",
+                "tertiary": "#000000",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#005236",
+                "surface-container": "#eceef0",
+                "on-surface-variant": "#45464d",
+                "tertiary-container": "#2a1700",
+                "surface-dim": "#d8dadc",
+                "secondary-fixed": "#6ffbbe",
+                "secondary-fixed-dim": "#4edea3",
+                "surface-container-low": "#f2f4f6",
+                "on-tertiary-fixed": "#2a1700",
+                "surface-container-high": "#e6e8ea",
+                "on-tertiary-fixed-variant": "#653e00",
+                "outline": "#76777d",
+                "surface": "#f7f9fb",
+                "on-tertiary-fixed-variant": "#653e00",
+                "on-error": "#ffffff",
+                "tertiary-fixed-dim": "#ffb95f",
+                "surface-tint": "#565e74",
+                "on-surface": "#191c1e",
+                "primary": "#000000",
+                "primary-container": "#131b2e",
+                "inverse-surface": "#2d3133",
+                "on-primary-container": "#7c839b",
+                "on-secondary-fixed": "#002113",
+                "on-secondary-container": "#00714d",
+                "on-background": "#191c1e",
+                "outline-variant": "#c6c6cd",
+                "error": "#ba1a1a",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed": "#131b2e",
+                "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit": "4px",
+                "xs": "4px",
+                "xl": "32px",
+                "sm": "8px",
+                "md": "16px",
+                "margin-mobile": "16px",
+                "gutter-mobile": "12px",
+                "lg": "24px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Inter"],
+                "label-lg": ["Inter"],
+                "headline-sm": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-md": ["Inter"],
+                "label-md": ["Inter"],
+                "label-sm": ["Inter"],
+                "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        /* Ambient Shadows */
+        .shadow-level-1 { shadow: 0px 1px 3px rgba(15, 23, 42, 0.08); }
+        .shadow-level-2 { shadow: 0px 4px 6px rgba(15, 23, 42, 0.12); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center px-margin-mobile md:px-lg h-14">
+<div class="flex items-center gap-md">
+<button class="p-sm rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-sm">
+<div class="hidden md:flex bg-surface-container-low border border-outline-variant rounded-lg px-md py-1 items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-48" placeholder="Search staff..." type="text"/>
+</div>
+<button class="p-sm rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel manager, wearing a tailored charcoal suit and a crisp white shirt, standing in a brightly lit, high-end hotel lobby with warm ambient lighting and marble textures. The style is modern, minimalist, and trustworthy, with a soft-focus background of the concierge desk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS27rDKhjbOgR2eChscfzfgpM7O0IeKr9859JjX7oQ7vHGXYdApLIYtUamvRM1FhpMydzLZOfZJ-ugGpSUaXZpi_tSZjDtc7-QyIcbJ5MXhGuF_nrgCp63bzdgY5NPUn8gRzA22Zz1y3PKCeAybOiKxXQhhZUbNc9MuHGIfCiRUX009mC2cen-I7qahuZb3G47izCZc6w8vZqZHbsFjGtni0JUuCOBIo_gJUBBCYWkhdAilCl0Wnp7nQ"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen pt-14 pb-20 md:pb-0">
+<!-- Desktop Sidebar (NavigationDrawer) -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-56px)] w-72 bg-surface-container-low border-r border-outline-variant py-lg sticky top-14">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-md mb-xs">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined fill">badge</span>
+</div>
+<div>
+<p class="text-label-lg font-headline-sm text-primary">General Manager</p>
+<p class="text-label-md text-on-surface-variant">Admin Level</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-sm">
+<!-- Manually setting "Staff" as active for this page -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-transform hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-transform hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-lg">Rooms</span>
+</a>
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg px-md py-sm transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined fill">badge</span>
+<span class="text-label-lg">Staff</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-transform hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg">Stocks</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-transform hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-lg">Reports</span>
+</a>
+<div class="pt-lg pb-sm px-md">
+<span class="text-label-sm font-bold text-outline uppercase tracking-wider">Management</span>
+</div>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-transform hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg">Settings</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-transform hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="text-label-lg">Maintenance</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-margin-mobile md:p-lg max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Staff Management</h2>
+<p class="text-body-lg text-on-surface-variant">Oversee team performance and operational schedules.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-surface-container-highest text-primary font-label-lg px-lg py-sm rounded-lg hover:bg-surface-variant transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="bg-primary text-on-primary font-label-lg px-lg py-sm rounded-lg shadow-sm hover:opacity-90 transition-opacity flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        New Member
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-secondary bg-secondary-container/20 p-sm rounded-lg">groups</span>
+<span class="text-label-sm text-secondary font-bold">+4 this month</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-wide">Total Staff</p>
+<p class="text-headline-lg font-headline-lg">124</p>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-blue-600 bg-blue-100 p-sm rounded-lg">sensor_occupied</span>
+<span class="text-label-sm text-blue-600 font-bold">88% active</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-wide">On-Site Now</p>
+<p class="text-headline-lg font-headline-lg text-secondary">42</p>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-amber-600 bg-amber-100 p-sm rounded-lg">history</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-wide">Pending Leave</p>
+<p class="text-headline-lg font-headline-lg">8</p>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-primary bg-surface-container p-sm rounded-lg">trending_up</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-wide">Avg Performance</p>
+<p class="text-headline-lg font-headline-lg">4.8<span class="text-body-md text-on-surface-variant">/5</span></p>
+</div>
+</div>
+<!-- Planning & List Toggle (Tab-like) -->
+<div class="mb-lg border-b border-outline-variant flex gap-xl">
+<button class="pb-sm border-b-2 border-primary text-label-lg text-primary font-bold">Staff Directory</button>
+<button class="pb-sm text-label-lg text-on-surface-variant hover:text-primary transition-colors">Shift Planning</button>
+<button class="pb-sm text-label-lg text-on-surface-variant hover:text-primary transition-colors">Performance Reviews</button>
+</div>
+<!-- Main Interactive Area: Staff List -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-level-1">
+<!-- Toolbar -->
+<div class="p-md bg-surface-container-low border-b border-outline-variant flex flex-col sm:flex-row justify-between items-center gap-md">
+<div class="flex items-center gap-sm overflow-x-auto pb-xs sm:pb-0 w-full sm:w-auto custom-scrollbar">
+<button class="whitespace-nowrap px-md py-1 bg-primary text-on-primary rounded-full text-label-md">All Depts</button>
+<button class="whitespace-nowrap px-md py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-outline-variant transition-colors">Front Office</button>
+<button class="whitespace-nowrap px-md py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-outline-variant transition-colors">Cuisine</button>
+<button class="whitespace-nowrap px-md py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-outline-variant transition-colors">Housekeeping</button>
+<button class="whitespace-nowrap px-md py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-outline-variant transition-colors">Security</button>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-label-md text-on-surface-variant">Sort by:</span>
+<select class="bg-transparent border-none text-label-md font-bold focus:ring-0 cursor-pointer">
+<option>Status</option>
+<option>Name</option>
+<option>Efficiency</option>
+</select>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-lg py-md text-label-sm font-bold text-outline uppercase tracking-wider border-b border-outline-variant">Employee</th>
+<th class="px-lg py-md text-label-sm font-bold text-outline uppercase tracking-wider border-b border-outline-variant">Department</th>
+<th class="px-lg py-md text-label-sm font-bold text-outline uppercase tracking-wider border-b border-outline-variant">Current Status</th>
+<th class="px-lg py-md text-label-sm font-bold text-outline uppercase tracking-wider border-b border-outline-variant">Shift</th>
+<th class="px-lg py-md text-label-sm font-bold text-outline uppercase tracking-wider border-b border-outline-variant">Rating</th>
+<th class="px-lg py-md text-label-sm font-bold text-outline uppercase tracking-wider border-b border-outline-variant">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Employee Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a professional hotel receptionist in a clean white uniform with a name badge. She has a warm, welcoming smile. The background is a blurred high-end hotel lobby with mahogany wood accents and gold detailing, following the Yabisso Hotel luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAatCv6XaBDsRXO2eqyC6U6KD0K9WcrNg2oXJlKFAeJgicLyy3lrDLpriIK2o0LAehnOE8rMB0ahaspVZua7McRBLCx-YuAzirV074_qmWsfnrNKx6CS7COP-JF20qDgNzo2BUF1KSQTHZNNgCoGqlGV1I5diZw-OVBk0uGYRwFdhI4yq97rNwdSHc6_8G8cxO--j0hHgZaT-nUoMijbjKnb2f-ZdNFqXS97ZKizYy1ta_hBeaAGgyfJg"/>
+</div>
+<div>
+<p class="text-label-lg font-bold text-primary">Amara Diop</p>
+<p class="text-label-md text-on-surface-variant">ID: EMP-9042</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="bg-surface-container px-sm py-0.5 rounded text-label-sm font-bold uppercase text-on-surface-variant">Front Office</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-body-md font-medium text-secondary">On-site</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<p class="text-body-md font-medium">Morning (06:00 - 14:00)</p>
+<p class="text-label-md text-on-surface-variant">Station 1</p>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs text-amber-500">
+<span class="material-symbols-outlined text-[18px] fill">star</span>
+<span class="text-label-lg font-bold">4.9</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="p-sm rounded-full hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Employee Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male chef in a pristine white toque and professional kitchen jacket, standing in a high-tech stainless steel commercial kitchen. The lighting is crisp and bright, emphasizing professional-grade hygiene and efficiency. The mood is focused and serious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz1UcIKP7mYN0YU2XV0YjK5_2SzXqmnC3q8HNIveI14YZAVPFXjpQk5_Ydk4DTKB9_BUOys7nSwx1_UZw2YpMUBT6TGT717ETQkFXD7HqC4uaqBEny4Lih7vEARO4US5_J3S69mu68b_1JJKygklfww9_GY_zj_k5xob8HfA5heil3vcSoLFqAbjpIgupe4nNNciTot57xXNkhQmueWozm2_nEvkqo3MQRJTfGf0TLeUkQMbdtpVV6KA"/>
+</div>
+<div>
+<p class="text-label-lg font-bold text-primary">Jean-Claude Mendy</p>
+<p class="text-label-md text-on-surface-variant">ID: EMP-2104</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="bg-surface-container px-sm py-0.5 rounded text-label-sm font-bold uppercase text-on-surface-variant">Cuisine</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs text-outline">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="text-body-md font-medium">Off-duty</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<p class="text-body-md font-medium">Evening (14:00 - 22:00)</p>
+<p class="text-label-md text-on-surface-variant text-error">Starts in 2h</p>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs text-amber-500">
+<span class="material-symbols-outlined text-[18px] fill">star</span>
+<span class="text-label-lg font-bold">4.7</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="p-sm rounded-full hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Employee Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a senior housekeeper in a smart, navy blue uniform, holding a digital tablet for room management. She is standing in a luxurious hotel corridor with soft, warm lighting and plush carpeting. Her expression is professional and dedicated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2xY2KTiiKkN-lBTNgtMq4yqJGVf60YYGNVbx4GviBb6Q3R2Z2ZFT8TyA4siJMKcdBQOMzf5qWv_Ltzvre5RRQGAUX2ywsFzmmP3dPgUEr12t-_WpAwHw2Q7FSet7SbjUB-I52ZPiyvcERKsL6uxx1pTW8dje19v6KzMQKMiyfKaMpu8ftqVIvXkuzK1HkH2PmBXyk18nMRXkR75EQ3t9z6wshIAWi9IfD3r79gJSP1ZTd4RFggvr_Ow"/>
+</div>
+<div>
+<p class="text-label-lg font-bold text-primary">Fatou N'Diaye</p>
+<p class="text-label-md text-on-surface-variant">ID: EMP-5581</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="bg-surface-container px-sm py-0.5 rounded text-label-sm font-bold uppercase text-on-surface-variant">Housekeeping</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-body-md font-medium text-secondary">On-site</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<p class="text-body-md font-medium">Morning (06:00 - 14:00)</p>
+<p class="text-label-md text-on-surface-variant">Floors 4-5</p>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs text-amber-500">
+<span class="material-symbols-outlined text-[18px] fill">star</span>
+<span class="text-label-lg font-bold">5.0</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="p-sm rounded-full hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-lg flex justify-between items-center border-t border-outline-variant bg-surface-container-low/30">
+<span class="text-body-md text-on-surface-variant">Showing 1 to 10 of 124 employees</span>
+<div class="flex gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Planning Snapshot (Miniature version of features) -->
+<div class="mt-xl grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-level-1">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="text-headline-sm font-headline-sm text-primary">Staff Shift Planning</h3>
+<div class="flex gap-xs bg-surface-container rounded-lg p-1">
+<button class="px-md py-1 bg-white shadow-sm rounded text-label-md font-bold text-primary">Day</button>
+<button class="px-md py-1 text-label-md text-on-surface-variant">Week</button>
+</div>
+</div>
+<div class="space-y-md">
+<!-- Shift Slot 1 -->
+<div class="flex gap-md items-center">
+<div class="w-20 text-label-sm text-on-surface-variant font-bold">06:00 AM</div>
+<div class="flex-1 h-12 bg-secondary/10 border-l-4 border-secondary rounded-r-lg px-md flex items-center">
+<p class="text-label-md text-on-secondary-container">Morning Shift: 12 members active</p>
+</div>
+</div>
+<!-- Shift Slot 2 -->
+<div class="flex gap-md items-center">
+<div class="w-20 text-label-sm text-on-surface-variant font-bold">10:00 AM</div>
+<div class="flex-1 h-12 bg-primary/5 border-l-4 border-primary rounded-r-lg px-md flex items-center justify-between">
+<p class="text-label-md text-primary">Maintenance Round</p>
+<span class="text-label-sm px-sm py-0.5 bg-primary/10 text-primary rounded">4 assigned</span>
+</div>
+</div>
+<!-- Shift Slot 3 -->
+<div class="flex gap-md items-center">
+<div class="w-20 text-label-sm text-on-surface-variant font-bold">02:00 PM</div>
+<div class="flex-1 h-12 bg-surface-container-high border-l-4 border-outline rounded-r-lg px-md flex items-center">
+<p class="text-label-md text-on-surface-variant">Evening Handover Phase</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Performance Feed -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-level-1">
+<h3 class="text-headline-sm font-headline-sm text-primary mb-lg">Historical Insights</h3>
+<div class="space-y-lg">
+<div class="flex gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-[18px]">verified</span>
+</div>
+<div>
+<p class="text-label-md text-primary font-bold">Excellent Feedback</p>
+<p class="text-body-md text-on-surface-variant">Amara Diop resolved guest issue #422 in record time.</p>
+<p class="text-label-sm text-outline mt-1">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-error-container text-[18px]">warning</span>
+</div>
+<div>
+<p class="text-label-md text-primary font-bold">Staff Shortage</p>
+<p class="text-body-md text-on-surface-variant">Cuisine department running at 70% capacity for lunch.</p>
+<p class="text-label-sm text-outline mt-1">4 hours ago</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]">event</span>
+</div>
+<div>
+<p class="text-label-md text-primary font-bold">Training Completed</p>
+<p class="text-body-md text-on-surface-variant">5 Housekeeping staff completed "Luxury Standards" training.</p>
+<p class="text-label-sm text-outline mt-1">Yesterday</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-xl py-sm text-label-md font-bold text-primary border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+                        View Detailed Audit
+                    </button>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] flex justify-around items-center h-16 px-xs pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary active:scale-95 duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary active:scale-95 duration-200">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm font-label-sm">Rooms</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 duration-200">
+<span class="material-symbols-outlined fill">badge</span>
+<span class="text-label-sm font-label-sm">Staff</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary active:scale-95 duration-200">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-sm font-label-sm">Stocks</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary active:scale-95 duration-200">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm">AI</span>
+</button>
+</nav>
+<!-- Contextual FAB for Staff Actions (only on this main page) -->
+<button class="fixed right-md bottom-20 md:bottom-md bg-primary text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined">edit_square</span>
+</button>
+<script>
+        // Tiny micro-interaction for rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.add('opacity-80');
+                setTimeout(() => row.classList.remove('opacity-80'), 150);
+            });
+        });
+
+        // Simple department filtering simulation
+        const deptButtons = document.querySelectorAll('.whitespace-nowrap');
+        deptButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                deptButtons.forEach(b => b.classList.replace('bg-primary', 'bg-surface-container-highest'));
+                deptButtons.forEach(b => b.classList.replace('text-on-primary', 'text-on-surface-variant'));
+                
+                btn.classList.replace('bg-surface-container-highest', 'bg-primary');
+                btn.classList.replace('text-on-surface-variant', 'text-on-primary');
+            });
+        });
+    </script>
+</body></html>

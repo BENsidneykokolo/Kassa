@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Signature du Contrat - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed": "#dbe1ff",
+                    "primary-container": "#2563eb",
+                    "on-primary-container": "#eeefff",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-secondary-container": "#fffbff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#bdffdb",
+                    "on-background": "#0b1c30",
+                    "inverse-primary": "#b4c5ff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#5a00c6",
+                    "secondary-container": "#8a4cfc",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-tint": "#0053db",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-container-high": "#dce9ff",
+                    "outline": "#737686",
+                    "surface-container": "#e5eeff",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#25005a",
+                    "on-primary-fixed": "#00174b",
+                    "on-tertiary-fixed": "#002113",
+                    "inverse-surface": "#213145",
+                    "background": "#f8f9ff",
+                    "surface-container-low": "#eff4ff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "tertiary": "#006242",
+                    "surface-variant": "#d3e4fe",
+                    "surface": "#f8f9ff",
+                    "primary": "#004ac6",
+                    "on-surface": "#0b1c30",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#6ffbbe",
+                    "surface-dim": "#cbdbf5",
+                    "inverse-on-surface": "#eaf1ff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "secondary-fixed": "#eaddff",
+                    "secondary": "#712ae2",
+                    "tertiary-container": "#007d55",
+                    "on-surface-variant": "#434655"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "48px",
+                    "stack-sm": "12px",
+                    "container-max": "1280px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Manrope"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Manrope"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-canvas {
+            cursor: crosshair;
+            touch-action: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .step-active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #004ac6;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Anchor (from JSON) -->
+<header class="bg-surface-container-lowest w-full top-0 sticky border-b border-outline-variant z-50">
+<nav class="flex items-center justify-between px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<div class="cursor-pointer active:opacity-70 text-primary">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<span class="font-body-md text-primary font-bold">Signature du Contrat</span>
+<div class="cursor-pointer active:opacity-70 text-on-surface-variant">
+<span class="material-symbols-outlined">help_outline</span>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg">
+<!-- Progress Indicator -->
+<div class="mb-stack-lg">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider">Étape 4 sur 5</span>
+<span class="font-label-md text-label-md text-on-surface-variant italic">Dernière vérification avant signature</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full flex overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 25%"></div>
+<div class="h-full bg-tertiary-fixed-dim" style="width: 25%"></div>
+<div class="h-full bg-tertiary-fixed-dim" style="width: 25%"></div>
+<div class="h-full bg-primary" style="width: 15%"></div>
+<div class="h-full bg-surface-variant" style="width: 10%"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Side: Contract Preview (Asymmetric Layout) -->
+<div class="lg:col-span-7 space-y-stack-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="bg-surface-container-low px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+<h2 class="font-headline-md text-headline-md">Contrat de Travail - CDI</h2>
+</div>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm uppercase">Brouillon</span>
+</div>
+<div class="p-8 h-[500px] overflow-y-auto custom-scrollbar bg-white">
+<div class="max-w-2xl mx-auto space-y-6 text-on-surface-variant leading-relaxed">
+<div class="flex justify-center mb-8">
+<img class="h-16 w-auto opacity-80" data-alt="A clean, professional corporate letterhead logo for Yabisso Hotel, featuring elegant minimalist typography and a subtle hospitality symbol in deep navy blue and gold accents, centered on a crisp white digital document background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQt-OzibwSxk0hbMdlpDpGxHYxa68NjekXugHSQChPbN9JarlNs_l8_7UMvAL-BEcLPDAr4p5I_nqajXrjQasi9UV2VwWti-MVLh36pAGqinc1LuqP9iWyybNdfiy2jB7NWeVRdycuYSH7V8llqVcJngNUa-9vOl764lzlz4Fk2T7g_3hM5566XUqs59p1-ag-0kqBtxEBnrGABcxYpkWgjIO32P9BB43irnb62Q7XfwEPKCGs_Lsafg"/>
+</div>
+<h3 class="font-bold text-lg text-on-surface border-b pb-2">ENTRE LES SOUSSIGNÉS :</h3>
+<p><strong>YABISSO HÔTEL</strong>, Société par actions simplifiée au capital de 500 000 €, dont le siège social est situé au 12 Avenue des Palmes, immatriculée au RCS sous le numéro 123 456 789, représentée par M. Jean Dupont, agissant en qualité de Directeur des Ressources Humaines.</p>
+<p>Ci-après dénommée « L’Employeur ».</p>
+<p><strong>ET</strong></p>
+<p><strong>M. / Mme [Nom de l'employé]</strong>, demeurant à [Adresse], né(e) le [Date] à [Lieu].</p>
+<p>Ci-après dénommé(e) « Le Salarié ».</p>
+<h3 class="font-bold text-lg text-on-surface border-b pb-2">ARTICLE 1 - ENGAGEMENT</h3>
+<p>Le Salarié est engagé par l'Employeur à compter du [Date de début] dans le cadre d'un contrat de travail à durée indéterminée (CDI). Le Salarié exercera ses fonctions en qualité de [Titre du poste].</p>
+<h3 class="font-bold text-lg text-on-surface border-b pb-2">ARTICLE 2 - MISSIONS</h3>
+<p>Sous l'autorité de son supérieur hiérarchique, le Salarié sera notamment chargé des missions suivantes : accueil des clients, gestion des réservations, coordination avec les services d'étage, et veille au respect des standards de qualité Yabisso.</p>
+<h3 class="font-bold text-lg text-on-surface border-b pb-2">ARTICLE 3 - LIEU DE TRAVAIL</h3>
+<p>Le lieu de travail habituel est fixé à l'établissement Yabisso Hôtel de [Ville]. Toutefois, en raison des nécessités de service, l'Employeur se réserve le droit de modifier ponctuellement le lieu de travail dans la zone géographique définie.</p>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-primary mt-8">
+<p class="text-sm italic">Ce document est une reproduction numérique simplifiée du contrat original déposé aux archives de la société.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Instructional Callout -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-primary-fixed-dim flex gap-4">
+<span class="material-symbols-outlined text-primary shrink-0">info</span>
+<div>
+<p class="font-body-md text-on-surface-variant">Veuillez parcourir l'intégralité du contrat avant de procéder à la signature. Une copie signée vous sera envoyée automatiquement par e-mail après validation.</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Signature Pad & Actions -->
+<div class="lg:col-span-5 space-y-stack-md lg:sticky lg:top-24">
+<div class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-2 text-on-surface">Signature numérique</h3>
+<p class="font-body-sm text-on-surface-variant mb-6">Utilisez votre souris ou votre écran tactile pour signer dans le cadre ci-dessous.</p>
+<!-- Signature Pad Area -->
+<div class="relative group">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-[0.02] transition-opacity pointer-events-none rounded-lg"></div>
+<canvas class="signature-canvas w-full h-64 bg-surface-container-lowest border-2 border-dashed border-outline-variant rounded-lg transition-colors focus:border-primary focus:outline-none" height="256" id="signature-pad" width="450"></canvas>
+<!-- Visual Guide -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-4/5 border-b border-outline pointer-events-none opacity-30"></div>
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-tighter text-outline pointer-events-none">Signer au-dessus de la ligne</div>
+</div>
+<div class="flex justify-end mt-4">
+<button class="flex items-center gap-2 px-4 py-2 text-primary hover:bg-surface-container rounded-lg transition-colors font-medium" id="clear-btn">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                            Effacer
+                        </button>
+</div>
+<!-- Disclaimer -->
+<div class="mt-8 space-y-4">
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center mt-1">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline rounded-md checked:bg-primary checked:border-primary transition-all" id="agreement-check" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-white scale-0 peer-checked:scale-75 transition-transform" style="font-variation-settings: 'wght' 700">check</span>
+</div>
+<p class="font-body-sm text-on-surface-variant leading-tight">
+                                En signant ce document, je reconnais avoir pris connaissance des termes et conditions du contrat de travail et j'accepte d'être lié(e) par ces clauses. Ma signature électronique a la même valeur juridique qu'une signature manuscrite.
+                            </p>
+</label>
+</div>
+<!-- Final Actions -->
+<div class="mt-stack-md pt-stack-md border-t border-outline-variant">
+<button class="w-full py-4 bg-surface-container text-on-surface-variant rounded-xl font-bold text-body-lg flex items-center justify-center gap-3 cursor-not-allowed transition-all shadow-sm active:scale-[0.98]" disabled="" id="sign-btn">
+<span>Signer le contrat</span>
+<span class="material-symbols-outlined">edit_square</span>
+</button>
+<p class="text-center mt-4 text-xs text-on-surface-variant opacity-60">ID Transaction: YAB-DOC-98231-SIG</p>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="flex justify-between items-center px-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="text-[10px] font-label-sm uppercase">Sécurisé AES-256</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="text-[10px] font-label-sm uppercase">Conforme eIDAS</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-stack-lg bg-surface-container-low py-12 border-t border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">Y</div>
+<span class="font-headline-md text-on-surface font-bold">Yabisso Staffing</span>
+</div>
+<div class="flex gap-8 text-on-surface-variant font-body-sm">
+<a class="hover:text-primary transition-colors" href="#">Confidentialité</a>
+<a class="hover:text-primary transition-colors" href="#">Support technique</a>
+<a class="hover:text-primary transition-colors" href="#">Conditions d'utilisation</a>
+</div>
+<p class="text-on-surface-variant font-label-sm">© 2024 Yabisso Hôtel Group</p>
+</div>
+</footer>
+<!-- Success Modal Overlay (Hidden) -->
+<div class="fixed inset-0 bg-on-background/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300" id="success-modal">
+<div class="bg-white rounded-2xl max-w-md w-full p-8 text-center shadow-2xl translate-y-8 transition-transform duration-500" id="modal-content">
+<div class="w-20 h-20 bg-tertiary-fixed-dim rounded-full flex items-center justify-center mx-auto mb-6 text-white">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'wght' 700">task_alt</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-2">Contrat Signé !</h2>
+<p class="font-body-md text-on-surface-variant mb-8">Félicitations. Votre contrat a été validé et envoyé à l'équipe RH. Vous recevrez une copie par email dans quelques instants.</p>
+<button class="w-full py-4 bg-primary text-white rounded-xl font-bold hover:brightness-110 transition-all shadow-md">
+                Passer à l'étape finale
+            </button>
+</div>
+</div>
+<script>
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        const clearBtn = document.getElementById('clear-btn');
+        const signBtn = document.getElementById('sign-btn');
+        const agreementCheck = document.getElementById('agreement-check');
+        let isDrawing = false;
+        let hasSigned = false;
+
+        // Initialize Canvas scaling
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#00174b';
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function getPointerPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getPointerPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            hasSigned = true;
+            validateForm();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const pos = getPointerPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        window.addEventListener('mouseup', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSigned = false;
+            validateForm();
+        });
+
+        agreementCheck.addEventListener('change', validateForm);
+
+        function validateForm() {
+            if (hasSigned && agreementCheck.checked) {
+                signBtn.disabled = false;
+                signBtn.classList.remove('bg-surface-container', 'text-on-surface-variant', 'cursor-not-allowed');
+                signBtn.classList.add('bg-primary', 'text-white', 'cursor-pointer', 'hover:shadow-lg');
+            } else {
+                signBtn.disabled = true;
+                signBtn.classList.add('bg-surface-container', 'text-on-surface-variant', 'cursor-not-allowed');
+                signBtn.classList.remove('bg-primary', 'text-white', 'cursor-pointer', 'hover:shadow-lg');
+            }
+        }
+
+        signBtn.addEventListener('click', () => {
+            if (!signBtn.disabled) {
+                const modal = document.getElementById('success-modal');
+                const content = document.getElementById('modal-content');
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                content.classList.remove('translate-y-8');
+            }
+        });
+    </script>
+</body></html>

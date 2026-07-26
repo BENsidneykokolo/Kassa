@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - HR Insights &amp; Payroll</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#a8b8ff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-secondary-container": "#54647a",
+                        "on-background": "#191c1e",
+                        "outline-variant": "#c4c5d5",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001453",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#173bab",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "surface": "#f7f9fb",
+                        "outline": "#757684",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#3755c3",
+                        "primary": "#00288e",
+                        "primary-container": "#1e40af",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#444653",
+                        "tertiary-container": "#00554e",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#00201d",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#5fcdbf",
+                        "secondary": "#505f76",
+                        "inverse-primary": "#b8c4ff",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-fixed": "#89f5e7",
+                        "primary-fixed": "#dde1ff",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#d0e1fb",
+                        "background": "#f7f9fb",
+                        "tertiary": "#003c36",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#38485d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "sidebar-width": "280px",
+                        "stack-sm": "8px",
+                        "container-padding": "24px",
+                        "stack-lg": "32px",
+                        "unit": "4px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md-mobile": ["Hanken Grotesk"],
+                        "status-label": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "status-label": ["12px", {"lineHeight": "12px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #f7f9fb; color: #191c1e; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); }
+        .metric-trend-up { color: #10b981; }
+        .metric-trend-down { color: #ef4444; }
+        .payroll-row:nth-child(even) { background-color: #f1f5f9; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #c4c5d5; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-gutter h-16 transition-colors duration-200">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional corporate headshot of an HR Manager, a middle-aged woman with a confident smile, wearing a sharp navy blue blazer. She is set against a brightly lit, blurred high-end hotel lobby interior featuring warm marble tones and modern architectural lighting. The overall aesthetic is clean, professional, and corporate modern, aligned with a high-efficiency hospitality environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDftPLw9q7EuzkKkZDN1xouL7yyy0zSaUVsrG4hGWMR2HgYo9OY9Wr_pY4VwWEyVSV-JaxgLlypO9J-Uq-xuslGewHRR1ggu49OZlGLEG2BG7ds9zavHCabwZznL3XNZj0MZ2srtv7nBMiXeueuy2lw3kSOpj78U4OeoEl-qw3wKgCYrYiAjWlREOKX9BbbNylPyWsDAdoPMALvKQaftQhV3BbSsXDWpzFTYrsFmjgpytvdUzey3nUJFA"/>
+</div>
+<span class="font-headline-md-mobile text-headline-md-mobile text-primary font-bold">Yabisso Hôtel</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-20 px-gutter max-w-7xl mx-auto space-y-stack-lg pb-12">
+<!-- Welcome Section -->
+<section>
+<h1 class="font-headline-md text-headline-md text-on-surface">HR Insights &amp; Analytics</h1>
+<p class="text-on-surface-variant">Operational overview for Monday, Oct 23rd, 2023</p>
+</section>
+<!-- KPI Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-stack-md">
+<!-- Total Staff -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Staff</span>
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">1,284</span>
+<span class="text-status-label font-status-label metric-trend-up flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span> +2.4%
+                    </span>
+</div>
+</div>
+<!-- Labor Cost -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Monthly Labor Cost</span>
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">$412,500</span>
+<span class="text-status-label font-status-label metric-trend-down flex items-center">
+<span class="material-symbols-outlined text-sm">trending_down</span> -0.8%
+                    </span>
+</div>
+</div>
+<!-- Turnover Rate -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Turnover Rate</span>
+<span class="material-symbols-outlined text-primary">autorenew</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">4.2%</span>
+<span class="text-status-label font-status-label text-on-surface-variant">v. Last Quarter</span>
+</div>
+</div>
+<!-- Attendance -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Weekly Attendance</span>
+<span class="material-symbols-outlined text-primary">event_available</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">96.8%</span>
+<div class="w-16 h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 96.8%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Dashboard Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-stack-lg">
+<!-- Left: Payroll & Approvals (Fluid Column) -->
+<div class="lg:col-span-2 space-y-stack-lg">
+<!-- Pending Payroll Approvals -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm">Pending Payroll Approvals</h2>
+<button class="text-primary font-status-label text-status-label hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low font-label-caps text-label-caps text-on-surface-variant uppercase">
+<th class="px-6 py-3">Employee</th>
+<th class="px-6 py-3">Period</th>
+<th class="px-6 py-3">Amount</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="payroll-row">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-xs font-bold">JD</div>
+<div class="flex flex-col">
+<span class="font-medium">Jean Dupont</span>
+<span class="text-xs text-on-surface-variant">Housekeeping</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Oct 1 - Oct 15</td>
+<td class="px-6 py-4 font-medium">$2,450.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-primary-container transition-colors">Approve</button>
+</td>
+</tr>
+<tr class="payroll-row">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed-dim text-on-tertiary-fixed flex items-center justify-center text-xs font-bold">MK</div>
+<div class="flex flex-col">
+<span class="font-medium">Marie Kouamé</span>
+<span class="text-xs text-on-surface-variant">Front Desk</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Oct 1 - Oct 15</td>
+<td class="px-6 py-4 font-medium">$1,890.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-primary-container transition-colors">Approve</button>
+</td>
+</tr>
+<tr class="payroll-row">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center text-xs font-bold">AL</div>
+<div class="flex flex-col">
+<span class="font-medium">Alain Loubelo</span>
+<span class="text-xs text-on-surface-variant">F&amp;B Service</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Oct 1 - Oct 15</td>
+<td class="px-6 py-4 font-medium">$3,120.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-primary-container transition-colors">Approve</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Visual Data Insights (Asymmetric Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-6 uppercase">Attendance Overview</h3>
+<div class="flex items-end justify-between h-40 gap-2">
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed h-32 rounded-t-lg relative group">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">94%</div>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant">MON</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed h-36 rounded-t-lg relative group">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">98%</div>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant">TUE</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary h-28 rounded-t-lg relative group">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">82%</div>
+</div>
+<span class="text-[10px] font-label-caps text-primary font-bold">WED</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed h-34 rounded-t-lg relative group">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">91%</div>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant">THU</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed h-36 rounded-t-lg relative group">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">97%</div>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant">FRI</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase">Department Mix</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm">Operations</span>
+<span class="text-sm font-bold">45%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5">
+<div class="bg-primary h-full w-[45%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm">F&amp;B</span>
+<span class="text-sm font-bold">30%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5">
+<div class="bg-tertiary-fixed-dim h-full w-[30%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm">Administration</span>
+<span class="text-sm font-bold">25%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5">
+<div class="bg-secondary-fixed-dim h-full w-[25%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Notifications & Activity (Fixed Width Anchor) -->
+<div class="space-y-stack-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 h-full">
+<h2 class="font-headline-sm text-headline-sm mb-6">Recent HR Activity</h2>
+<div class="space-y-8">
+<!-- Notification Item: New Hire -->
+<div class="flex gap-4 relative">
+<div class="absolute left-4 top-10 bottom-[-16px] w-px bg-outline-variant"></div>
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-tertiary-fixed text-sm">person_add</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">New Hire Onboarded</span>
+<span class="text-body-md text-on-surface-variant">Sarah Jenkins joined as Front Desk Manager.</span>
+<span class="text-[10px] text-outline mt-1 font-label-caps uppercase">2 hours ago</span>
+</div>
+</div>
+<!-- Notification Item: Leave Request -->
+<div class="flex gap-4 relative">
+<div class="absolute left-4 top-10 bottom-[-16px] w-px bg-outline-variant"></div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-primary-fixed text-sm">flight_takeoff</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Leave Request</span>
+<span class="text-body-md text-on-surface-variant">Paul Chen requested 5 days for annual leave in November.</span>
+<div class="flex gap-2 mt-2">
+<button class="bg-primary text-white px-3 py-1 rounded text-[10px] font-bold uppercase">View</button>
+<button class="border border-outline text-on-surface px-3 py-1 rounded text-[10px] font-bold uppercase">Decline</button>
+</div>
+<span class="text-[10px] text-outline mt-1 font-label-caps uppercase">5 hours ago</span>
+</div>
+</div>
+<!-- Notification Item: Certification -->
+<div class="flex gap-4 relative">
+<div class="absolute left-4 top-10 bottom-[-16px] w-px bg-outline-variant"></div>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-on-secondary-container text-sm">workspace_premium</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Certification Expiring</span>
+<span class="text-body-md text-on-surface-variant">3 staff members in F&amp;B have food safety certs expiring soon.</span>
+<span class="text-[10px] text-outline mt-1 font-label-caps uppercase">Yesterday</span>
+</div>
+</div>
+<!-- Notification Item: Payroll -->
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-on-error-container text-sm">error</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-error">Payroll Alert</span>
+<span class="text-body-md text-on-surface-variant">Verification needed for overtime discrepancies in Security Dept.</span>
+<span class="text-[10px] text-outline mt-1 font-label-caps uppercase">Oct 21</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recruitment Outlook (Bento Wide) -->
+<div class="bg-primary text-on-primary p-gutter rounded-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-stack-lg">
+<div class="relative z-10 max-w-lg">
+<h2 class="font-headline-sm text-headline-sm mb-2">Q4 Recruitment Outlook</h2>
+<p class="text-on-primary-container opacity-90">We are currently targeting 15 new hires for the holiday season rush. Budget utilization is at 64% with primary focus on the Concierge and Kitchen teams.</p>
+<div class="mt-6 flex gap-4">
+<button class="bg-white text-primary px-6 py-2 rounded font-bold text-sm shadow-lg hover:bg-opacity-90 transition-all">Create Job Post</button>
+<button class="bg-transparent border border-on-primary-container px-6 py-2 rounded font-bold text-sm hover:bg-white/10 transition-all">Review Pipeline</button>
+</div>
+</div>
+<div class="relative w-full md:w-64 h-40 md:h-full shrink-0">
+<img class="w-full h-full object-cover rounded-lg opacity-80 mix-blend-screen" data-alt="A futuristic, high-concept recruitment data visualization. A 3D translucent hologram of a stylized human silhouette composed of golden glowing nodes and blue data streams. The background is a dark, sophisticated digital environment with bokeh effects and soft hotel lobby textures. The lighting is high-contrast and dramatic, emphasizing technological precision and professional growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt709eYMDPRGZ1LRNOGD3TD3z1cjo3HQDlPdkLPvYklwQn7gcoOrF9kbukwT71tZSC722tl7Fosovj_u12Mkl4xgGLf_fLcX-gUOvtOnU26o0mPuCglRVgOeMiXFS7F4HzengHNUaArybTwaa5P7Le6VWFf1QnVzXTLwcr4kbWDZ03E-JW30nBEh3ZCQ1sTokNOtECSVut2vD7Fn1GcGBUHDScZPp3yl6tRy8EqK76Br-P5FTaUwCxIg"/>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center h-20 px-2 pb-safe transition-transform">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">group</span>
+<span class="font-status-label text-status-label mt-1">Directory</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-status-label text-status-label mt-1">Schedule</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-status-label text-status-label mt-1">Payroll</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-status-label text-status-label mt-1">Insights</span>
+</button>
+</nav>
+<!-- FAB: Only for Insights / Main Dash -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-14 h-14 bg-primary text-white rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined">add</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface text-xs px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">New Report</span>
+</button>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+
+        // Dynamic Greeting (optional)
+        const hour = new Date().getHours();
+        const welcomeText = document.querySelector('h1');
+        if (hour < 12) welcomeText.innerText = 'Good Morning, HR Insights';
+        else if (hour < 18) welcomeText.innerText = 'Good Afternoon, HR Insights';
+        else welcomeText.innerText = 'Good Evening, HR Insights';
+    </script>
+</body></html>

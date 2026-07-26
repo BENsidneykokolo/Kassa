@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intervention Detail - Maintenance Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e0e3e5",
+                    "outline": "#76777d",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-container": "#7c839b",
+                    "background": "#f7f9fb",
+                    "on-tertiary-container": "#b87500",
+                    "tertiary-container": "#2a1700",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#565e74",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "on-secondary-container": "#00714d",
+                    "primary": "#000000",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed": "#dae2fd",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary-container": "#6cf8bb",
+                    "outline-variant": "#c6c6cd",
+                    "primary-container": "#131b2e",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#000000",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary": "#006c49",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-bright": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-high": "#e6e8ea",
+                    "surface": "#f7f9fb",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "unit": "4px",
+                    "sm": "8px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .custom-shadow {
+            box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.08);
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #eceef0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 z-40 border-b border-outline-variant shadow-sm flex justify-between items-center px-md h-14 w-full">
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Maintenance Operations</h1>
+</div>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional African male hotel operations manager with a warm smile, wearing a sharp navy blue blazer over a crisp white shirt. The background is a softly blurred luxury hotel lobby with warm ambient lighting. Professional headshot photography style with high clarity and sophisticated tonal range." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0ZYVYWZRBpHCDmqzhPUa3Wc-ZIZYDZ72NC4SViYRinENvQP7FneeQ8RsA6mHYRaNYtfrzzJRCIanFLs31otgWGGEY2ARI2XLRyBUWShrJ9K-cXFJk9fM_D4uqdcxbyehWeOBRFgPU3wPqNV2nPJW1F6oeafxRRmhgQeXRWDXpJkQY6dz6Py_zld97pGQsbEzO7RextajR-pUT-oRr3Ea9ku3ZQFeqnrQAt8q2_3F225bZoTFQtPmSFw"/>
+</div>
+</div>
+</header>
+<main class="max-w-5xl mx-auto p-md lg:p-xl space-y-md">
+<!-- Breadcrumb & Header Action -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<nav class="flex items-center gap-xs text-on-surface-variant mb-2">
+<span class="font-label-md text-label-md uppercase tracking-wider">Interventions</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">#INT-8842</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-primary">HVAC System Repair - Penthouse Suite 402</h2>
+<div class="flex items-center gap-sm mt-2">
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-0.5 rounded-full">IN PROGRESS</span>
+<span class="text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                        Started 2h 45m ago
+                    </span>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-lg py-md rounded-lg flex items-center gap-sm shadow-lg hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                Mark as Completed
+            </button>
+</div>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Left Column: Details & Updates -->
+<div class="lg:col-span-2 space-y-md">
+<!-- Hero Image & Description -->
+<div class="glass-card rounded-xl overflow-hidden custom-shadow">
+<div class="h-64 w-full relative">
+<img class="w-full h-full object-cover" data-alt="High-resolution technical photograph of a modern HVAC industrial ventilation unit located on a clean rooftop. The scene is bathed in bright daylight with a clear blue sky. The metallic surfaces of the machinery reflect the sunlight, highlighting intricate copper piping and digital sensors. Professional industrial aesthetic with a focus on precision and maintenance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeKZNIjovaCa4Y1oATDIOWRR1Wk9b2PZV8laFRCCKDYJKqS9qpDfcCTI21L4WawKjoREH0dDLa4xftnXfbgeua6-A7L7xs1cf7MK1PlOkXIcicGhtqhGSWG9rCzKEkpZMrdzZykBgDJFBZZ-Str106-85tDbB09gCO9XWiIxEjUAGAhpJbsNjuEKylATOn35Gqc3T2aaMThjwJa_tCrw9PZMM9cnP6oHdPTStYa_HYjvj82ehF1wj22w"/>
+<div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white px-3 py-1.5 rounded-lg font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            East Wing Rooftop - Block B
+                        </div>
+</div>
+<div class="p-lg">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-2">Issue Description</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Reported failure in cooling cycles for the 4th-floor penthouse suites. Preliminary diagnostics suggest a faulty compressor solenoid and minor coolant leakage. Technicians are currently verifying pressure levels and replacing the valve components.
+                        </p>
+</div>
+</div>
+<!-- Timeline / Updates Log -->
+<div class="glass-card rounded-xl p-lg custom-shadow">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-xl">Activity Timeline</h3>
+<div class="space-y-lg relative timeline-line">
+<!-- Step 1 -->
+<div class="flex gap-md relative">
+<div class="z-10 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center border-2 border-surface">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-container" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-label-lg text-label-lg text-primary">Intervention Created</p>
+<span class="font-label-sm text-label-sm text-outline">09:15 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">System-generated alert via SmartSensors™</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-md relative">
+<div class="z-10 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center border-2 border-surface">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-container" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-label-lg text-label-lg text-primary">Staff Assigned</p>
+<span class="font-label-sm text-label-sm text-outline">09:30 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Robert K. dispatched to East Wing</p>
+</div>
+</div>
+<!-- Step 3 (Current) -->
+<div class="flex gap-md relative">
+<div class="z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center border-2 border-surface animate-pulse">
+<div class="w-2 h-2 rounded-full bg-on-primary"></div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-label-lg text-label-lg text-primary font-bold">Parts Replaced</p>
+<span class="font-label-sm text-label-sm text-outline">11:15 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Compressor solenoid valve installed. Monitoring pressure.</p>
+<div class="mt-md flex gap-sm overflow-x-auto pb-2">
+<div class="flex-none w-24 h-24 rounded-lg bg-surface-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Macro photography of a newly installed industrial solenoid valve on a copper pipe. The brass fitting is shiny and clean, reflecting the bright workspace lighting. High-detail technical shot showing the precise installation and quality control standards of modern maintenance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVduOBHBreSgNa7gUDgdW8oN8ndV6VYQbA5t75KOYxldvWVZRzXGrfwIXvAo_ajut_UhRwfZaRu6CBnNNc1YPBGU_0LbMm-zXWZqBBDIIvJjt1gYuU3yq9UmtDtAgL7YO9vP3Xyn14prQbk_aco6dpdWidYWaRTyVug9sMXyeWWJNyzpbwDQH9BS-RvWVkQ-cBnoZJ_XvRJTxEf0nSULG17ybnEf6h7CYdjfi-F3Lu2waELewQMJn-IA"/>
+</div>
+<div class="flex-none w-24 h-24 rounded-lg bg-surface-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Technical digital readout from a handheld diagnostic tool showing pressure levels and temperature metrics of an HVAC system. The screen is clear with bright blue and white text against a dark interface. Professional tools in a maintenance environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvlXSfd9j6NW1v3IdZtHqHOYvf5Hpn3UixeijPBLMf22pYs4YdvH-51hwJC-5xfKnWjDPazDCStDVvPiilK1MrZ1uTVL4AGNAwqEUkspHQgylkpVwDRSk2O0x0Sxxoc1TZkJGOl7DfPlAqDCcvAQO-gKc8yeQ23WodRqo7J7ntm_E1UGgnIAckw8WSw29Wxub9zRTmDzuPiqP3Fb53j55fOPX0uXZ9eFPMBMO1GT2OStEX5_UTFotWlQ"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Final Verification Section -->
+<div class="glass-card rounded-xl p-lg custom-shadow border-t-4 border-t-primary">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md">Final Verification Notes</h3>
+<textarea class="w-full min-h-[120px] p-md rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md" placeholder="Enter final sign-off notes, temperature readings, or pending follow-ups..."></textarea>
+<div class="mt-md flex items-center justify-end gap-sm">
+<button class="px-md py-sm font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors">Clear</button>
+<button class="px-md py-sm font-label-lg text-label-lg bg-surface-container-highest text-primary rounded-lg transition-colors">Save Draft</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Staff & Materials -->
+<div class="space-y-md">
+<!-- Assigned Staff -->
+<div class="glass-card rounded-xl p-lg custom-shadow">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-outline mb-md">Assigned Technician</h3>
+<div class="flex items-center gap-md mb-lg">
+<div class="w-14 h-14 rounded-full bg-surface-container overflow-hidden border-2 border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Medium shot portrait of a skilled African maintenance engineer in a grey technical jumpsuit. He is wearing a lanyard with an ID card and carrying a digital tablet. The setting is a clean, well-lit technical corridor of a luxury hotel. Professional, trustworthy, and competent expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDfuxY7b9nu8DwS6eRt5kxeB7ZimpuFJULxuQA3l845FqHJcXNESalWP70FNMy219JEYx7UaPuro6PwbtVgyuSib4G002zEP3llzINpzVc21fJsHUYWHWfRd7H__QJUUgS9xNj9kN68AkgSqBkW5x6MHiWMpCWIqMN3Zf5YmLNJ_fTCAsKuDQZqRaHjJNtGgu7iUIwzPB19JKXhZNCN3bh7STn_a5TvEHjIT0WcWnE5ty58iuunshQ0g"/>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-primary">Robert Kwame</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Senior MEP Engineer</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-2 py-sm rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors text-primary font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="call">call</span>
+                            Call
+                        </button>
+<button class="flex items-center justify-center gap-2 py-sm rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors text-primary font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span>
+                            Message
+                        </button>
+</div>
+</div>
+<!-- Parts & Materials -->
+<div class="glass-card rounded-xl p-lg custom-shadow">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-outline">Parts & Materials</h3>
+<button class="text-secondary font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+                            Request
+                        </button>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container-low border border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-body-md text-body-md text-primary">Solenoid Valve XJ-2</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">x1</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container-low border border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="propane_tank">propane_tank</span>
+<span class="font-body-md text-body-md text-primary">R-410A Refrigerant</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">2.5kg</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container-low border border-outline-variant/30 opacity-60">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="layers">layers</span>
+<span class="font-body-md text-body-md text-primary">Thermal Gasket</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">x2</span>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-md text-label-md text-outline">Estimated Cost</span>
+<span class="font-headline-sm text-headline-sm text-primary">$342.50</span>
+</div>
+</div>
+<!-- Technical Specs -->
+<div class="glass-card rounded-xl p-lg custom-shadow bg-primary-container text-on-primary-fixed">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-on-primary-container mb-md">System Specs</h3>
+<div class="space-y-sm font-label-md text-label-md">
+<div class="flex justify-between">
+<span class="opacity-70">Manufacturer</span>
+<span class="text-white">Carrier Global</span>
+</div>
+<div class="flex justify-between">
+<span class="opacity-70">Model</span>
+<span class="text-white">38APD025</span>
+</div>
+<div class="flex justify-between">
+<span class="opacity-70">Last Service</span>
+<span class="text-white">12 Oct 2023</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-sm pb-safe">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" data-icon="build" style="font-variation-settings: 'FILL' 1;">build</span>
+<span class="font-label-sm text-label-sm">Interventions</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant active:scale-95 transition-transform cursor-pointer px-4 py-1 rounded-full">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm">New Request</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant active:scale-95 transition-transform cursor-pointer px-4 py-1 rounded-full">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant active:scale-95 transition-transform cursor-pointer px-4 py-1 rounded-full">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm">Audit Log</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction for the Mark as Completed button
+        const completeBtn = document.querySelector('button.bg-primary');
+        completeBtn.addEventListener('click', () => {
+            completeBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="autorenew">autorenew</span> Processing...';
+            setTimeout(() => {
+                completeBtn.innerHTML = '<span class="material-symbols-outlined" data-icon="done_all">done_all</span> Completed';
+                completeBtn.classList.replace('bg-primary', 'bg-secondary');
+                completeBtn.classList.add('text-on-secondary');
+            }, 1500);
+        });
+
+        // Tonal shift on scroll for TopAppBar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('backdrop-blur-md', 'bg-surface/90');
+            } else {
+                header.classList.remove('backdrop-blur-md', 'bg-surface/90');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Event Stock Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#000000",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#a17f3b",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "surface-tint": "#515f78",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed-dim": "#b9c7e4",
+                        "tertiary-fixed-dim": "#e9c176",
+                        "on-primary-container": "#76849f",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface": "#f7f9fb",
+                        "outline-variant": "#c5c6cd",
+                        "on-error-container": "#93000a",
+                        "secondary": "#505f76",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#261900",
+                        "secondary-container": "#d0e1fb",
+                        "on-secondary-container": "#54647a",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface-variant": "#44474d",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "title-md": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f7f9fb;
+            color: #191c1e;
+            -webkit-font-smoothing: antialiased;
+        }
+        .luxury-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .luxury-card:hover {
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            border-color: #000000;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary cursor-pointer active:opacity-80">menu</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Event Stock Management</h1>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex gap-6">
+<a class="text-primary dark:text-inverse-primary font-bold font-label-sm text-label-sm" href="#">DASHBOARD</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm hover:bg-surface-container-high transition-colors px-2 py-1" href="#">INVENTORY</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm hover:bg-surface-container-high transition-colors px-2 py-1" href="#">REPORTS</a>
+</nav>
+<div class="flex items-center gap-3 cursor-pointer active:opacity-80">
+<div class="text-right hidden sm:block">
+<p class="font-label-sm text-label-sm font-bold">EXECUTIVE USER</p>
+<p class="text-[10px] text-on-surface-variant">Director of Logistics</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-outline object-cover" data-alt="A sophisticated professional portrait of a senior executive in a high-end black suit, set against a blurred background of a luxury hotel lobby. The lighting is soft and cinematic, emphasizing a polished and authoritative appearance. The color palette is composed of deep charcoals, warm amber highlights, and crisp whites, reflecting a premium digital concierge aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA726D79R8Ijv2_i7MUnwxqH7H1iwiCh-GIxT8lz69rBWYXt1Mv4cUAqDM5XY4U18G4T1EVmp4ZjUtT3-Qu8t8kSJvOO7c7zT2gSghQy3Q2tMI6jPEKj5Tm9LclK9E54UvKxdpuHVQat9_f8NrtrxQBWX8ok5n40EslH05pQ9zfKXD4F3y4NIug76K2-rL1_CNIW8bQ6ZiABmOqTxdaMkZAY1vMjE5KzGiQ_-U9poXSaZOgxOHdreLq9Q"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="h-screen w-80 sticky top-[73px] hidden lg:flex flex-col py-8 gap-4 bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant">
+<div class="px-8 mb-6">
+<h2 class="font-headline-lg text-headline-lg text-primary">Luxury ERP</h2>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-60">ASSET CONTROL</p>
+</div>
+<div class="flex flex-col gap-2 px-4">
+<div class="flex items-center gap-4 bg-secondary-container text-on-secondary-container rounded-full px-6 py-3 font-bold transition-all duration-200 ease-in-out cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-highest rounded-full px-6 py-3 transition-all duration-200 ease-in-out cursor-pointer">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm">Warehouse Movements</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-highest rounded-full px-6 py-3 transition-all duration-200 ease-in-out cursor-pointer">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-sm text-label-sm">Inventory Categories</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-highest rounded-full px-6 py-3 transition-all duration-200 ease-in-out cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</div>
+</div>
+<div class="mt-auto px-8 py-6 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-[11px] font-bold tracking-widest uppercase">System Status: Optimal</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin-mobile md:px-margin-desktop py-10 max-w-[1440px] mx-auto">
+<!-- Header Section -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="text-label-sm font-label-sm text-on-surface-variant tracking-[0.2em] uppercase">Executive Overview</span>
+<h2 class="font-display-lg text-display-lg mt-2">Operational Pulse</h2>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 font-label-sm text-label-sm flex items-center gap-2 active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                            NEW MOVEMENT
+                        </button>
+</div>
+</div>
+</section>
+<!-- Key Metrics Grid -->
+<div class="bento-grid mb-12">
+<!-- Total Asset Value -->
+<div class="col-span-12 md:col-span-4 luxury-card p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+<span class="text-[10px] bg-surface-container-high px-2 py-1 font-bold">REAL-TIME</span>
+</div>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-1">TOTAL ASSET VALUE</h3>
+<p class="font-headline-lg text-headline-lg">$4,820,500</p>
+</div>
+<div class="mt-6 flex items-center gap-2 text-green-600">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="text-[12px] font-bold">+2.4% vs last month</span>
+</div>
+</div>
+<!-- Upcoming Event Demand -->
+<div class="col-span-12 md:col-span-4 luxury-card p-8 bg-primary text-on-primary relative overflow-hidden">
+
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-white">event_available</span>
+<span class="text-[10px] border border-white/30 px-2 py-1 font-bold text-white/70">NEXT 72H</span>
+</div>
+<h3 class="font-label-sm text-label-sm text-white/60 mb-1">EVENT DEMAND</h3>
+<p class="font-headline-lg text-headline-lg">120% Coverage</p>
+<p class="text-body-md mt-4 text-white/80">Saturday Gala: Surge capacity engaged for 800 guests.</p>
+</div>
+</div>
+<!-- Critical Low Stock -->
+<div class="col-span-12 md:col-span-4 luxury-card p-8 border-l-4 border-l-error">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-error">warning</span>
+<span class="text-[10px] bg-error-container text-on-error-container px-2 py-1 font-bold uppercase">Critical</span>
+</div>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-1">LOW STOCK ALERTS</h3>
+<div class="space-y-3 mt-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-body-md font-semibold">Crystal Flutes</span>
+<span class="text-error font-bold">12 Left</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-md font-semibold">Gold Silk Linens</span>
+<span class="text-error font-bold">4 Units</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Content Section -->
+<div class="bento-grid">
+<!-- Stock Categories -->
+<div class="col-span-12 lg:col-span-8 luxury-card p-8">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-title-md text-title-md">Stock Categories</h3>
+<span class="text-label-sm font-label-sm text-on-surface-variant hover:underline cursor-pointer">VIEW ALL</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Category Item -->
+<div class="p-6 border border-outline-variant hover:border-primary group transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chair</span>
+</div>
+<div>
+<h4 class="font-bold">Furniture</h4>
+<p class="text-label-sm opacity-60">2,410 Items</p>
+</div>
+</div>
+</div>
+<!-- Category Item -->
+<div class="p-6 border border-outline-variant hover:border-primary group transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">flatware</span>
+</div>
+<div>
+<h4 class="font-bold">Premium F&amp;B</h4>
+<p class="text-label-sm opacity-60">840 Items</p>
+</div>
+</div>
+</div>
+<!-- Category Item -->
+<div class="p-6 border border-outline-variant hover:border-primary group transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">dry_cleaning</span>
+</div>
+<div>
+<h4 class="font-bold">Linens</h4>
+<p class="text-label-sm opacity-60">1,120 Items</p>
+</div>
+</div>
+</div>
+<!-- Category Item -->
+<div class="p-6 border border-outline-variant hover:border-primary group transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">settings_input_component</span>
+</div>
+<div>
+<h4 class="font-bold">AV Equipment</h4>
+<p class="text-label-sm opacity-60">320 Items</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Movements -->
+<div class="col-span-12 lg:col-span-4 luxury-card p-8 overflow-hidden">
+<h3 class="font-title-md text-title-md mb-8">Recent Movements</h3>
+<div class="space-y-6">
+<!-- Movement Item -->
+<div class="flex gap-4 relative">
+<div class="w-px h-full bg-outline-variant absolute left-[19px] top-8"></div>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[18px]">south_east</span>
+</div>
+<div>
+<p class="font-bold text-body-md">Inbound: 200 Gold Chairs</p>
+<p class="text-[12px] text-on-surface-variant mt-1">From: Warehouse A • 10:24 AM</p>
+<span class="inline-block mt-2 text-[10px] bg-secondary-container px-2 py-0.5 font-bold rounded">VERIFIED</span>
+</div>
+</div>
+<!-- Movement Item -->
+<div class="flex gap-4 relative">
+<div class="w-px h-full bg-outline-variant absolute left-[19px] top-8"></div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[18px]">north_east</span>
+</div>
+<div>
+<p class="font-bold text-body-md">Outbound: 50 AV Mixers</p>
+<p class="text-[12px] text-on-surface-variant mt-1">To: Grand Ballroom • 09:15 AM</p>
+<span class="inline-block mt-2 text-[10px] bg-primary-container text-white px-2 py-0.5 font-bold rounded">IN TRANSIT</span>
+</div>
+</div>
+<!-- Movement Item -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[18px]">south_east</span>
+</div>
+<div>
+<p class="font-bold text-body-md">Inbound: Silverware Set (1k)</p>
+<p class="text-[12px] text-on-surface-variant mt-1">From: Restoration • 08:00 AM</p>
+<span class="inline-block mt-2 text-[10px] bg-secondary-container px-2 py-0.5 font-bold rounded">VERIFIED</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Asset Section -->
+<section class="mt-12 luxury-card overflow-hidden h-[300px] relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A wide, cinematic view of a meticulously organized high-end hotel warehouse. Shiny metal shelving units reach towards a dark ceiling, holding perfectly stacked white linens and polished silverware cases. The lighting is focused and dramatic, highlighting textures and clean lines, creating an atmosphere of supreme order and luxury logistics. Deep navy and crisp white tones dominate the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmegyggcBA9JG2tzy0-3-QO1FF6tG-NJ2fkbTJSjLBhZyXlMHeThiqFFpalxmiqQ91KPetqvn5Rrra0Fm2pQGAsWHeZBA9a2PuKFFNdaaX6nEMuSZJfD9SkGSKqpHpvC8d8iocvSSPGoLGS0Vuwx-uiiqc5OAavYNK3JP5bHyc7ix7aMiEY3jjIHQjgfFoykosPXOrKctNRx3WWRsJgngWJWCx8dKBJSHDN-NFeZdaaEkKzOozKhXEhg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-10 flex flex-col justify-end">
+<p class="text-white/60 font-label-sm text-label-sm tracking-widest">FACILITY OVERVIEW</p>
+<h3 class="text-white font-headline-lg text-headline-lg">West Wing Logistics Hub</h3>
+<div class="flex items-center gap-6 mt-4">
+<div class="text-white">
+<p class="text-[20px] font-bold">94%</p>
+<p class="text-[10px] opacity-60 uppercase">Space Utilization</p>
+</div>
+<div class="w-px h-8 bg-white/20"></div>
+<div class="text-white">
+<p class="text-[20px] font-bold">Optimal</p>
+<p class="text-[10px] opacity-60 uppercase">Climate Control</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sm text-[10px]">Status</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-label-sm text-[10px]">Move</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-sm text-[10px]">Stock</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-sm text-[10px]">Trends</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('.luxury-card, button').forEach(el => {
+            el.addEventListener('mousedown', () => el.style.transform = 'scale(0.98)');
+            el.addEventListener('mouseup', () => el.style.transform = 'scale(1)');
+            el.addEventListener('mouseleave', () => el.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

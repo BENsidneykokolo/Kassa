@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Revenue Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 10px 15px rgba(15, 23, 42, 0.1);
+        }
+        /* Custom scrollbar for high-end feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#2a1700",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#b87500",
+                        "on-surface-variant": "#45464d",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#6cf8bb",
+                        "background": "#f7f9fb",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#000000",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary": "#006c49",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-fixed": "#dae2fd",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-container": "#00714d",
+                        "on-background": "#191c1e",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c6c6cd",
+                        "surface-tint": "#565e74",
+                        "on-surface": "#191c1e",
+                        "primary-container": "#131b2e",
+                        "primary": "#000000",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface": "#f7f9fb",
+                        "outline": "#76777d",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "gutter-mobile": "12px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 md:pb-0">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-40 bg-surface shadow-sm border-b border-outline-variant h-14 flex justify-between items-center px-margin-mobile md:px-lg">
+<div class="flex items-center gap-sm">
+<button class="p-sm hover:bg-surface-container rounded-full transition-colors" onclick="window.history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="hidden md:block text-label-md font-label-md text-on-surface-variant">Admin Level: General Manager</span>
+<button class="p-sm hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile md:px-xl max-w-7xl mx-auto space-y-lg">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<nav class="flex items-center gap-xs text-on-surface-variant mb-xs">
+<span class="text-label-sm font-label-sm">Reports</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-label-sm font-label-sm font-bold text-primary">Rooms Revenue</span>
+</nav>
+<h2 class="text-headline-lg font-headline-lg text-primary">Hébergement Analysis</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Detailed revenue and performance metrics for the Rooms department.</p>
+</div>
+<!-- Filters -->
+<div class="flex items-center gap-sm overflow-x-auto pb-xs no-scrollbar">
+<select class="bg-surface-container-lowest border-outline-variant rounded-lg text-label-md font-label-md py-sm pl-sm pr-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option>All Floors</option>
+<option>Floor 1</option>
+<option>Floor 2</option>
+<option>Executive Floor</option>
+</select>
+<select class="bg-surface-container-lowest border-outline-variant rounded-lg text-label-md font-label-md py-sm pl-sm pr-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option>All Categories</option>
+<option>Suite</option>
+<option>Deluxe</option>
+<option>Standard</option>
+</select>
+<button class="flex items-center gap-xs bg-primary text-on-primary px-md py-sm rounded-lg text-label-md font-label-md hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                    Last 30 Days
+                </button>
+</div>
+</div>
+<!-- Summary Stats Bento -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="bento-card bg-surface-container-lowest border border-outline-variant p-md rounded-xl flex flex-col justify-between h-32 shadow-sm">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-on-surface-variant">Total Revenue</span>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-primary">€142,500</div>
+<div class="text-label-sm font-label-sm text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12.4% vs last month
+                    </div>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest border border-outline-variant p-md rounded-xl flex flex-col justify-between h-32 shadow-sm">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-on-surface-variant">Avg. Occupancy</span>
+<span class="material-symbols-outlined text-primary">bed</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-primary">78.5%</div>
+<div class="text-label-sm font-label-sm text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +5.2% vs last month
+                    </div>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest border border-outline-variant p-md rounded-xl flex flex-col justify-between h-32 shadow-sm">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-on-surface-variant">ADR (Daily Rate)</span>
+<span class="material-symbols-outlined text-primary">monitoring</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-primary">€181.20</div>
+<div class="text-label-sm font-label-sm text-error flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -2.1% vs last month
+                    </div>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest border border-outline-variant p-md rounded-xl flex flex-col justify-between h-32 shadow-sm">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-on-surface-variant">RevPAR</span>
+<span class="material-symbols-outlined text-primary">equalizer</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-primary">€142.24</div>
+<div class="text-label-sm font-label-sm text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +8.7% vs last month
+                    </div>
+</div>
+</div>
+</div>
+<!-- Main Visuals -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Revenue vs Occupancy Trend -->
+<div class="lg:col-span-2 bento-card bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-lg">
+<div>
+<h3 class="text-headline-sm font-headline-sm text-primary">Revenue vs Occupancy</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Correlating booking volume with financial performance</p>
+</div>
+<button class="p-xs hover:bg-surface-container rounded-md transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+<div class="chart-container">
+<canvas id="revenueOccupancyChart"></canvas>
+</div>
+</div>
+<!-- Revenue by Category -->
+<div class="bento-card bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-lg">
+<div>
+<h3 class="text-headline-sm font-headline-sm text-primary">By Room Type</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Suite, Standard &amp; Deluxe breakdown</p>
+</div>
+</div>
+<div class="chart-container h-48 flex items-center justify-center">
+<canvas id="roomTypeChart"></canvas>
+</div>
+<div class="mt-lg space-y-sm">
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-[#0F172A]"></div>
+<span class="text-label-md font-label-md">Suite Executive</span>
+</div>
+<span class="text-label-md font-label-md font-bold">45%</span>
+</div>
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-[#4edea3]"></div>
+<span class="text-label-md font-label-md">Deluxe Ocean</span>
+</div>
+<span class="text-label-md font-label-md font-bold">32%</span>
+</div>
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-[#e6e8ea]"></div>
+<span class="text-label-md font-label-md">Standard</span>
+</div>
+<span class="text-label-md font-label-md font-bold">23%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Top Performing List -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Top Rooms -->
+<div class="bento-card bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm text-primary">Top Revenue Units</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="divide-y divide-outline-variant">
+<div class="p-md flex items-center justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">king_bed</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-primary">Suite 504 - Presidential</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Floor 5 • Executive</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-label-lg font-label-lg text-primary">€12,450</div>
+<div class="text-label-sm font-label-sm text-secondary">94% Occ.</div>
+</div>
+</div>
+<div class="p-md flex items-center justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">king_bed</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-primary">Room 302 - Deluxe Ocean</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Floor 3 • Deluxe</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-label-lg font-label-lg text-primary">€8,920</div>
+<div class="text-label-sm font-label-sm text-secondary">88% Occ.</div>
+</div>
+</div>
+<div class="p-md flex items-center justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">bed</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-primary">Room 215 - Standard Twin</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Floor 2 • Standard</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-label-lg font-label-lg text-primary">€5,100</div>
+<div class="text-label-sm font-label-sm text-secondary">82% Occ.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Peaks and Valleys -->
+<div class="bento-card bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm text-primary">Peak Performance Days</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">Download PDF</button>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex items-center gap-md">
+<div class="h-12 w-1 bg-secondary rounded-full"></div>
+<div class="flex-1">
+<div class="text-label-lg font-label-lg text-primary">Saturday, Oct 14</div>
+<div class="text-body-md font-body-md text-on-surface-variant">Conference Event: Tech Summit Peak</div>
+</div>
+<div class="text-right font-bold text-primary">€9,800</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="h-12 w-1 bg-secondary rounded-full"></div>
+<div class="flex-1">
+<div class="text-label-lg font-label-lg text-primary">Friday, Oct 13</div>
+<div class="text-body-md font-body-md text-on-surface-variant">Weekend Surge: Luxury Getaway</div>
+</div>
+<div class="text-right font-bold text-primary">€8,450</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary-container">info</span>
+<p class="text-label-sm font-label-sm text-on-surface-variant">
+                            Revenue peaks typically occur during Thursday-Saturday. Consider dynamic pricing adjustments for mid-week Standard rooms to boost REVPAR.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] h-16 flex justify-around items-center px-xs pb-safe rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm font-label-sm">Rooms</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-sm font-label-sm">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-label-sm font-label-sm">Staff</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm">AI</span>
+</button>
+</nav>
+<!-- Charts Initialization -->
+<script>
+        // Set Chart Defaults
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#76777d';
+
+        // Revenue vs Occupancy Chart
+        const ctxRevOcc = document.getElementById('revenueOccupancyChart').getContext('2d');
+        new Chart(ctxRevOcc, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [
+                    {
+                        label: 'Revenue (€)',
+                        data: [32000, 38000, 35000, 42000],
+                        borderColor: '#000000',
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                        fill: true,
+                        tension: 0.4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Occupancy (%)',
+                        data: [72, 85, 78, 92],
+                        borderColor: '#006c49',
+                        backgroundColor: 'transparent',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, usePointStyle: true, pointStyle: 'circle' }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        grid: { display: false }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: { borderDash: [2, 2] },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Room Type Doughnut
+        const ctxRoomType = document.getElementById('roomTypeChart').getContext('2d');
+        new Chart(ctxRoomType, {
+            type: 'doughnut',
+            data: {
+                labels: ['Suite', 'Deluxe', 'Standard'],
+                datasets: [{
+                    data: [45, 32, 23],
+                    backgroundColor: ['#0F172A', '#4edea3', '#e6e8ea'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '75%',
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body></html>

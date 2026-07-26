@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Demande de Devis - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eceef0",
+                        "on-secondary-container": "#00714d",
+                        "primary": "#000000",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#565e74",
+                        "on-surface-variant": "#45464d",
+                        "on-tertiary-container": "#b87500",
+                        "tertiary-container": "#2a1700",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e0e3e5",
+                        "outline": "#76777d",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-container": "#7c839b",
+                        "background": "#f7f9fb",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-high": "#e6e8ea",
+                        "surface": "#f7f9fb",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary": "#006c49",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-bright": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary-container": "#6cf8bb",
+                        "outline-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary": "#000000",
+                        "on-surface": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#dae2fd",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "sm": "8px",
+                        "gutter-mobile": "12px",
+                        "unit": "4px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-shadow-level-1 {
+            box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.08);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .input-focus-effect:focus {
+            border-color: #000000;
+            border-width: 2px;
+            outline: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim shadow-sm flex items-center justify-between px-margin-mobile h-14">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95" onclick="window.history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Demande de Devis</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional guest profile picture of a young executive, high-end studio lighting, soft blurred background, luxury hospitality aesthetic, sophisticated and approachable look, minimalist composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHuPK62kWQ3fKbD2i-ugxSqFCfr301sntw-dWzzpp6Ok55XFe1gdvfusv3uZlKqdJZazv73AmsKDbndkJbvnhQ5hrdUP05hbvDpYi0y9RnJWsQY8q6TvQW5C-7NlNbwlEsF3NfdIF5CsVMnMvGZsujatduHVQdkOBAEW1I4Ux1mS9y1pPqOfstNlTti6V19hlu4bc7hvFOfrlPy41PZwJueF2KmcoMN1tzOBZW0z2x2F6owtqiUHdWSg"/>
+</div>
+</header>
+<main class="pt-20 pb-24 px-margin-mobile max-w-2xl mx-auto">
+<!-- Header Welcome Message -->
+<section class="mb-xl">
+<div class="relative w-full h-48 rounded-xl overflow-hidden mb-md shadow-lg">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A luxury ballroom interior at Yabisso Hotel with floor-to-ceiling windows, crystal chandeliers, and elegant floral arrangements. The morning sunlight streams through the windows, highlighting the polished marble floors and cream-colored furniture. High-end architectural photography, airy and prestigious atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_9IewJcaKv_pbttzjO_btOlWr-puVWcGaDImR-0ynCg0vmeLI7t8qYhm6RFdGzZ1t17DtaorxIc2DtO1MZn4BwdWLpHRMXJYXl7J9cCh0GmqyfLi0HWCS8spYFk2ylMN2Z-zgHSdiNdy5Q0odXG8pk8xqHAgQkNy7GTIq0IUxnG4u0WuE88sfO2VgSmSbIQhEmmzs7HU1V8RW0BFVGZlr-d5U_ac_Ex4FE5ZeCKvKvhRp-V5D6f3Wng"/>
+<div class="absolute bottom-md left-md z-20">
+<span class="inline-block px-sm py-1 bg-secondary-container text-on-secondary-fixed-variant font-label-sm text-label-sm rounded-full mb-xs">Événements d'Exception</span>
+<h2 class="font-headline-sm text-headline-sm text-white">Organisez votre moment unique</h2>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Qu'il s'agisse d'un gala prestigieux ou d'une réunion intime, le Yabisso Hôtel met à votre disposition ses espaces d'exception et son expertise pour transformer votre vision en une réalité inoubliable.
+            </p>
+</section>
+<form class="space-y-lg" id="quote-request-form">
+<!-- Event Type Selection -->
+<section>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-md">Type d'Événement</h3>
+<div class="flex gap-sm overflow-x-auto pb-xs hide-scrollbar">
+<label class="cursor-pointer flex-shrink-0">
+<input class="hidden peer" name="event_type" type="radio" value="mariage"/>
+<div class="px-md py-sm rounded-full border border-outline-variant bg-surface peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-md text-label-md">
+                            Mariage
+                        </div>
+</label>
+<label class="cursor-pointer flex-shrink-0">
+<input checked="" class="hidden peer" name="event_type" type="radio" value="seminaire"/>
+<div class="px-md py-sm rounded-full border border-outline-variant bg-surface peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-md text-label-md">
+                            Séminaire
+                        </div>
+</label>
+<label class="cursor-pointer flex-shrink-0">
+<input class="hidden peer" name="event_type" type="radio" value="banquet"/>
+<div class="px-md py-sm rounded-full border border-outline-variant bg-surface peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-md text-label-md">
+                            Banquet
+                        </div>
+</label>
+<label class="cursor-pointer flex-shrink-0">
+<input class="hidden peer" name="event_type" type="radio" value="anniversaire"/>
+<div class="px-md py-sm rounded-full border border-outline-variant bg-surface peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-md text-label-md">
+                            Anniversaire
+                        </div>
+</label>
+<label class="cursor-pointer flex-shrink-0">
+<input class="hidden peer" name="event_type" type="radio" value="autre"/>
+<div class="px-md py-sm rounded-full border border-outline-variant bg-surface peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-md text-label-md">
+                            Autre
+                        </div>
+</label>
+</div>
+</section>
+<!-- Grid for Event Details -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Date de l'événement</label>
+<div class="relative">
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1" type="date"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">calendar_today</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Nombre d'invités</label>
+<div class="relative">
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1" placeholder="ex: 50" type="number"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">groups</span>
+</div>
+</div>
+</div>
+<!-- Preferred Space -->
+<section class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Espace Souhaité</label>
+<div class="relative">
+<select class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md pr-10 font-body-md text-body-md appearance-none input-focus-effect transition-all custom-shadow-level-1">
+<option disabled="" selected="" value="">Sélectionnez un espace</option>
+<option value="roof-garden">Roof Garden (Vue panoramique)</option>
+<option value="salle-bal">Salle de Bal Impériale</option>
+<option value="salon-prive">Salon Privé Ébène</option>
+<option value="terrasse">Terrasse des Palmiers</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</section>
+<!-- Personal Details Section -->
+<section class="space-y-md pt-sm">
+<h3 class="font-label-lg text-label-lg text-on-surface border-b border-outline-variant pb-xs">Vos Coordonnées</h3>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Nom Complet</label>
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1" placeholder="Jean Dupont" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Email</label>
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1" placeholder="jean@exemple.com" type="email"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Téléphone</label>
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1" placeholder="+243 ..." type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Nom de l'entreprise (Optionnel)</label>
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1" placeholder="Entreprise S.A." type="text"/>
+</div>
+</section>
+<!-- Special Requests -->
+<section class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Demandes Particulières / Notes</label>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg p-md font-body-md text-body-md input-focus-effect transition-all custom-shadow-level-1 resize-none" placeholder="Décrivez vos besoins spécifiques (traiteur, équipement audiovisuel, décoration...)" rows="4"></textarea>
+</section>
+<!-- CTA Button -->
+<button class="w-full h-14 bg-primary text-white rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md mt-xl" type="submit">
+<span>Envoyer la Demande</span>
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+<!-- Privacy Note -->
+<p class="text-center font-label-sm text-label-sm text-on-surface-variant opacity-70 pt-md pb-xl">
+                Nos experts événementiels vous répondront sous 24h ouvrées.
+            </p>
+</form>
+</main>
+<!-- BottomNavBar (Mobile Layout) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-gutter-mobile pb-safe bg-surface dark:bg-surface-dim border-t border-outline-variant z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim font-semibold active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_available</span>
+<span class="font-label-sm text-label-sm">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">room_service</span>
+<span class="font-label-sm text-label-sm">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple form handling for micro-interactions
+        const form = document.getElementById('quote-request-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalContent = btn.innerHTML;
+            
+            // Loading state simulation
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span><span>Envoi en cours...</span>`;
+            
+            setTimeout(() => {
+                btn.classList.replace('bg-primary', 'bg-secondary');
+                btn.innerHTML = `<span class="material-symbols-outlined">check_circle</span><span>Demande Envoyée !</span>`;
+                
+                // Show success feedback
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-lg py-md rounded-full shadow-lg z-[100] transition-all opacity-0 translate-y-10 flex items-center gap-2';
+                notification.innerHTML = `<span class="material-symbols-outlined text-secondary-fixed">verified</span><span class="font-label-md">Votre demande a été transmise avec succès.</span>`;
+                document.body.appendChild(notification);
+                
+                requestAnimationFrame(() => {
+                    notification.classList.remove('opacity-0', 'translate-y-10');
+                });
+
+                setTimeout(() => {
+                    notification.classList.add('opacity-0', 'translate-y-10');
+                    setTimeout(() => notification.remove(), 500);
+                }, 3000);
+            }, 1500);
+        });
+
+        // Event type chip interaction
+        const chips = document.querySelectorAll('input[name="event_type"]');
+        chips.forEach(chip => {
+            chip.addEventListener('change', () => {
+                // Potential haptic feedback simulation or layout shift if needed
+            });
+        });
+    </script>
+</body></html>

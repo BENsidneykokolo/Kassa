@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#002113",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#76777d",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline-variant": "#c6c6cd",
+                        "secondary-container": "#6cf8bb",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-background": "#191c1e",
+                        "inverse-primary": "#bec6e0",
+                        "surface-tint": "#565e74",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-primary-container": "#7c839b",
+                        "primary-container": "#131b2e",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-container": "#b87500",
+                        "on-secondary-container": "#00714d",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "secondary": "#006c49",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-container": "#2a1700",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "background": "#f7f9fb",
+                        "primary": "#000000",
+                        "on-surface": "#191c1e",
+                        "tertiary": "#000000",
+                        "surface-variant": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "on-primary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "gutter-mobile": "12px",
+                        "margin-mobile": "16px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm h-14 flex items-center justify-between px-margin-mobile">
+<button class="w-10 h-10 flex items-center justify-center rounded-full active:scale-95 transition-transform hover:bg-surface-container-high" onclick="history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary truncate px-sm">Jazz &amp; Gastronomie</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full active:scale-95 transition-transform hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary">share</span>
+</button>
+</header>
+<main class="pt-14 pb-32">
+<!-- Hero Image -->
+<div class="relative w-full h-[397px] overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A sophisticated evening jazz concert at a luxury hotel rooftop garden. Elegant guests are seated at tables with white linens, enjoying fine dining. A jazz quartet with a saxophone and double bass performs on a small stage illuminated by soft, warm amber lights. The background shows a panoramic city skyline at dusk with a deep indigo sky. The atmosphere is high-end, exclusive, and serene." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGjhDpzWFA8Vxb9-5CMJxiqqZ6_DrxZTn-eFZZYiEv1J88BEqAhmF6cxh8MdkamIL5uEInMHl7QS_MxBkam-Yqzg9jjs5ZWK7UF3PFzerXMAaIx3aXYICoPUeSkxCBbGv8eP514QkeZYHrbvltTyZyvZjAPI_raq7bpAKHHw9bWY3o72BPetyaqXLuqfGH0_Tc2md_fh3r1wu9rPCFH2MKXsLnxqWVoTDCDkugpCNuHtmXp7iq1_OsAw')">
+</div>
+<div class="absolute bottom-0 left-0 w-full p-margin-mobile bg-gradient-to-t from-black/80 to-transparent">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Événement Signature</span>
+</div>
+<h2 class="text-white font-headline-lg text-headline-lg mb-1">Jazz &amp; Gastronomie au Roof Garden</h2>
+<div class="flex items-center text-white/90 font-label-md text-label-md gap-3">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Samedi, 24 Juin</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 19:30 - 23:00</span>
+</div>
+</div>
+</div>
+<!-- Sticky Info Bar -->
+<div class="bg-surface-container-lowest border-b border-outline-variant px-margin-mobile py-md flex items-center justify-between shadow-sm sticky top-14 z-40">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Tarif par personne</p>
+<p class="font-headline-sm text-headline-sm font-bold text-primary">85,000 FCFA</p>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-lg text-label-lg active:scale-95 transition-transform shadow-md">
+                Réserver
+            </button>
+</div>
+<!-- Highlights Bento -->
+<section class="px-margin-mobile pt-lg pb-md">
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-low p-md rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">music_note</span>
+<span class="font-label-md text-label-md">Musique Live</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-label-md text-label-md">Dîner Gastronomique</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+<span class="font-label-md text-label-md">Service Voiturier</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">wine_bar</span>
+<span class="font-label-md text-label-md">Cocktail de Bienvenue</span>
+</div>
+</div>
+</section>
+<!-- Description -->
+<section class="px-margin-mobile py-md">
+<h3 class="font-headline-sm text-headline-sm mb-sm">À propos de la soirée</h3>
+<div class="space-y-md text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>Plongez dans une atmosphère feutrée au sommet de la ville. Le Yabisso Hôtel vous invite à une expérience sensorielle unique où l'improvisation du Jazz rencontre la rigueur de la haute gastronomie.</p>
+<p>Sous les étoiles, sur notre terrasse "Le Roof Garden", profitez d'un menu dégustation en 5 temps spécialement élaboré par notre Chef Exécutif, accompagné par le talentueux quartet d'Alain Mvondo.</p>
+</div>
+</section>
+<!-- Gallery Scroll -->
+<section class="py-md">
+<div class="px-margin-mobile flex justify-between items-center mb-sm">
+<h3 class="font-headline-sm text-headline-sm">Galerie</h3>
+<button class="text-secondary font-label-md text-label-md">Voir tout</button>
+</div>
+<div class="flex overflow-x-auto hide-scrollbar gap-sm px-margin-mobile">
+<div class="flex-none w-64 h-40 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close-up of a beautifully plated gourmet appetizer featuring seared scallops and microgreens, lit by elegant warm restaurant lighting. Professional food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTvFH7FBKj34zPFqLSrYCq8tDByZC09t1Y09sr74COuXE5eccXqvUd_NVKWwR6D5Hi-O9_Zr6sBtHEMcEwU_pk4S-imvMI9KS4SyCjNl-f2B4sRHbvMzveUfiTWyrzEM6zJH7bhq9v3Y1-0wSnTeA0Y3SqdfwjurIC6Ie_-f0dCL1-CtRSFpstj1WKJTM-f9UkHQ7XhJ0rJ8gApg4SSf5bNgECf8mGn-gVQwa_ouhEjHVdRuUGK9Knag"/>
+</div>
+<div class="flex-none w-64 h-40 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A wide shot of an elegant rooftop lounge area with comfortable modern outdoor furniture and glowing lanterns at night. City lights sparkle in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Xo3Gq9044Znreu0afnKTOxaKqZjJv0AGxi_nnXyxakWm7v7v90FcUSLs8zbateB4ImkkreXlLAIJJgPr7Ofb6hB0v3YgAQ5GF9V7mn4iAnEQGosxbDtXF5KpVohB5e1gsC0ZN6mFSfnkFbtfamrRC_I57e-e9KPtiJSPpbANTM4V1lCuVEpACSPhFeo5gnDRl7qmMAzLMzBo2iuQjyeWAoBSAIVPvSZaQtb4fMwTi-bY8_sauHa6Ew"/>
+</div>
+<div class="flex-none w-64 h-40 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A close-up of a saxophone player's hands during a performance, dramatic stage lighting highlighting the brass instrument and creating a moody artistic feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnaaRZgUpCHGhPvJvonYYVoF4xfMq8n6kDKleK9cnteVS3LJiu7eNOnwiTDMqpC8434lRRid-X5mIKI4bi90hZor6zIv4Cu0VLGQnhoFviXSJKgOdiLcm_Ii6ZYTqGDocgFpvliOJLJtXWv11zrhlz9nFRhxn8Sqf8azBGzkb8XMu8LSH4bNmVS5p1qriMJN6ATjrv1ZJGrspD4Os1DkLgw5QemgBedv0r85rL6ZUN1g1zE_IPgluUvw"/>
+</div>
+</div>
+</section>
+<!-- Location Section -->
+<section class="px-margin-mobile py-md">
+<h3 class="font-headline-sm text-headline-sm mb-sm">Comment s'y rendre</h3>
+<div class="bg-surface-container p-sm rounded-xl mb-md">
+<div class="w-full h-48 rounded-lg overflow-hidden relative border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist vector-style map of Yaoundé showing the central hotel district with a prominent pin on the Yabisso Hotel location. Professional cartography style with neutral colors." data-location="Yaoundé, Cameroon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUl-mtJNSLObIoPeLOq_vivhUmI2v_Y-H0yLEKy7OeFqSyWWhU3nJiwVIUWMqZAf3yTvd1oRCSrR12PI5lYDoeRiKsvZH0o87MLBLjjZ_1dIxO5bKvtnuozMjRJxMCWtPsulmSNOp0PL1CLoA0peiWFn7bTe61fhCdjKkXWcZ0ukhVTCyNy7fVl_KU9OaRcH86w3aBHUWtJ0wAQcIAZLgBmIqSOmgd9G8qMTg24-nsCNzwjHAPG4sRag"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white p-2 rounded-full shadow-lg border-2 border-primary">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-outline">info</span>
+<div>
+<p class="font-label-lg text-label-lg mb-xs">Le Roof Garden, 10ème étage</p>
+<p class="text-on-surface-variant font-body-md text-body-md">Accès direct via les ascenseurs panoramiques du lobby principal. Un parking réservé est disponible pour les convives non-résidents.</p>
+</div>
+</div>
+</section>
+<!-- Recommended Events -->
+<section class="py-lg bg-surface-container-low mt-xl">
+<div class="px-margin-mobile mb-md">
+<h3 class="font-headline-sm text-headline-sm">Recommandé pour vous</h3>
+<p class="text-on-surface-variant font-label-md text-label-md">Découvrez d'autres expériences exclusives</p>
+</div>
+<div class="flex overflow-x-auto hide-scrollbar gap-md px-margin-mobile">
+<div class="flex-none w-72 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden group active:scale-[0.98] transition-transform">
+<div class="h-40 w-full relative">
+<img class="w-full h-full object-cover" data-alt="A vibrant brunch setup with tropical fruits, champagne bottles in ice buckets, and colorful flowers on a sunny patio. Relaxed upscale vacation vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWK5eHWpjOLqBB2_vfcvfmxb40jPVi1QPh4HLQgFhdayegNeLLIOSEB0S5oJ1p4Vg4jFLagpymHvv6cC8BAartCUPkD572fo81sE28EGdu-X2YH504VsuyySoypoQRk95p5P1_hQKYdcxJr4Ii_GmSLi_uoogDUHuDVjvJ97NCnkyTSEMHz0tiAc9aqE4oRr83HSUT2jBftq7q0dlIq_WFlZQeZOTwo507crr62mwGTSKzsBqZtXT4MQ"/>
+</div>
+<div class="p-md">
+<p class="font-label-sm text-label-sm text-secondary uppercase font-bold mb-1">Dimanche</p>
+<h4 class="font-label-lg text-label-lg mb-2">Le Brunch des Voyageurs</h4>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-label-md text-label-md">45,000 FCFA</span>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="flex-none w-72 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden group active:scale-[0.98] transition-transform">
+<div class="h-40 w-full relative">
+<img class="w-full h-full object-cover" data-alt="A professional wine tasting session with crystal glasses, various wine bottles, and artisanal cheese platters in a sophisticated cellar setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBskSG3vGSf_XvsL1_lbjT5avJVZdlPE-EMm1USCyRf79kmnI2M8t4hxwR7nNK0b3BSrTWzBExsRM9vfShs1PIDjrFZIJS2LvebdfgUCxc9TsJp38n_E3bS_rRAq1qf7f91ubjHxZyeESJYWfF-E_juC7l-ZglzQTVibtiNu8IjIKHXQDwYarHR_30vjeO7JCqPXEemsB5gapnyP6OaMv2fKK0gs3_qU0DnfDY3GnyI3dPTil3hRyN5Xw"/>
+</div>
+<div class="p-md">
+<p class="font-label-sm text-label-sm text-secondary uppercase font-bold mb-1">Jeudi</p>
+<h4 class="font-label-lg text-label-lg mb-2">Atelier Dégustation Vins</h4>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-label-md text-label-md">60,000 FCFA</span>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-gutter-mobile pb-safe bg-surface border-t border-outline-variant z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-semibold hover:bg-surface-container-low transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_available</span>
+<span class="font-label-sm text-label-sm">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all duration-200" href="#">
+<span class="material-symbols-outlined">room_service</span>
+<span class="font-label-sm text-label-sm">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the "Book Now" sticky header transition
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const stickyBar = document.querySelector('.sticky');
+            if (window.scrollY > 300) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

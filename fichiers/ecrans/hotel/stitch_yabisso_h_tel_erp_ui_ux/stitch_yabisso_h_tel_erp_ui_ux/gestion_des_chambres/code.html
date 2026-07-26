@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Room Management</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#006c49",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#ffddb8",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container": "#eceef0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-container": "#2a1700",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-container": "#b87500",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline": "#76777d",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#565e74",
+                    "on-surface": "#191c1e",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary-container": "#00714d",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .status-available { border-left: 6px solid #10B981; }
+        .status-occupied { border-left: 6px solid #3B82F6; }
+        .status-cleaning { border-left: 6px solid #F59E0B; }
+        .status-maintenance { border-left: 6px solid #EF4444; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center px-margin-mobile md:px-lg h-14 w-full">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-sm rounded-full">menu</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-sm rounded-full">notifications</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-label-md">JD</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-20 px-margin-mobile md:px-lg max-w-7xl mx-auto mb-20">
+<!-- Dashboard Header & Search -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-xs">OPÉRATIONS</p>
+<h2 class="text-headline-lg font-headline-lg text-primary">Gestion des Chambres</h2>
+</div>
+<div class="flex flex-col sm:flex-row gap-sm w-full md:w-auto">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Rechercher une chambre ou un client..." type="text"/>
+</div>
+<button class="flex items-center justify-center gap-sm bg-surface border border-outline-variant px-md py-2 rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-body-md">filter_list</span>
+<span class="text-label-lg font-label-lg">Filtres</span>
+</button>
+</div>
+</div>
+<!-- Filter Chips (Horizontally scrollable on mobile) -->
+<div class="flex gap-sm mb-lg overflow-x-auto no-scrollbar pb-2">
+<button class="bg-primary text-on-primary px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap">Tous (42)</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-outline-variant transition-colors">Étage 1</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-outline-variant transition-colors">Étage 2</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-outline-variant transition-colors">Suites</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap hover:bg-outline-variant transition-colors">Standards</button>
+<div class="w-[1px] h-6 bg-outline-variant self-center mx-xs"></div>
+<button class="flex items-center gap-xs bg-green-100 text-green-800 px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap">
+<span class="w-2 h-2 rounded-full bg-green-500"></span> Disponible
+            </button>
+<button class="flex items-center gap-xs bg-blue-100 text-blue-800 px-md py-1.5 rounded-full text-label-md font-label-md whitespace-nowrap">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span> Occupé
+            </button>
+</div>
+<!-- Room Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-md">
+<!-- Room Card: Occupied -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-occupied group overflow-hidden">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">101</span>
+<span class="material-symbols-outlined text-blue-500 text-body-md" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Suite Premium</p>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="text-label-sm font-bold text-primary truncate">M. Diallo K.</p>
+<p class="text-[10px] text-on-surface-variant">Check-out: Demain</p>
+</div>
+</div>
+</div>
+<!-- Room Card: Available -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-available group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">102</span>
+<span class="material-symbols-outlined text-green-500 text-body-md">check_circle</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Double</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-green-700">PRÊTE</span>
+</div>
+</div>
+</div>
+<!-- Room Card: Cleaning -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-cleaning group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">103</span>
+<span class="material-symbols-outlined text-yellow-600 text-body-md">cleaning_services</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Simple</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-yellow-700">NETTOYAGE</span>
+</div>
+</div>
+</div>
+<!-- Room Card: Maintenance -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-maintenance group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">104</span>
+<span class="material-symbols-outlined text-red-500 text-body-md">construction</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Suite Junior</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-red-700">MAINTENANCE</span>
+</div>
+</div>
+</div>
+<!-- Repeat Cards -->
+<!-- Row 2 -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-occupied group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">201</span>
+<span class="material-symbols-outlined text-blue-500 text-body-md" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Double</p>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="text-label-sm font-bold text-primary truncate">Mme. Traore A.</p>
+<p class="text-[10px] text-on-surface-variant">Check-out: 22/10</p>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-available group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">202</span>
+<span class="material-symbols-outlined text-green-500 text-body-md">check_circle</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Suite Royale</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-green-700">PRÊTE</span>
+</div>
+</div>
+</div>
+<!-- Row 3 & others populated dynamically or static for UI demo -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-occupied group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">203</span>
+<span class="material-symbols-outlined text-blue-500 text-body-md" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Simple</p>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="text-label-sm font-bold text-primary truncate">M. Sissoko B.</p>
+<p class="text-[10px] text-on-surface-variant">Check-out: 19/10</p>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-available group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">204</span>
+<span class="material-symbols-outlined text-green-500 text-body-md">check_circle</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Simple</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-green-700">PRÊTE</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-cleaning group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">205</span>
+<span class="material-symbols-outlined text-yellow-600 text-body-md">cleaning_services</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Deluxe Twin</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-yellow-700">NETTOYAGE</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-available group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">301</span>
+<span class="material-symbols-outlined text-green-500 text-body-md">check_circle</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Suite Premium</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-green-700">PRÊTE</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-available group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">302</span>
+<span class="material-symbols-outlined text-green-500 text-body-md">check_circle</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Suite Premium</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-green-700">PRÊTE</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-occupied group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">303</span>
+<span class="material-symbols-outlined text-blue-500 text-body-md" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Deluxe King</p>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="text-label-sm font-bold text-primary truncate">M. Koné D.</p>
+<p class="text-[10px] text-on-surface-variant">Check-out: Aujourd'hui</p>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-cleaning group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">304</span>
+<span class="material-symbols-outlined text-yellow-600 text-body-md">cleaning_services</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Single</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-yellow-700">NETTOYAGE</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-available group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">305</span>
+<span class="material-symbols-outlined text-green-500 text-body-md">check_circle</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Standard Double</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-green-700">PRÊTE</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-maintenance group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">401</span>
+<span class="material-symbols-outlined text-red-500 text-body-md">construction</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Suite Présidentielle</p>
+<div class="flex items-center justify-center py-2">
+<span class="text-label-sm font-bold text-red-700">EN TRAVAUX</span>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer status-occupied group">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-headline-sm font-headline-sm text-primary">402</span>
+<span class="material-symbols-outlined text-blue-500 text-body-md" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-md">Deluxe Twin</p>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="text-label-sm font-bold text-primary truncate">Famille Sylla</p>
+<p class="text-[10px] text-on-surface-variant">Check-out: Dans 3j</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-20 md:bottom-8 right-6 z-50 bg-primary text-on-primary flex items-center gap-md px-lg py-md rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">add</span>
+<span class="text-label-lg font-label-lg">Nouvelle Réservation</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface rounded-t-xl shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] flex justify-around items-center h-16 px-xs pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bed</span>
+<span class="text-label-sm font-label-sm">Rooms</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="text-label-sm font-label-sm">POS</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm">AI</span>
+</button>
+</nav>
+<!-- Side Navigation (Desktop Only Mock) -->
+<div class="hidden md:flex fixed left-0 top-0 h-full w-20 flex-col items-center bg-surface-container-low border-r border-outline-variant pt-20 z-30">
+<div class="flex flex-col gap-lg">
+<button class="p-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" title="Dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="p-md bg-secondary-container text-on-secondary-container rounded-xl shadow-sm" title="Rooms">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bed</span>
+</button>
+<button class="p-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" title="POS">
+<span class="material-symbols-outlined">point_of_sale</span>
+</button>
+<button class="p-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" title="Staff">
+<span class="material-symbols-outlined">badge</span>
+</button>
+<button class="p-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" title="Reports">
+<span class="material-symbols-outlined">assessment</span>
+</button>
+</div>
+<div class="mt-auto mb-lg flex flex-col gap-lg">
+<button class="p-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" title="Settings">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('.status-occupied, .status-available, .status-cleaning, .status-maintenance').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+            card.addEventListener('click', () => {
+                const roomNum = card.querySelector('.text-headline-sm').innerText;
+                console.log(`Opening details for room ${roomNum}`);
+                // In a real app, this would open a Bottom Sheet or Side Panel
+            });
+        });
+
+        // Floating Action Button simple click effect
+        const fab = document.querySelector('button.fixed.bottom-20, button.fixed.bottom-8');
+        fab.addEventListener('click', () => {
+            fab.classList.add('scale-90');
+            setTimeout(() => fab.classList.remove('scale-90'), 100);
+        });
+    </script>
+</body></html>

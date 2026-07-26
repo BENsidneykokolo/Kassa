@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Majordomo Revenue | Real-Time Price Adjustment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .ai-glow {
+            box-shadow: inset 0 0 10px rgba(197, 136, 254, 0.1);
+            border-left: 3px solid #c588fe;
+        }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+        
+        /* Custom scrollbar for high-end feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e1e3e4; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #747878; }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-background": "#191c1d",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed": "#2c0050",
+                "primary-fixed-dim": "#c8c6c5",
+                "tertiary-fixed": "#ffe088",
+                "background": "#f8f9fa",
+                "tertiary": "#735c00",
+                "primary-container": "#1c1b1b",
+                "inverse-surface": "#2e3132",
+                "on-primary-fixed": "#1c1b1b",
+                "secondary": "#7b41b3",
+                "on-tertiary-container": "#4f3e00",
+                "on-tertiary-fixed": "#241a00",
+                "secondary-fixed": "#f0dbff",
+                "secondary-fixed-dim": "#ddb7ff",
+                "surface-container-high": "#e7e8e9",
+                "secondary-container": "#c588fe",
+                "tertiary-container": "#cca730",
+                "on-surface": "#191c1d",
+                "surface-container-low": "#f3f4f5",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "surface-tint": "#5f5e5e",
+                "inverse-primary": "#c8c6c5",
+                "surface-container-highest": "#e1e3e4",
+                "surface-bright": "#f8f9fa",
+                "on-surface-variant": "#444748",
+                "inverse-on-surface": "#f0f1f2",
+                "error-container": "#ffdad6",
+                "outline": "#747878",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#474746",
+                "on-primary-container": "#858383",
+                "surface-variant": "#e1e3e4",
+                "primary": "#000000",
+                "primary-fixed": "#e5e2e1",
+                "on-tertiary-fixed-variant": "#574500",
+                "surface": "#f8f9fa",
+                "on-tertiary": "#ffffff",
+                "surface-container": "#edeeef",
+                "on-secondary": "#ffffff",
+                "surface-dim": "#d9dadb",
+                "on-secondary-container": "#54118a",
+                "error": "#ba1a1a",
+                "on-secondary-fixed-variant": "#622599",
+                "outline-variant": "#c4c7c7",
+                "tertiary-fixed-dim": "#e9c349"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+              },
+              "spacing": {
+                "data-density-gap": "8px",
+                "margin-desktop": "48px",
+                "container-max": "1440px",
+                "gutter": "24px",
+                "margin-mobile": "16px",
+                "unit": "4px"
+              },
+              "fontFamily": {
+                "display-lg": ["Libre Caslon Text"],
+                "label-caps": ["JetBrains Mono"],
+                "display-lg-mobile": ["Libre Caslon Text"],
+                "ai-insight-callout": ["Hanken Grotesk"],
+                "headline-md": ["Libre Caslon Text"],
+                "data-tabular": ["Hanken Grotesk"],
+                "body-main": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                "ai-insight-callout": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                "body-main": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-main selection:bg-secondary-fixed selection:text-on-secondary-fixed overflow-x-hidden">
+<!-- Top Navigation Anchor -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="analytics">analytics</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-headline-md tracking-tighter text-primary">MAJORDOMO REVENUE</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">DASHBOARD</a>
+<a class="font-label-caps text-label-caps text-primary font-bold transition-colors duration-300" href="#">PRICING</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">SIMULATION</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">INVENTORY</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps tracking-widest hover:bg-on-primary-fixed-variant transition-all active:scale-95">
+                LIVE MARKET PULSE
+            </button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 pb-32">
+<!-- Strategy Header Section -->
+<section class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-2xl">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-4">Yield Optimization Engine</h2>
+<p class="text-on-surface-variant font-body-main text-lg leading-relaxed">
+                    Market volatility in the local luxury segment is currently <span class="text-secondary font-bold">+12.4%</span>. AI suggests aggressive yield capture across all premium tiers to maximize RevPAR before the weekend compression.
+                </p>
+</div>
+<!-- Bulk Action Panel -->
+<div class="glass-panel p-6 border border-outline-variant flex flex-col gap-4 min-w-[320px]">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">BULK ADJUSTMENT</span>
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="border border-outline py-2 font-label-caps text-[10px] hover:bg-surface-container-high transition-colors">70% OCCUPANCY TIER</button>
+<button class="border border-primary bg-primary text-on-primary py-2 font-label-caps text-[10px]">85% OCCUPANCY TIER</button>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container py-3 font-label-caps text-label-caps tracking-widest hover:brightness-95 transition-all">
+                    APPLY SUGGESTED RATES
+                </button>
+</div>
+</section>
+<!-- Main Pricing Table -->
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="border-b-2 border-primary">
+<th class="py-6 text-left font-label-caps text-label-caps text-on-surface-variant px-4">ROOM TYPE</th>
+<th class="py-6 text-left font-label-caps text-label-caps text-on-surface-variant px-4">CURRENT RATE</th>
+<th class="py-6 text-left font-label-caps text-label-caps text-secondary px-4">AI SUGGESTION</th>
+<th class="py-6 text-left font-label-caps text-label-caps text-on-surface-variant px-4">REVPAR IMPACT</th>
+<th class="py-6 text-right font-label-caps text-label-caps text-on-surface-variant px-4">ACTION</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Classic Room -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md">Classic</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">42 UNITS AVAILABLE</span>
+</div>
+</td>
+<td class="py-8 px-4 font-data-tabular text-xl tabular-nums">$340.00</td>
+<td class="py-8 px-4">
+<div class="flex items-center gap-3">
+<span class="font-data-tabular text-xl text-secondary font-bold tabular-nums">$385.00</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-label-caps px-2 py-0.5 rounded-full">+13%</span>
+</div>
+</td>
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="text-tertiary font-bold font-data-tabular">+$1,890 / Day</span>
+<span class="text-[12px] text-on-surface-variant">Market demand: High</span>
+</div>
+</td>
+<td class="py-8 px-4 text-right">
+<div class="flex items-center justify-end gap-6">
+<div class="flex items-center gap-2">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="settings">settings</button>
+</div>
+</td>
+</tr>
+<!-- Deluxe Room -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md">Deluxe</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">18 UNITS AVAILABLE</span>
+</div>
+</td>
+<td class="py-8 px-4 font-data-tabular text-xl tabular-nums">$520.00</td>
+<td class="py-8 px-4">
+<div class="flex items-center gap-3">
+<span class="font-data-tabular text-xl text-secondary font-bold tabular-nums">$595.00</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-label-caps px-2 py-0.5 rounded-full">+14%</span>
+</div>
+</td>
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="text-tertiary font-bold font-data-tabular">+$1,350 / Day</span>
+<span class="text-[12px] text-on-surface-variant">Comp set lead: 4%</span>
+</div>
+</td>
+<td class="py-8 px-4 text-right">
+<div class="flex items-center justify-end gap-6">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="settings">settings</button>
+</div>
+</td>
+</tr>
+<!-- Executive Suite -->
+<tr class="group bg-secondary-fixed/5 hover:bg-secondary-fixed/10 transition-colors ai-glow">
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md flex items-center gap-2">
+                                    Suite 
+                                    <span class="material-symbols-outlined text-secondary text-sm" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">8 UNITS AVAILABLE</span>
+</div>
+</td>
+<td class="py-8 px-4 font-data-tabular text-xl tabular-nums">$890.00</td>
+<td class="py-8 px-4">
+<div class="flex items-center gap-3">
+<span class="font-data-tabular text-xl text-secondary font-bold tabular-nums">$1,050.00</span>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-label-caps px-2 py-0.5 rounded-full">+18%</span>
+</div>
+</td>
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="text-tertiary font-bold font-data-tabular">+$1,280 / Day</span>
+<span class="text-[12px] text-on-surface-variant">Event overlap detected</span>
+</div>
+</td>
+<td class="py-8 px-4 text-right">
+<div class="flex items-center justify-end gap-6">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="settings">settings</button>
+</div>
+</td>
+</tr>
+<!-- Penthouse -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md">Penthouse</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">2 UNITS AVAILABLE</span>
+</div>
+</td>
+<td class="py-8 px-4 font-data-tabular text-xl tabular-nums">$2,400.00</td>
+<td class="py-8 px-4">
+<div class="flex items-center gap-3">
+<span class="font-data-tabular text-xl text-secondary font-bold tabular-nums">$2,400.00</span>
+<span class="bg-surface-variant text-on-surface-variant text-[10px] font-label-caps px-2 py-0.5 rounded-full">OPTIMAL</span>
+</div>
+</td>
+<td class="py-8 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-bold font-data-tabular">+$0 / Day</span>
+<span class="text-[12px] text-on-surface-variant">Historical ceiling reached</span>
+</div>
+</td>
+<td class="py-8 px-4 text-right">
+<div class="flex items-center justify-end gap-6">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="settings">settings</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Predictive Trends Section -->
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="glass-panel p-8 border border-outline-variant relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-6">MARKET VELOCITY</h3>
+<div class="flex items-end gap-4 mb-4">
+<span class="text-4xl font-display-lg font-bold">94%</span>
+<span class="text-tertiary flex items-center mb-1">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_up">trending_up</span>
+                            2.4%
+                        </span>
+</div>
+<div class="h-16 w-full bg-surface-container-highest/50 relative">
+<!-- Simulated sparkline -->
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-secondary/10 to-transparent"></div>
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="text-secondary" d="M0,80 Q25,70 40,85 T70,40 T100,20" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="glass-panel p-8 border border-outline-variant relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-6">COMP SET GAP</h3>
+<div class="flex items-end gap-4 mb-4">
+<span class="text-4xl font-display-lg font-bold">+$42</span>
+<span class="text-on-surface-variant flex items-center mb-1">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="equalizer">equalizer</span>
+                            PREMIUM
+                        </span>
+</div>
+<p class="text-sm text-on-surface-variant leading-tight">Your property is currently priced 8% above the sub-market average for 5-star inventory.</p>
+</div>
+</div>
+<div class="glass-panel p-8 border border-outline-variant relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-6">FORECASTED REVPAR</h3>
+<div class="flex items-end gap-4 mb-4">
+<span class="text-4xl font-display-lg font-bold">$412</span>
+<span class="text-tertiary flex items-center mb-1">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="auto_graph">auto_graph</span>
+                            +12%
+                        </span>
+</div>
+<p class="text-sm text-on-surface-variant leading-tight">Implementing suggested rates is projected to increase total daily revenue by $4,520.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container-highest/80 backdrop-blur-xl border-t border-outline-variant/30 flex justify-around items-center px-4 pb-6 pt-3">
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[10px] mt-1">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary bg-secondary-fixed/10 rounded-xl px-3 py-1">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-caps text-[10px] mt-1">Pricing</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+<span class="font-label-caps text-[10px] mt-1">Simulation</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-[10px] mt-1">Inventory</span>
+</button>
+</footer>
+<!-- Floating Action Button for Emergency Strategies -->
+<button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 bg-primary text-on-primary w-14 h-14 rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform group">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform duration-300" data-icon="bolt">bolt</span>
+<span class="absolute right-full mr-4 bg-primary text-on-primary px-3 py-1 text-[10px] font-label-caps whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">QUICK OVERRIDE</span>
+</button>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+                    // Selection logic could go here
+                }
+            });
+        });
+
+        // Console logger to simulate data synchronization
+        console.log("Majordomo Revenue Engine: Stream connected. Market pulse active.");
+    </script>
+</body></html>

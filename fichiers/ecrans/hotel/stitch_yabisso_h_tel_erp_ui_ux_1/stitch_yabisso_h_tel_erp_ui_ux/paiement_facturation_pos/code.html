@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Facturation &amp; Paiement - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#dae2fd",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "on-background": "#191c1e",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-container": "#00714d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-bright": "#f7f9fb",
+                        "primary": "#000000",
+                        "on-error-container": "#93000a",
+                        "outline": "#76777d",
+                        "primary-container": "#131b2e",
+                        "on-secondary-fixed": "#002113",
+                        "surface-variant": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#6cf8bb",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary": "#006c49",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary-fixed": "#2a1700",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-container": "#b87500",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-tint": "#565e74",
+                        "surface-container": "#eceef0",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary": "#000000",
+                        "on-primary-container": "#7c839b",
+                        "tertiary-container": "#2a1700",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .elevation-1 { box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.08); }
+        .elevation-2 { box-shadow: 0px 4px 6px rgba(15, 23, 42, 0.12); }
+        .payment-option-active { border: 2px solid #000000 !important; background-color: #f2f4f6 !important; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky z-50 shadow-sm flex justify-between items-center px-md h-[64px] w-full">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-150">arrow_back</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Facturation</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:block text-right">
+<p class="font-label-lg text-label-lg text-on-surface">Table 14</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Jean Dupont</p>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a hotel manager in a sharp charcoal suit against a minimalist, high-end lobby background. The lighting is soft and cinematic, creating a trustworthy and sophisticated atmosphere. The color palette is composed of deep blacks, soft whites, and subtle metallic accents, reflecting the premium hospitality brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB85bxTM1-89qAZMHjkG2xlLoO97AcyOFLOA_tFWQ3fQWxaENX90-qbDCY5RUgrUN4vrBbZjyOoUVnv3M1P9LW695VcJoJ59q7U-VFpHZCtbVDFkri1PpURlpWq5ppDuws9gHVdYeIEn-OygjiMHKzW3TpNzuZFmJahJgRuizYWy1w4uMP1XoW5gA25X9LlV2JkrpzFmcn3lYvCSKibV7YAhsdh3MZCmnBjvmNf6LBe41HX0Z_spaO4MA"/>
+</div>
+</div>
+</header>
+<main class="max-w-5xl mx-auto p-md grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Left Column: Bill Summary (Bento Style) -->
+<div class="lg:col-span-7 space-y-md">
+<section class="bg-white rounded-xl p-lg border border-outline-variant elevation-1">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Résumé des articles</h2>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">En cours</span>
+</div>
+<div class="space-y-xs">
+<!-- Bill Item -->
+<div class="flex justify-between py-md border-b border-surface-variant last:border-0 items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A gourmet close-up of a premium grilled steak with rosemary garnish, presented on a minimalist white ceramic plate. The lighting is sophisticated, emphasizing the texture of the meat and the richness of the colors. Professional food photography style, consistent with a luxury hotel restaurant aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFvToEDl9Mmi92Twk3N85-FTzjWo7pDyXQbJaZW4gjAK74FICtWg8nxpMxB-okQ6nrTSve6FVHfkoB1BvxCDGlzpDtx6CYJYhYKDpmdQpuuevsFcRLhn9NFti2KbPZFWbGm931KG_nR55p27y-4u4C1E_tjIs2FQIISOPbyKxnAIlBZKv_fV1u6_slRGmzne3tSZl4jrM1BaR6sB2kncPMWcgBVa3X2kID_UsZVTXHJFGH14sE4qiVlQ"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Filet de Capitaine Grillé</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Quantité: 2</p>
+</div>
+</div>
+<p class="font-label-lg text-label-lg text-primary">18 000 FCFA</p>
+</div>
+<!-- Bill Item -->
+<div class="flex justify-between py-md border-b border-surface-variant last:border-0 items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A vibrant, fresh tropical fruit salad served in a designer bowl. The composition features exotic fruits like mango and papaya, bathed in bright, natural morning light. The background is a clean, blurred hotel terrace, signifying a premium breakfast or brunch setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoqlRz6Mii3HHYOTqGs5U8nCsPQfk7jG_ENFq2d9bOyqIAflqSWbxwkgCk7JII_p6n593jdsekJ2FBr3FmZs28AhoIIpcmL3NZmztsLwvkwsAmdqDg5Pq9qIVEXCYfS6fCc4R1mnz81Uh46v5_ihSawTCq2m3pTJMs9-nYIm2cKmadqxH9RHksWU7Zzr4pGrmhg06gt1d4Eyzsir_mNh03_TLCyunzoBY7YVYJA9ydu5AGmLmN4rD1qw"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Salade de Fruits Exotiques</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Quantité: 1</p>
+</div>
+</div>
+<p class="font-label-lg text-label-lg text-primary">4 500 FCFA</p>
+</div>
+<!-- Bill Item -->
+<div class="flex justify-between py-md border-b border-surface-variant last:border-0 items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A chilled bottle of premium white wine resting in an elegant silver ice bucket. Condensation pearls on the glass, illuminated by soft golden evening light in a sophisticated bar environment. High-contrast, luxurious atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWTf7cZ82c7U0ympn-lcm_YDgu0El4GvUnm7bCa-PrNrV10wvu76WaMrGHAijnT634AOHsbNQHbnsS_CTcP9PQgM99dZp_E6dAD6NtDTlK0RO0iNtWxyGsqWuJ5vHK6RhynK4M8Z6Oc0bsglMfE5mQKzf3_4fLSSSmRi8YavBR0llsI9BPfa2t8KvmsJZ6t7ywhZ4jaPAwHsq7hJ9zA-sWS18iprIJfp2yplwrRJ_f9H9-07LvOAzRiA"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Chardonnay Réserve</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Quantité: 1</p>
+</div>
+</div>
+<p class="font-label-lg text-label-lg text-primary">25 000 FCFA</p>
+</div>
+</div>
+</section>
+<!-- Suggested Tips -->
+<section class="bg-white rounded-xl p-lg border border-outline-variant elevation-1">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-md">Pourboire suggéré</h3>
+<div class="grid grid-cols-4 gap-sm">
+<button class="flex flex-col items-center justify-center p-md border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all active:scale-95">
+<span class="font-headline-sm text-headline-sm">5%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 375</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md border-2 border-primary bg-surface-container-low rounded-lg transition-all active:scale-95">
+<span class="font-headline-sm text-headline-sm">10%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 750</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all active:scale-95">
+<span class="font-headline-sm text-headline-sm">15%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">7 125</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined">edit</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Autre</span>
+</button>
+</div>
+</section>
+</div>
+<!-- Right Column: Payment & Total -->
+<div class="lg:col-span-5 space-y-md">
+<!-- Totals Card -->
+<section class="bg-primary-container text-on-primary-container rounded-xl p-lg elevation-2 overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex justify-between mb-sm">
+<span class="font-body-md text-body-md opacity-80">Sous-total</span>
+<span class="font-body-md text-body-md">47 500 FCFA</span>
+</div>
+<div class="flex justify-between mb-sm">
+<span class="font-body-md text-body-md opacity-80">Taxes (18%)</span>
+<span class="font-body-md text-body-md">8 550 FCFA</span>
+</div>
+<div class="flex justify-between mb-lg">
+<span class="font-body-md text-body-md opacity-80">Pourboire</span>
+<span class="font-body-md text-body-md">4 750 FCFA</span>
+</div>
+<div class="h-px bg-on-primary-container opacity-20 mb-lg"></div>
+<div class="flex justify-between items-end">
+<span class="font-label-lg text-label-lg">Total à payer</span>
+<span class="font-headline-lg text-headline-lg text-white">60 800 FCFA</span>
+</div>
+</div>
+<!-- Subtle decorative element -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary-container opacity-5 rounded-full blur-3xl"></div>
+</section>
+<!-- Payment Methods -->
+<section class="bg-white rounded-xl p-lg border border-outline-variant elevation-1">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-lg">Méthode de Paiement</h3>
+<div class="space-y-sm">
+<button class="w-full flex items-center gap-md p-lg border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low active:scale-[0.98] payment-option-active" onclick="selectPayment(this)">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div class="text-left flex-1">
+<p class="font-label-lg text-label-lg">Espèces</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Paiement direct en caisse</p>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</button>
+<button class="w-full flex items-center gap-md p-lg border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low active:scale-[0.98]" onclick="selectPayment(this)">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+</div>
+<div class="text-left flex-1">
+<p class="font-label-lg text-label-lg">Carte Bancaire</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Visa, Mastercard, Amex</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0">check_circle</span>
+</button>
+<button class="w-full flex items-center gap-md p-lg border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low active:scale-[0.98]" onclick="selectPayment(this)">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">smartphone</span>
+</div>
+<div class="text-left flex-1">
+<p class="font-label-lg text-label-lg">Mobile Money</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Orange, MTN, Wave</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0">check_circle</span>
+</button>
+<button class="w-full flex items-center gap-md p-lg border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low active:scale-[0.98]" onclick="selectPayment(this)">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">bed</span>
+</div>
+<div class="text-left flex-1">
+<p class="font-label-lg text-label-lg">Note de la Chambre</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Chambre 402 - M. Dupont</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0">check_circle</span>
+</button>
+</div>
+</section>
+<!-- Final Confirmation Action -->
+<button class="w-full h-20 bg-primary text-white rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-md shadow-lg active:scale-95 transition-transform group">
+                CONFIRMER LE PAIEMENT
+                <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on desktop as per rules) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline shadow-lg flex justify-around items-center h-[80px] px-sm pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-sm text-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm">AI</span>
+</div>
+</nav>
+<script>
+        function selectPayment(element) {
+            // Remove active classes from all buttons
+            document.querySelectorAll('button[onclick="selectPayment(this)"]').forEach(btn => {
+                btn.classList.remove('payment-option-active');
+                const icon = btn.querySelector('.material-symbols-outlined:last-child');
+                if (icon) {
+                    icon.classList.add('opacity-0');
+                    icon.classList.remove('text-primary');
+                }
+            });
+
+            // Add active class to clicked button
+            element.classList.add('payment-option-active');
+            const activeIcon = element.querySelector('.material-symbols-outlined:last-child');
+            if (activeIcon) {
+                activeIcon.classList.remove('opacity-0');
+                activeIcon.classList.add('text-primary');
+            }
+        }
+    </script>
+</body></html>

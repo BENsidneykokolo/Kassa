@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Hôtel - Dashboard Manager</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#006c49",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-fixed": "#ffddb8",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container": "#eceef0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-container": "#2a1700",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container": "#eceef0",
+                    "on-tertiary-container": "#b87500",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline": "#76777d",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#565e74",
+                    "on-surface": "#191c1e",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary-container": "#00714d",
+                    "on-background": "#191c1e",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            user-select: none;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+        .bento-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 6px rgba(15, 23, 42, 0.12);
+        }
+        .sparkline-container {
+            height: 40px;
+            width: 100px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none flex justify-between items-center px-margin-mobile md:px-lg h-14 w-full">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors p-2 rounded-full">menu</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container transition-colors p-2 rounded-full">search</button>
+<button class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container transition-colors p-2 rounded-full">notifications</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel general manager, dressed in a sharp charcoal suit, smiling confidently. The background is a blurred, high-end hotel lobby with warm ambient lighting and elegant marble textures. The lighting is soft and flattering, emphasizing a trustworthy and sophisticated professional identity consistent with a 5-star brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdSkqCgzVvbboSnSZz1H0qnBx0VwM6rQZPubH8t27sMiwSnP585sgq62KuNPndcUsMCiUCiC_8fKX-pdV7E-OMpmKaL0_fs3D6GpWfKdAlQlZ3T9-iyxyNV-pdeOKceyx122sXgNXP88mTosOlvi4MH5OaUIMzy36TrpV2ITTxCrOuU4IGmbUKcjut0TVB3mToRojHuFdnumupe2rH8G1NkkWbLFDRd3paUgFkupFBfmEBYrkGXJ7s5A"/>
+</div>
+</div>
+</header>
+<!-- Navigation Drawer (Desktop only) -->
+<aside class="hidden md:flex fixed left-0 top-14 bottom-0 w-72 bg-surface-container-low dark:bg-inverse-surface shadow-xl flex-col py-lg z-30">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-md mb-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a luxury hotel manager avatar, professional and approachable. Soft studio lighting, minimalist corporate style, high-end hospitality aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRvsToOGycy6FQuF-2pBZHmBKNg_p4WixQ-_izfllStDBgL4Z7odAkro8S11loDglh5EJypw83Mg_EtrtUF8Zu_Lrrtjqweskajy-3UEMgfrtlfthNMx1q3XpTxi1fKZ-eEYnBaKwGZdtK4vt30jPhkS5Oo1v3UTy3W6vaZn2yyjq7EvHZGQSBUhf2OavEsXKFXZKLx5uPGpQLqTw7BZ-rgDy1nhlu48q1Ul3_WlA7CHyVYFlmh7k46w"/>
+</div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">General Manager</p>
+<p class="text-label-sm text-on-surface-variant">Yabisso Grand Hotel</p>
+</div>
+</div>
+<div class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant opacity-60 px-xs">Admin Level</div>
+</div>
+<nav class="flex-1 space-y-1 px-sm">
+<a class="flex items-center gap-md bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-md py-sm transition-transform Active:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg font-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-lg font-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg font-label-lg">Stocks</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-lg font-label-lg">CRM</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="text-label-lg font-label-lg">Maintenance</span>
+</a>
+<div class="pt-lg px-md">
+<div class="h-[1px] bg-outline-variant opacity-30"></div>
+</div>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg font-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 md:pl-80 md:pr-8 px-4 min-h-screen">
+<!-- Welcome Header -->
+<div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Tableau de Bord</h2>
+<p class="text-body-md text-on-surface-variant">Bienvenue, voici l'état de votre établissement ce matin.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-highest rounded-lg text-label-md font-label-md hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                    Aujourd'hui, 24 Mai
+                </button>
+<button class="flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded-lg text-label-md font-label-md shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Nouvelle Réservation
+                </button>
+</div>
+</div>
+<!-- Bento Grid Stats -->
+<div class="bento-grid">
+<!-- Revenue Main Card -->
+<div class="bento-card col-span-12 lg:col-span-8 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Chiffre d'affaires (24h)</p>
+<h3 class="text-headline-lg font-bold text-primary">12.450.000 FCFA</h3>
+<div class="flex items-center gap-xs text-secondary mt-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="text-label-sm font-bold">+12.4% vs hier</span>
+</div>
+</div>
+<div class="sparkline-container bg-secondary-container/20 rounded flex items-end justify-around p-1">
+<div class="w-1 bg-secondary rounded-t" style="height: 40%"></div>
+<div class="w-1 bg-secondary rounded-t" style="height: 60%"></div>
+<div class="w-1 bg-secondary rounded-t" style="height: 35%"></div>
+<div class="w-1 bg-secondary rounded-t" style="height: 70%"></div>
+<div class="w-1 bg-secondary rounded-t" style="height: 90%"></div>
+<div class="w-1 bg-secondary rounded-t" style="height: 65%"></div>
+<div class="w-1 bg-secondary rounded-t" style="height: 85%"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md pt-md border-t border-outline-variant/30">
+<div>
+<p class="text-label-sm text-on-surface-variant">Hébergement</p>
+<p class="text-label-lg font-bold">8.2M FCFA</p>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant">Restaurant</p>
+<p class="text-label-lg font-bold">2.8M FCFA</p>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant">Bar &amp; Lounge</p>
+<p class="text-label-lg font-bold">1.1M FCFA</p>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant">Spa &amp; Services</p>
+<p class="text-label-lg font-bold">350K FCFA</p>
+</div>
+</div>
+</div>
+<!-- Occupancy Circular Card -->
+<div class="bento-card col-span-12 md:col-span-6 lg:col-span-4 flex flex-col items-center justify-center text-center">
+<p class="text-label-md font-bold text-on-surface-variant mb-md uppercase">Occupation des chambres</p>
+<div class="relative w-32 h-32 mb-md">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-secondary transition-all duration-1000" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="54.6" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-headline-md font-bold">85%</span>
+</div>
+</div>
+<p class="text-body-md">102 / 120 chambres occupées</p>
+<div class="mt-sm flex gap-sm">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold">OPTIMAL</span>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="bento-card col-span-6 md:col-span-3 lg:col-span-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-on-primary-fixed">bed</span>
+</div>
+<p class="text-label-sm text-on-surface-variant">Chambres libres</p>
+<h4 class="text-headline-sm font-bold">18</h4>
+<p class="text-[10px] text-error mt-xs">Besoin ménage: 5</p>
+</div>
+<div class="bento-card col-span-6 md:col-span-3 lg:col-span-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-on-secondary-container">login</span>
+</div>
+<p class="text-label-sm text-on-surface-variant">Arrivées du jour</p>
+<h4 class="text-headline-sm font-bold">24</h4>
+<p class="text-[10px] text-on-surface-variant mt-xs">VIP: 4</p>
+</div>
+<div class="bento-card col-span-6 md:col-span-3 lg:col-span-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-on-surface-variant">logout</span>
+</div>
+<p class="text-label-sm text-on-surface-variant">Départs</p>
+<h4 class="text-headline-sm font-bold">12</h4>
+<p class="text-[10px] text-secondary mt-xs">Libérées: 8</p>
+</div>
+<div class="bento-card col-span-6 md:col-span-3 lg:col-span-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-on-tertiary-fixed">psychology</span>
+</div>
+<p class="text-label-sm text-on-surface-variant">Insights IA</p>
+<h4 class="text-headline-sm font-bold">3 New</h4>
+<p class="text-[10px] text-on-surface-variant mt-xs">Prévision +15%</p>
+</div>
+<!-- Recent Activity -->
+<div class="bento-card col-span-12 lg:col-span-6 overflow-hidden flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h3 class="text-label-lg font-bold uppercase tracking-wide">Activité Récente</h3>
+<button class="text-label-sm text-secondary font-bold">Voir tout</button>
+</div>
+<div class="space-y-4 custom-scrollbar overflow-y-auto max-h-[300px] pr-2">
+<div class="flex items-center gap-md p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md font-bold">Check-in: M. Koffi (Suite 402)</p>
+<p class="text-label-sm text-on-surface-variant">Il y a 15 minutes • Réception</p>
+</div>
+<div class="text-label-sm font-bold text-secondary">+450k FCFA</div>
+</div>
+<div class="flex items-center gap-md p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md font-bold">Paiement Restaurant - Table 12</p>
+<p class="text-label-sm text-on-surface-variant">Il y a 42 minutes • POS Restaurant</p>
+</div>
+<div class="text-label-sm font-bold text-primary">+85k FCFA</div>
+</div>
+<div class="flex items-center gap-md p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md font-bold">Check-in: Mme Diallo (Standard 105)</p>
+<p class="text-label-sm text-on-surface-variant">Il y a 1h • Réception</p>
+</div>
+<div class="text-label-sm font-bold text-secondary">+120k FCFA</div>
+</div>
+</div>
+</div>
+<!-- Important Alerts -->
+<div class="bento-card col-span-12 lg:col-span-6 flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h3 class="text-label-lg font-bold uppercase tracking-wide text-error">Alertes Critiques</h3>
+<span class="bg-error text-on-error text-[10px] font-bold px-2 py-0.5 rounded-full">4 ACTIONS</span>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-error-container/40 border border-error/20 rounded-xl flex items-start gap-md">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div>
+<p class="text-label-lg font-bold text-on-error-container">Stock Bas: Champagnes</p>
+<p class="text-body-md text-on-error-container/80">Moins de 5 bouteilles de Dom Pérignon en stock Bar.</p>
+<button class="mt-sm text-label-sm font-bold underline">Commander maintenant</button>
+</div>
+</div>
+<div class="p-3 bg-tertiary-fixed/20 border border-on-tertiary-fixed-variant/20 rounded-xl flex items-start gap-md">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant mt-0.5">build</span>
+<div>
+<p class="text-label-lg font-bold text-on-tertiary-fixed-variant">Maintenance requise: Ascenseur B</p>
+<p class="text-body-md text-on-tertiary-fixed-variant/80">Signalement bruit anormal. Technicien attendu à 14:00.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- F&B Performance -->
+<div class="bento-card col-span-12">
+<h3 class="text-label-lg font-bold uppercase tracking-wide mb-lg">Performance Restauration &amp; Bar</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Restaurant Card -->
+<div class="relative group overflow-hidden rounded-xl h-48">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="High-end hotel restaurant interior at dinner time. Warm golden lighting, fine dining table settings, blurred chefs in an open kitchen in the background. Elegant and busy atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEtfchDzAemTL778RuR74V9NmfUW7HEVzezI8j9WIYnlLyjKRevokTW2zkGfqZ37Slj_ypMxLpmtlJtYeW11BVA5x3Lknsvs_oxKfgcVhhuy9-1auGdlp8NmWqmmx-bgVteYqBNV_6YMLyDErlv0YvYGwQKkwW-iAwazQ4pg4END72JHvUk3-DOuKUO9YrZ1lsYcvXjqfHKiP05HGHon0l4Ki-LuEzSn_59Pkksq_GfCbq_I7Yq7seVA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md text-white">
+<p class="text-label-md font-bold uppercase">Restaurant Gastronomique</p>
+<p class="text-headline-sm font-bold">2.8M FCFA Today</p>
+<div class="flex items-center gap-xs mt-1">
+<span class="material-symbols-outlined text-sm">groups</span>
+<span class="text-label-sm">45 Couverts</span>
+</div>
+</div>
+</div>
+<!-- Bar Card -->
+<div class="relative group overflow-hidden rounded-xl h-48">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A sophisticated luxury hotel bar at night. Glow of premium liquor bottles on glass shelves, dim moody lighting, a bartender crafting a cocktail. Modern chic aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBho6WqOEdloyXUmn9B_AYLA36PxPirU5_k5joN18zJ7BivLLDUiG2dpo1TJVK2FiIoMuKfq-1lr1w0lYp9JTYuwHsuCgVsCfInrFepn65uSSkMSqAX5FHAwlRuV9WxQ2dinEOMdSKfqDwskuZ41BCr46o_LFylX66HYsli0wb3BOY3uXmXVkb_SN2DVJRZXhSygl5B6buWiNe31XoqYw6DleNMVKmHfUpql1UpYMufhcSYfnzkvpYvHw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md text-white">
+<p class="text-label-md font-bold uppercase">SkyBar &amp; Lounge</p>
+<p class="text-headline-sm font-bold">1.1M FCFA Today</p>
+<div class="flex items-center gap-xs mt-1">
+<span class="material-symbols-outlined text-sm">local_bar</span>
+<span class="text-label-sm">Peak: 22h00</span>
+</div>
+</div>
+</div>
+<!-- Room Service Card -->
+<div class="relative group overflow-hidden rounded-xl h-48">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Elegant room service tray with breakfast including croissants, fresh fruit, and coffee, positioned on a luxury hotel bed with white linens. Morning sunlight streaming in." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCv9aSqp_zPEn-ManiPmIsAO2D2psIWy5R8024D_PZBCbFnlCFKlFsjw03xALrNbB6L-rJ0mQqNUjqJ0RHqEj6rw_VBbKTucuucaOU4ip5OV8kjYv3M774QKG27OoVEA8wvNXP1os6Sx1U4x4o6kWEQ-1d_tRX1wo3RnppzTSXn-3x3NrR2Orovcfq2i_czuZQ3vfRxufBirj7hEEe_V6f83ZX_wHK0Pu5_QJ3_yn1pgRIro44dke_91w')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md text-white">
+<p class="text-label-md font-bold uppercase">Room Service</p>
+<p class="text-headline-sm font-bold">350k FCFA Today</p>
+<div class="flex items-center gap-xs mt-1">
+<span class="material-symbols-outlined text-sm">room_service</span>
+<span class="text-label-sm">12 Commandes</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface dark:bg-inverse-surface shadow-[0px_-2px_10px_rgba(0,0,0,0.05)] flex justify-around items-center h-16 w-full px-xs pb-safe">
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 scale-95 duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm-mobile">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-sm font-label-sm-mobile">Rooms</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="text-label-sm font-label-sm-mobile">POS</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-label-sm font-label-sm-mobile">Staff</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-label-sm font-label-sm-mobile">AI</span>
+</button>
+</nav>
+<!-- Contextual FAB (Dashboard relevant) -->
+<button class="fixed bottom-20 right-6 md:bottom-10 md:right-10 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform z-40">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<script>
+        // Simple Micro-interaction for hover states and transitions
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential hover effects logic
+            });
+        });
+
+        // Dark/Light mode toggle (basic implementation)
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+        
+        // Simulating some real-time data updates
+        setInterval(() => {
+            const revenueElement = document.querySelector('h3.text-headline-lg');
+            if (revenueElement) {
+                let current = parseInt(revenueElement.innerText.replace(/\D/g, ''));
+                let change = Math.floor(Math.random() * 50000) - 10000;
+                let newVal = (current + change).toLocaleString('fr-FR');
+                revenueElement.innerText = newVal + ' FCFA';
+            }
+        }, 10000);
+    </script>
+</body></html>

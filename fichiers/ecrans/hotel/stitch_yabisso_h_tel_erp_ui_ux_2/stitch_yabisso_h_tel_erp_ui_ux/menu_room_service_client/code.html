@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Menu Room Service - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-container": "#2a1700",
+                        "primary-container": "#131b2e",
+                        "outline": "#76777d",
+                        "surface-tint": "#565e74",
+                        "primary": "#000000",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#45464d",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-fixed": "#2a1700",
+                        "background": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#b87500",
+                        "inverse-primary": "#bec6e0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#006c49",
+                        "outline-variant": "#c6c6cd",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#6cf8bb",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#00714d",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary": "#000000",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-bright": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm flex items-center justify-between px-md h-14">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim active:scale-95 transition-transform" data-icon="menu">menu</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a hotel staff member in a clean, modern uniform, set against a blurred background of a luxury hotel lobby. The lighting is warm and welcoming, reflecting high-end hospitality standards. The image quality is sharp and the aesthetic is minimalist and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzSeG6Q5Vgb8l3bpzxGCRIeGuAJe7t1FFtNGMOn8QUHTkuwLgdzmd1Hq10vmbgKPROcg1ZpCEW6Ldg-ShHeXY63bwYsWwN6kFP0m3J97hKrQZhRJvPCnCM7wGeWa4vXhVoheULfNid-J2XHJkE4fBQ9oOngbk7aJ_YHnjTZ-dBWX56mDoy-FTQuot9LTplIHdpaGRELa6QrxaBXczJnek3Aivb90JvyMu6ACxCJIUdY3RidzkIGbyqFg"/>
+</div>
+</div>
+</header>
+<main class="mt-14 px-md py-lg max-w-4xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Menu Room Service</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Dégustez une cuisine raffinée dans l'intimité de votre chambre.</p>
+</section>
+<!-- Category Tabs -->
+<nav class="flex overflow-x-auto gap-sm pb-md no-scrollbar sticky top-14 bg-surface/95 backdrop-blur-sm z-40 py-md -mx-md px-md">
+<button class="bg-primary text-on-primary px-lg py-sm rounded-full font-label-lg text-label-lg whitespace-nowrap active:scale-95 transition-all">Petit Déjeuner</button>
+<button class="bg-surface-container-high text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Déjeuner</button>
+<button class="bg-surface-container-high text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Dîner</button>
+<button class="bg-surface-container-high text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Menu de Nuit</button>
+<button class="bg-surface-container-high text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Boissons</button>
+</nav>
+<!-- Bento Style Menu Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mt-md">
+<!-- Menu Item 1: Breakfast Special -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)] transition-all hover:shadow-lg">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-angle studio photograph of a gourmet continental breakfast tray on premium white linens. The tray features a freshly baked, flaky croissant, a small bowl of vibrant red seasonal berries, a glass of freshly squeezed orange juice, and a sleek black ceramic cup of steaming coffee. The lighting is bright and airy, emphasizing a luxurious morning atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyyLOsebz7gEhcxpCof6-WmZMctsM4NeoqMvQeXgaT61uZGKdrjWGoCNVAHnDz8tsD48zajxmQ7OznBzJUgdl_Kltk-0cS-7UZDYn2M_55gKASohQC2aB2xhWG3rq_oPiJ6FesFl7RoU_lwQw7TVnTFiylYQ56HTXBDIId1Ds_MMYY4z4wL8kRU19p9KuzGeozJloVzrtxMnjn0MzbVZLVt22W3aMOwLQau8qxJlWa1bxrd3YQG2Fpvg"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-lg font-label-sm text-label-sm shadow-sm">Populaire</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Petit Déjeuner Continental</h3>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">24 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Croissants frais, assortiment de pains, fruits de saison, jus d'orange pressé et café ou thé.</p>
+<button class="mt-sm flex items-center justify-center gap-xs bg-primary text-on-primary py-sm rounded-lg font-label-lg text-label-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Ajouter au Panier
+                    </button>
+</div>
+</div>
+<!-- Menu Item 2 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)] transition-all hover:shadow-lg">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Exquisite Eggs Benedict presented on a minimalist charcoal-colored plate. Two perfectly poached eggs sit atop artisanal ham and toasted English muffins, draped in a silky, vibrant yellow Hollandaise sauce. Garnished with fresh micro-greens. The aesthetic is clean, professional, and culinary-focused, utilizing a palette of deep greys and warm food tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxCU3O2IDJHiGO9_U5TkWdiC4T-oS6p7TPzo9NROLjQdCNIjz3kty67qeYgsspPn5x34UHl_Mlintxr0KXdetQsBHezOMGhkcZIq_jUgnzFrxNRf-UVGYEQXsblRxBBxhUuLR5PYm6r5UwdJfKWDzmTinsuhQ5OASdfUEGTSErJcDH3MKm5nPwrx8Z2w6TNiCU4Ctgj48AGRH00FuSJg8cU4oQeDiXUWBp4LI40N9HVEFwNS3t21H8Mw"/>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Œufs Bénédicte</h3>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">18 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Œufs pochés, jambon de pays, muffin anglais toasté et sauce hollandaise onctueuse.</p>
+<button class="mt-sm flex items-center justify-center gap-xs bg-primary text-on-primary py-sm rounded-lg font-label-lg text-label-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Ajouter au Panier
+                    </button>
+</div>
+</div>
+<!-- Menu Item 3 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)] transition-all hover:shadow-lg">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A gourmet avocado toast on thick-cut sourdough bread, topped with vibrant mashed avocado, crumbled feta cheese, and toasted pumpkin seeds. Soft morning light creates gentle shadows on a light marble tabletop. The presentation is modern and healthy, following a clean-eating aesthetic with bright greens and neutral textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfS6hIbTiP7y0A6pLv1QiUnDscIQIGKLC7kDmmKw1Jy4y2AQKfTc8HyTy92ZP5DwkyZ0zEmCp8ttKcf_EZkntOwEmvxJ4nXcNAD4Z77f2YDaT1NM8LExz9Dw6KEcVJyyLlXX9FmKz7TNkeusqv3QYrE3zFlhvZEgfq6_2GhJbddbEOpQdJ6OIVkICV3hua962xvkA534Yjp-_QWZLIdfuWPI9CK1kYTPNiZBDPj6Vnd2LvaQL_LCBc2Q"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-surface-container-highest text-on-surface-variant px-sm py-xs rounded-lg font-label-sm text-label-sm shadow-sm">Healthy</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Avocado Toast Signature</h3>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">16 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Pain au levain, avocat écrasé, graines de courge, grenade et feta affinée.</p>
+<button class="mt-sm flex items-center justify-center gap-xs bg-primary text-on-primary py-sm rounded-lg font-label-lg text-label-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Ajouter au Panier
+                    </button>
+</div>
+</div>
+<!-- Menu Item 4 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-[0px_1px_3px_rgba(15,23,42,0.08)] transition-all hover:shadow-lg">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A stack of fluffy buttermilk pancakes drizzled with golden maple syrup and topped with fresh blueberries. A pat of melting butter sits on top. Captured in a high-key lighting style with a soft-focus background, suggesting a luxurious and comforting weekend brunch experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjgVG0OzmsnBhfMllz75A5iM_KQGJDvbZFy050BVKdcu_JShLrVsdNXl6j-ZXz98dufASRTS6Ko31b6vvZeQzV_ZspVY01I5zU4gZ2wtHtlOEMt2V5d3eYT_HKI_VA-i5nbPkibhTWABAUyoirRK_HowuKiMNhqfHy6USjswD6Rqh3FfS6g-X6IVQVNYpD_8l2m437QG9IIGT7aPQHVo5epYYaAuC9FBDui5bl1TBxefz64t2sipHbzQ"/>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pancakes aux Myrtilles</h3>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">14 €</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Trois pancakes moelleux, sirop d'érable du Vermont et myrtilles fraîches.</p>
+<button class="mt-sm flex items-center justify-center gap-xs bg-primary text-on-primary py-sm rounded-lg font-label-lg text-label-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Ajouter au Panier
+                    </button>
+</div>
+</div>
+</div>
+<!-- Featured Section (Asymmetric) -->
+<section class="mt-xl">
+<div class="bg-primary-container text-on-primary-container rounded-2xl p-lg flex flex-col md:flex-row gap-lg items-center overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10">
+<span class="material-symbols-outlined text-[128px]" data-icon="restaurant">restaurant</span>
+</div>
+<div class="flex-1 z-10">
+<h3 class="font-headline-md text-headline-md mb-xs text-white">Suggestion du Chef</h3>
+<p class="font-body-lg text-body-lg text-on-primary-container/80 mb-md">Découvrez notre Tartare de Bœuf préparé à la minute avec des herbes fraîches et ses frites maison.</p>
+<button class="bg-secondary-container text-on-secondary-container px-lg py-sm rounded-full font-label-lg text-label-lg active:scale-95 transition-all">Détails &amp; Commande</button>
+</div>
+<div class="w-full md:w-64 h-48 rounded-xl overflow-hidden z-10 border border-white/10">
+<img class="w-full h-full object-cover" data-alt="A high-end restaurant presentation of Beef Tartare, garnished with a quail egg yolk and micro-herbs. Served with thin, crispy golden fries and a side of Dijon mustard. The lighting is moody and sophisticated, highlighting the textures and vibrant colors of the premium ingredients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCrZxz5_oakFyE8zNUjsGBmVtlr3_NdkFHsFI2Jxcww6LGEuZ7BBQXT7rNrvWKdJh99k9bzO57s9mOdhqRzQjDZCC4oQEbCqKaxV9YeKKY9GywTy0TkFTgCq2SwRBa8KhS3RQ6Ta0ZAPRc5PRRaHs8_KR5At1hvLxxUG2pztKSReOKt0Ga1zAOGZSYaglWc8DWR847ISpj9cKZzlHIKk-AgKZ_VJq_sFwJrip8BSa50-2_iDrJp6br8g"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button: View Cart -->
+<div class="fixed bottom-24 right-md z-50">
+<button class="flex items-center gap-sm bg-secondary text-on-secondary px-lg py-md rounded-full shadow-lg active:scale-90 transition-transform" id="cart-fab">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+<span class="font-label-lg text-label-lg">Voir le Panier (2)</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface dark:bg-surface-container-lowest shadow-[0px_-1px_3px_rgba(15,23,42,0.08)] flex justify-around items-center h-16 px-4 pb-safe">
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm-mobile">Menu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm-mobile">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="countertops">countertops</span>
+<span class="font-label-sm text-label-sm-mobile">Kitchen</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm-mobile">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple Interaction logic for "Add" buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Ajouter')) {
+                btn.addEventListener('click', function() {
+                    const originalText = this.innerHTML;
+                    this.classList.replace('bg-primary', 'bg-secondary');
+                    this.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Ajouté';
+                    
+                    // Ripple effect or visual feedback
+                    setTimeout(() => {
+                        this.classList.replace('bg-secondary', 'bg-primary');
+                        this.innerHTML = originalText;
+                    }, 2000);
+                });
+            }
+        });
+
+        // Floating Cart Pulse Animation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const fab = document.getElementById('cart-fab');
+            if (fab) {
+                fab.classList.add('animate-bounce');
+                setTimeout(() => fab.classList.remove('animate-bounce'), 1000);
+            }
+        });
+    </script>
+</body></html>

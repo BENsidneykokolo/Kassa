@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administrative Control - Security Logs</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hanken+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Injection -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-high": "#e6e8ea",
+                    "on-surface-variant": "#45464d",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-tertiary-fixed": "#001e2f",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#000000",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7f9fb",
+                    "primary-container": "#131b2e",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary": "#515f74",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "tertiary-container": "#001e2f",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "secondary-container": "#d5e3fd",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "on-tertiary-container": "#008cc7",
+                    "error-container": "#ffdad6",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "surface-tint": "#565e74",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#57657b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "sidebar-width": "280px",
+                    "container-padding": "24px",
+                    "section-gap": "32px",
+                    "unit": "4px",
+                    "stack-lg": "24px",
+                    "stack-xs": "4px",
+                    "stack-sm": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        body {
+            background-color: #f8fafc; /* Slate background from style guide */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface-container-highest flex justify-between items-center px-container-padding h-16 z-40 border-b border-outline-variant">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary font-bold">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Administrative Control</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="hidden md:flex items-center gap-stack-md px-stack-md">
+<span class="text-on-surface-variant font-label-md text-label-md">Status: <span class="text-on-tertiary-container font-bold">SYSTEM_ONLINE</span></span>
+</div>
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container-high flex items-center justify-center border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional user avatar for a high-ranking system architect. The image is a crisp, medium-shot portrait with soft, neutral lighting against a clean, modern studio background. The style is minimalist and corporate, reflecting an authoritative yet accessible persona within a high-stakes security environment. Cohesive slate and navy tones dominate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ2mcXMGdodipVqBmwO3WeXZMAySlTIrDujeXRHxJ7AFsfBqJLUa4RFnvUdvq2_XLHyZfY15h_d7jKeWHYFvVLHrOcwMAIutzFTGDIC2_jtDz-gGYIlCPVHaRgePProUCFtr4OQiOrt0E7BAV7ErVqKZszeyAAoLohcOJxF7O1YI52JGuFOVh7b_bv1HKEm42VEnW4K549i441B_pQrnjtWdLTK9WDtrNwVTEtje7hXil9DnHi4SgbGw"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- NavigationDrawer (Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-sidebar-width bg-surface-container-low flex-col p-stack-md border-r border-outline-variant">
+<!-- Profile Section -->
+<div class="flex flex-col mb-stack-lg pb-stack-md border-b border-outline-variant">
+<div class="flex items-center gap-stack-sm mb-stack-xs">
+<span class="font-headline-sm text-headline-sm font-black text-primary">SEC-OPS</span>
+</div>
+<div class="text-body-md font-bold text-primary">System Architect</div>
+<div class="text-label-sm text-on-surface-variant">Security Tier 1 • Active Session</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex flex-col gap-unit">
+<a class="flex items-center gap-stack-sm px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">User List</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">shield_person</span>
+<span class="font-body-md text-body-md">Role Management</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-md py-stack-sm bg-secondary-container text-on-secondary-container font-bold rounded-full" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-body-md text-body-md">Security Logs</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span class="font-body-md text-body-md">Access Requests</span>
+</a>
+</nav>
+<div class="mt-auto p-stack-md bg-surface-container-high rounded-lg border border-outline-variant">
+<div class="flex items-center gap-stack-sm text-on-surface-variant mb-unit">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-md text-label-md">Audit Integrity</span>
+</div>
+<div class="text-[11px] text-on-surface-variant opacity-75">All logs are cryptographically signed and stored for 365 days.</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-sidebar-width p-container-padding pb-32 md:pb-container-padding overflow-x-hidden">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mb-stack-lg">
+<div>
+<h2 class="font-display-lg text-display-lg text-primary">System Audit Log</h2>
+<p class="font-body-md text-on-surface-variant">Real-time oversight of administrative actions and sensitive data access.</p>
+</div>
+<div class="flex gap-stack-sm">
+<button class="bg-primary text-on-primary px-stack-md py-stack-sm rounded-lg font-body-md font-bold flex items-center gap-unit hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">download</span>
+                        Export CSV
+                    </button>
+<button class="border border-outline text-on-surface-variant px-stack-md py-stack-sm rounded-lg font-body-md hover:bg-surface-container-high transition-colors">
+                        Refresh
+                    </button>
+</div>
+</div>
+<!-- Filters Bento -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-stack-lg">
+<div class="md:col-span-2 bg-white p-stack-md rounded-lg border border-outline-variant flex flex-col gap-stack-sm">
+<label class="font-label-md text-label-md text-primary font-bold">Search Activities</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-stack-md py-stack-sm bg-surface rounded border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary font-body-md outline-none transition-all" placeholder="Search by user, IP, or action..." type="text"/>
+</div>
+</div>
+<div class="bg-white p-stack-md rounded-lg border border-outline-variant flex flex-col gap-stack-sm">
+<label class="font-label-md text-label-md text-primary font-bold">Event Level</label>
+<select class="w-full px-stack-md py-stack-sm bg-surface rounded border border-outline-variant font-body-md outline-none">
+<option>All Events</option>
+<option>Critical Only</option>
+<option>Warnings</option>
+<option>Information</option>
+</select>
+</div>
+<div class="bg-white p-stack-md rounded-lg border border-outline-variant flex flex-col gap-stack-sm">
+<label class="font-label-md text-label-md text-primary font-bold">Date Range</label>
+<div class="flex items-center gap-unit">
+<input class="w-full px-stack-sm py-stack-sm bg-surface rounded border border-outline-variant font-body-sm outline-none" type="date"/>
+</div>
+</div>
+</div>
+<!-- Log Table -->
+<div class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="text-left px-stack-md py-stack-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Timestamp</th>
+<th class="text-left px-stack-md py-stack-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Operator</th>
+<th class="text-left px-stack-md py-stack-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Action</th>
+<th class="text-left px-stack-md py-stack-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Resource</th>
+<th class="text-left px-stack-md py-stack-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="text-left px-stack-md py-stack-sm font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Network/Device</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1: Critical -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-stack-md py-4 whitespace-nowrap">
+<div class="font-label-sm text-label-sm text-on-surface">2023-11-24</div>
+<div class="font-label-md text-label-md font-bold text-primary">14:22:09.432</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-stack-sm">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-bold text-[10px]">JD</div>
+<div>
+<div class="font-body-md font-bold text-primary">John Doe</div>
+<div class="text-[11px] text-on-surface-variant">Admin #402</div>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="font-body-sm font-semibold text-primary">REVOKE_ACCESS</span>
+</td>
+<td class="px-stack-md py-4 font-label-md text-on-surface-variant">
+                                    User::882 (Contractor_Dev)
+                                </td>
+<td class="px-stack-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-error-container text-on-error-container">
+                                        CRITICAL
+                                    </span>
+</td>
+<td class="px-stack-md py-4">
+<div class="font-label-md text-on-surface">192.168.1.42</div>
+<div class="text-[11px] text-on-surface-variant">macOS / Chrome 119</div>
+</td>
+</tr>
+<!-- Row 2: Standard -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-stack-md py-4 whitespace-nowrap">
+<div class="font-label-sm text-label-sm text-on-surface">2023-11-24</div>
+<div class="font-label-md text-label-md font-bold text-primary">13:58:12.110</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-stack-sm">
+<div class="w-8 h-8 rounded bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-[10px]">AS</div>
+<div>
+<div class="font-body-md font-bold text-primary">Alice Smith</div>
+<div class="text-[11px] text-on-surface-variant">Manager #119</div>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="font-body-sm font-semibold text-primary">RECORD_UPDATE</span>
+</td>
+<td class="px-stack-md py-4 font-label-md text-on-surface-variant">
+                                    Policy::PF_GLOBAL_01
+                                </td>
+<td class="px-stack-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-surface-container-highest text-on-surface-variant">
+                                        INFO
+                                    </span>
+</td>
+<td class="px-stack-md py-4">
+<div class="font-label-md text-on-surface">10.0.4.215</div>
+<div class="text-[11px] text-on-surface-variant">Windows 11 / Firefox</div>
+</td>
+</tr>
+<!-- Row 3: Warning -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-stack-md py-4 whitespace-nowrap">
+<div class="font-label-sm text-label-sm text-on-surface">2023-11-24</div>
+<div class="font-label-md text-label-md font-bold text-primary">13:45:00.002</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-stack-sm">
+<div class="w-8 h-8 rounded bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-bold text-[10px]">SM</div>
+<div>
+<div class="font-body-md font-bold text-primary">System Monitor</div>
+<div class="text-[11px] text-on-surface-variant">Automated Agent</div>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="font-body-sm font-semibold text-primary">FAILED_LOGIN</span>
+</td>
+<td class="px-stack-md py-4 font-label-md text-on-surface-variant">
+                                    AuthServer::Primary
+                                </td>
+<td class="px-stack-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+                                        WARNING
+                                    </span>
+</td>
+<td class="px-stack-md py-4">
+<div class="font-label-md text-on-surface">203.0.113.5</div>
+<div class="text-[11px] text-on-surface-variant">Linux / Unknown User Agent</div>
+</td>
+</tr>
+<!-- Row 4: Sensitive -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-stack-md py-4 whitespace-nowrap">
+<div class="font-label-sm text-label-sm text-on-surface">2023-11-24</div>
+<div class="font-label-md text-label-md font-bold text-primary">12:12:44.981</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-stack-sm">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-bold text-[10px]">JD</div>
+<div>
+<div class="font-body-md font-bold text-primary">John Doe</div>
+<div class="text-[11px] text-on-surface-variant">Admin #402</div>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="font-body-sm font-semibold text-primary">SENSITIVE_VIEW</span>
+</td>
+<td class="px-stack-md py-4 font-label-md text-on-surface-variant">
+                                    Vault::RootKey_Storage
+                                </td>
+<td class="px-stack-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-error-container text-on-error-container">
+                                        CRITICAL
+                                    </span>
+</td>
+<td class="px-stack-md py-4">
+<div class="font-label-md text-on-surface">192.168.1.42</div>
+<div class="text-[11px] text-on-surface-variant">macOS / Chrome 119</div>
+</td>
+</tr>
+<!-- Row 5: Logout -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-stack-md py-4 whitespace-nowrap">
+<div class="font-label-sm text-label-sm text-on-surface">2023-11-24</div>
+<div class="font-label-md text-label-md font-bold text-primary">11:05:30.221</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-stack-sm">
+<div class="w-8 h-8 rounded bg-on-primary-container text-white flex items-center justify-center font-bold text-[10px]">RB</div>
+<div>
+<div class="font-body-md font-bold text-primary">Robert Brown</div>
+<div class="text-[11px] text-on-surface-variant">Security #002</div>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="font-body-sm font-semibold text-primary">LOGOUT_SUCCESS</span>
+</td>
+<td class="px-stack-md py-4 font-label-md text-on-surface-variant">
+                                    Session::ID_A8F2K
+                                </td>
+<td class="px-stack-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-surface-container-highest text-on-surface-variant">
+                                        INFO
+                                    </span>
+</td>
+<td class="px-stack-md py-4">
+<div class="font-label-md text-on-surface">172.16.24.11</div>
+<div class="text-[11px] text-on-surface-variant">iOS / Safari Mobile</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between px-stack-md py-stack-sm bg-surface-container-low border-t border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant">Showing 1 to 5 of 1,284 entries</span>
+<div class="flex gap-stack-xs">
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary font-bold rounded">1</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded">2</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded">3</button>
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dashboard Metric Highlights (Bento cards for context) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mt-stack-lg">
+<div class="bg-white p-stack-md rounded-lg border border-outline-variant flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<div class="text-display-lg-mobile font-headline-md leading-none">12</div>
+<div class="text-label-sm text-on-surface-variant uppercase font-bold tracking-tighter">Critical Flags (24h)</div>
+</div>
+</div>
+<div class="bg-white p-stack-md rounded-lg border border-outline-variant flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<div class="text-display-lg-mobile font-headline-md leading-none">84</div>
+<div class="text-label-sm text-on-surface-variant uppercase font-bold tracking-tighter">Active Operators</div>
+</div>
+</div>
+<div class="bg-white p-stack-md rounded-lg border border-outline-variant flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<div class="text-display-lg-mobile font-headline-md leading-none">99.9%</div>
+<div class="text-label-sm text-on-surface-variant uppercase font-bold tracking-tighter">System Health Score</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest border-t border-outline-variant md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-label-md text-label-md">Roles</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+<span class="font-label-md text-label-md">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Row highlight pulse on new entry simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach((row, index) => {
+                row.addEventListener('click', () => {
+                    row.classList.add('bg-secondary-container');
+                    setTimeout(() => {
+                        row.classList.remove('bg-secondary-container');
+                    }, 500);
+                });
+            });
+
+            // Simulated real-time log injection visual effect
+            setInterval(() => {
+                const badge = document.querySelector('.bg-error-container');
+                if(badge) {
+                    badge.classList.toggle('opacity-80');
+                }
+            }, 1000);
+        });
+    </script>
+</body></html>

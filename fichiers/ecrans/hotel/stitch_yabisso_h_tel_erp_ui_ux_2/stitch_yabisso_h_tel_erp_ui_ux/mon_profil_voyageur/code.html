@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f7f9fb",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface-container-high": "#e6e8ea",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-variant": "#e0e3e5",
+                    "on-background": "#191c1e",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#00714d",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container": "#eceef0",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary": "#006c49",
+                    "outline-variant": "#c6c6cd",
+                    "secondary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#7c839b",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary-container": "#b87500",
+                    "inverse-primary": "#bec6e0",
+                    "on-tertiary-fixed": "#2a1700",
+                    "background": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#002113",
+                    "surface": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "on-surface-variant": "#45464d",
+                    "on-secondary-fixed-variant": "#005236",
+                    "outline": "#76777d",
+                    "primary": "#000000",
+                    "surface-tint": "#565e74",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#2a1700",
+                    "primary-container": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "unit": "4px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "xl": "32px",
+                    "gutter-mobile": "12px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-card {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface-bright dark:bg-surface-dim text-primary fixed top-0 w-full shadow-sm border-b border-outline-variant dark:border-outline z-50 flex justify-between items-center h-16 px-margin-mobile">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A sophisticated headshot of a premium hotel guest, a professional man in his 40s with a warm smile, set against a blurred luxury hotel lobby background. The lighting is soft and golden, emphasizing a high-end hospitality atmosphere with a clean, modern aesthetic that aligns with the LuxeStay brand colors of deep blue and white." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfunpVj_f_FBB2UHge4F3nYSZXwWERb_9X-pYSNK0rSeDJ7gHp6QZyirJIQZxXKEboMBAnEGUC28ebt3hCextTcEriyjothVPNCVdD4RnjVJnyGlzjyPBjU2ubRxBZSGqyRMV4-lsCf544C3SiG8-0KcCyfWCTFi__dXNZ-iC8fpe5CwwARd9DOi7ilcvVWOtdyEBxzXzN6wtq_JaZA2gwuIrgH7tmjKEHcogUqhlMZ8H9z3kw4zYQ1Q"/>
+</div>
+<span class="text-headline-md font-headline-md font-bold text-primary">LuxeStay Connect</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary cursor-pointer active:opacity-80 transition-colors hover:bg-surface-container-high p-2 rounded-full" data-icon="notifications">notifications</button>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile max-w-2xl mx-auto space-y-md">
+<!-- Welcome Hero (Asymmetric Bento) -->
+<section class="grid grid-cols-6 gap-sm mt-4">
+<div class="col-span-6 p-lg bg-primary-container text-on-primary-container rounded-xl shadow-[0px_1px_3px_rgba(15,23,42,0.08)]">
+<h1 class="font-headline-lg text-headline-lg mb-xs">Bienvenue, Jean-Pierre</h1>
+<p class="font-body-md text-body-md opacity-90">Heureux de vous revoir parmi nous.</p>
+<div class="mt-lg flex items-center justify-between bg-surface-container-lowest/10 p-md rounded-lg backdrop-blur-sm">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-primary-container/70">Statut de connexion</span>
+<span class="font-headline-sm text-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">wifi</span>
+                            Accès Illimité
+                        </span>
+</div>
+<div class="h-12 w-px bg-on-primary-container/20"></div>
+<div class="flex flex-col text-right">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-primary-container/70">Session active</span>
+<span class="font-headline-sm text-headline-sm">Premium</span>
+</div>
+</div>
+</div>
+<!-- Loyalty Tier Card -->
+<div class="col-span-3 aspect-square bg-tertiary-fixed text-on-tertiary-fixed rounded-xl p-md flex flex-col justify-between shadow-[0px_1px_3px_rgba(15,23,42,0.08)] relative overflow-hidden bento-card">
+<span class="material-symbols-outlined absolute -top-2 -right-2 text-8xl opacity-10" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-label-lg text-label-lg">Membre Or</span>
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg">12,450</span>
+<span class="font-label-sm text-label-sm">points cumulés</span>
+</div>
+</div>
+<!-- Next Reward Card -->
+<div class="col-span-3 aspect-square bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col justify-between shadow-[0px_1px_3px_rgba(15,23,42,0.08)] bento-card">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Prochain Niveau</span>
+<div class="w-full">
+<div class="flex justify-between font-label-sm text-label-sm mb-xs">
+<span>Platine</span>
+<span>75%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 75%;"></div>
+</div>
+<p class="font-label-sm text-label-sm mt-sm text-on-surface-variant">Plus que 2,550 pts</p>
+</div>
+</div>
+</section>
+<!-- Exclusive Offers Section -->
+<section class="space-y-sm">
+<h2 class="font-headline-sm text-headline-sm px-1">Offres Privilèges</h2>
+<!-- Horizontal Scroll/List of Offers -->
+<div class="space-y-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-[0px_1px_3px_rgba(15,23,42,0.08)] flex flex-row h-32 bento-card">
+<div class="w-1/3 h-full">
+<img class="w-full h-full object-cover" data-alt="A top-down view of a gourmet breakfast spread in a minimalist luxury hotel setting, featuring a steaming croissant, fresh berries, and artisan coffee. The lighting is bright and airy, reflecting a morning sunlit ambiance. The aesthetic is clean and modern, highlighting a premium hospitality experience with focus on quality and elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkYXUBTzmWWIMDKxw703BIIQ-kSE6JapmLC10XDcF7SmVde40iri54pTQFMCfBkVh_b23Emv4du_qSaYzUshh-88kpTl4ZdMGNgjjyAcseBNY2O3U8Edncg0rQuP4mLY5w6Xu83fQ6lELQOAapbBbJhGrAW6SNS_5eZvMR3MNWJrX_ztWNqbxxeNUXZ_cTFqG8cBT4Vwa1eJGckeNVgtaYjs6jZkJZi-AL-jWzaw2G7Y23-3YH8WYsjg"/>
+</div>
+<div class="w-2/3 p-md flex flex-col justify-between">
+<div>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-label-sm text-label-sm">Petit-déjeuner</span>
+<h3 class="font-label-lg text-label-lg mt-xs">Buffet offert demain</h3>
+</div>
+<button class="text-primary font-label-lg flex items-center gap-1 active:opacity-60 transition-opacity">
+                            Réclamer <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-[0px_1px_3px_rgba(15,23,42,0.08)] flex flex-row h-32 bento-card">
+<div class="w-1/3 h-full">
+<img class="w-full h-full object-cover" data-alt="A serene spa environment with stacked smooth basalt stones and a white orchid in the background. The scene is softly lit with warm, ambient light creating a tranquil, high-end wellness atmosphere. The colors are muted and sophisticated, reflecting a premium luxury spa aesthetic within a modern minimalist design context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsQRPw3RZ53BOJKpVjoC6vx937rJuS7xBGninXf2luP4ruBn0lv6A2ft61t5zutdcosklnydlPwaaT6GXWgYyDZw2mcKkF9gdzT-wWmF1VCsE1H8KHbiewIXtq2G4ltD6hLbd_mRCUOVRF6RSyD3IW8tVoy46Puizm4XsWaho8wzoy2TT6b7RvKV8j-8YC7FENmDUmoEWzOyty9JC50oWG_NmqQEuSr7oZcIi30ksX-7yh-3kdB0Hmkg"/>
+</div>
+<div class="w-2/3 p-md flex flex-col justify-between">
+<div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-0.5 rounded-full font-label-sm text-label-sm">Bien-être</span>
+<h3 class="font-label-lg text-label-lg mt-xs">-20% sur les soins Spa</h3>
+</div>
+<button class="text-primary font-label-lg flex items-center gap-1 active:opacity-60 transition-opacity">
+                            Découvrir <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Connectivity & Services List -->
+<section class="bg-surface-container rounded-xl p-md space-y-md">
+<h2 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest px-1">Gestion du Séjour</h2>
+<div class="space-y-xs">
+<div class="flex items-center justify-between p-md bg-surface-container-lowest rounded-lg border border-outline-variant/50 bento-card">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="room_service">room_service</span>
+<span class="font-body-md text-body-md">Service en chambre</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</div>
+<div class="flex items-center justify-between p-md bg-surface-container-lowest rounded-lg border border-outline-variant/50 bento-card">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="event_note">event_note</span>
+<span class="font-body-md text-body-md">Mes réservations</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</div>
+<div class="flex items-center justify-between p-md bg-surface-container-lowest rounded-lg border border-outline-variant/50 bento-card">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Paramètres Wi-Fi</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-4 bg-surface-container-lowest dark:bg-surface-container-high shadow-[0px_-4px_6px_rgba(15,23,42,0.08)] border-t border-outline-variant dark:border-outline rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm hover:bg-surface-container-high transition-colors p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="wifi">wifi</span>
+<span>Connect</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm hover:bg-surface-container-high transition-colors p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="room_service">room_service</span>
+<span>Services</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm hover:bg-surface-container-high transition-colors p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span>Loyalty</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 font-label-sm text-label-sm active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span>Profil</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm hover:bg-surface-container-high transition-colors p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions for bento cards
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestion de la Carte Bar - Yabisso Hôtel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#6cf8bb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#dae2fd",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#2a1700",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-container": "#00714d",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface-variant": "#45464d",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed-variant": "#005236",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed": "#2a1700",
+                        "background": "#f7f9fb",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffddb8",
+                        "primary-container": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary": "#006c49",
+                        "surface": "#f7f9fb",
+                        "outline-variant": "#c6c6cd",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-primary-container": "#7c839b",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-bright": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "surface-tint": "#565e74",
+                        "on-tertiary-container": "#b87500",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#002113",
+                        "primary": "#000000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "xl": "32px",
+                        "gutter-mobile": "12px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface dark:bg-surface-dim text-on-surface transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center px-md h-[64px]">
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Yabisso Hôtel</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container-high transition-colors rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a high-end hotel manager in a sharp dark suit. The lighting is sophisticated, with a warm rim light against a blurred luxury hotel lobby background. The aesthetic is clean, digital, and prestigious, utilizing a professional color palette of deep navy and soft gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLGKy-ZGhJXawa7VNTtuIoM7HuP919_V2dCR4V5vv1OIyo12CfRzi4Fnxdf_p9xD_LzFrZL24V-2MlRX4gsVT95-Wr1FyNCInLnJ1Q7ldy42TxxGH2NOOXeRtF9g7z_Vyx1otr3igLj-sxznyjCCpHfISa7mBIGJk9pPMk_1zI7Y5pG4jFwupQhgkCu7gxXH6-bqQn49Xxva8Jvn5hUzN8-SIRhT5G-bV5M4MkESFDufAeDcmLNjzCpw"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-7xl mx-auto px-md py-lg mb-24">
+<!-- Dashboard Header & Search -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Gestion du Bar</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Modifiez les tarifs et gérez votre inventaire de boissons en temps réel.</p>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative flex-grow md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-lg border border-outline-variant focus:border-primary transition-all text-body-md" placeholder="Rechercher..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-lg flex items-center gap-sm active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined">add</span>
+                    Add Beverage
+                </button>
+</div>
+</section>
+<!-- Category Filter Tabs -->
+<nav class="flex gap-sm mb-lg overflow-x-auto no-scrollbar pb-2">
+<button class="bg-secondary-container text-on-secondary-container px-lg py-2 rounded-full font-label-lg whitespace-nowrap">Tous les produits</button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-lg py-2 rounded-full font-label-lg whitespace-nowrap transition-colors">Cocktails</button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-lg py-2 rounded-full font-label-lg whitespace-nowrap transition-colors">Vins</button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-lg py-2 rounded-full font-label-lg whitespace-nowrap transition-colors">Spiritueux</button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-lg py-2 rounded-full font-label-lg whitespace-nowrap transition-colors">Sans Alcool</button>
+</nav>
+<!-- Bento Grid Layout for Menu Items -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-md">
+<!-- Category: Cocktails -->
+<div class="lg:col-span-4 mt-sm border-b border-outline-variant pb-2 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">local_bar</span>
+<h3 class="font-headline-sm text-headline-sm uppercase tracking-wider">Cocktails Signature</h3>
+</div>
+<!-- Cocktail 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A macro photograph of a vibrant Old Fashioned cocktail with a large clear ice cube, orange peel garnish, and deep amber liquid. The lighting is low and moody, characteristic of a high-end cigar lounge, with soft bokeh background and crisp reflections on the crystal glassware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvfQClGuIB7A47sEuTIs4pixmrzSMPUz5jfl08dNSdvNGDB6QeY2pZU1bWknkye2SaR_ENPrCaqhOz6zQEtl4BRArdyhtJwKMr-E791Jo8z2DmkBNAr21M5dIQ6_ogyro6MBPV153H51LjRn5M4uIBtoDf5EPjw_IxvfhRXlqiC1oqMqaalyj_xjUM6qQ9fWBKX3pe7h_7g3gytiY1m0BexFF0Xp_EYbOgviLoaeI255vtyu79TFtAIg"/>
+<div class="absolute top-2 right-2 bg-primary text-on-primary px-sm py-1 rounded-full text-label-sm font-bold">18,00 €</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface">Yabisso Gold Rush</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Bourbon, honey syrup, fresh lemon juice, gold leaf garnish.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="px-2 py-0.5 bg-secondary-container/30 text-on-secondary-container rounded text-[10px] font-bold uppercase">Popular</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Cocktail 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A refreshing Mojito cocktail presented in a tall highball glass, filled with crushed ice, fresh mint leaves, and lime wedges. The sunlight filters through the glass, creating a bright, summer-vibe lighting. The background is a blurred tropical luxury resort bar at dusk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGysH_DWw2p8NAhmaAge0Yg8zaHSiF5VDZeXnwMzseKC42ZYCCNZpI7aUyxlxP5AWCPBLKESC4bC0JPa1NB90XEog96kt-chouh292Pup5oLubYVyi5ZZL7dVOzHWCIh4_Fw_xF2cF3w8_HHFPn3560v__FcdWUK_YvJqIcEepJKOtcX-ycNLVenRtXeUMnL9emKmaZ8xEe0AVUIiVohpLhlSzql81GrYw_YjPaasut8ux0sdSDLtF4w"/>
+<div class="absolute top-2 right-2 bg-primary text-on-primary px-sm py-1 rounded-full text-label-sm font-bold">15,00 €</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface">Classic Mojito Royale</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Premium white rum, fresh mint, lime, cane sugar, topped with champagne.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="px-2 py-0.5 bg-surface-container text-on-surface-variant rounded text-[10px] font-bold uppercase">Refreshment</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Vins -->
+<div class="lg:col-span-4 mt-lg border-b border-outline-variant pb-2 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">wine_bar</span>
+<h3 class="font-headline-sm text-headline-sm uppercase tracking-wider">Vins et Champagnes</h3>
+</div>
+<!-- Wine 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant bottle of French Bordeaux red wine standing on a dark wooden table next to a partially filled wine glass. Warm, moody lighting with soft highlights on the glass and bottle label. Professional studio photography style, minimalist and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC337QEQnoILWjE9hreI7GjEV92T_VAAGhMAMEIMjuTOqARDQ0Gd6azNPMxi8h7qEoUp8rwkAycDBZZ9L3c-oZYa87rMKj0tECmU8UEmWshDSBZPcyN109vnjw7ec28Ha5U-vwdeBf5FV14fiK462Cd_Xm3ZdgUrnq2Jd4QitmWNFLevwcydo0RkMAtVDcuXnX53JGld-fcTwnYA8_0tqHmOMoaAmFSDXQ1yqHfF2OLCFm1OH222BT5PA"/>
+<div class="absolute top-2 right-2 bg-primary text-on-primary px-sm py-1 rounded-full text-label-sm font-bold">85,00 €</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface">Château Margaux 2015</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Bordeaux Red, rich notes of blackcurrant and cedar. Excellent pairing for steak.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="px-2 py-0.5 bg-surface-container text-on-surface-variant rounded text-[10px] font-bold uppercase">Grand Cru</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Wine 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A chilled bottle of premium champagne in a silver ice bucket with water droplets on the metal surface. The background is a soft-focus elegant event lighting. Luxury aesthetic, high-contrast, clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTVd6lGc4rC3f7nzZoTu9kn8leLlWKcOFXHtNe0nXfJCD8jF_DTceVlWf6MVR5-muEUyn6N76yr0WQOo10FH7FUe4_gWJWn8dONqrri1VuUvPWDv7l-E7xPC76GjNDOWqm8cIjMB6bOIrf0bhDp3pNGfibvXoSPRCJPudzTGw0HPw2XwZvu5sC906NitCz_jFA6St4H5ZGira9HIEnfWKTWBxSd4yIbHMhuPaJ9ysXtWlBjICSVwSlhw"/>
+<div class="absolute top-2 right-2 bg-primary text-on-primary px-sm py-1 rounded-full text-label-sm font-bold">120,00 €</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface">Veuve Clicquot Yellow Label</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Iconic champagne, fine bubbles, fruity and brioche aromas.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="px-2 py-0.5 bg-secondary-container/30 text-on-secondary-container rounded text-[10px] font-bold uppercase">In Stock</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Spiritueux -->
+<div class="lg:col-span-4 mt-lg border-b border-outline-variant pb-2 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">liquor</span>
+<h3 class="font-headline-sm text-headline-sm uppercase tracking-wider">Spiritueux de Prestige</h3>
+</div>
+<!-- Spirit 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A heavy glass of premium whiskey with one large sphere of ice. The background features a blurred shelf of luxury spirits in a dimly lit, high-end hotel bar. Rich golden hues, sharp textures on the glass, and sophisticated atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChxez3hKOxt6SCqEt2m2O3IGUJ1T4V95iJ7R27TWHGc8KPY0pBQM4BVnU8ob9OD1muqnLzzFJsoo8GCPBzD47IKFY5rsQAb539uUhIHVXcNO45Cwo8MK1sQaFkCkQ8tkzNB14BT_BXzgur0tLD8uEfPsCHEm0xJWWUGPx5yJRsNirORNYxPOUE9khx86EyZI50qQAfT4JdFLkbGs35qPIXX8ekIdPqy9_OqGdxrxwJlGG9wEAAklUVGA"/>
+<div class="absolute top-2 right-2 bg-primary text-on-primary px-sm py-1 rounded-full text-label-sm font-bold">22,00 €</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface">The Macallan 12 Years</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Single malt scotch whiskey, aged in sherry seasoned oak casks from Spain.</p>
+<div class="mt-md flex items-center justify-between">
+<span class="px-2 py-0.5 bg-surface-container text-on-surface-variant rounded text-[10px] font-bold uppercase">Single Malt</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded-lg text-outline transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty Placeholder / "Add" Card -->
+<div class="bg-surface-container/30 border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-md min-h-[300px] cursor-pointer hover:border-primary hover:bg-surface-container transition-all group">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">add_circle</span>
+</div>
+<span class="font-label-lg text-on-surface-variant">Ajouter une boisson</span>
+<p class="text-label-sm text-outline mt-xs text-center">Créez une nouvelle fiche produit</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface dark:bg-surface-container-lowest shadow-lg border-t border-outline-variant flex justify-around items-center h-[80px] px-sm pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-label-sm text-label-sm mt-1">Rooms</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-sm text-label-sm">POS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm mt-1">Staff</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm mt-1">AI</span>
+</div>
+</nav>
+<!-- FAB for Quick Actions (On-demand) -->
+<button class="fixed bottom-24 right-md md:bottom-md md:right-md w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform z-50">
+<span class="material-symbols-outlined">inventory</span>
+</button>
+<script>
+        // Simple micro-interaction for category buttons
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('nav button').forEach(b => {
+                    b.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                    b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                button.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                button.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            });
+        });
+
+        // Add to Menu micro-interaction
+        const addBtn = document.querySelector('button.bg-primary');
+        addBtn.addEventListener('mousedown', () => addBtn.style.transform = 'scale(0.95)');
+        addBtn.addEventListener('mouseup', () => addBtn.style.transform = 'scale(1)');
+    </script>
+</body></html>

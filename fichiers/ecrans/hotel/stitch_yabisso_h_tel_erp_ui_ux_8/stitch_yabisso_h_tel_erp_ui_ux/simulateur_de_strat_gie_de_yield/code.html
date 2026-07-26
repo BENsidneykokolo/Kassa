@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Majordomo Revenue | Yield Strategy Simulator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+        .ai-glow {
+            box-shadow: inset 0 0 12px rgba(123, 65, 179, 0.05);
+        }
+        input[type='range'] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            background: #e1e3e4;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+            margin-top: -7px;
+            transition: all 0.2s ease;
+        }
+        input[type='range']:hover::-webkit-slider-thumb {
+            background: #735c00;
+            transform: scale(1.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#191c1d",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#2c0050",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "tertiary-fixed": "#ffe088",
+                      "background": "#f8f9fa",
+                      "tertiary": "#735c00",
+                      "primary-container": "#1c1b1b",
+                      "inverse-surface": "#2e3132",
+                      "on-primary-fixed": "#1c1b1b",
+                      "secondary": "#7b41b3",
+                      "on-tertiary-container": "#4f3e00",
+                      "on-tertiary-fixed": "#241a00",
+                      "secondary-fixed": "#f0dbff",
+                      "secondary-fixed-dim": "#ddb7ff",
+                      "surface-container-high": "#e7e8e9",
+                      "secondary-container": "#c588fe",
+                      "tertiary-container": "#cca730",
+                      "on-surface": "#191c1d",
+                      "surface-container-low": "#f3f4f5",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#5f5e5e",
+                      "inverse-primary": "#c8c6c5",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-bright": "#f8f9fa",
+                      "on-surface-variant": "#444748",
+                      "inverse-on-surface": "#f0f1f2",
+                      "error-container": "#ffdad6",
+                      "outline": "#747878",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#474746",
+                      "on-primary-container": "#858383",
+                      "surface-variant": "#e1e3e4",
+                      "primary": "#000000",
+                      "primary-fixed": "#e5e2e1",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "surface": "#f8f9fa",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#edeeef",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#d9dadb",
+                      "on-secondary-container": "#54118a",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed-variant": "#622599",
+                      "outline-variant": "#c4c7c7",
+                      "tertiary-fixed-dim": "#e9c349"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "data-density-gap": "8px",
+                      "margin-desktop": "48px",
+                      "container-max": "1440px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Libre Caslon Text"],
+                      "label-caps": ["JetBrains Mono"],
+                      "display-lg-mobile": ["Libre Caslon Text"],
+                      "ai-insight-callout": ["Hanken Grotesk"],
+                      "headline-md": ["Libre Caslon Text"],
+                      "data-tabular": ["Hanken Grotesk"],
+                      "body-main": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "ai-insight-callout": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "body-main": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-main selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="analytics">analytics</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg tracking-tighter text-primary">MAJORDOMO REVENUE</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<span class="font-label-caps text-on-surface-variant opacity-60">DASHBOARD</span>
+<span class="font-label-caps text-on-surface-variant opacity-60">PRICING</span>
+<span class="font-label-caps text-primary font-bold border-b-2 border-primary pb-1">SIMULATION</span>
+<span class="font-label-caps text-on-surface-variant opacity-60">INVENTORY</span>
+</div>
+<button class="font-label-caps bg-primary text-on-primary px-4 py-2 hover:bg-tertiary transition-colors duration-300">
+                LIVE MARKET PULSE
+            </button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Hero Section / Title -->
+<div class="mb-12 max-w-3xl">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-4">Yield Strategy Simulator</h2>
+<p class="text-on-surface-variant text-body-main opacity-80 leading-relaxed">
+                Test predictive revenue models by adjusting rate variables and value-add incentives. Our Digital Majordomo AI calculates real-time elasticities to project occupancy shifts versus total net revenue.
+            </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Sidebar Controls (4 columns) -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<!-- Variable Card -->
+<div class="glass-panel p-6 border-l-4 border-l-primary">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+<h3 class="font-label-caps uppercase">Simulated Variables</h3>
+</div>
+<div class="space-y-8">
+<!-- Rate Adjustment Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="font-label-caps text-on-surface-variant">Base Rate Adjustment</label>
+<span class="font-data-tabular text-lg text-primary font-bold" id="rate-val">0%</span>
+</div>
+<input class="w-full cursor-pointer" id="rate-slider" max="30" min="-30" step="5" type="range" value="0"/>
+<div class="flex justify-between text-[10px] font-label-caps text-on-surface-variant opacity-40">
+<span>-30% (AGGRESSIVE)</span>
+<span>+30% (PREMIUM)</span>
+</div>
+</div>
+<!-- Spa Credit / Value-Add -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="font-label-caps text-on-surface-variant">Spa Credit Value ($)</label>
+<span class="font-data-tabular text-lg text-primary font-bold" id="spa-val">$0</span>
+</div>
+<input class="w-full cursor-pointer" id="spa-slider" max="250" min="0" step="25" type="range" value="0"/>
+<div class="flex justify-between text-[10px] font-label-caps text-on-surface-variant opacity-40">
+<span>NO ADD-ON</span>
+<span>$250 LUXURY PKG</span>
+</div>
+</div>
+<!-- Seasonality Context -->
+<div class="pt-4 border-t border-outline-variant">
+<label class="font-label-caps text-on-surface-variant mb-3 block">Market Context</label>
+<select class="w-full bg-surface-container-low border-none font-data-tabular text-sm p-3 focus:ring-1 focus:ring-primary">
+<option>Low Season (Off-Peak)</option>
+<option>Shoulder Season</option>
+<option>Peak Holiday Season</option>
+<option>Local Event / Festival Surge</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Strategy Verdicts (AI Insight Card) -->
+<div class="bg-surface-container-lowest border-l-4 border-l-secondary p-6 relative overflow-hidden ai-glow">
+<div class="absolute -top-4 -right-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-9xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="psychology">psychology</span>
+<h3 class="font-label-caps text-secondary">AI STRATEGY VERDICT</h3>
+</div>
+<div id="verdict-container">
+<div class="mb-4">
+<span class="bg-secondary-fixed/30 text-on-secondary-container font-label-caps px-2 py-1 text-[10px] rounded">NEUTRAL STABILITY</span>
+<p class="font-ai-insight-callout mt-3 leading-snug">Current baseline maintained. No significant movement in occupancy or yield predicted.</p>
+</div>
+<button class="font-label-caps text-[10px] flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+                            REVEAL PREDICTIVE LOGIC <span class="material-symbols-outlined text-xs" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Visual Area (8 columns) -->
+<section class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Comparison Graph -->
+<div class="glass-panel p-8 min-h-[480px] flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-headline-md">Occupancy vs. Revenue Projection</h3>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-1">7-DAY ROLLING IMPACT ANALYTICS</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary"></div>
+<span class="font-label-caps text-[10px]">OCCUPANCY (%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-secondary"></div>
+<span class="font-label-caps text-[10px]">TOTAL YIELD ($)</span>
+</div>
+</div>
+</div>
+<!-- Placeholder for Chart logic -->
+<div class="flex-grow flex items-end justify-between gap-4 pt-12 relative">
+<!-- Horizontal Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-t border-on-background w-full"></div>
+<div class="border-t border-on-background w-full"></div>
+<div class="border-t border-on-background w-full"></div>
+<div class="border-t border-on-background w-full"></div>
+</div>
+<!-- Simulated Bars -->
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-1" style="height: 65%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-1" style="height: 72%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">MON</span>
+</div>
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-2" style="height: 58%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-2" style="height: 68%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">TUE</span>
+</div>
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-3" style="height: 72%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-3" style="height: 80%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">WED</span>
+</div>
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-4" style="height: 85%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-4" style="height: 92%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">THU</span>
+</div>
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-5" style="height: 94%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-5" style="height: 98%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">FRI</span>
+</div>
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-6" style="height: 98%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-6" style="height: 100%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">SAT</span>
+</div>
+<div class="flex-1 group relative h-full flex items-end justify-center gap-1">
+<div class="w-1/3 bg-primary transition-all duration-700 ease-out" id="occ-bar-7" style="height: 80%;"></div>
+<div class="w-1/3 bg-secondary transition-all duration-700 ease-out" id="rev-bar-7" style="height: 88%;"></div>
+<span class="absolute -bottom-6 font-label-caps text-[9px] text-on-surface-variant">SUN</span>
+</div>
+</div>
+</div>
+<!-- Action Metrics Summary (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-panel p-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="trending_up">trending_up</span>
+<h4 class="font-label-caps text-on-surface-variant">Projected Net Yield</h4>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-data-tabular text-2xl font-bold" id="total-yield">$442,800</span>
+<div class="bg-green-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px] text-green-700" data-icon="north_east" style="font-variation-settings: 'wght' 700;">north_east</span>
+<span class="text-[10px] font-bold text-green-700">+4.2%</span>
+</div>
+</div>
+</div>
+<div class="glass-panel p-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="bed">bed</span>
+<h4 class="font-label-caps text-on-surface-variant">Occupancy Rate</h4>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-data-tabular text-2xl font-bold" id="occ-rate">82%</span>
+<div class="bg-red-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px] text-red-700" data-icon="south_east" style="font-variation-settings: 'wght' 700;">south_east</span>
+<span class="text-[10px] font-bold text-red-700">-2.1%</span>
+</div>
+</div>
+</div>
+<div class="glass-panel p-6 bg-primary text-on-primary">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-sm" data-icon="stars">stars</span>
+<h4 class="font-label-caps opacity-70">ADR Potential</h4>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-data-tabular text-2xl font-bold" id="adr-val">$685.00</span>
+<span class="font-label-caps text-[10px] opacity-40">TARGET</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-surface-container-highest/80 backdrop-blur-xl border-t border-outline-variant/30">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[10px] mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-caps text-[10px] mt-1">Pricing</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary bg-secondary-fixed/10 rounded-xl px-3 py-1">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+<span class="font-label-caps text-[10px] mt-1">Simulation</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-[10px] mt-1">Inventory</span>
+</div>
+</nav>
+<!-- Simple Script for dynamic interaction Simulation -->
+<script>
+        const rateSlider = document.getElementById('rate-slider');
+        const spaSlider = document.getElementById('spa-slider');
+        const rateVal = document.getElementById('rate-val');
+        const spaVal = document.getElementById('spa-val');
+        const verdictContainer = document.getElementById('verdict-container');
+        const totalYield = document.getElementById('total-yield');
+        const occRate = document.getElementById('occ-rate');
+
+        function updateSimulation() {
+            const r = parseInt(rateSlider.value);
+            const s = parseInt(spaSlider.value);
+
+            rateVal.textContent = (r > 0 ? '+' : '') + r + '%';
+            spaVal.textContent = '$' + s;
+
+            // Simple logic for visual bars feedback
+            for (let i = 1; i <= 7; i++) {
+                const occBar = document.getElementById(`occ-bar-${i}`);
+                const revBar = document.getElementById(`rev-bar-${i}`);
+                
+                const baseOcc = [65, 58, 72, 85, 94, 98, 80][i-1];
+                const baseRev = [72, 68, 80, 92, 98, 100, 88][i-1];
+                
+                // Rate increases drop occupancy, high value-adds increase it
+                const occChange = (r * -0.8) + (s * 0.05);
+                // Revenue is complex: (Rate * Occ)
+                const revChange = (r * 0.5) + (s * -0.02);
+
+                occBar.style.height = Math.max(10, Math.min(100, baseOcc + occChange)) + '%';
+                revBar.style.height = Math.max(10, Math.min(100, baseRev + revChange)) + '%';
+            }
+
+            // Update Verdict UI
+            if (r < -10 && s < 50) {
+                renderVerdict('AGGRESSIVE GROWTH', 'Deep discounting is driving mass-market volume. Risk of brand erosion, but net yield increases by 8% through sheer volume.', 'bg-tertiary-container/20 text-on-tertiary-container');
+            } else if (r > 15 && s > 150) {
+                renderVerdict('PREMIUM RETENTION', 'High-end targeting successful. Lower occupancy but significantly higher margins. Elite concierge service required to maintain NPS.', 'bg-secondary-fixed/30 text-on-secondary-container');
+            } else if (r > 0 && r < 10 && s > 0) {
+                renderVerdict('CONSERVATIVE CHOICE', 'Optimal balance for current shoulder season. Captures value without sacrificing inventory velocity.', 'bg-primary-fixed/30 text-on-primary-fixed-variant');
+            } else {
+                renderVerdict('NEUTRAL STABILITY', 'Baseline performance. The market is currently absorbing current rates without friction.', 'bg-surface-container-highest text-on-surface-variant');
+            }
+
+            // Randomize metrics slightly to feel "live"
+            totalYield.textContent = '$' + (442800 + (r * 1200) + (s * 40)).toLocaleString();
+            occRate.textContent = Math.round(82 + (r * -0.5) + (s * 0.03)) + '%';
+        }
+
+        function renderVerdict(label, description, colors) {
+            verdictContainer.innerHTML = `
+                <div class="mb-4">
+                    <span class="${colors} font-label-caps px-2 py-1 text-[10px] rounded">${label}</span>
+                    <p class="font-ai-insight-callout mt-3 leading-snug">${description}</p>
+                </div>
+                <button class="font-label-caps text-[10px] flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+                    REVEAL PREDICTIVE LOGIC <span class="material-symbols-outlined text-xs" data-icon="expand_more">expand_more</span>
+                </button>
+            `;
+        }
+
+        rateSlider.addEventListener('input', updateSimulation);
+        spaSlider.addEventListener('input', updateSimulation);
+    </script>
+</body></html>

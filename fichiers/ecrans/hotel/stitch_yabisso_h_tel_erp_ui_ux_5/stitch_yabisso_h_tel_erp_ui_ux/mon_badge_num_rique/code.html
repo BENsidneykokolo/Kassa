@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Employee Badge | Yabisso Professional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Manrope:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+    }
+    
+    .holographic-shimmer {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      background-size: 200% 200%;
+      animation: shimmer 4s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% -200%; }
+      100% { background-position: 200% 200%; }
+    }
+
+    .badge-card {
+      perspective: 1000px;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .glass-morphism {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .scan-line {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #2563eb;
+      box-shadow: 0 0 15px #2563eb;
+      animation: scan 3s infinite ease-in-out;
+    }
+
+    @keyframes scan {
+      0%, 100% { top: 0%; opacity: 0; }
+      10%, 90% { opacity: 1; }
+      50% { top: 100%; }
+    }
+
+    .nfc-pulse {
+      animation: nfc-glow 2s infinite ease-in-out;
+    }
+
+    @keyframes nfc-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#f8f9ff",
+            "on-surface-variant": "#434655",
+            "surface-dim": "#cbdbf5",
+            "surface-container-highest": "#d3e4fe",
+            "on-surface": "#0b1c30",
+            "background": "#f8f9ff",
+            "primary": "#004ac6",
+            "primary-container": "#2563eb",
+            "on-primary-container": "#eeefff",
+            "on-primary": "#ffffff",
+            "outline": "#737686",
+            "outline-variant": "#c3c6d7",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "surface-container": "#e5eeff",
+            "secondary-container": "#8a4cfc",
+            "on-secondary-container": "#fffbff",
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-md": "24px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "stack-sm": "12px",
+            "base": "8px",
+            "margin-desktop": "48px",
+            "margin-mobile": "16px"
+          },
+          "fontFamily": {
+            "label-sm": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-md": ["Manrope"],
+            "display-lg": ["Manrope"]
+          },
+          "fontSize": {
+            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Shell -->
+<header class="w-full top-0 sticky z-50 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex items-center justify-between px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-70" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Employee Onboarding</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full cursor-pointer" data-icon="help_outline">help_outline</span>
+</div>
+</div>
+</header>
+<main class="flex flex-col md:flex-row min-h-[calc(100vh-72px)]">
+<!-- Sidebar Navigation Shell -->
+<aside class="hidden md:flex flex-col w-80 bg-surface-container-low border-r border-outline-variant py-stack-md shrink-0">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl shadow-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-container/10">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a diverse young professional in a sharp corporate uniform, set against a soft, high-key studio background with clean white lighting. The image conveys an atmosphere of approachability, competence, and readiness for a high-end concierge role in a modern corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwfs0dHBs53wgar5cxyDGwktD409qb8Nq0mf8Fa7hBXgGMNYCJhl96Y184mXSZkvDdQiv6AmADZsNgYibMuGeXtZpwuB7_bdRmhX3L75aUWTW9GZbZBNLb20gLFN47Q1QZfBf2vwsmNt2VYRt2J5TWBiu4AYmi2ub1Y1JFrSpG2AlTxVxWWAA6by8BrbMUxH9xqgY7Q1g9r_wE83tB0OZX_QAo6GzHXa-u_GNAJDFhB9w_A0SywXq1mA"/>
+</div>
+<div>
+<p class="font-headline-md text-sm font-bold text-primary">Welcome, Colleague</p>
+<p class="text-xs text-on-surface-variant">Onboarding Progress: 45%</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 py-3 px-6 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="font-body-md">Tasks</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-6 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-6 bg-primary-container text-on-primary-container rounded-full mx-2 font-bold shadow-md scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-body-md">Digital Badge</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-6 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-body-md">Training</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-6 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-body-md">Orientation</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<section class="flex-1 p-margin-mobile md:p-gutter overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<div class="mb-10 text-center md:text-left">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Digital Staff Identity</h2>
+<p class="text-on-surface-variant max-w-xl">Your secure digital credential for facility access, system authentication, and internal verification. Keep your NFC active for hands-free entry.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Badge Display Card (Large Column) -->
+<div class="lg:col-span-7 flex flex-col items-center">
+<div class="badge-card relative w-full max-w-[360px] aspect-[1/1.6] rounded-[2.5rem] overflow-hidden bg-white shadow-2xl border border-outline-variant/30 flex flex-col group">
+<!-- Holographic Overlay -->
+<div class="absolute inset-0 holographic-shimmer pointer-events-none z-30 opacity-40"></div>
+<!-- Badge Header -->
+<div class="relative h-48 w-full bg-primary overflow-hidden">
+
+<div class="absolute top-8 left-0 right-0 flex flex-col items-center z-10">
+<div class="p-2 bg-white/10 backdrop-blur-md rounded-lg mb-2">
+<span class="text-white font-headline-md tracking-widest text-lg font-bold">YABISSO</span>
+</div>
+<span class="text-white/80 font-label-sm text-[10px] tracking-[0.2em] uppercase">Security Verified</span>
+</div>
+</div>
+<!-- Profile Photo -->
+<div class="relative -mt-16 self-center z-20">
+<div class="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden bg-surface">
+<img class="w-full h-full object-cover" data-alt="Close up profile picture of a young professional man with a friendly yet professional expression. He is wearing a modern navy corporate concierge uniform. The lighting is crisp and clear, highlighting his features against a clean, light-colored background with a soft, expensive feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB10qgyWCNTZdyajcRZC7W3NKghOtYxIPZlmQUpr_46cLsnipyD5Y-VEFx5NbW5kdspwAy-mZo1BGPW0MgoCjiq0vYirqhhXBC3RrA6C4u1zP3zS3X3tkAtTJhEuCBLfm4B2Uh-uFoUQGFGnrMme6vXBAVKAUy0xpX8uYJ4lPLCnmMmUZS0FR4sC3ROZ8g1Nva1dih8TUVM3VrTyG26cPUn2eVeTUWsuRpBhKbwWuOnbLlMmkiNcRBDEw"/>
+</div>
+<div class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<!-- Identity Details -->
+<div class="flex-1 flex flex-col items-center pt-4 px-8 text-center">
+<h3 class="font-headline-md text-xl font-bold text-on-surface">Julian Sterling</h3>
+<p class="text-primary font-semibold text-sm tracking-wide mb-1 uppercase">Concierge</p>
+<p class="text-on-surface-variant text-xs mb-6">Guest Relations Department</p>
+<!-- QR Code Section -->
+<div class="relative p-3 bg-surface-container-low rounded-2xl border border-outline-variant/20 mb-4 group/qr overflow-hidden">
+<div class="scan-line"></div>
+<div class="w-32 h-32 bg-white p-2 rounded-lg">
+<img class="w-full h-full" data-alt="A clean, high-resolution QR code generated with a modern aesthetic, featuring rounded corners and a subtle blue tint in its squares. The code is centered on a white background with a faint, repeating geometric watermark of the company logo in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjyw5LXfQPMglDR_Aon6RgQGkvCozqg_L8R0LoTLi7Uyn62tpIPb3k-2754y1yKBpUIDXyPwfIMM0cRwxLux2R61lOSJaPMClxP46bRk7929m9qoh-Z6nW6AKWaACWimkzvQPa5juSx4HGkfe2nmTOoKky2V3eRG1yWWqUEqUBXIL8HyGHbnWCva6etKeKCQvSgD_l-oDJzX2HNkq9NSRaWUDrL6nNnFlbZp6pJPuYjjYYUhtv6db_cw"/>
+</div>
+</div>
+<div class="flex flex-col items-center gap-1 opacity-60">
+<p class="font-label-sm text-[10px]">ID: STAFF-8842-YS</p>
+<p class="font-label-sm text-[10px]">EXPIRES: 12/2025</p>
+</div>
+</div>
+<!-- Footer Branding -->
+<div class="py-4 border-t border-outline-variant/10 bg-surface-container-lowest flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary scale-75" data-icon="verified_user">verified_user</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Encrypted Digital Asset</span>
+</div>
+</div>
+<p class="mt-6 text-sm text-on-surface-variant font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="info">info</span>
+              Present this code at any terminal
+            </p>
+</div>
+<!-- Interaction & Status Panels (Side Column) -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- NFC Activation Card -->
+<div class="bg-white p-6 rounded-2xl border border-outline-variant shadow-sm glass-morphism">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary nfc-pulse">
+<span class="material-symbols-outlined" data-icon="nfc">nfc</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">NFC Access</h4>
+<p class="text-xs text-on-surface-variant">Tap to enter secure areas</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="nfcToggle" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl border border-primary/20">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="security_update_good">security_update_good</span>
+<p class="text-xs text-on-surface-variant leading-relaxed">NFC transmission is encrypted with AES-256. Activation requires active session and proximity within 4cm.</p>
+</div>
+</div>
+</div>
+<!-- Access Log / Status Bento -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white p-4 rounded-2xl border border-outline-variant flex flex-col items-center justify-center text-center">
+<span class="text-2xl font-bold text-primary mb-1">12</span>
+<span class="text-[10px] uppercase tracking-wider text-on-surface-variant font-bold">Access Points</span>
+</div>
+<div class="bg-white p-4 rounded-2xl border border-outline-variant flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-green-600 mb-1" data-icon="check_circle">check_circle</span>
+<span class="text-[10px] uppercase tracking-wider text-on-surface-variant font-bold">Status Active</span>
+</div>
+</div>
+<!-- Security Instruction -->
+<div class="bg-surface-container p-6 rounded-2xl border border-outline-variant relative overflow-hidden group">
+<div class="relative z-10">
+<h4 class="font-bold text-on-surface mb-2">Security Protocol</h4>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[10px] font-bold">1</span>
+                    Do not share digital keys
+                  </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[10px] font-bold">2</span>
+                    Report lost device immediately
+                  </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[10px] font-bold">3</span>
+                    Auto-locks after 5min inactivity
+                  </li>
+</ul>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-primary/5 text-8xl rotate-12 transition-transform group-hover:scale-110" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3">
+<button class="w-full py-4 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add_to_home_screen">add_to_home_screen</span>
+                Add to Apple Wallet
+              </button>
+<button class="w-full py-4 bg-white text-primary border border-primary/20 rounded-xl font-bold hover:bg-surface-container transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                Rotate Security Key
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+    // Micro-interactions for the badge
+    const badge = document.querySelector('.badge-card');
+    const container = document.body;
+
+    container.addEventListener('mousemove', (e) => {
+      if (window.innerWidth < 768) return;
+      
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+      
+      badge.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      badge.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+
+    // NFC Toggle Feedback
+    const nfcToggle = document.getElementById('nfcToggle');
+    const nfcIcon = document.querySelector('.nfc-pulse');
+
+    nfcToggle.addEventListener('change', () => {
+      if (nfcToggle.checked) {
+        nfcIcon.classList.add('nfc-pulse');
+        nfcIcon.style.opacity = '1';
+      } else {
+        nfcIcon.classList.remove('nfc-pulse');
+        nfcIcon.style.opacity = '0.5';
+      }
+    });
+  </script>
+</body></html>

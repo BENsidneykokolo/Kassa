@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yabisso Spa - Management Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e9e8e6",
+                    "surface-container-low": "#f4f3f1",
+                    "secondary-fixed": "#f1e1bc",
+                    "outline-variant": "#c3c8c1",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#526255",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#eee9e3",
+                    "surface": "#faf9f7",
+                    "on-secondary-fixed-variant": "#50462a",
+                    "primary-fixed-dim": "#bacbba",
+                    "primary-container": "#5d6d5f",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#efeeec",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1c1b",
+                    "background": "#faf9f7",
+                    "inverse-primary": "#bacbba",
+                    "secondary": "#695d40",
+                    "surface-dim": "#dadad8",
+                    "on-primary-fixed": "#101f14",
+                    "on-primary-fixed-variant": "#3b4a3e",
+                    "secondary-container": "#eedeb9",
+                    "on-surface": "#1a1c1b",
+                    "surface-bright": "#faf9f7",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-surface-variant": "#434843",
+                    "tertiary-container": "#6c6964",
+                    "on-secondary-fixed": "#221b04",
+                    "inverse-surface": "#2f3130",
+                    "primary-fixed": "#d6e7d6",
+                    "tertiary-fixed": "#e7e2dc",
+                    "on-secondary-container": "#6d6244",
+                    "on-primary-container": "#ddeedd",
+                    "tertiary-fixed-dim": "#cac6c0",
+                    "secondary-fixed-dim": "#d4c5a1",
+                    "on-tertiary-fixed": "#1d1b18",
+                    "tertiary": "#53514c",
+                    "surface-variant": "#e3e2e0",
+                    "outline": "#747872",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-primary": "#ffffff",
+                    "primary": "#455548",
+                    "on-tertiary-fixed-variant": "#494642"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "section-gap-md": "80px",
+                    "container-max": "1200px",
+                    "margin-mobile": "20px",
+                    "gutter": "24px",
+                    "section-gap-lg": "120px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Libre Caslon Text"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "headline-sm": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf9f7;
+            color: #1a1c1b;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(10px);
+        }
+        .bento-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 20px 40px rgba(93, 109, 95, 0.05);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f3f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bacbba;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Navigation Shell (Desktop SideNav) -->
+<aside class="fixed inset-y-0 left-0 z-[60] flex flex-col py-8 h-full w-80 bg-surface dark:bg-surface-dim shadow-2xl hidden md:flex">
+<div class="px-8 mb-12">
+<h1 class="font-headline-sm text-headline-sm text-primary tracking-tight">Yabisso Spa</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Management Portal</p>
+</div>
+<div class="flex flex-col flex-1 px-4 space-y-2">
+<!-- Active Navigation -->
+<a class="flex items-center px-6 py-4 bg-secondary-container text-on-secondary-container rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="diversity_1">diversity_1</span>
+<span class="font-body-md text-body-md">Therapists</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="meeting_room">meeting_room</span>
+<span class="font-body-md text-body-md">Room Management</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="payments">payments</span>
+<span class="font-body-md text-body-md">Revenue Reports</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="edit_note">edit_note</span>
+<span class="font-body-md text-body-md">Service Editor</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 transition-all mt-auto" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</div>
+<div class="mt-8 px-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="spa">spa</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary">Spa Director</p>
+<p class="text-on-surface-variant text-xs">Admin Portal</p>
+</div>
+</div>
+</aside>
+<!-- Top App Bar (Mobile) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md flex justify-between items-center px-margin-mobile h-16 md:hidden">
+<span class="material-symbols-outlined text-primary" data-icon="spa">spa</span>
+<h2 class="font-headline-sm text-headline-sm text-primary tracking-tight">Yabisso Spa</h2>
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-80 pt-20 md:pt-12 px-margin-mobile md:px-gutter pb-32">
+<!-- Welcome Header -->
+<header class="mb-section-gap-md max-w-container-max">
+<span class="font-label-caps text-label-caps text-secondary mb-2 block">BONJOUR, DIRECTOR</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary">Tableau de bord</h1>
+</header>
+<!-- Metrics Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-section-gap-md max-w-container-max">
+<!-- Occupation Rate -->
+<div class="bento-card bg-surface-container-low p-8 rounded-xl flex flex-col justify-between border-b-2 border-primary-container">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">TAUX D'OCCUPATION</span>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary">78%</span>
+<span class="text-green-600 text-sm flex items-center">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_upward">arrow_upward</span> 4%
+                        </span>
+</div>
+</div>
+<div class="mt-8 w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-1000" style="width: 78%"></div>
+</div>
+</div>
+<!-- Active Therapists -->
+<div class="bento-card bg-surface-container-low p-8 rounded-xl flex flex-col justify-between border-b-2 border-secondary">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">THÉRAPEUTES ACTIFS</span>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg-mobile md:text-display-lg text-secondary">06</span>
+<span class="text-on-surface-variant font-body-md">/ 08</span>
+</div>
+</div>
+<div class="mt-8 flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary-fixed"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-secondary-fixed"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-tertiary-fixed"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary-fixed-dim"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-secondary-fixed-dim"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-tertiary-fixed-dim"></div>
+</div>
+</div>
+<!-- Revenue -->
+<div class="bento-card bg-primary text-on-primary-container p-8 rounded-xl flex flex-col justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-primary-fixed">REVENU DU JOUR</span>
+<div class="mt-4">
+<span class="font-display-lg text-display-lg-mobile md:text-display-lg">2 480€</span>
+</div>
+</div>
+<div class="mt-8">
+<span class="font-label-caps text-label-caps opacity-70">OBJECTIF: 3 000€</span>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter max-w-container-max">
+<!-- Room Occupancy Map -->
+<section class="lg:col-span-7 space-y-gutter">
+<div class="flex justify-between items-center px-2">
+<h2 class="font-headline-sm text-headline-sm text-primary">État des Salles</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">LIVE STATUS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Room Zen -->
+<div class="bg-surface-container rounded-xl overflow-hidden relative group">
+<div class="h-32 w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="A tranquil minimalist spa room named Zen, with soft sage green accents, a massage table with white linens, and warm ambient sunlight streaming through a bamboo blind. Cinematic soft focus and organic luxury aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuALfJ75RMrZ3Q6iRTxPIETCLrlfm3nGvzmpA4TjGqyChN9fPYH4XfaHPg4k7n5W_5lcDdUWY1cVWgcHUICCn74Eino0e5yuacJB-xO7RMvFxdoRzwFv0RVjevIXSJODtvRduwHVAcYcIwK_ISUeZt5zWogcfg_87zLqit-ohPwEtBzFjCNOqxxp9Li5R4q8xl6v39L153M1k-91NaV2oAZqHykTeHI5dqO_G7AKlhMdTW0lX9_q3wn4VQ')"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-sm text-lg text-primary">Zen</h3>
+<span class="bg-primary-container/10 text-primary px-3 py-1 rounded-full text-xs font-bold">OCCUPÉ</span>
+</div>
+<p class="text-sm text-on-surface-variant font-body-md mb-4">Massage Pierres Chaudes</p>
+<div class="flex items-center text-xs text-outline">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="timer">timer</span>
+<span>24 min restantes</span>
+</div>
+</div>
+</div>
+<!-- Room Océan -->
+<div class="bg-surface-container rounded-xl overflow-hidden relative group">
+<div class="h-32 w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="A luxury spa treatment room named Ocean, featuring deep teal and cream palette, a designer treatment bed, and a subtle wall sculpture resembling water ripples. Soft ambient lighting creates a serene mood." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDO_E0nXRLppk0miwNSX5v9dZuBJmv7Kul-HnTzpTFf8HDnlEMOwy4uHswOUYBWP_CzBxHQhO4ce71QNteL3cVGBHQiDglGWzVxbMQmxS55Eb7b35dLNJ_Lm95FWta1NrPF4oW_Wm9b3YgYyfxLjX2YNZvfdFLI-sf6vhvDxRsLwPw9guFBjHRt5Mmh__Xoq1lutjxTJtEhK7Yvo0WoW-jnAe9HWd2-8vIQ1avLeHvUaDrSBJgJnEhXAg')"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-sm text-lg text-primary">Océan</h3>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">LIBRE</span>
+</div>
+<p class="text-sm text-on-surface-variant font-body-md mb-4">Entretien en cours...</p>
+<div class="flex items-center text-xs text-outline">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="check_circle">check_circle</span>
+<span>Prête à 14:15</span>
+</div>
+</div>
+</div>
+<!-- Room Forêt -->
+<div class="bg-surface-container rounded-xl overflow-hidden relative group">
+<div class="h-32 w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="A luxury spa room named Foret, decorated with dark wood textures, live green plants, and a minimalist interior design. The atmosphere is grounded and earthy with soft dappled lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5SdhHSv9KHP7Muht1sNToGq503tzmVf9eTyGkxtPosTZPaMhJ93Ic48PQdgURYf2h4zLbgi-8NVMVCp875dLTN03rUjGPe9OplW6fHQ-HCk_SxXHy18RPFGPthSJaBjxtxS1964AH39Ji8GeY3rRJWbKqBWU46KZ8rN2zJQmSAZ7nOrBZgvOGW0H8NPJSU-vCFMXFnWUdNwve871cSqMNzfYA8DNiB9PqDI0wPnFYZEPECLC9nRsdVw')"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-sm text-lg text-primary">Forêt</h3>
+<span class="bg-primary-container/10 text-primary px-3 py-1 rounded-full text-xs font-bold">OCCUPÉ</span>
+</div>
+<p class="text-sm text-on-surface-variant font-body-md mb-4">Soin du Visage Signature</p>
+<div class="flex items-center text-xs text-outline">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="timer">timer</span>
+<span>12 min restantes</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Appointments -->
+<section class="lg:col-span-5 space-y-gutter">
+<div class="flex justify-between items-center px-2">
+<h2 class="font-headline-sm text-headline-sm text-primary">Prochains Rendez-vous</h2>
+<button class="text-primary font-label-caps text-label-caps flex items-center hover:opacity-70 transition-opacity">
+                        VOIR TOUT <span class="material-symbols-outlined ml-1 text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Appointment Card 1 -->
+<div class="p-5 bg-white rounded-xl shadow-[0px_4px_20px_rgba(93,109,95,0.03)] border-l-4 border-primary transition-all hover:translate-x-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Marc-Antoine Durand</h4>
+<p class="text-xs text-outline font-label-caps">14:30 - 60 MIN</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="meeting_room">meeting_room</span>
+<span>Océan</span>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="person">person</span>
+<span>Julie V.</span>
+</div>
+</div>
+</div>
+<!-- Appointment Card 2 -->
+<div class="p-5 bg-white rounded-xl shadow-[0px_4px_20px_rgba(93,109,95,0.03)] border-l-4 border-secondary transition-all hover:translate-x-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Elena Petrova</h4>
+<p class="text-xs text-outline font-label-caps">15:00 - 90 MIN</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="meeting_room">meeting_room</span>
+<span>Zen</span>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="person">person</span>
+<span>Thomas L.</span>
+</div>
+</div>
+</div>
+<!-- Appointment Card 3 -->
+<div class="p-5 bg-white rounded-xl shadow-[0px_4px_20px_rgba(93,109,95,0.03)] border-l-4 border-tertiary transition-all hover:translate-x-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Sophie Martin</h4>
+<p class="text-xs text-outline font-label-caps">15:45 - 45 MIN</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="meeting_room">meeting_room</span>
+<span>Forêt</span>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="person">person</span>
+<span>Clara R.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 bg-surface/90 backdrop-blur-md z-50 border-t border-surface-container px-4">
+<a class="flex flex-col items-center justify-center text-primary font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[10px] mt-1">MENU</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-caps text-[10px] mt-1">PLANNING</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-caps text-[10px] mt-1">STAFF</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-[10px] mt-1">STOCK</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-[10px] mt-1">STATS</span>
+</a>
+</nav>
+<!-- Floating Action Button (Only on Home/Dashboard screens) -->
+<button class="fixed bottom-24 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center z-50 transition-transform active:scale-95 md:bottom-12 md:right-12">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('.bento-card, .p-5').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = '';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    </script>
+</body></html>

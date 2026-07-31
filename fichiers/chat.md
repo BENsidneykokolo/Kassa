@@ -793,4 +793,57 @@ f61838d feat: nettoyage final — Ma Boutique info, export JPEG, supprime StockA
 
 ---
 
+## Session: 31/07/2026 (Partie 2) — Création Yabiso Business Dashboard (Proprio)
+
+### Nouveau projet
+**Yabiso Business Dashboard** — Application Flutter séparée pour le propriétaire multi-établissements.
+
+**Chemin** : `C:\Users\Utilisateur\Documents\Ben\yabiso_business`
+**APK** : `build/app/outputs/flutter-apk/proprio.apk` (62 MB)
+**Label Android** : "Proprio"
+
+### Architecture créée
+
+| Module | Description |
+|--------|-------------|
+| **models/** | `Establishment` (restaurant/hôtel/boutique/etc.), `DashboardData` (CA, ventes, stock, cuisine, bar, employés, alertes), `RemoteCommand` |
+| **database/** | `DatabaseHelper` SQLite — tables `establishments`, `dashboard_cache`, `remote_commands` |
+| **services/** | `SyncService` — sync temps réel avec 4 modes (WiFi, LAN, P2P, Relais), stream de données |
+| **router/** | `AppRouter` GoRouter — 6 routes (`/`, `/scan`, `/businesses`, `/business/:id`, `/business/:id/control`, `/settings`) |
+
+### Écrans créés (5)
+
+| Écran | Fonction |
+|-------|----------|
+| **WelcomeScreen** | Écran d'accueil animé avec gradient vert, boutons "Scanner" et "Mes Entreprises" |
+| **ScannerScreen** | Scan QR Code (mobile_scanner) + ajout manuel, 8 types d'établissements |
+| **BusinessListScreen** | Liste des entreprises connectées avec Pull-to-refresh, suppression |
+| **BusinessDetailScreen** | Dashboard temps réel : CA (jour/semaine/mois), ventes, clients, tables, cuisine, stock, employés, alertes, méthode de connexion affichée |
+| **RemoteControlScreen** | 12 commandes : ajouter/modifier produit, gérer employés, bloquer/ouvrir caisse, promotion, message, sync, backup |
+| **OwnerSettingsScreen** | Profil propriétaire, fréquence sync, sécurité (AES-256, clés), sauvegarde (Google Drive, USB) |
+
+### Fichiers créés
+- `lib/main.dart` — Point d'entrée
+- `lib/core/theme/app_theme.dart` — Thème vert avec Material 3
+- `lib/models/establishment.dart` — Modèle établissement
+- `lib/models/dashboard_data.dart` — Données dashboard + AlertItem + RemoteCommand
+- `lib/database/database_helper.dart` — SQLite helper
+- `lib/services/sync_service.dart` — Moteur de synchronisation simulé
+- `lib/router/app_router.dart` — GoRouter
+- `lib/screens/welcome/welcome_screen.dart`
+- `lib/screens/scanner/scanner_screen.dart`
+- `lib/screens/business_list/business_list_screen.dart`
+- `lib/screens/dashboard/business_detail_screen.dart`
+- `lib/screens/remote_control/remote_control_screen.dart`
+- `lib/screens/settings/owner_settings_screen.dart`
+
+### APKs disponibles
+
+| App | Taille | Chemin |
+|-----|--------|--------|
+| **Kassa** | 120 MB | `C:\...\Kassa\yabisso_kassa\build\app\outputs\flutter-apk\kassa.apk` |
+| **Proprio** | 62 MB | `C:\...\Ben\yabiso_business\build\app\outputs\flutter-apk\proprio.apk` |
+
+---
+
 *Ce fichier est mis à jour en temps réel pendant nos échanges.*

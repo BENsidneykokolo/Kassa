@@ -1,0 +1,55 @@
+name: yabisso_hotel
+description: "Yabisso Hôtel — ERP hôtelier offline-first pour l'Afrique, module de Yabisso Business."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Routing
+  go_router: ^14.2.0
+
+  # UI / Design system
+  google_fonts: ^6.2.1
+  fl_chart: ^0.68.0
+  flutter_svg: ^2.0.10+1
+  shimmer: ^3.0.0
+  cupertino_icons: ^1.0.6
+
+  # QR codes (badges employé, scan client, pointage)
+  qr_flutter: ^4.1.0
+  mobile_scanner: ^5.2.3
+
+  # Offline-first storage
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
+  path_provider: ^2.1.4
+  shared_preferences: ^2.3.2
+
+  # Connectivity / sync
+  connectivity_plus: ^6.0.5
+
+  # Utils
+  intl: ^0.19.0
+  uuid: ^4.4.2
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Décommenter et adapter une fois les assets (logo, icônes, images) ajoutés :
+  # assets:
+  #   - assets/images/
+  #   - assets/icons/

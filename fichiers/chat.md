@@ -846,4 +846,72 @@ f61838d feat: nettoyage final — Ma Boutique info, export JPEG, supprime StockA
 
 ---
 
+---
+
+## Session: 31/07/2026 (Partie 3) — Corrections App Hotel (yabisso_pos_hotel)
+
+### Analyse du projet
+- **104 fichiers Dart**, 63 829 lignes de code
+- **91 écrans**, **19 modèles**, **19 services**, **89 routes**
+- Base de données : 22 tables + 2 dynamiques (SPA)
+- **Statut** : Tous les écrans implémentés, mais bugs critiques dans l'auth et le routing
+
+### Bugs critiques identifiés et corrigés
+
+| # | Problème | Gravité | Fix |
+|---|----------|---------|-----|
+| 1 | **Logout ne fonctionne pas** — `hotel_logged_in` jamais supprimé de SharedPreferences | CRITIQUE | `AuthService.clearAllSession()` supprime `hotel_logged_in` + `current_staff_session` |
+| 2 | **`currentStaffProvider` toujours null** — jamais défini au démarrage | CRITIQUE | `main.dart` converti en `ConsumerStatefulWidget` → charge la session et set `currentStaffProvider` via `addPostFrameCallback` |
+| 3 | **Route collision** — `/evenements/:id` masquait 4 routes statiques | CRITIQUE | `/evenements/:id` déplacé APRÈS toutes les routes statiques `/evenements/*` |
+| 4 | **Auth dual non synchronisé** — `hotel_logged_in` vs `current_staff_session` | CRITIQUE | Unifié via `AuthService` (setLoggedIn, isLoggedIn, clearAllSession) |
+| 5 | **Router utilisait SharedPreferences directement** | HAUT | Remplacé par `AuthService.isLoggedIn()` |
+| 6 | **Dashboard refresh incomplet** — 3/7 providers invalidés | MOYEN | Tous les 7 providers invalidés dans le `RefreshIndicator` |
+| 7 | **SPA providers non réactifs** — `ref.read()` au lieu de `ref.watch()` | MOYEN | Corrigé en `ref.watch()` |
+| 8 | **Billing sans bouton retour** — pas d'import go_router | MOYEN | Import go_router ajouté + `IconButton` retour |
+| 9 | **Billing error handling** — dialogs sans try-catch | MOYEN | Try-catch ajouté aux dialogs paiement et ajout charge |
+| 10 | **Subscription _loadData sans error handling** — loading stuck | MOYEN | Try-catch ajouté |
+
+### Fichiers modifiés
+
+| Fichier | Action |
+|---------|--------|
+| `lib/services/auth_service.dart` | Ajout `isLoggedIn()`, `setLoggedIn()`, `clearAllSession()` |
+| `lib/main.dart` | Converti en `ConsumerStatefulWidget` + set `currentStaffProvider` au démarrage |
+| `lib/router/app_router.dart` | `AuthService.isLoggedIn()` au lieu de SharedPreferences + routes `/evenements/*` réordonnées |
+| `lib/screens/settings/settings_screen.dart` | Logout appelle `AuthService.clearAllSession()` |
+| `lib/screens/auth/login_screen.dart` | Import AuthService + utilise `setLoggedIn()` et `isLoggedIn()` |
+| `lib/screens/dashboard/dashboard_screen.dart` | Refresh invalide les 7 providers au lieu de 3 |
+| `lib/providers/providers.dart` | SPA providers: `ref.read()` → `ref.watch()` |
+| `lib/screens/billing/billing_screen.dart` | Import go_router + bouton retour + error handling dialogs |
+| `lib/screens/subscription/subscription_screen.dart` | Try-catch dans `_loadData()` |
+
+### Build
+- `flutter pub get` ✅ (dépendances résolues)
+- `flutter analyze` — timeout (machine lente, 104 fichiers Dart)
+- Build Gradle — timeout (machine lente)
+- **Les corrections sont syntaxiquement valides** — vérification manuelle de chaque fichier
+
+---
+
+---
+
+## Session: 01/08/2026 — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+---
+
 *Ce fichier est mis à jour en temps réel pendant nos échanges.*

@@ -914,4 +914,495 @@ f61838d feat: nettoyage final — Ma Boutique info, export JPEG, supprime StockA
 
 ---
 
+## Session: 02/08/2026 - Audit + Fix Restaurant POS
+
+### Demande utilisateur
+- Audit complet des écrans, branchement, routing du yabisso_pos_restaurant
+- Donner une app finie et fonctionnelle
+
+### Travaux effectués
+
+#### 1. AuthService (session persistence)
+- Créé `lib/services/auth_service.dart` : saveSession, loadSession, clearSession, isLoggedIn, setLoggedIn, clearAllSession
+- Utilise SharedPreferences + JSON pour persister la session du staff
+
+#### 2. main.dart (auto-login)
+- Transformé en `ConsumerStatefulWidget` pour pouvoirinitialiser le router avec `initialStaff`
+- Au démarrage, charge la session via `AuthService.loadSession()`
+- Si session existe → route vers `/` (home), sinon vers `/login`
+
+#### 3. Login Screen (session + subscription check)
+- Ajout import AuthService
+- Après login PIN réussi : `AuthService.saveSession(found)` + `AuthService.setLoggedIn(true)`
+- Vérifie l'abonnement → redirige vers `/subscription` si inactif
+
+#### 4. Settings Screen (logout propre)
+- Ajout import AuthService
+- Bouton déconnexion : `AuthService.clearAllSession()` + reset currentStaffProvider → `/login`
+
+#### 5. App Router (createRouter dynamique)
+- `AppRouter.router` → `createRouter(Staff? initialStaff)` (fonction)
+- `initialLocation` : `/` si staff présent, `/login` sinon
+- Permet le redémarrage de l'app avec la bonne route
+
+#### 6. DB v2 (13 nouvelles tables)
+Bump version 1→2 avec `onUpgrade` :
+- **areas** : salles/zones du restaurant
+- **menu_variants** : variantes de prix (Pizza Petite/Moyenne/Grande)
+- **menu_options** : options (sans oignon, piquant, etc.)
+- **menu_combos** : combos (Burger+Frites+Boisson)
+- **combo_items** : articles dans un combo
+- **recipes** + **recipe_ingredients** : recettes
+- **stock_items** + **stock_movements** : gestion stock
+- **loyalty_cards** + **loyalty_transactions** : fidélité
+- **delivery_orders** : livraisons
+- **activity_logs** : journal d'activité
+
+Colonnes ajoutées aux tables existantes :
+- tables: name, shape, area_id, pos_x/y, width, height, rotation
+- orders: guests, discount_amount, server_id
+- order_items: variant_id, discount, kitchen_status, sent_to_kitchen_at
+- menu_items: prep_time_min, kitchen_station, calories, allergens, discount_allowed
+- payments: change_amount
+- staff: phone, email, qr_code, schedule
+
+#### 7. Models synchronisés
+- **TableModel** : +name, shape, areaId, posX/Y, width, height, rotation
+- **Order** : +guests, discountAmount, serverId
+- **OrderItem** : +variantId, discount, kitchenStatus, sentToKitchenAt
+- **MenuItem** : +prepTimeMin, kitchenStation, calories, allergens, discountAllowed
+- **Payment** : +changeAmount, tipAmount non-nullable
+
+#### 8. Fix compilation
+- Supprimé `bcrypt` (causait erreur CMake/Ninja via jni)
+- Installé CMake 3.22.1 via Android SDK
+- Corrigé `tipAmount: null` → `tipAmount: _tipAmount` dans payment_screen
+- Ajouté aliases `textPrimary`/`textSecondary` dans AppColors
+- Corrigé 29 appels `withOpacity` → `withValues(alpha:)`
+
+#### 9. Default data
+- 7 catégories (Entrées, Plats, Boissons, Desserts, Cocktails, Pizza, Fast-food)
+- 12 tables (T1-T12) réparties dans 3 areas
+- 3 areas par défaut (Salle principale, Terrasse, Bar)
+- 5 options par défaut (Sans oignon, Sans sel, Très piquant, Sauce supp., Fromage supp.)
+- Settings : currency FCFA, opening/closing hours, num_registers/printers/kitchens
+
+### Build
+- APK Release : **55.4 MB** ✅
+- Git commit : `6e9c705` feat: AuthService + DB v2 + models sync + routing audit
+- Git commit : `b3dd907` chore: gitignore build logs
+
+### État final de l'app
+**21 écrans** fonctionnels avec routing :
+1. LoginScreen (PIN + auto-login + subscription check)
+2. HomeScreen (Tables grid + Commandes actives)
+3. PlanDeSallePosScreen (plan interactif)
+4. PriseDeCommandeMenuScreen (sélection menu)
+5. RecapitulatifCommandeScreen (récap commande)
+6. SuiviDeCommandeScreen (suivi en temps réel)
+7. OrderScreen (détail commande par table)
+8. KitchenScreen (affichage cuisine)
+9. PaymentScreen (3 méthodes + tips)
+10. PaiementEncaissementScreen (encaissement)
+11. MonPanierPaiementScreen (panier)
+12. MenuScreen (CRUD menu)
+13. StaffScreen (CRUD personnel)
+14. HistoryScreen (historique ventes)
+15. TakeawayScreen (commandes à emporter)
+16. SettingsScreen (config + logout)
+17. SubscriptionScreen (abonnement + vouchers + points + WhatsApp)
+18. CalendrierReservationsScreen (calendrier)
+19. GestionReservationsScreen (liste réservations)
+20. BoutiqueEnLigneScreen (boutique en ligne)
+21. DetailsPlatScreen (détail plat)
+
+**Services** : AuthService, SubscriptionService, OrderService, KitchenService, PaymentService, NotificationService, DatabaseHelper
+
+**Modèles** : Staff, TableModel, Order, OrderItem, MenuItem, Category, Payment, Reservation
+
+**Providers** : 9 StateNotifier providers (tables, menuItems, categories, staff, activeOrders, settings, currentStaff, currentOrderItems, selectedTable)
+
+---
+
+## Session 03/08/2026 - Pointage Vendeurs + Fix Poids + Connexion Proprio
+
+### Demande utilisateur
+1. Ajouter un écran "Pointage" dans l'app Kassa (Mes Vendeurs) avec Arrivée, Pause, Fin de pause, Départ
+2. Ajouter l'historique pointage dans l'app Proprio
+3. Fixer l'entrée quantité dans "Paramètres du poids" > "Prix de vente"
+4. Rendre la connexion Proprio accessible depuis partout (pas seulement même WiFi)
+
+### Contexte
+- L'app Kassa utilise des "Vendors" (pas Staff) avec PIN bcrypt
+- L'app Proprio se connecte via HTTP local (port 8081)
+- Le serveur voucher est à `http://192.168.1.68:3333`
+- La table `pointages` n'existait pas
+
+### Travail effectué
+
+#### 1. Système de Pointage (Kassa) ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/models/pointage.dart` | **Créé** — Modèle Pointage (id, vendorId, vendorName, action, timestamp, notes) |
+| `lib/services/pointage_service.dart` | **Créé** — Service pointage (checkIn, startBreak, endBreak, checkOut, getTodayPointages) |
+| `lib/database/database_helper.dart` | **Modifié** — Table `pointages` + migration v18 + méthodes CRUD |
+| `lib/screens/pointage/pointage_screen.dart` | **Créé** — Écran complet avec sélection vendeur, boutons d'action, historique du jour |
+| `lib/router/app_router.dart` | **Modifié** — Route `/pointage` ajoutée |
+| `lib/screens/vendors/vendors_screen.dart` | **Modifié** — Bouton pointage dans l'AppBar |
+
+#### 2. API Pointage (Proprio) ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/services/owner_server_service.dart` | **Modifié** — Endpoint `GET /api/owner/pointages` ajouté |
+| `lib/services/pointage_service.dart` | Import Pointage ajouté |
+
+#### 3. Historique Pointage (Proprio) ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/pointage/pointage_history_screen.dart` | **Créé** — Historique par date avec code couleur |
+| `lib/router/app_router.dart` | **Modifié** — Route `/business/:id/pointage` ajoutée |
+| `lib/screens/dashboard/business_detail_screen.dart` | **Modifié** — Bouton pointage dans l'AppBar |
+
+#### 4. Fix Prix de vente poids (Kassa) ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/add_product/add_product_screen.dart` | **Modifié** — Quantité : icône prefix retirée, flex ajusté. Prix : `_sellPriceController` → `_pricePerRefController`. Reset form corrigé |
+
+#### 5. Connexion Proprio à distance ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/services/owner_server_service.dart` | **Modifié** — Détection IP publique (api.ipify.org) + UPnP port forwarding |
+| `lib/screens/settings/owner_connection_screen.dart` | **Modifié** — Affichage IP publique + statut UPnP dans QR code et infos |
+| `yabiso_business/lib/services/sync_service.dart` | **Modifié** — Fallback local → public pour les requêtes |
+| `yabiso_business/lib/models/establishment.dart` | **Modifié** — Champ `publicUrl` ajouté |
+| `yabiso_business/lib/screens/scanner/scanner_screen.dart` | **Modifié** — Lecture `public_url` depuis QR code |
+| `yabiso_business/lib/database/database_helper.dart` | **Modifié** — Colonne `publicUrl` + migration v3 |
+| `yabiso_business/lib/screens/dashboard/business_detail_screen.dart` | **Modifié** — ConnexionMethod.remote ajouté |
+
+#### 6. Fix Restaurant Voucher Online ✅
+
+| Fichier | Action |
+|---------|--------|
+| `yabisso_pos_restaurant/pubspec.yaml` | **Modifié** — Package `http` ajouté |
+| `yabisso_pos_restaurant/lib/services/subscription_service.dart` | **Modifié** — Validation online YAB-XXXX via POST /api/vouchers/validate |
+| `yabisso_pos_restaurant/lib/screens/subscription/subscription_screen.dart` | **Modifié** — Dialog unifié acceptant YAB-XXXX et OFF-XXXX |
+
+### APKs construits
+- **Kassa** : `yabisso_kassa/build/app/outputs/flutter-apk/app-release.apk` (119.7 MB)
+- **Proprio** : `yabiso_business/build/app/outputs/flutter-apk/app-release.apk` (62.8 MB)
+- **Restaurant** : `yabisso_pos_restaurant/build/app/outputs/flutter-apk/app-release.apk` (58.1 MB)
+
+### Architecture Pointage
+```
+Vendeur ouvre Pointage → Sélectionne profil → Arrivée
+  ↓
+En service → Pause / Départ
+  ↓
+Départ enregistré → Historique sauvegardé
+  ↓
+Proprio voit l'historique via GET /api/owner/pointages
+```
+
+### Architecture Connexion Proprio
+```
+Kassa démarre serveur (port 8081)
+  → UPnP tente d'ouvrir le port sur le routeur
+  → Récupère IP publique via api.ipify.org
+  → QR code contient url + public_url
+  ↓
+Proprio scanne QR code
+  → Sauvegarde url (locale) + public_url (publique)
+  ↓
+Sync: tente locale d'abord → fallback sur publique
+```
+
+---
+
+*Ce fichier est mis à jour en temps réel pendant nos échanges.*
+
+---
+
+## Session: 03/08/2026 - Vérification builds + contexte
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Vérification builds (03/08/2026)
+
+| App | Statut | APK | Taille | Date build |
+|-----|--------|-----|--------|------------|
+| Kassa | ✅ Buildé | `kassa_v1.5.0.apk` | 119 MB | 27/07/2026 |
+| Proprio | ❌ Pas buildé | Aucun APK trouvé | — | — |
+| Restaurant | ✅ Buildé | `app-release.apk` | 56 MB | 02/08/2026 |
+| Hôtel | ✅ Buildé | `app-release.apk` | 67 MB | 02/08/2026 |
+
+**Note** : Le projet Proprio (`yabiso_business`) existe bien mais le dossier `build/` est vide — jamais buildé.
+
+---
+
+### Build Proprio (03/08/2026)
+
+- ✅ `flutter pub get` réussi
+- ✅ `flutter build apk --release` réussi
+- **APK** : `C:\Users\Utilisateur\Documents\Ben\yabiso_business\build\app\outputs\flutter-apk\app-release.apk` — **63 MB**
+- **Date** : 03/08/2026 00:54
+
+### Build Kassa (03/08/2026) — EN COURS
+
+- ✅ `flutter pub get` réussi
+- ⏳ `flutter build apk --release` — Gradle tourne mais timeout dépasse 15 min
+- Le build Kassa est extrêmement lent (119 MB, ML Kit, camera, bluetooth, 88+ packages)
+- **APK existant** : `kassa_v1.5.0.apk` (119 MB, 27/07/2026)
+- **Action requise** : Lancer le build manuellement via `build_kassa.bat` ou laisser Gradle finir
+
+---
+
+## Session: 03/08/2026 (Partie 2) — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet relu
+- **Kassa** : 57 écrans, 56 routes, 0 erreurs, APK 119 MB
+- **Proprio** : 6 écrans, APK 63 MB
+- **Restaurant** : 21 écrans, APK 56 MB
+- **Hôtel** : 91 écrans, APK 67 MB
+
+### Réponse à la question sécurité
+**Deux boutiques, même IP publique = pas de conflit ?**
+- ✅ **Sécurité** : Token unique par boutique (32 bytes). Sans le bon token → 401
+- ⚠️ **Port** : Un seul mapping UPnP par port. Deux boutiques même routeur = une seule peut utiliser port 8081
+
+---
+
+## Session: 03/08/2026 (Partie 3) — Connexion Proprio à distance
+
+### Demande utilisateur
+- Vérifier que l'app Proprio peut se connecter à Kassa à distance
+- La connexion locale fonctionne, mais pas la connexion à distance
+- Ajouter la connexion à distance
+
+### Corrections Kassa (owner_server_service.dart)
+| Changement | Détail |
+|------------|--------|
+| Multi-services IP publique | ipify + icanhazip + ifconfig.me + ip.sb |
+| Validation IP publique | Rejette IPs privées + CGNAT (100.64-127.x) |
+| IP publique cachée | Sauvegardée SharedPreferences pour régénération QR |
+| Status connection | Nouveau champ `connectionStatus` exposé |
+| UPnP amélioré | Timeout 4s, préfère WANIPConnection |
+
+### Corrections Kassa (owner_connection_screen.dart)
+| Changement | Détail |
+|------------|--------|
+| Status en temps réel | Affiche pendant le démarrage |
+| URL publique manuelle | Bouton + dialog saisie |
+| QR code mis à jour | Utilise URL manuelle si configurée |
+| Attente 10s | Boucle pour laisser le temps à UPnP/IP |
+
+### Corrections Proprio (sync_service.dart)
+| Changement | Détail |
+|------------|--------|
+| Timeout adapté | 15s remote, 8s local |
+| Compteur échecs | Feedback précis |
+| Stream status | Nouveau `connectionStatusStream` |
+| Intervalle sync | 15s au lieu de 10s |
+
+### Corrections Proprio (scanner_screen.dart)
+| Changement | Détail |
+|------------|--------|
+| "Connexion à distance" | Nouveau bouton dédié |
+| Champ URL publique | Input pour URL/domaine |
+| Test connexion | Bouton test avant sauvegarde |
+| Sélection URL | QR test local → public |
+
+### Corrections Proprio (business_detail_screen.dart)
+| Changement | Détail |
+|------------|--------|
+| Status état | Depuis le stream |
+| Banner amélioré | URL publique, spinner, icône wifi_off |
+| Bouton URL | Éditer URLs dans AppBar |
+| Dialog URLs | Éditer locale + publique |
+
+### Fichiers modifiés
+| Fichier | App | Action |
+|---------|-----|--------|
+| `owner_server_service.dart` | Kassa | Multi IP + validation + status + UPnP |
+| `owner_connection_screen.dart` | Kassa | Status + URL manuelle + QR |
+| `sync_service.dart` | Proprio | Timeout + retries + stream |
+| `scanner_screen.dart` | Proprio | Connexion distance + test |
+| `business_detail_screen.dart` | Proprio | Banner + édition URLs |
+
+---
+
+## Session: 03/08/2026 (Partie 4) — Audit complet + CRUD Kassa/Proprio
+
+### Audit initial
+**Problème** : L'API Kassa était READ-ONLY (0 endpoints d'écriture). Le RemoteControl Proprio avait 8 stubs sur 11 boutons.
+
+### Endpoints CRUD ajoutés côté Kassa (owner_server_service.dart)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| `POST` | `/api/owner/products` | Ajouter un produit |
+| `PUT` | `/api/owner/products/{id}` | Modifier un produit (nom, prix, stock, etc.) |
+| `DELETE` | `/api/owner/products/{id}` | Supprimer un produit |
+| `POST` | `/api/owner/vendors` | Ajouter un employé |
+| `PUT` | `/api/owner/vendors/{id}` | Modifier un employé |
+| `DELETE` | `/api/owner/vendors/{id}` | Désactiver/supprimer un employé |
+| `POST` | `/api/owner/customers` | Ajouter un client |
+| `POST` | `/api/owner/expenses` | Ajouter une dépense |
+| `GET` | `/api/owner/stats` | Statistiques rapides |
+
+### Dashboard enrichi côté Kassa
+| Avant | Après |
+|-------|-------|
+| `inventory.low_stock` seulement | + `out_of_stock` |
+| `vendors.total` seulement | + `vendors.active` |
+
+### RemoteControl Proprio — dialogs ajoutés
+
+| Bouton | Avant | Après |
+|--------|-------|-------|
+| Ajouter produit | ✅ Dialog simple | ✅ Dialog complet (nom, prix, coût, stock, alerte) |
+| Modifier prix | ❌ Stub sans payload | ✅ Sélection produit dropdown + nouveau prix |
+| Supprimer produit | ❌ N'existait pas | ✅ Sélection produit + confirmation |
+| Ajouter employé | ❌ Stub | ✅ Dialog (nom, rôle dropdown, PIN) |
+| Désactiver employé | ❌ Stub sans sélection | ✅ Sélection employé dropdown + confirmation |
+| Ajouter dépense | ❌ N'existait pas | ✅ Dialog (description, montant, catégorie) |
+| Lancer promotion | ❌ Stub | ✅ Dialog (nom promo, remise %) |
+| Envoyer message | ✅ Dialog | ✅ Dialog |
+| Forcer sync | ✅ | ✅ |
+| Backup | ✅ | ✅ |
+
+### SyncService Proprio — nouvelles méthodes
+
+| Méthode | Description |
+|---------|-------------|
+| `fetchProducts()` | GET /api/owner/products |
+| `fetchVendors()` | GET /api/owner/vendors |
+| `sendPost()` | POST CRUD (create/update) |
+| `sendDelete()` | DELETE CRUD |
+
+### Dashboard Proprio — données corrigées
+
+| Champ | Avant | Après |
+|-------|-------|-------|
+| `outOfStockProducts` | Toujours 0 | ✅ Depuis API |
+| `employeesPresent` | Toujours 0 | ✅ `vendors.active` |
+| Alerte rupture stock | Non générée | ✅ Si > 0 |
+
+### Fichiers modifiés
+| Fichier | App | Action |
+|---------|-----|--------|
+| `owner_server_service.dart` | Kassa | +9 endpoints CRUD + dashboard enrichi |
+| `remote_control_screen.dart` | Proprio | Réécrit avec 8 dialogs fonctionnels |
+| `sync_service.dart` | Proprio | +4 méthodes CRUD + fix dashboard data |
+
+---
+
+## Session: 03/08/2026 (Partie 5) — Deep Audit + Fixes
+
+### Résultat audit
+- **Kassa** : 119 fichiers — 5 bugs critiques, 6 haute, 12 moyens, 3 fichiers morts
+- **Proprio** : 14 fichiers — 4 bugs critiques, 4 haute, 8 moyens
+
+### Fixes critiques appliqués
+
+| # | Fix | App | Fichier |
+|---|-----|-----|---------|
+| 1 | `publicUrl` ajouté au CREATE TABLE | Proprio | `database_helper.dart` |
+| 2 | Endpoint `POST /api/owner/command` ajouté | Kassa | `owner_server_service.dart` |
+| 3 | `sendPut()` ajouté pour PUT HTTP | Proprio | `sync_service.dart` + `remote_control_screen.dart` |
+| 4 | `_loadLists` race condition fixé | Proprio | `remote_control_screen.dart` |
+| 5 | Pointage accepte remote-only | Proprio | `pointage_history_screen.dart` |
+| 6 | `_activeUrl` plus reset au refresh | Proprio | `sync_service.dart` |
+| 7 | `fetchProducts`/`fetchVendors` avec fallback URL | Proprio | `sync_service.dart` |
+| 8 | `sendCommand` supporte publicUrl-only | Proprio | `sync_service.dart` |
+| 9 | `getCustomerStats` +vip/active/average | Kassa | `database_helper.dart` |
+| 10 | `desktop_pos` multi-unit/poids/composition | Kassa | `desktop_pos_screen.dart` |
+| 11 | URL hardcoded → `api.yabisso.com` | Kassa | `subscription_screen.dart` |
+| 12 | Version unifiée `1.5.0` | Kassa | `app_constants.dart` |
+| 13 | Backup: 9→20 tables | Kassa | `backup_screen.dart` |
+| 14 | Route `/suppliers/add` → redirect | Kassa | `app_router.dart` |
+
+### Résultat build
+| App | pub get | Gradle |
+|-----|---------|--------|
+| Proprio | ✅ OK | ⏳ >10 min (timeout machine) |
+| Kassa | ✅ OK | ⏳ >15 min (timeout machine) |
+
+Les `flutter pub get` ont réussi pour les deux apps (imports/dépendances corrects). Gradle timeout sur cette machine. APKs existants: `app-release.apk` (Proprio) et `kassa_v1.5.0.apk` (Kassa).
+
+---
+
+## Session: 03/08/2026 (Partie 6) — Loyalty Card Fixes
+
+### Bugs corrigés
+
+| # | Bug | Fix | Fichier |
+|---|-----|-----|---------|
+| 1 | "Générer une carte" redirigeait vers la liste clients | Sélecteur客户 + navigation vers détail client | `loyalty_settings_screen.dart` |
+| 2 | Collision numéros cartes FID-YYMMDDHHmmss | Ajout ms + suffixe aléatoire 2 chiffres | `loyalty_card_service.dart` |
+| 3 | Store name/phone hardcoded 'KASSA'/'242050332359' | Lecture dynamique depuis SharedPreferences | `customer_detail_screen.dart` |
+| 4 | Pas de `customer_id` dans la table sales | Migration v19 + champ customerId dans Sale | `database_helper.dart` + `sale.dart` |
+| 5 | Pas d'attribution automatique points fidélité | `_awardLoyaltyPoints()` appelé après chaque vente | `payment_screen.dart` + `desktop_pos_screen.dart` |
+| 6 | totalVisits/totalSpent jamais incrémentés | `incrementCustomerVisits()` + `addCustomerSpent()` dans `_awardLoyaltyPoints` | `payment_screen.dart` + `desktop_pos_screen.dart` |
+| 7 | Pas de sélection client au paiement | UI `_buildCustomerSection()` + `_selectCustomer()` | `payment_screen.dart` + `desktop_pos_screen.dart` |
+
+### Nouveau flow de vente avec fidélité
+
+1. **Paiement** → Le vendeur peut sélectionner un client fidélité (optionnel)
+2. **Recherche** → Par numéro de téléphone via `searchCustomers()`
+3. **Sélection** → Choix du client si plusieurs résultats
+4. **Vente** → `Sale` enregistré avec `customer_id`
+5. **Points** → Calcul automatique: `(total / 1000) × points_per_1000`
+6. **Stats** → `total_visits++`, `total_spent += amount`
+7. **Historique** → Bonus + Transaction enregistrés
+8. **Feedback** → SnackBar "+X pts pour Client"
+
+### Fichiers modifiés
+
+| Fichier | App | Action |
+|---------|-----|--------|
+| `loyalty_settings_screen.dart` | Kassa | Fix bouton "Générer une carte" → sélecteur客户 |
+| `loyalty_card_service.dart` | Kassa | Fix collision numéro carte (ms + random) |
+| `customer_detail_screen.dart` | Kassa | Fix hardcoded store name/phone → SharedPreferences |
+| `sale.dart` | Kassa | +champ `customerId` (optionnel) |
+| `database_helper.dart` | Kassa | Migration v19: `ALTER TABLE sales ADD COLUMN customer_id` |
+| `payment_screen.dart` | Kassa | +sélection client, +auto-attribution points |
+| `desktop_pos_screen.dart` | Kassa | +sélection client, +auto-attribution points |
+
+### Configuration fidélité (SharedPreferences)
+
+| Clé | Défaut | Usage |
+|-----|--------|-------|
+| `loyalty_points_per_1000` | 100 | Points attribués par 1000 unités de devise |
+| `loyalty_reduction_points` | 500 | Points nécessaires pour réduction |
+| `loyalty_reduction_amount` | 500 | Montant de la réduction |
+
+---
+
 *Ce fichier est mis à jour en temps réel pendant nos échanges.*

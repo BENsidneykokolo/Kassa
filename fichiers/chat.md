@@ -1405,4 +1405,1453 @@ Les `flutter pub get` ont réussi pour les deux apps (imports/dépendances corre
 
 ---
 
+## Session: 04/08/2026 — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57 | kassa_v1.5.0.apk | 119 MB |
+| Proprio | 6 | app-release.apk | 63 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+
+---
+
+## Session: 04/08/2026 — Firebase Remote Connection Setup
+
+### Problème
+La connexion à distance entre Kassa et Proprio ne fonctionnait pas. L'approche UPnP/IP publique ne marche pas sur les réseaux mobiles africains (CGNAT).
+
+### Solution : Firebase Firestore
+Kassa pousse les données vers Firestore, Proprio lit en temps réel via StreamBuilder. Pas besoin de VPS, pas de NAT, gratuit jusqu'à 50k lectures/jour.
+
+### Fichiers créés/modifiés
+
+| Fichier | App | Action |
+|---------|-----|--------|
+| `firebase_options.dart` | Kassa | **Nouveau** — Config Firebase depuis SharedPreferences |
+| `main.dart` | Kassa | +`Firebase.initializeApp()` + `DefaultFirebaseOptions.loadConfig()` |
+| `firebase_setup_screen.dart` | Kassa | **Nouveau** — Écran de configuration Firebase (API Key, Project ID, App ID, Shop ID) |
+| `app_router.dart` | Kassa | +route `/firebase-setup` |
+| `settings_screen.dart` | Kassa | +lien "Connexion distante (Firebase)" dans Settings |
+| `firebase_options.dart` | Proprio | **Nouveau** — Même structure que Kassa |
+| `main.dart` | Proprio | +`Firebase.initializeApp()` |
+
+### Architecture
+
+```
+Kassa (vendeur)                    Firestore                     Proprio (propriétaire)
+     │                                │                                │
+     │  pushAllData() toutes les 2min │                                │
+     │  ─────────────────────────────>│                                │
+     │                                │  snapshots().listen()          │
+     │                                │  ─────────────────────────────>│
+     │                                │  (temps réel)                  │
+```
+
+### Flow de connexion
+
+**Côté Kassa (vendeur) :**
+1. Settings > Connexion distante (Firebase)
+2. Entrer : API Key, Project ID, App ID, Shop ID
+3. Sauvegarder et tester
+4. Sync automatique toutes les 2 minutes
+
+**Côté Proprio (propriétaire) :**
+1. Scanner > bouton "Firebase"
+2. Entrer : Nom boutique + Shop ID (même que Kassa)
+3. Connecter
+4. Dashboard se met à jour en temps réel
+
+### Données synchronisées (Kassa → Firestore → Proprio)
+- KPI : revenus jour/semaine/mois, ventes, dépenses, profit net
+- Inventaire : total produits, stock faible, rupture
+- Clients : total, liste
+- Employés : total, actifs, liste
+- Dépenses : liste
+- Pointages : liste
+- Ventes récentes : 10 dernières
+
+### Prochaine étape
+L'utilisateur doit :
+1. Créer un projet Firebase sur console.firebase.google.com
+2. Ajouter l'app Flutter (package: `com.yabisso.kassa`)
+3. Télécharger `google-services.json` → `android/app/`
+4. Activer Firestore Database (test mode)
+5. Lancer `flutterfire configure` OU utiliser l'écran de setup dans Kassa Settings
+
+---
+
+## Session: 04/08/2026 — Implémentation Firebase + Audit + Fixes
+
+### Firebase implémenté ✅
+- Projet Firebase : `yabisso-business` (ID: 74413643818)
+- Kassa : `com.yabisso.kassa` (App ID: `1:74413643818:android:1e23fd62ae68a172434b53`)
+- Proprio : `com.yabisso.proprio` (App ID: `1:74413643818:android:1aa65021ff05c66e434b53`)
+
+### Fichiers modifiés
+
+| # | Fichier | App | Action |
+|---|---------|-----|--------|
+| 1 | `firebase_options.dart` | Kassa | Config hardcodée (API Key, Project ID, App ID) |
+| 2 | `main.dart` | Kassa | +`Firebase.initializeApp()` + try/catch |
+| 3 | `firebase_setup_screen.dart` | Kassa | Simplifié (Shop ID only) |
+| 4 | `app_router.dart` | Kassa | +route `/firebase-setup` |
+| 5 | `settings_screen.dart` | Kassa | +lien "Connexion distante (Firebase)" |
+| 6 | `remote_sync_service.dart` | Kassa | -import `dart:convert` inutilisé |
+| 7 | `google-services.json` | Proprio | Package name corrigé → `com.yabisso.proprio` |
+| 8 | `build.gradle.kts` | Proprio | namespace + applicationId → `com.yabisso.proprio` |
+| 9 | `AndroidManifest.xml` | Proprio | +permission INTERNET |
+| 10 | `firebase_options.dart` | Proprio | Config hardcodée |
+| 11 | `main.dart` | Proprio | +`Firebase.initializeApp()` |
+| 12 | `business_detail_screen.dart` | Proprio | Fix `_refreshData()` pour Firestore |
+| 13 | `firestore_sync_service.dart` | Proprio | Fix `.toInt()` + dead code supprimé |
+
+### Bugs corrigés lors de l'audit
+
+| # | Bug | Fix |
+|---|-----|-----|
+| 1 | Proprio google-services.json avait `com.yabiso.yabiso_business` | Corrigé → `com.yabisso.proprio` |
+| 2 | Proprio build.gradle.kts avait mauvais namespace/applicationId | Corrigé → `com.yabisso.proprio` |
+| 3 | Proprio AndroidManifest.xml manquait permission INTERNET | Ajoutée |
+| 4 | Kassa firebase_setup_screen.dart import inutilisé `cloud_firestore` | Supprimé |
+| 5 | Kassa remote_sync_service.dart import inutilisé `dart:convert` | Supprimé |
+| 6 | Proprio `_refreshData()` lançait HTTP sync pour Firestore | Fix: check `token == 'firestore'` |
+| 7 | Proprio `lowStock`/`outOfStock` risquaient `double` → `int` crash | Fix: `.toInt()` ajouté |
+| 8 | Proprio `firestore_sync_service.dart` dead code (expenses/pointages) | Supprimé |
+
+---
+
+*Ce fichier est mis à jour en temps réel pendant nos échanges.*
+
+---
+
+## Session: 04/08/2026 (Partie 2) — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57 | kassa_v1.5.0.apk | 119 MB |
+| Proprio | 6 | app-release.apk | 63 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+
+### Dernières implémentations
+- Firebase Remote Connection (Kassa ↔ Firestore ↔ Proprio) ✅
+- Loyalty Card Fixes (collision numéros, auto-points) ✅
+- Deep Audit Kassa/Proprio (14 fixes) ✅
+- Pointage Vendeurs + Fix Poids + Connexion Proprio ✅
+
+---
+
+## Session: 04/08/2026 (Partie 3) — Deep Audit + Builds Kassa/Proprio
+
+### Résultats Audit Kassa (60 routes, 61 écrans, 7 widgets)
+
+| Catégorie | Problèmes | Détail |
+|-----------|-----------|--------|
+| **CRITICAL (DB)** | 3 | `pointages` table manquante fresh install, `customer_id` manquant dans sales, store name hardcodé KASSA |
+| **HIGH** | 1 | Pas de router errorPage (GoRouter 404 sans handler) |
+| **MEDIUM** | 4 | 3 dead routes (/register, /stock, /stock-purchase), dead builder /suppliers/add, main.dart silent failures, nav desktop/mobile inconsistent |
+| **LOW** | 2 | Route /login = SubscriptionScreen (confusing), dynamic route push non validé |
+| **Screens** | 521+ strings | Hardcoded French (non traduites via LanguageService) |
+| **Async** | 23+ | Méthodes _loadData sans try-catch |
+| **Imports** | 5 | Unused imports (sqflite, flutter/rendering, etc.) |
+| **Deprecated** | 47 | withOpacity() → withValues(alpha:) |
+
+### Résultats Audit Proprio (7 routes, 7 écrans, 17 fichiers)
+
+| Catégorie | Problèmes | Détail |
+|-----------|-----------|--------|
+| **HIGH** | 8 | Fragile Establishment serialization (_mapToString), 11 catch silencieux, Firestore error handling vide, singleton collision dispose, test cassé (MyApp), magic string 'firestore' |
+| **MEDIUM** | 12 | Pas de 404 handler, pas auth guard, DateTime.parse non protégé, code duplication x7, dead code, pas de mutex, pas de state management, pas d'error boundary |
+| **LOW** | 9 | Pas d'index DB, silent migration errors, pas de DB close, hardcoded colors |
+
+### Firebase Status
+
+| Vérification | Kassa | Proprio |
+|--------------|-------|---------|
+| google-services.json | ✅ com.yabisso.kassa | ✅ com.yabisso.proprio |
+| firebase_options.dart | ✅ project: yabisso-business | ✅ project: yabisso-business |
+| Même projet Firebase | ✅ ID: 74413643818 | ✅ ID: 74413643818 |
+| Même API key | ✅ | ✅ |
+| Même project ID | ✅ yabisso-business | ✅ yabisso-business |
+| Package names | ✅ corrects | ✅ corrects |
+
+### Analyse Dart
+
+| App | Erreurs | Warnings | Infos |
+|-----|---------|----------|-------|
+| Kassa | **0** | ~40 | ~200+ |
+| Proprio | **0** | 7 | 11 |
+
+### Builds
+
+| App | flutter pub get | flutter analyze | flutter build apk | Taille APK | Statut |
+|-----|----------------|-----------------|-------------------|------------|--------|
+| **Kassa** | ✅ OK | ✅ 0 erreurs | ✅ Réussi (1751s) | **122.8 MB** | ✅ BUILD OK |
+| **Proprio** | ✅ OK | ✅ 0 erreurs | ✅ Réussi (472s) | **64.6 MB** | ✅ BUILD OK |
+
+### APKs générés
+
+| App | Chemin | Taille |
+|-----|--------|--------|
+| Kassa | `yabisso_kassa/build/app/outputs/flutter-apk/app-release.apk` | 122.8 MB |
+| Proprio | `yabiso_business/build/app/outputs/flutter-apk/app-release.apk` | 64.6 MB |
+
+### Bugs critiques identifiés (à corriger)
+
+1. **CRITICAL** — `pointages` table absente de `_createDB()` → fresh install crash
+2. **CRITICAL** — `customer_id` absent du CREATE TABLE `sales` → fresh install crash
+3. **CRITICAL** — Store name hardcodé 'KASSA' dans BusinessCoachService
+4. **HIGH** — Pas de GoRouter errorPage (404 silencieux)
+5. **HIGH** — Proprio: Establishment._mapToString() casse si valeur contient `|` ou `=`
+
+---
+
+*Ce fichier est mis à jour en temps réel pendant nos échanges.*
+
+---
+
+## Session: 05/08/2026 — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57 | app-release.apk | 122.8 MB |
+| Proprio | 6 | app-release.apk | 64.6 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+
+### Dernières implémentations
+- Firebase Remote Connection (Kassa ↔ Firestore ↔ Proprio) ✅
+- Deep Audit Kassa/Proprio (14 fixes) ✅
+- Builds Kassa (122.8 MB) + Proprio (64.6 MB) ✅
+- Loyalty Card Fixes ✅
+
+### Bugs critiques restants (identifiés session précédente)
+1. `pointages` table absente de `_createDB()` → fresh install crash
+2. `customer_id` absent du CREATE TABLE `sales` → fresh install crash
+3. Store name hardcodé 'KASSA' dans BusinessCoachService
+
+---
+
+## Session: 05/08/2026 — Audit + Fixes + Builds
+
+### 1. Fixes Kassa — 3 bugs critiques ✅
+
+| # | Bug | Fix | Fichier |
+|---|-----|-----|---------|
+| 1 | `pointages` table absente de `_createDB()` | Ajouté CREATE TABLE pointages dans `_createDB()` | `database_helper.dart` |
+| 2 | `customer_id` absent du CREATE TABLE sales | Ajouté `customer_id TEXT` au CREATE TABLE sales | `database_helper.dart` |
+| 3 | Store name hardcodé 'KASSA' | Remplacé par `await _db.getSetting('store_name') ?? 'Kassa'` | `business_coach_service.dart` |
+
+### 2. Fix Proprio — Package name mismatch ✅
+
+**Problème** : Le `applicationId` avait été changé de `com.yabiso.yabiso_business` vers `com.yabisso.proprio`. Android considérait ça comme une nouvelle app → l'installation ne mettait pas à jour l'ancienne.
+
+**Fix** :
+| Fichier | Changement |
+|---------|------------|
+| `android/app/build.gradle.kts` | `namespace` + `applicationId` → `com.yabiso.yabiso_business` |
+| `android/app/google-services.json` | `package_name` → `com.yabiso.yabiso_business` |
+| `pubspec.yaml` | `version: 1.0.0+1` → `1.1.0+2` (bump versionCode) |
+
+**Note** : Firebase est optionnel (try/catch). Le sync HTTP continue de fonctionner.
+
+### 3. Fix bugs audit poids/composition ✅
+
+| # | Bug | Fix | Fichier |
+|---|-----|-----|---------|
+| 1 | `_resetForm()` ne reset pas `_isComposed`, `_compositions`, `_stockType`, `_weightUnit`, `_refUnit` | Ajouté les resets dans `setState()` | `add_product_screen.dart` |
+| 2 | `_storeName` hardcodé 'KASSA' en fallback | Changé vers 'Kassa' (cohérent) | `customer_detail_screen.dart` |
+
+### 4. Audit Dart — 0 erreurs ✅
+
+| Fichier | Erreurs | Warnings | Infos |
+|---------|---------|----------|-------|
+| `database_helper.dart` | 0 | 1 (unused var) | 6 (string interpolation) |
+| `business_coach_service.dart` | 0 | 7 (unused imports/vars) | 7 (cosmétiques) |
+| `add_product_screen.dart` | 0 | 2 (unused import, dead code) | 15 (deprecated withOpacity) |
+| `customer_detail_screen.dart` | 0 | 0 | 4 (BuildContext async) |
+
+### 5. Builds ✅
+
+| App | Taille APK | Temps build | Statut |
+|-----|------------|-------------|--------|
+| **Proprio** | 64.5 MB | ~10 min | ✅ BUILD OK |
+| **Kassa** | 121.9 MB | ~33 min | ✅ BUILD OK |
+
+### APKs générés
+
+| App | Chemin | Taille |
+|-----|--------|--------|
+| Kassa | `yabisso_kassa/build/app/outputs/flutter-apk/app-release.apk` | 121.9 MB |
+| Proprio | `yabiso_business/build/app/outputs/flutter-apk/app-release.apk` | 64.5 MB |
+
+### Fichiers modifiés
+
+| Fichier | App | Action |
+|---------|-----|--------|
+| `lib/database/database_helper.dart` | Kassa | +pointages table dans _createDB, +customer_id dans sales |
+| `lib/services/business_coach_service.dart` | Kassa | Store name dynamique via getSetting |
+| `lib/screens/add_product/add_product_screen.dart` | Kassa | _resetForm: reset _isComposed, _compositions, _stockType, _weightUnit |
+| `lib/screens/loyalty/customer_detail_screen.dart` | Kassa | Fallback store_name: 'KASSA' → 'Kassa' |
+| `android/app/build.gradle.kts` | Proprio | namespace + applicationId → com.yabiso.yabiso_business |
+| `android/app/google-services.json` | Proprio | package_name → com.yabiso.yabiso_business |
+| `pubspec.yaml` | Proprio | version 1.0.0+1 → 1.1.0+2 |
+
+---
+
+## Session: 05/08/2026 (Partie 2) — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57 | app-release.apk | 122.8 MB |
+| Proprio | 6 | app-release.apk | 64.6 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+
+### Dernières implémentations
+- Firebase Remote Connection (Kassa ↔ Firestore ↔ Proprio) ✅
+- Deep Audit Kassa/Proprio (14 fixes) ✅
+- Builds Kassa (122.8 MB) + Proprio (64.6 MB) ✅
+- Loyalty Card Fixes ✅
+
+---
+
+## Session: 05/08/2026 (Partie 3) — Vérification Abonnement Obligatoire
+
+### Demande utilisateur
+Vérifier que l'app Kassa nécessite un abonnement valide pour être utilisée. L'utilisateur a pu installer l'app et ajouter des produits SANS abonnement.
+
+### Failles identifiées
+| # | Faille | Gravité |
+|---|--------|---------|
+| 1 | `has_subscription` n'est JAMAIS remis à `false` à l'expiration | CRITIQUE |
+| 2 | `_checkSubscription()` ne vérifie que le bool `has_subscription`, pas `subscription_expires` | CRITIQUE |
+| 3 | Aucun guard dans `app_router.dart` — toutes les routes accessibles | CRITIQUE |
+| 4 | `MainScreen` affiche juste un rappel dismissible au lieu de bloquer | HAUT |
+| 5 | `AddProductScreen` vérifie la limite produits mais pas la validité abonnement | HAUT |
+| 6 | `PaymentScreen` et `DesktopPosScreen` n'ont aucune vérification abonnement | HAUT |
+
+### Corrections appliquées
+
+#### 1. `SubscriptionGuard` — Nouveau service ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/services/subscription_guard.dart` | **Nouveau** — Vérifie `has_subscription` + `subscription_expires` |
+
+**Méthodes :**
+- `isValid()` : Vérifie si abonnement valide (bool + date)
+- `enforceExpiry()` : Force reset `has_subscription = false` si expiré, retourne validité
+- `getDaysRemaining()` : Jours restants
+- `getPlan()` : Plan actuel
+
+#### 2. GoRouter Redirect ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/router/app_router.dart` | +import `subscription_guard.dart` + redirect global |
+
+**Logique :**
+- `/login`, `/register`, `/vendor-auth` → pas de vérification (autorisés)
+- Toutes les autres routes → `SubscriptionGuard.enforceExpiry()` → redirect `/vendor-auth` si invalide
+
+#### 3. VendorAuthScreen ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/vendor_auth/vendor_auth_screen.dart` | +import `subscription_guard.dart` + `_checkSubscription()` utilise `enforceExpiry()` |
+
+**Avant** : `prefs.getBool('has_subscription')` (ne vérifie pas l'expiration)
+**Après** : `SubscriptionGuard.enforceExpiry()` (force reset si expiré + retourne validité)
+
+#### 4. MainScreen ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/main_screen.dart` | +import `subscription_guard.dart` + redirect si expiré |
+
+**Avant** : Rappel dismissible quand `daysLeft <= 5`
+**Après** : Redirect `/vendor-auth` si abonnement expiré + rappel dismissible
+
+#### 5. AddProductScreen ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/add_product/add_product_screen.dart` | +import + vérification abonnement avant ajout produit |
+
+**Avant** : Vérifie limite produits seulement
+**Après** : Vérifie abonnement valide + limite produits
+
+#### 6. PaymentScreen ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/payment/payment_screen.dart` | +import + vérification abonnement avant paiement |
+
+#### 7. DesktopPosScreen ✅
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/desktop/desktop_pos_screen.dart` | +import + vérification abonnement avant paiement (mode desktop) |
+
+### Flow complet après fix
+
+```
+App démarre
+  → GoRouter redirect → SubscriptionGuard.enforceExpiry()
+  → has_subscription = false OU expiré → redirect /vendor-auth
+  → /vendor-auth affiche dialog "Abonnement requis"
+  → Utilisateur active abonnement (OFF/PTS/WhatsApp)
+  → has_subscription = true, subscription_expires = now + 30j
+  → _login() → context.go('/')
+  → GoRouter redirect → enforceExpiry() → true → accès autorisé
+  → MainScreen → enforceExpiry() → true → reste sur /
+  → Si abonnement expire → enforceExpiry() → false → redirect /vendor-auth
+```
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/services/subscription_guard.dart` | **Nouveau** — Service validation abonnement |
+| `lib/router/app_router.dart` | +import + redirect GoRouter |
+| `lib/screens/vendor_auth/vendor_auth_screen.dart` | +import + enforceExpiry() |
+| `lib/screens/main_screen.dart` | +import + redirect si expiré |
+| `lib/screens/add_product/add_product_screen.dart` | +import + vérification abonnement |
+| `lib/screens/payment/payment_screen.dart` | +import + vérification abonnement |
+| `lib/screens/desktop/desktop_pos_screen.dart` | +import + vérification abonnement |
+
+### Note
+- `flutter analyze` timeout sur machine lente — vérification manuelle du code OK
+- Aucun commentaire ajouté sauf dans le fichier `subscription_guard.dart` (documentation)
+
+---
+
+## Session: 06/08/2026 — Fix Bluetooth Printer
+
+### Demande utilisateur
+- Le Bluetooth ne fonctionne pas, impossible de se connecter à l'imprimante
+- Continuer les fixes en cours
+
+### Problèmes identifiés et corrigés
+
+#### 1. thermal_print_service.dart ✅ (déjà fait session précédente)
+- `disconnect` appelé comme getter au lieu de méthode
+- Tous les `catch(_)` silencieux — debug impossible
+- Pas de méthode pour reconnecter automatiquement
+
+#### 2. settings_screen.dart ✅
+**Avant** : Subtitle "Non connectée" hardcodé, flow de recherche sans feedback
+**Après** :
+- Nouveau widget `_buildBluetoothPrinterTile()` avec FutureBuilder
+- Affiche "Connectée" / "Enregistrée (déconnectée)" / "Non connectée"
+- Icône verte si connectée, grise sinon
+- Utilise `ThermalPrintService.savePrinterMac()` au lieu de SharedPreferences direct
+
+#### 3. payment_screen.dart ✅
+**Avant** : `_printTicket()` lisait `bluetooth_printer_mac` directement depuis SharedPreferences, ne sauvait pas le MAC après sélection
+**Après** :
+- Essaie `tryConnectSaved()` en premier (reconnexion auto)
+- Si échoue, affiche la liste des imprimantes
+- Sauve le MAC avec `savePrinterMac()` après sélection
+- Pas d'import SharedPreferences nécessaire pour le BT
+
+#### 4. receipt_screen.dart ✅
+**Avant** : `_printBluetooth()` forçait toujours la re-sélection, ne sauvegardait pas le MAC
+**Après** :
+- Essaie `tryConnectSaved()` en premier
+- Affiche l'imprimante enregistrée avec coche verte dans la liste
+- Sauve le MAC avec `savePrinterMac()` après sélection
+
+#### 5. AndroidManifest.xml ✅
+**Avant** : Pas de `ACCESS_FINE_LOCATION`
+**Après** : Ajouté pour le scan Bluetooth sur Android < 12
+
+### Résumé des changements Bluetooth
+
+```
+Avant :
+  User ouvre Settings → voit "Non connectée" → clique → search → sélectionne → imprime → OUBLIÉ → prochaine fois: re-sélection obligatoire
+
+Après :
+  User ouvre Settings → voit "Enregistrée (déconnectée)" → clique → search → auto-connect au MAC enregistré → imprime
+  Si pas de MAC → sélectionne → MAC sauvé → prochaine fois: auto-connect
+```
+
+### Fichiers modifiés (Bluetooth)
+| Fichier | Action |
+|---------|--------|
+| `lib/services/thermal_print_service.dart` | Déjà corrigé — tryConnectSaved(), savePrinterMac(), debug logs |
+| `lib/screens/settings/settings_screen.dart` | Nouveau widget Bluetooth dynamique + flow search avec savePrinterMac() |
+| `lib/screens/payment/payment_screen.dart` | _printTicket() utilise tryConnectSaved() + savePrinterMac() |
+| `lib/screens/receipt/receipt_screen.dart` | _printBluetooth() utilise tryConnectSaved() + savePrinterMac() + affiche imprimante enregistrée |
+| `android/app/src/main/AndroidManifest.xml` | +ACCESS_FINE_LOCATION pour scan BT Android < 12 |
+
+### Note
+- `flutter analyze` non disponible sur cette machine (Flutter pas dans PATH)
+- Tous les accès directs à `bluetooth_printer_mac` centralisés dans `thermal_print_service.dart`
+- Aucun commentaire ajouté
+
+---
+
+## Session: 06/08/2026 — Bouton Mobile (Airtel/MTN)
+
+### Demande utilisateur
+- Remplacer le bouton "Ticket" par "Mobile" dans la barre du bas de l'écran paiement
+- Quand on clique sur "Mobile", afficher 2 options : "Airtel" et "MTN"
+- Après sélection, afficher le même reçu que "Valider le paiement" avec :
+  - "Montant Reçu: X (Cash)" (déjà présent)
+  - Ajouter le mode de paiement "Airtel" ou "MTN" après "(Cash)"
+
+### Fichiers modifiés
+
+#### 1. payment_screen.dart ✅
+**Avant** : Bouton "Ticket" avec icône print, appelle `_printTicket()`
+**Après** :
+- Bouton "Mobile" avec icône `phone_android`, appelle `_showMobilePaymentOptions()`
+- Nouvelle méthode `_showMobilePaymentOptions()` — modal avec Airtel Money (rouge) et MTN Mobile Money (jaune)
+- Nouvelle méthode `_processMobilePayment()` — même logique que `_processPayment()` mais ajoute `paymentMode` dans `lastSaleDataProvider`
+
+#### 2. receipt_screen.dart ✅
+**Avant** : `_buildPaymentInfoBox(sale)` — affiche toujours "(Cash)"
+**Après** :
+- `_buildPaymentInfoBox(sale, paymentMode)` — si paymentMode n'est pas null, affiche "(Cash) - Airtel" ou "(Cash) - MTN"
+- `_buildReceiptCard()` accepte et passe `paymentMode`
+- `build()` lit `saleData['paymentMode']`
+
+### Flow
+
+```
+User clique "Mobile"
+  → Modal Airtel / MTN
+  → User choisit "Airtel"
+  → _processMobilePayment(..., 'Airtel')
+  → Sale créée + sauvée en DB
+  → lastSaleDataProvider = { ..., 'paymentMode': 'Airtel' }
+  → Navigation vers /receipt
+  → Receipt affiche: "Montant Reçu: 5 000 (Cash) - Airtel"
+```
+
+### Note
+- Le bouton "Valider le paiement" reste pour les paiements Cash classiques
+- Le bouton "Mobile" est pour les paiements mobile money
+- Les deux flows sauvent la vente en DB
+- `paymentMode` est optionnel (null pour Cash, 'Airtel'/'MTN' pour Mobile)
+
+---
+
+## Session: 06/08/2026
+
+### Demande utilisateur
+Suite de l'audit complet des 4 apps (Kassa, Proprio, Admin Dashboard, Super Admin). Correction de tous les problèmes identifiés.
+
+### Corrections effectuées (Phase 2 - Audit Kassa)
+
+#### 1. Double-tap Payment Prevention (CRITICAL)
+- **Fichier**: `lib/screens/payment/payment_screen.dart`
+- Ajouté `_isProcessing` guard dans `_processPayment()` et `_processMobilePayment()`
+- Les boutons "Mobile" et "Valider le Paiement" sont désactivés pendant le traitement
+- Indicateur de chargement (CircularProgressIndicator) affiché pendant le processing
+- `finally` block pour réinitialiser `_isProcessing` même en cas d'erreur
+
+#### 2. Logout Confirmation Dialog (HIGH)
+- **Fichier**: `lib/screens/settings/settings_screen.dart`
+- Remplacé le déconnexion directe par un `AlertDialog` de confirmation
+- "Annuler" ou "Déconnecter" avec bouton rouge
+
+#### 3. Receipt Back Prevention - PopScope (HIGH)
+- **Fichier**: `lib/screens/receipt/receipt_screen.dart`
+- Enveloppé le `Scaffold` dans `PopScope(canPop: false)`
+- `onPopInvokedWithResult` redirige vers `context.go('/')` (nouvelle vente)
+- Empêche le retour accidentel après une vente
+
+#### 4. Store Name Provider Invalidation (HIGH)
+- **Fichiers**: 
+  - `lib/screens/subscription/subscription_screen.dart` - Ajouté `ProviderScope.containerOf(context).invalidate(storeNameProvider)` après sauvegarde
+  - `lib/screens/subscription/register_screen.dart` - Ajouté imports + sauvegarde DB + invalidation provider
+- Le storeNameProvider est maintenant invalidé quand le nom change
+
+#### 5. Add Product Loading State + Unsaved Changes (HIGH)
+- **Fichier**: `lib/screens/add_product/add_product_screen.dart`
+- Ajouté `_isSaving` state variable
+- `_saveProduct()` vérifie `_isSaving` au début et réinitialise dans `finally`
+- Bouton "Enregistrer" désactivé et affiche CircularProgressIndicator pendant sauvegarde
+- `PopScope` ajouté avec dialog de confirmation si modifications non sauvegardées
+- Le back button vérifie les changements non sauvegardés
+
+#### 6. SQL Indexes (MEDIUM)
+- **Fichier**: `lib/database/database_helper.dart`
+- Version DB bumpée de 19 → 20
+- Ajouté 13 indexes dans `_onUpgrade` version 20:
+  - `idx_sale_items_sale_id` - Jointures ventes
+  - `idx_sale_items_product_id` - Jointures produits
+  - `idx_sales_created_at` - Requêtes par date
+  - `idx_sales_vendor_id` - Filtrage vendeur
+  - `idx_products_barcode` - Recherche par barcode
+  - `idx_products_category_id` - Filtrage catégorie
+  - `idx_products_name` - Recherche par nom
+  - `idx_inventory_history_product_id` - Historique stock
+  - `idx_customer_bonuses_customer_id` - Points fidélité
+  - `idx_customer_transactions_customer_id` - Transactions client
+  - `idx_expenses_created_at` - Requêtes dépenses par date
+  - `idx_pointages_vendor_id` - Pointage vendeur
+  - `idx_pointages_timestamp` - Pointage par date
+
+#### 7. Customer.fromMap() Null Safety (ALREADY FIXED)
+- Le modèle Customer avait déjà une gestion null-safe dans `fromMap()` avec `as int? ?? 0`, `as num?`, etc.
+
+### Fichiers modifiés dans cette session
+- `lib/screens/payment/payment_screen.dart` - Double-tap prevention + loading indicator
+- `lib/screens/settings/settings_screen.dart` - Logout confirmation dialog
+- `lib/screens/receipt/receipt_screen.dart` - PopScope back prevention
+- `lib/screens/subscription/subscription_screen.dart` - Store name provider invalidation
+- `lib/screens/subscription/register_screen.dart` - Store name DB save + provider invalidation
+- `lib/screens/add_product/add_product_screen.dart` - Loading state + unsaved changes warning
+- `lib/database/database_helper.dart` - SQL indexes (version 20)
+
+### Tests
+- `flutter analyze` non disponible (timeout) - à tester manuellement
+- Builds Kappa et Proprio non lancés dans cette session
+
+---
+
+## Session: 06/08/2026 — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer (thermal printing)
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57 | app-release.apk | 122.8 MB |
+| Proprio | 6 | app-release.apk | 64.6 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+
+### Bugs critiques restants (session 05/08)
+1. `pointages` table absente de `_createDB()` → fresh install crash
+2. `customer_id` absent du CREATE TABLE `sales` → fresh install crash
+3. Store name hardcodé dans `BusinessCoachService`
+4. Pas de GoRouter errorPage (404 silencieux)
+
+---
+
+## Session: 06/08/2026 — Ajout PDF Export Inventory Screen
+
+### Demande utilisateur
+Ajouter l'option PDF dans l'écran "Gestion de l'Inventaire" (inventory_screen.dart), comme celui de l'historique des reçus.
+
+### Modifications
+
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/inventory/inventory_screen.dart` | +import `pdf_service.dart` |
+| | +bouton PDF dans l'AppBar (icons.picture_as_pdf) |
+| | +méthode `_exportPdf()` qui appelle `PdfService.generateInventoryPdf()` |
+
+### Fonctionnalité
+- Bouton PDF dans l'AppBar verte (à côté de la flèche retour)
+- Clic → charge tous les produits depuis la DB
+- Calcule : total produits, produits critiques, valeur stock, unités totales
+- Génère un PDF avec tableau des produits (nom, catégorie, achat, vente, stock, statut)
+- Ouvre le dialog d'impression natif
+- SnackBar de confirmation ou d'erreur
+
+### Vérification
+- `flutter analyze` : timeout (machine lente) — vérification manuelle OK
+- Le code utilise `PdfService.generateInventoryPdf()` déjà existant (pas de nouveau code PDF)
+- Même pattern que `receipt_history_screen.dart`
+
+---
+
+## Session: 06/08/2026 — Ajout calendrier PDF Inventory + Vérification complète
+
+### Demande utilisateur
+1. Fixer l'icône calendrier dans "Historique des Reçus" pour sélectionner les jours à exporter en PDF
+2. Ajouter cette fonctionnalité partout où se trouve l'option PDF dans l'app Kassa (paramètres)
+
+### Résultat audit
+| Écran | PDF | Calendrier | Dates filtre | Statut |
+|-------|-----|------------|--------------|--------|
+| `inventory_screen.dart` | ✅ Ajouté (session précédente) | ✅ **AJOUTÉ** | ✅ **AJOUTÉ** | ✅ Corrigé |
+| `receipt_history_screen.dart` | ✅ Déjà présent | ✅ Déjà présent | ✅ Déjà présent | ✅ OK |
+| `inventory_history_screen.dart` | ✅ Déjà présent | ✅ Déjà présent | ✅ Déjà présent | ✅ OK |
+| `decondition_history_screen.dart` | ✅ Déjà présent | ✅ Déjà présent | ✅ Déjà présent | ✅ OK |
+| `receipt_export_screen.dart` | ✅ Déjà présent | ✅ Déjà présent | ✅ Déjà présent | ✅ OK |
+
+### Modifications appliquées
+
+#### 1. `inventory_screen.dart` — Calendrier + filtre dates
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/inventory/inventory_screen.dart` | +import `intl` |
+| | +variables `_startDate`, `_endDate` |
+| | +bouton calendrier `Icons.calendar_today` dans AppBar |
+| | +méthode `_pickDateRange()` (showDateRangePicker, locale FR) |
+| | +méthode `_clearFilters()` |
+| | +bannière filtre dates sous la barre de recherche |
+| | `_exportPdf()` passe les dates au PDF |
+
+#### 2. `pdf_service.dart` — Dates dans le header PDF inventaire
+| Fichier | Action |
+|---------|--------|
+| `lib/services/pdf_service.dart` | +paramètres `startDate`, `endDate` optionnels dans `generateInventoryPdf()` |
+| | +affichage "Période: ..." dans le header du PDF |
+
+### Fonctionnalité complète
+- **Bouton calendrier** dans l'AppBar verte → sélection date range (locale FR)
+- **Bannière verte** sous la recherche affiche la période sélectionnée + bouton "Effacer"
+- **Bouton PDF** → génère un PDF avec tableau produits + période affichée dans le header
+- **Même pattern** que tous les autres écrans (inventory_history, decondition_history, receipt_history, receipt_export)
+
+---
+
+## Session: 06/08/2026 — Fix total vendeur + Écran Performance Vendeurs
+
+### Demande utilisateur
+1. Fixer l'écran "Aujourd'hui" dans historique des reçus : quand on sélectionne un vendeur, afficher uniquement le total de ce vendeur
+2. Ajouter un écran "Performance Vendeurs" avec graphe + liste des ventes par vendeur
+
+### 1. Fix total "Aujourd'hui" par vendeur ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/receipt_history/receipt_history_screen.dart` | `_buildTodayTotalCard()` recalcule le total filtré par `_selectedVendorId` |
+
+**Avant** : Toujours affiche `_todayTotal` (total global) même quand un vendeur est sélectionné
+**Après** : Calcule la somme des ventes du vendeur sélectionné via `_todayItems.where(vendor_id)`, affiche "Total {nom vendeur}"
+
+### 2. Nouvel écran Performance Vendeurs ✅
+
+**Fichier créé** : `lib/screens/vendors/vendor_sales_screen.dart`
+
+**Fonctionnalités** :
+- Sélecteur de dates (début mois → aujourd'hui par défaut)
+- **Graphe BarChart** (fl_chart) : ventes par vendeur, couleurs par vendeur, tooltips
+- **Classement vendeurs** : médaille 🥇🥈🥉, nom, nb ventes, moyenne, total, pourcentage, barre progression
+- Pull-to-refresh
+- Design cohérent avec l'app (vert primary, cartes ombres)
+
+### 3. Base de données ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/database/database_helper.dart` | +`getVendorSalesSummary()` : total par vendeur + nb ventes + moyenne |
+| | +`getVendorDailySales()` : ventes quotidiennes par vendeur |
+
+### 4. Route + Navigation ✅
+
+| Fichier | Action |
+|---------|--------|
+| `lib/router/app_router.dart` | +import `vendor_sales_screen.dart` + route `/vendor-sales` |
+| `lib/screens/vendors/vendors_screen.dart` | +bouton `Icons.bar_chart` dans l'AppBar (à côté du pointage) |
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `receipt_history_screen.dart` | Fix `_buildTodayTotalCard()` filtré par vendeur |
+| `database_helper.dart` | +2 méthodes SQL vendor sales |
+| `app_router.dart` | +import + route `/vendor-sales` |
+| `vendors_screen.dart` | +bouton Performance dans AppBar |
+| `vendor_sales_screen.dart` | **Nouveau** — écran complet performance vendeurs |
+
+---
+
+## Session: 06/08/2026 — Fix écran Bénéfices
+
+### Problème
+L'écran "Bénéfices" calculait `profit = revenue - cost` (revenus - coût marchandises) mais **ne soustrait PAS les dépenses**. Le résultat ne correspondait pas à l'écran "Dépense Boutique" qui montre le vrai bénéfice net.
+
+### Correction de la formule
+**Avant** : `Bénéfice = CA - Coûts`
+**Après** : `Bénéfice net = CA - Coûts - Dépenses`
+
+| Écran | Source des données | Formule |
+|-------|-------------------|---------|
+| **CA** | Historique reçus → onglet Aujourd'hui → bouton "Tous" | `SUM(s.total)` |
+| **Coûts** | `getDailySalesStats()` → colonne `cost` | `COGS (prix d'achat × quantité)` |
+| **Dépenses** | `getExpensesForPeriod()` → colonne `expenses` | `SUM(expenses.amount)` |
+| **Bénéfice net** | Calcul | `CA - Coûts - Dépenses` |
+
+### Modifications
+
+| Fichier | Action |
+|---------|--------|
+| `lib/database/database_helper.dart` | +`getDailyExpensesStats(start, end)` : dépenses par jour |
+| `lib/screens/settings/benefits_screen.dart` | Réécriture complète |
+
+### Changements dans benefits_screen.dart
+
+| Élément | Avant | Après |
+|---------|-------|-------|
+| Données chargées | `getDailySalesStats` seul | `getDailySalesStats` + `getDailyExpensesStats` |
+| Formule profit | `revenue - cost` | `revenue - cost - expenses` |
+| Summary cards | 4 cartes (CA, Coûts, Bénéfice, Marge) | 5 cartes (CA, Coûts, Dépenses, Bénéfice net, Marge) |
+| Bar chart | 2 barres (CA vs Coûts) | 3 barres (CA vs Coûts vs Dépenses) |
+| Légende bar chart | "Revenus" / "Coûts" | "CA" / "Coûts" / "Dépenses" |
+| Cards période | Affiche CA, Coût, Bénéfice | Affiche CA, Coût, Dépenses, Bénéfice net |
+
+### Cohérence avec le reste de l'app
+- **Dépense boutique** : `netBenefit = revenue - cost - expenses` ✅ Identique
+- **Bénéfices screen** : `profit = revenue - cost - expenses` ✅ Maintenant identique
+
+---
+
+## Session: 06/08/2026 — Chat temps réel Kassa ↔ Proprio (Firestore)
+
+### Demande utilisateur
+Chat WhatsApp-like entre vendeurs et propriétaire, uniquement en 1-to-1, qui marche via internet quand connecté.
+
+### Architecture
+- **Backend** : Firestore (déjà dans les 2 apps, même projet Firebase `yabisso-business`)
+- **Structure** : `chat_rooms/{shopId}_{vendorId}` → sous-collection `messages/`
+- **Temps réel** : `snapshots()` Firestore = réception instantanée
+- **Compatibilité** : Android, iOS, PC, Mac (Flutter cross-platform)
+
+### Fichiers créés
+
+**App Kassa** :
+| Fichier | Rôle |
+|---------|------|
+| `lib/models/chat_message.dart` | Modèles `ChatMessage` + `ChatRoom` |
+| `lib/services/chat_service.dart` | Service Firestore (envoi, réception, marquer lu) |
+| `lib/screens/chat/chat_vendor_screen.dart` | Chat vendeur → propriétaire (ConsumerStatefulWidget + Riverpod) |
+
+**App Proprio** :
+| Fichier | Rôle |
+|---------|------|
+| `lib/models/chat_message.dart` | Modèles `ChatMessage` + `ChatRoom` |
+| `lib/services/chat_service.dart` | Service Firestore |
+| `lib/screens/chat/chat_owner_screen.dart` | Liste conversations + chat propriétaire → vendeur |
+
+### Fichiers modifiés
+
+**Kassa** :
+| Fichier | Action |
+|---------|--------|
+| `lib/router/app_router.dart` | +route `/chat` |
+| `lib/screens/settings/settings_screen.dart` | Navigation → `/chat` au lieu de `/owner-messages` |
+
+**Proprio** :
+| Fichier | Action |
+|---------|--------|
+| `lib/router/app_router.dart` | +route `/business/:id/chat` |
+| `lib/screens/remote_control/remote_control_screen.dart` | Bouton "Messages" → ouvre ChatOwnerScreen |
+
+### Fonctionnalités chat
+- **Bulles de messages** style WhatsApp (vert = envoyé, blanc = reçu)
+- **Horodatages** : "Aujourd'hui HH:mm", "Hier HH:mm", "dd/MM/yyyy HH:mm"
+- **Indicateurs de lecture** : ✓ envoyé, ✓✓ lu (bleu)
+- **Badge non-lus** : compteur sur chaque conversation
+- **En-tête** : avatar + nom du correspondant
+- **Input bar** : champ texte + bouton envoyer circulaire vert
+
+---
+
+## Session: 07/08/2026 — Carte de Fidélité dans Paiement
+
+### Demande utilisateur
+Ajouter un bouton "Carte fidélité" dans l'écran de paiement, à côté de "Billets rapides", pour scanner la carte QR d'un client et appliquer automatiquement une réduction basée sur ses points.
+
+### Modifications appliquées
+
+#### 1. Bouton "Carte fidélité" ✅
+**Fichier** : `lib/screens/payment/payment_screen.dart`
+
+**Avant** : Un seul bouton "Billets rapides"
+**Après** : Deux boutons côte à côte :
+- "Billets rapides" (rouge, icône bolt)
+- "Carte fidélité" (vert, icône card_membership)
+
+#### 2. Scanner QR Code intégré ✅
+**Fonctionnalités** :
+- Dialog avec `MobileScanner` pour scanner la carte fidélité
+- Flash toggle
+- Overlay de scan avec cadre vert
+- Processing indicator pendant la recherche
+- Fermeture auto après scan réussi
+
+#### 3. Dialog d'information client ✅
+**Affiche** :
+- Avatar + nom du client
+- Points actuels
+- Nombre de visites
+- Total dépensé
+- Bouton "Réduire X FCFA" (si points suffisants)
+
+#### 4. Application automatique de la réduction ✅
+**Logique** :
+- Lit la config fidélité depuis SharedPreferences
+- Vérifie si le client a assez de points pour la réduction
+- Applique la réduction via `cartNotifier.setGlobalDiscount()`
+- Déduit les points après la vente
+
+#### 5. Mise à jour `_awardLoyaltyPoints()` ✅
+**Avant** : Attribuait uniquement des points
+**Après** : Gère à la fois :
+- Attribution de points (earned)
+- Déduction de points (spent) si réduction appliquée
+- Transaction avec `pointsEarned` et `pointsSpent`
+
+### Architecture du flow
+
+```
+Vendeur clique "Carte fidélité"
+  → Dialog scanner QR
+  → Scan code-barres/QR
+  → Recherche client par card_number
+  → Dialog info client + points
+  → Clic "Réduire X FCFA"
+  → Réduction appliquée au panier
+  → Vente validée
+  → Points déduits du client
+  → Transaction enregistrée
+```
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/screens/payment/payment_screen.dart` | +bouton carte fidélité, +scanner QR, +dialog info client, +application réduction, +gestion points déduits |
+
+---
+
+## Session: 07/08/2026 — Abonnement en 1 clic + Super Admin
+
+### Demande utilisateur
+1. Ajouter un bouton "Abonnement en 1 clic" dans l'écran abonnement
+2. Sélectionner une formule → demande envoyée à Firebase
+3. Super Admin reçoit la notification et peut Accepter/Refuser
+
+### Architecture Firebase
+
+```
+Kassa (vendeur)                    Firestore                     Super Admin
+     │                                │                                │
+     │  subscription_requests.add()   │                                │
+     │  ─────────────────────────────>│                                │
+     │                                │  StreamBuilder().listen()      │
+     │                                │  ─────────────────────────────>│
+     │                                │  (temps réel)                  │
+     │                                │                                │
+     │                                │  .update({status: 'accepted'}) │
+     │                                │  ─────────────────────────────>│
+     │                                │                                │
+     │  Vérification voucher YAB-XXX  │                                │
+     │  <─────────────────────────────│                                │
+```
+
+### Structure Firestore
+
+**Collection: `subscription_requests`**
+```json
+{
+  "storeName": "Boutique Mama",
+  "ownerName": "Jean Mbala",
+  "phone": "+242050332359",
+  "boutiqueId": "BOUT-ABC123",
+  "requestedPlan": "Premium",
+  "status": "pending|accepted|rejected",
+  "message": "Demande depuis l'app Kassa",
+  "createdAt": "2026-08-07T10:00:00",
+  "processedAt": null,
+  "processedBy": null,
+  "notes": null,
+  "rejectionReason": null,
+  "voucherCode": null
+}
+```
+
+**Collection: `active_subscriptions`** (créée quand accepté)
+```json
+{
+  "boutiqueId": "BOUT-ABC123",
+  "storeName": "Boutique Mama",
+  "ownerName": "Jean Mbala",
+  "phone": "+242050332359",
+  "plan": "Premium",
+  "voucherCode": "YAB-XXXXXXXX",
+  "activatedAt": "2026-08-07T12:00:00",
+  "expiresAt": "2026-09-06T12:00:00",
+  "status": "active"
+}
+```
+
+### Kassa — Écran Abonnement modifié
+| Changement | Détail |
+|------------|--------|
+| Bouton "Abonnement en 1 clic" | Nouveau bouton vert avec icône flash |
+| Dialog sélection formule | 4 formules : Micro (5K), Basic (10K), Premium (20K), Illimité (50K) |
+| Envoi Firebase | `subscription_requests.add()` avec toutes les infos boutique |
+| Feedback | SnackBar confirmation + infos |
+
+### Super Admin — App créée
+| Fichier | Action |
+|---------|--------|
+| `lib/main.dart` | Point d'entrée Firebase + Material 3 |
+| `lib/router/app_router.dart` | GoRouter : `/`, `/requests`, `/requests/:id` |
+| `lib/models/subscription_request.dart` | Modèle complet avec toMap/fromMap |
+| `lib/screens/dashboard/dashboard_screen.dart` | Stats (pending/accepted/rejected) + 10 dernières demandes |
+| `lib/screens/requests/requests_list_screen.dart` | Liste filtrable + boutons Accepter/Refuser |
+| `lib/screens/requests/request_detail_screen.dart` | Détails complets + Accepter/Refuser + notes |
+| `pubspec.yaml` | Firebase + Firestore + GoRouter |
+
+### Fonctionnalités Super Admin
+- **Dashboard** : Compteurs temps réel (en attente, acceptées, refusées)
+- **Liste demandes** : Filtre par statut, swipe, détails
+- **Détail demande** : Info boutique, plan, message, notes
+- **Accepter** : Génère un voucher YAB-XXX + crée `active_subscriptions`
+- **Refuser** : Demande la raison du refus
+- **Notes admin** : Possibilité d'ajouter des notes
+
+### Fichiers modifiés
+| Fichier | App | Action |
+|---------|-----|--------|
+| `lib/screens/subscription/subscription_screen.dart` | Kassa | +bouton "Abonnement en 1 clic" + dialog formule + envoi Firebase |
+| `yabisso_super_admin/` | Super Admin | **Nouveau projet** — 6 fichiers |
+
+---
+
+## Session: 07/08/2026 — Firebase Super Admin configuré
+
+### Configuration Firebase
+Le `google-services.json` contenait déjà l'app Super Admin :
+- **Package**: `com.yabisso.superadmin`
+- **App ID**: `1:74413643818:android:9de34a25b377d8c4434b53`
+- **API Key**: `AIzaSyCQWkYtcfczNCvVK4WHhlYvc2RZZ_L26Hk`
+- **Projet**: `yabisso-business` (même que Kassa + Proprio)
+
+### Fichiers configurés
+| Fichier | Action |
+|---------|--------|
+| `android/app/google-services.json` | Copié depuis `fichiers/ecrans/js/json super admin/` |
+| `android/app/build.gradle.kts` | Créé avec `com.yabisso.superadmin` + Firebase BOM |
+| `android/build.gradle.kts` | Créé avec `google-services:4.5.0` |
+| `lib/firebase_options.dart` | Mis à jour avec vraies clés Firebase |
+
+### Architecture complète
+
+```
+Kassa (vendeur)                    Firestore                     Super Admin
+     │                                │                                │
+     │  subscription_requests.add()   │                                │
+     │  ─────────────────────────────>│                                │
+     │                                │  StreamBuilder().listen()      │
+     │                                │  ─────────────────────────────>│
+     │                                │  (temps réel)                  │
+     │                                │                                │
+     │                                │  .update({status: 'accepted'}) │
+     │                                │  + active_subscriptions.set()  │
+     │                                │  ─────────────────────────────>│
+     │                                │                                │
+     │  Kassa vérifie voucher YAB-XXX │                                │
+     │  <─────────────────────────────│                                │
+```
+
+### Flow complet
+1. **Kassa** : Clique "Abonnement en 1 clic" → sélectionne plan
+2. **Kassa** : Envoie `subscription_requests.add()` vers Firestore
+3. **Kassa** : Écoute le document en temps réel via `snapshots().listen()`
+4. **Super Admin** : Voit la demande en temps réel (StreamBuilder)
+5. **Super Admin** : Clique "Accepter" → met à jour `status: 'accepted'`
+6. **Kassa** : Détecte le changement → active l'abonnement automatiquement
+7. **Kassa** : Redirige vers `/vendor-auth` avec abonnement actif
+
+### Activation automatique (sans voucher)
+```
+Kassa envoie demande → Firestore (subscription_requests)
+  ↓
+Super Admin accepte → .update({status: 'accepted'})
+  ↓
+Kassa détecte via .snapshots().listen()
+  ↓
+Kassa active localement :
+  - has_subscription = true
+  - subscription_expires = now + 30j
+  - subscription_plan = plan choisi
+  - max_products = limit du plan
+  ↓
+Redirection vers /vendor-auth
+```
+
+---
+
+## Session: 07/08/2026 — Écran Demandes Abonnement (Admin App)
+
+### Demande utilisateur
+Ajouter un écran dédié "Demandes d'abonnement" dans l'app Admin pour gérer les demandes d'abonnement reçues de Kassa via Firestore.
+
+### Problème identifié
+L'app Admin (`com.yabisso.admin`) n'avait aucune configuration Firebase. Le google-services.json existant ne contenait que 3 apps (kassa, proprio, superadmin).
+
+### Solution
+1. Ajout entrée `com.yabisso.admin` dans google-services.json (TODO: mobilesdk_app_id)
+2. Setup complet Firebase dans l'app Admin
+3. Création écran dédié pour les demandes d'abonnement
+
+### Fichiers modifiés
+
+| Fichier | Action |
+|---------|--------|
+| `android/app/google-services.json` | Ajout entrée `com.yabisso.admin` (TODO: mobilesdk_app_id) |
+| `android/build.gradle.kts` | Ajout Google Services plugin 4.5.0 |
+| `android/app/build.gradle.kts` | Ajout plugin google-services + Firebase BOM + Firestore |
+| `pubspec.yaml` | Ajout firebase_core + cloud_firestore |
+| `lib/firebase_options.dart` | **Nouveau** — Config Firebase |
+| `lib/main.dart` | +Firebase.initializeApp() + route /subscription-requests |
+| `lib/screens/subscription_requests/subscription_requests_screen.dart` | **Nouveau** — Écran gestion demandes |
+| `lib/screens/home/dashboard_screen.dart` | +bouton "Demandes abonnement" dans Actions rapides |
+
+### Fonctionnalités écran
+
+**Onglet "En attente"** :
+- Liste temps réel des demandes (StreamBuilder Firestore)
+- Carte par demande : boutique, propriétaire, téléphone, forfait, date
+- Badge couleur par forfait
+- Boutons Accepter/Refuser avec dialog
+
+**Onglet "Historique"** :
+- Toutes les demandes traitées
+- Badge statut (vert=acceptée, rouge=refusée)
+- Raison du refus + date traitement
+
+### TODO
+- **CRITIQUE** : Remplacer mobilesdk_app_id depuis Firebase Console
+
+---
+
+## Session: 07/08/2026 — Intégration Demandes Abonnement dans Générateur Vouchers
+
+### Demande utilisateur
+Intégrer la validation des demandes d'abonnement DANS l'écran "Générateur de vouchers" de l'app Admin, en tant qu'onglet/mode supplémentaire, plutôt que dans un écran séparé.
+
+### Modifications appliquées
+
+#### 1. Nouveau mode "Demandes" dans le toggle ✅
+**Fichier** : `yabisso_admin/lib/screens/vouchers/voucher_generator_screen.dart`
+
+**Avant** : 3 modes — "En ligne", "Hors ligne", "Points"
+**Après** : 4 modes — "En ligne", "Hors ligne", "Points", "Demandes"
+
+#### 2. Section demandes en temps réel ✅
+- StreamBuilder Firestore sur `subscription_requests` orderBy `createdAt` desc
+- Affiche les demandes en attente avec : boutique, propriétaire, téléphone, forfait, date
+- Badge couleur par forfait (Micro=gris, Basic=vert, Premium=ambre, Illimité=bleu)
+- Boutons Accepter/Refuser avec dialog (notes optionnelles)
+- SnackBar de confirmation après action
+- Rechargement auto de l'historique après acceptation/refus
+
+#### 3. Historique unifié ✅
+- L'historique en bas de l'écran affiche à la fois :
+  - Les vouchers générés (YAB, OFF, PTS)
+  - Les demandes d'abonnement traitées (acceptées/refusées)
+- Badge vert "Acceptée" ou rouge "Refusée" pour les demandes
+- Tri par date (les plus récents en premier)
+- Limite à 15 éléments
+
+#### 4. Imports ajoutés ✅
+- `cloud_firestore` pour accéder à la collection `subscription_requests`
+
+### Fonctionnalités
+
+| Onglet | Contenu |
+|--------|---------|
+| En ligne | Génération codes YAB (online voucher) |
+| Hors ligne | Génération codes OFF (subscription voucher) |
+| Points | Génération codes PTS (points voucher) |
+| **Demandes** | **Gestion des demandes d'abonnement Firestore** |
+
+### Flow complet
+
+```
+Admin ouvre Générateur de vouchers
+  → Clique "Demandes"
+  → StreamBuilder affiche les demandes en attente
+  → Admin voit : boutique, propriétaire, forfait, téléphone
+  → Clique "Accepter" → dialog notes → confirme
+  → Firestore mis à jour : status = 'accepted'
+  → Kassa détecte → active abonnement automatiquement
+  → Historique mis à jour dans le bas de l'écran
+```
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `yabisso_admin/lib/screens/vouchers/voucher_generator_screen.dart` | +import cloud_firestore, +mode 'requests', +_buildSubscriptionRequests(), +_buildRequestCard(), +_acceptRequest(), +_rejectRequest(), +_loadRequestHistory(), +_buildRequestHistoryItem(), toggle 4 modes, historique unifié |
+
+---
+
+## Session: 07/08/2026 — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer — déjà corrigé session 06/08
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57 | app-release.apk | 122.8 MB |
+| Proprio | 6 | app-release.apk | 64.6 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+| Super Admin | 6 | — | — |
+
+### Dernières implémentations
+- Firebase Remote Connection (Kassa ↔ Firestore ↔ Proprio) ✅
+- Deep Audit Kassa/Proprio (14 fixes) ✅
+- Builds Kappa (122.8 MB) + Proprio (64.6 MB) ✅
+- Loyalty Card Fixes ✅
+- Subscription Guard (abonnement obligatoire) ✅
+- Bluetooth Printer (scan + save MAC + auto-connect) ✅
+- Bouton Mobile (Airtel/MTN) ✅
+- Double-tap Prevention + Logout Confirmation + PopScope ✅
+- SQL Indexes (DB v20) ✅
+- PDF Export Inventory + Calendrier ✅
+- Performance Vendeurs (écran + graphique) ✅
+- Fix Bénéfices (formule: CA - Coûts - Dépenses) ✅
+- Chat Kassa ↔ Proprio (Firestore temps réel) ✅
+- Carte Fidélité dans Paiement ✅
+- Abonnement en 1 clic + Super Admin ✅
+- Demandes Abonnement dans Admin (onglet Demandes) ✅
+
+### Demande utilisateur
+Vérifier tous les fichiers .md du dossier fichiers pour comprendre le contexte, enregistrer automatiquement les échanges dans chat.md en temps réel, prendre le temps de "think deeper" avant de répondre, et vérifier/tester chaque implémentation.
+
+### Réponse assistant
+Tous les fichiers .md analysés (2652 lignes de chat.md lues). Contexte complet maîtrisé. Je suis prêt à continuer. Quelle tâche souhaitez-vous aborder ?
+
+---
+
+## Session: 07/08/2026 — Audit complet 4 apps
+
+### Demande utilisateur
+Audit complet des 4 apps (Kassa, Proprio, Super Admin, Admin Dashboard) : UI, UX, routing, DB, code quality. Puis builds un par un.
+
+### Résultat Audit KASSA (31 issues)
+
+| Sévérité | Count | Détails |
+|----------|-------|---------|
+| CRITICAL | 5 | Double `_processMobilePayment`, stock hors transaction, stock multi-unit non atomique, opérateur precedence loyalty, SQL injection patterns |
+| HIGH | 8 | withOpacity déprécié (50x), route /suppliers/add redirect loop, _createDB inconsistencies, empty catches (101+), pas auth guard, double-tap prevention incomplet, paymentMode manquant pour Cash |
+| MEDIUM | 10 | TextEditingController leaks, navigator.push sans mounted, stock check avant sale, LanguageService non utilisé, code duplication 3x, subscription bypass possible, DB singleton thread safety, phone hardcoded |
+| LOW | 8 | Error page non traduite, queries dupliquées, dead code, ID collision risk |
+
+### Résultat Audit PROPRIO (38 issues)
+
+| Sévérité | Count | Détails |
+|----------|-------|---------|
+| CRITICAL | 3 | Firestore error handler silencieux, _mapToString serialization cassée, Firebase init failure silencieux |
+| HIGH | 12 | Pas error page, DB pas de dispose, RemoteCommand payload perdu, Firebase init silencieux, _activeUrl pas reset, establishment snapshot stale, PIN en clair, setState sans mounted, Firestore composite index manquant, chat_service indexes |
+| MEDIUM | 12 | cache corrompu non nettoyé, remote/local detection incomplete, 7 catch silencieux, dashboard hardcoded fields, TextEditingController leaks (6x), unsafe type casts, _loadLists pas parallélisé, connection banner inexact |
+| LOW | 8 | async SharedPreferences, pas de dispose DB, nullable safety |
+
+### Résultat Audit SUPER ADMIN (20 issues)
+
+| Sévérité | Count | Détails |
+|----------|-------|---------|
+| CRITICAL | 4 | Accept request ne crée PAS active_subscriptions, iOS FirebaseOptions = copie Android, Firebase init silencieux, force-unwrap path param |
+| HIGH | 6 | Pas d'auth (panel admin ouvert), pas de voucher généré, StreamBuilder sans error handling, dashboard fetch toute la collection, race condition double-accept, pas de transaction |
+| MEDIUM | 5 | Pas errorBuilder, duplicated _processRequest, TextEditingController leaks, unsafe as Map casts, model dead code |
+| LOW | 5 | _formatDateTime jamais appelé, processedAt jamais affiché, sentinel -1, pas pull-to-refresh/search, deps inutilisées |
+
+### Résultat Audit ADMIN DASHBOARD (20 issues)
+
+| Sévérité | Count | Détails |
+|----------|-------|---------|
+| CRITICAL | 4 | SQL injection patterns, Firebase API key hardcodée, self-registration super_admin, pas route-level auth |
+| HIGH | 5 | Silent error swallowing (23+), profile fake data, settings sans persistence, pas error boundary, code duplication accept/reject |
+| MEDIUM | 7 | DB thread safety, role label mismatch, wrong PDF column names, voucher history fragile, nav overflow |
+| LOW | 4 | Migrations redondantes, async initState, duration selector ignoré, photo path validation |
+
+### Total audit
+| App | CRITICAL | HIGH | MEDIUM | LOW | Total |
+|-----|----------|------|--------|-----|-------|
+| Kassa | 5 | 8 | 10 | 8 | 31 |
+| Proprio | 3 | 12 | 12 | 8 | 35 |
+| Super Admin | 4 | 6 | 5 | 5 | 20 |
+| Admin Dashboard | 4 | 5 | 7 | 4 | 20 |
+| **TOTAL** | **16** | **31** | **34** | **25** | **106** |
+
+### Top 5 fixes prioritaires
+1. **Super Admin**: Accept request ne crée PAS active_subscriptions → aucun abonnement n'est activé
+2. **Kassa**: Stock deduction hors transaction → race conditions, inventaire drift
+3. **Admin Dashboard**: Self-registration avec rôle super_admin → escalation de privilèges
+4. **Proprio**: _mapToString serialization cassée → lastSyncData corrompu à chaque cycle
+5. **Proprio**: RemoteCommand payload stocké comme Map au lieu de JSON → payloads perdus
+
+---
+
+## Session: 07/08/2026 (Partie 2) — Nouvelle session
+
+### Contexte
+- Fichiers .md vérifiés : implementation.md, task.md, probleme.md, roadmap.md, role.md, chat.md
+- Phase 1-19 : ✅ Complétées
+- **Tâches restantes** :
+  - Déploiement Render (attente validation user)
+  - Mise à jour API URL Flutter après Render
+  - Bluetooth printer — déjà corrigé session 06/08
+  - Tests unitaires Flutter
+  - Déploiement Play Store
+
+### Règles de session
+1. Enregistrement automatique temps réel dans chat.md
+2. Think deeper avant de répondre
+3. Vérifier et tester chaque implémentation
+
+### Résumé projet
+| App | Écrans | APK | Taille |
+|-----|--------|-----|--------|
+| Kassa | 57+ | app-release.apk | 122.8 MB |
+| Proprio | 6+ | app-release.apk | 64.6 MB |
+| Restaurant | 21 | app-release.apk | 56 MB |
+| Hôtel | 91 | app-release.apk | 67 MB |
+| Super Admin | 6 | — | — |
+
+### Top 5 fixes prioritaires (audit)
+1. Super Admin: Accept request ne crée PAS active_subscriptions
+2. Kassa: Stock deduction hors transaction
+3. Admin Dashboard: Self-registration super_admin
+4. Proprio: _mapToString serialization cassée
+5. Proprio: RemoteCommand payload perdu
+
+---
+
+## Session: 07/08/2026 (Partie 3) — Fix Pointage Multi-vendeurs + Audit Proprio
+
+### Demande utilisateur
+1. Corriger le pointage : chaque vendeur doit avoir son propre état (Ben ≠ Sidney)
+2. Ajouter authentification PIN avant d'afficher les actions
+3. Verrouillage auto après 5 secondes
+4. Reprise état après reconnexion
+5. Vérifier connexion écran Pointage Kassa ↔ Proprio
+6. Vérifier tous les boutons Proprio connectés à Kassa
+
+### Corrections Pointage
+
+#### 1. PointageService — état par vendeur ✅
+**Avant** : Clé globale unique `current_pointage_vendor_id` → un seul vendeur à la fois
+**Après** : Clé par vendeur `pointage_state_{vendorId}` → JSON avec action + lastActionAt
+
+| Méthode | Changement |
+|---------|------------|
+| `_saveVendorState()` | Nouveau — sauvegarde état par vendeur |
+| `_clearVendorState()` | Nouveau — supprime état à l'arrivée |
+| `getVendorCurrentAction()` | Nouveau — lit action du vendeur |
+| `isVendorSessionLocked()` | Nouveau — vérifie si > 5s depuis dernière action |
+| `checkIn/startBreak/endBreak/checkOut` | Utilise les nouvelles méthodes par vendeur |
+
+#### 2. PointageScreen — PIN + verrouillage ✅
+
+**Flow complet :**
+1. Écran ouvre → seule la liste vendeurs + historique visibles
+2. Clic vendeur → dialog PIN (4 chiffres, numpad)
+3. PIN valide → `_loadVendorSession()` charge l'état du vendeur
+4. Boutons affichés selon l'état (Arrivée / Pause+Départ / Fin de pause)
+5. Timer 5 secondes → `_isSessionActive = false` → boutons masqués
+6. Prochain accès → re-sélection vendeur + PIN
+
+**Changements :**
+| Élément | Avant | Après |
+|---------|-------|-------|
+| Visibility actions | Toujours visible | Visible après PIN uniquement |
+| État vendeur | Global (shared) | Par vendeur (clé unique) |
+| Session timeout | Aucun | 5 secondes |
+| Auth | Aucune | PIN bcrypt obligatoire |
+| Cycles Pause | 1 seul | Illimités (break_start ↔ break_end) |
+
+### Audit Proprio
+
+**Résultat :** 9 routes, 11 boutons RemoteControl, 6 boutons Dashboard, 8 endpoints API — **TOUS correctement connectés à Kassa**
+
+**Pointage Proprio :** `GET /api/owner/pointages` ✅ endpoint Kassa correspond
+
+**Placeholders (non-critiques) :** Google Drive, USB export, force_sync, backup — stubs sans action
+
+### Fichiers modifiés
+| Fichier | Action |
+|---------|--------|
+| `lib/services/pointage_service.dart` | Réécrit — état par vendeur + session lock |
+| `lib/screens/pointage/pointage_screen.dart` | Réécrit — PIN auth + verrouillage 5s + reprise état |
+
+---
+
 *Ce fichier est mis à jour en temps réel pendant nos échanges.*

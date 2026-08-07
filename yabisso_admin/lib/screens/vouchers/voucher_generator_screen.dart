@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/app_theme.dart';
 import '../../services/voucher_generator_service.dart';
 
@@ -23,6 +24,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
   final _pointsController = TextEditingController();
   String? _generatedCode;
   List<Map<String, dynamic>> _history = [];
+  List<Map<String, dynamic>> _requestHistory = [];
 
   final _plans = {
     'MICRO': 5000,
@@ -37,6 +39,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
   void initState() {
     super.initState();
     _loadHistory();
+    _loadRequestHistory();
   }
 
   @override
@@ -63,6 +66,34 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
         };
       }).toList();
     });
+  }
+
+  Future<void> _loadRequestHistory() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('subscription_requests')
+          .where('status', isIn: ['accepted', 'rejected'])
+          .orderBy('processedAt', descending: true)
+          .limit(20)
+          .get();
+      if (!mounted) return;
+      setState(() {
+        _requestHistory = snapshot.docs.map((doc) {
+          final data = doc.data();
+          return {
+            'type': 'REQ',
+            'status': data['status'] ?? '',
+            'storeName': data['storeName'] ?? '',
+            'plan': data['requestedPlan'] ?? '',
+            'date': data['processedAt'] ?? '',
+            'notes': data['notes'] ?? '',
+            'rejectionReason': data['rejectionReason'] ?? '',
+          };
+        }).toList();
+      });
+    } catch (e) {
+      debugPrint('Error loading request history: $e');
+    }
   }
 
   Future<void> _saveToHistory(String type, String code) async {
@@ -187,13 +218,17 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
               _buildDurationSelector(),
             ] else if (_voucherMode == 'subscription') ...[
               _buildPlanSelector(),
+            ] else if (_voucherMode == 'requests') ...[
+              _buildSubscriptionRequests(),
             ] else ...[
               _buildPointsInput(),
             ],
             const SizedBox(height: 16),
-            _buildGenerateButton(businessColor),
-            const SizedBox(height: 16),
-            if (_generatedCode != null) _buildGeneratedCode(businessColor),
+            if (_voucherMode != 'requests') ...[
+              _buildGenerateButton(businessColor),
+              const SizedBox(height: 16),
+              if (_generatedCode != null) _buildGeneratedCode(businessColor),
+            ],
             const SizedBox(height: 24),
             _buildHistory(),
             const SizedBox(height: 20),
@@ -396,6 +431,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
           _buildModeButton('En ligne', 'online'),
           _buildModeButton('Hors ligne', 'subscription'),
           _buildModeButton('Points', 'points'),
+          _buildModeButton('Demandes', 'requests'),
         ],
       ),
     );
@@ -682,7 +718,373 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     );
   }
 
+  Widget _buildSubscriptionRequests() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.card_membership, size: 20, color: _primary),
+            const SizedBox(width: 8),
+            const Text('Demandes d\'abonnement', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text('Validez ou refusez les demandes des commerces', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+        const SizedBox(height: 16),
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('subscription_requests')
+              .orderBy('createdAt', descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                child: Column(
+                  children: [
+                    const Icon(Icons.error_outline, size: 40, color: AppColors.primaryRed),
+                    const SizedBox(height: 8),
+                    Text('Erreur: ${snapshot.error}', style: const TextStyle(color: AppColors.primaryRed, fontSize: 13)),
+                  ],
+                ),
+              );
+            }
+            final docs = snapshot.data?.docs ?? [];
+            final pending = docs.where((d) => (d.data() as Map)['status'] == 'pending').toList();
+            if (pending.isEmpty) {
+              return Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                child: Column(
+                  children: [
+                    Icon(Icons.check_circle_outline, size: 48, color: Colors.grey[300]),
+                    const SizedBox(height: 12),
+                    Text('Aucune demande en attente', style: TextStyle(color: Colors.grey[500], fontSize: 14)),
+                  ],
+                ),
+              );
+            }
+            return Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryAmber.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '${pending.length} demande${pending.length > 1 ? 's' : ''} en attente',
+                    style: const TextStyle(color: AppColors.primaryAmber, fontWeight: FontWeight.w600, fontSize: 13),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ...pending.map((doc) => _buildRequestCard(doc)),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRequestCard(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    final storeName = data['storeName'] ?? 'N/A';
+    final ownerName = data['ownerName'] ?? 'N/A';
+    final phone = data['phone'] ?? '';
+    final plan = data['requestedPlan'] ?? '';
+    final createdAt = DateTime.tryParse(data['createdAt'] ?? '') ?? DateTime.now();
+
+    final planColor = _getPlanColor(plan.toUpperCase());
+    final planPrice = _getPlanPrice(plan);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8, offset: const Offset(0, 2))],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.primaryAmber.withValues(alpha: 0.08),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.hourglass_top, color: AppColors.primaryAmber, size: 16),
+                const SizedBox(width: 6),
+                const Text('En attente', style: TextStyle(color: AppColors.primaryAmber, fontWeight: FontWeight.w700, fontSize: 12)),
+                const Spacer(),
+                Text(_formatDate(createdAt), style: TextStyle(color: Colors.grey[600], fontSize: 11)),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(color: _primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+                      child: const Icon(Icons.store, color: _primary, size: 18),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(storeName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                          Text('Propriétaire: $ownerName', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: planColor.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: planColor.withValues(alpha: 0.2)),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(color: planColor.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(6)),
+                        child: Text(plan.isNotEmpty ? plan[0].toUpperCase() : '?', style: TextStyle(color: planColor, fontWeight: FontWeight.bold, fontSize: 12)),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Forfait $plan', style: TextStyle(color: planColor, fontWeight: FontWeight.w600, fontSize: 13)),
+                            Text(planPrice, style: TextStyle(color: planColor.withValues(alpha: 0.7), fontSize: 11)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (phone.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(text: phone));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Téléphone copié: $phone'), backgroundColor: AppColors.successGreen, duration: const Duration(seconds: 2)),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.phone, size: 14, color: Colors.grey[500]),
+                        const SizedBox(width: 4),
+                        Text(phone, style: TextStyle(color: Colors.grey[700], fontSize: 12)),
+                        const SizedBox(width: 4),
+                        Icon(Icons.copy, size: 12, color: Colors.grey[400]),
+                      ],
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () => _acceptRequest(doc),
+                        icon: const Icon(Icons.check, size: 16),
+                        label: const Text('Accepter'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.successGreen,
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(double.infinity, 40),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () => _rejectRequest(doc),
+                        icon: const Icon(Icons.close, size: 16),
+                        label: const Text('Refuser'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryRed,
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(double.infinity, 40),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getPlanPrice(String plan) {
+    switch (plan.toLowerCase()) {
+      case 'micro': return '5 000 FCFA/mois';
+      case 'basic': return '10 000 FCFA/mois';
+      case 'premium': return '25 000 FCFA/mois';
+      case 'illimité': case 'unlimited': return '50 000 FCFA/mois';
+      default: return '';
+    }
+  }
+
+  String _formatDate(DateTime date) {
+    final d = date.day.toString().padLeft(2, '0');
+    final m = date.month.toString().padLeft(2, '0');
+    final y = date.year;
+    final h = date.hour.toString().padLeft(2, '0');
+    final min = date.minute.toString().padLeft(2, '0');
+    return '$d/$m/$y à $h:$min';
+  }
+
+  Future<void> _acceptRequest(DocumentSnapshot doc) async {
+    final data = doc.data() as Map<String, dynamic>;
+    final notesController = TextEditingController();
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Accepter la demande'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Boutique: ${data['storeName'] ?? ''}'),
+            Text('Forfait: ${data['requestedPlan'] ?? ''}'),
+            const SizedBox(height: 12),
+            TextField(
+              controller: notesController,
+              decoration: InputDecoration(
+                hintText: 'Notes (optionnel)',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              maxLines: 2,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.successGreen),
+            child: const Text('Accepter'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    try {
+      await FirebaseFirestore.instance.collection('subscription_requests').doc(doc.id).update({
+        'status': 'accepted',
+        'processedAt': DateTime.now().toIso8601String(),
+        'notes': notesController.text.trim(),
+      });
+      _loadRequestHistory();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Demande acceptée — l\'abonnement est maintenant actif'), backgroundColor: AppColors.successGreen),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur: $e'), backgroundColor: AppColors.primaryRed),
+        );
+      }
+    }
+  }
+
+  Future<void> _rejectRequest(DocumentSnapshot doc) async {
+    final data = doc.data() as Map<String, dynamic>;
+    final reasonController = TextEditingController();
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Refuser la demande'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Boutique: ${data['storeName'] ?? ''}'),
+            Text('Forfait: ${data['requestedPlan'] ?? ''}'),
+            const SizedBox(height: 12),
+            TextField(
+              controller: reasonController,
+              decoration: InputDecoration(
+                hintText: 'Raison du refus (optionnel)',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              maxLines: 2,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryRed),
+            child: const Text('Refuser'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    try {
+      await FirebaseFirestore.instance.collection('subscription_requests').doc(doc.id).update({
+        'status': 'rejected',
+        'processedAt': DateTime.now().toIso8601String(),
+        'rejectionReason': reasonController.text.trim(),
+      });
+      _loadRequestHistory();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Demande refusée'), backgroundColor: AppColors.primaryRed),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur: $e'), backgroundColor: AppColors.primaryRed),
+        );
+      }
+    }
+  }
+
   Widget _buildHistory() {
+    final allItems = [..._requestHistory, ..._history];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -692,19 +1094,22 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
             const SizedBox(width: 8),
             const Text('Historique', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
             const Spacer(),
-            if (_history.isNotEmpty)
+            if (allItems.isNotEmpty)
               TextButton(
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.remove('voucher_history');
-                  setState(() => _history = []);
+                  setState(() {
+                    _history = [];
+                    _requestHistory = [];
+                  });
                 },
                 child: const Text('Effacer', style: TextStyle(color: AppColors.primaryRed, fontSize: 13)),
               ),
           ],
         ),
         const SizedBox(height: 10),
-        if (_history.isEmpty)
+        if (allItems.isEmpty)
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(24),
@@ -713,13 +1118,56 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
               children: [
                 Icon(Icons.receipt_long, size: 40, color: Colors.grey[300]),
                 const SizedBox(height: 12),
-                Text('Aucun voucher généré', style: TextStyle(color: Colors.grey[500], fontSize: 14)),
+                Text('Aucun élément dans l\'historique', style: TextStyle(color: Colors.grey[500], fontSize: 14)),
               ],
             ),
           )
         else
-          ..._history.take(10).map((item) => _buildHistoryItem(item)),
+          ...allItems.take(15).map((item) => item['type'] == 'REQ'
+              ? _buildRequestHistoryItem(item)
+              : _buildHistoryItem(item)),
       ],
+    );
+  }
+
+  Widget _buildRequestHistoryItem(Map<String, dynamic> item) {
+    final isAccepted = item['status'] == 'accepted';
+    final color = isAccepted ? AppColors.successGreen : AppColors.primaryRed;
+    final label = isAccepted ? 'Acceptée' : 'Refusée';
+    final dateStr = item['date'] ?? '';
+    String formattedDate = '';
+    if (dateStr.isNotEmpty) {
+      final dt = DateTime.tryParse(dateStr);
+      if (dt != null) formattedDate = _formatDate(dt);
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+            child: Icon(isAccepted ? Icons.check_circle : Icons.cancel, color: color, size: 18),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item['storeName'] ?? '', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                Text('Forfait ${item['plan'] ?? ''} • $label', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+              ],
+            ),
+          ),
+          Text(formattedDate, style: TextStyle(fontSize: 11, color: Colors.grey[500])),
+        ],
+      ),
     );
   }
 

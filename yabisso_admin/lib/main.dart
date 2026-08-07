@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'firebase_options.dart';
 import 'core/app_theme.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/home/dashboard_screen.dart';
@@ -35,17 +37,27 @@ import 'screens/activity/employee_activity_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/vouchers/voucher_generator_screen.dart';
+import 'screens/subscription_requests/subscription_requests_screen.dart';
 import 'screens/assignments/assignments_screen.dart';
 import 'screens/rh/export_screen.dart';
 import 'screens/settings/pack_screen.dart';
+import 'providers/providers.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: YabissoAdminApp()));
 }
 
 final _router = GoRouter(
   initialLocation: '/login',
+  redirect: (context, state) {
+    if (state.matchedLocation == '/login') return null;
+    final container = ProviderScope.containerOf(context, listen: false);
+    final admin = container.read(currentAdminProvider);
+    if (admin == null) return '/login';
+    return null;
+  },
   routes: [
     GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
     GoRoute(path: '/', builder: (_, __) => const DashboardScreen()),
@@ -83,6 +95,7 @@ final _router = GoRouter(
     GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
     GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
     GoRoute(path: '/voucher-generator', builder: (_, __) => const VoucherGeneratorScreen()),
+    GoRoute(path: '/subscription-requests', builder: (_, __) => const SubscriptionRequestsScreen()),
     GoRoute(path: '/assignments', builder: (_, __) => const AssignmentsScreen()),
     GoRoute(path: '/export', builder: (_, __) => const ExportScreen()),
     GoRoute(path: '/pack', builder: (_, __) => const PackScreen()),

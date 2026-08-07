@@ -1,0 +1,16 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond arrondi sombre -->
+  <rect x="0" y="0" width="512" height="512" rx="96" ry="96" fill="#15151f"/>
+
+  <!-- Hampe verticale bleue (colonne, comme pour K/E/A) -->
+  <line x1="176" y1="120" x2="176" y2="392" stroke="#3E6BF6" stroke-width="46" stroke-linecap="round"/>
+
+  <!-- Diagonale rouge : sommet de la hampe vers l'angle extérieur du bec -->
+  <line x1="176" y1="120" x2="330" y2="180" stroke="#EA4335" stroke-width="46" stroke-linecap="round"/>
+
+  <!-- Diagonale verte : angle extérieur du bec revenant vers la hampe -->
+  <line x1="330" y1="180" x2="176" y2="256" stroke="#34A853" stroke-width="46" stroke-linecap="round"/>
+
+  <!-- Point jaune terminal, écho du point final du K, E et A -->
+  <circle cx="330" cy="180" r="34" fill="#FBBC05"/>
+</svg>

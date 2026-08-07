@@ -2854,4 +2854,69 @@ Audit complet des 4 apps (Kassa, Proprio, Super Admin, Admin Dashboard) : UI, UX
 
 ---
 
+### Session 07/08/2026 - Refonte du système d'abonnement (5 Formules)
+
+#### Demande utilisateur
+Refonte complète du système d'abonnement de Yabisso Kassa :
+1. Passer de 4 à 5 formules :
+   - Débutant : 2 500 FCFA / 25 produits
+   - Micro : 5 000 FCFA / 50 produits
+   - Basique : 10 000 FCFA / 75 produits (+ Analyse des ventes, Dépenses)
+   - Premium : 20 000 FCFA / 100 produits (+ Commandes à distance)
+   - Illimitée : 25 000 FCFA / Produits illimités (+ Accès total)
+2. Toutes les fonctionnalités et écrans doivent rester visibles (pas de masquage).
+3. Bloquer l'accès avec dialogue d'upgrade lors d'un clic sur une fonctionnalité non autorisée :
+   > "Cette fonctionnalité n'est pas disponible avec votre abonnement actuel. Veuillez passer à une formule supérieure pour y accéder."
+4. Bouton **Commandes** placé dans l'en-tête de la page Vente entre le logo Yabisso Kassa et le bouton Scanner.
+5. Gestion centralisée des permissions (`PermissionService`).
+6. Contrôle strict de la limite produits avant chaque création.
+7. Enregistrement en temps réel dans `fichiers/chat.md`.
+
+#### Plan créé
+- Fichier [implementation_plan.md](file:///C:/Users/Utilisateur/.gemini/antigravity-ide/brain/b37bf974-4145-4bec-b2a2-685717d8a6da/implementation_plan.md) généré.
+- En attente de validation par l'utilisateur.
+
+---
+
+### Session 07/08/2026 - Analyse de Sécurité (App Kassa, Proprio, Super Admin, Admin Dashboard)
+
+#### Demande utilisateur
+Faire l'analyse de l'application et tester la sécurité de l'app Kassa, Proprio, Super Admin et Admin Dashboard.
+
+#### Résultat de l'Audit de Sécurité
+Rapport complet généré dans [security_audit.md](file:///C:/Users/Utilisateur/.gemini/antigravity-ide/brain/b37bf974-4145-4bec-b2a2-685717d8a6da/security_audit.md).
+
+**Synthèse des constats :**
+1. 🔴 **Forgeage Voucher Offline/Points (SEC-01)** : Le 3ème bloc des codes `OFF-XXXX-XXXX` et `PTS-XXXX-XXXX-XXXX` n'est pas signé cryptographiquement. Un utilisateur peut générer un code offline valide en calculant `hashBoutiqueId`. -> *Recommandation: signer avec HMAC-SHA256.*
+2. 🟠 **Validation Commande Wi-Fi (SEC-02)** : Endpoint `POST /api/orders/validate` du hotspot local non authentifié. -> *Recommandation: réserver au POS interne ou exiger auth.*
+3. 🟡 **Clés API par défaut (SEC-03)** : Fallback `yabisso-admin-2026` si les variables d'environnement ne sont pas définies sur le serveur Node. -> *Recommandation: refuser le démarrage en production sans variables d'env.*
+4. ✅ **Points Forts** : Hachage `bcrypt` des PINs vendeurs, tokens 256-bit `Random.secure()` pour la connexion Proprio, verrouillage auto 5s du pointage.
+
+---
+
+### Session 07/08/2026 - Backup Git + Clarification des Scénarios
+
+#### 1. Backup Git Effectué avec Succès ✅
+- **Submodule `yabisso_kassa`** : Commit `c8f9ecf` (18 fichiers modifiés) -> Push GitHub OK
+- **Dépôt principal `Kassa`** : Commit `ad7383a` -> Push GitHub OK (`https://github.com/BENsidneykokolo/Kassa.git`)
+
+#### 2. Clarification des Scénarios Utilisateur
+1. **Vouchers (Génération & Validation)** :
+   - Les vouchers générés depuis le Dashboard Admin (Online `YAB-`, Offline `OFF-`, Points `PTS-`) doivent être validés à 100% dans Yabisso Kassa en mode en ligne et hors ligne.
+   - Intégration d'une signature déterministe synchronisée entre le serveur de génération et l'application caisse.
+
+2. **Hotspot Wi-Fi Local 100% Offline (Catalogue Client & Fast Checkout)** :
+   - Rendre le serveur Hotspot (`LocalServerService` & `CatalogHtml`) **100% autonomes sans Internet**.
+   - Suppression de tout appel externe (CDNs, Google Fonts distants) pour un chargement instantané en local.
+   - Prise en charge complète des tests Captive Portal Android & iOS (`generate_204`, `captive.apple.com`).
+   - Permettre aux clients de naviguer, choisir les produits et envoyer la commande au POS Kassa directement via le réseau Wi-Fi local sans donnée mobile.
+
+3. **Clés API Admin** :
+   - Sécuriser et harmoniser les clés API entre l'Admin Dashboard et Yabisso Kassa en s'assurant que toutes les applications fonctionnent sans interruption.
+
+---
+
 *Ce fichier est mis à jour en temps réel pendant nos échanges.*
+
+
+

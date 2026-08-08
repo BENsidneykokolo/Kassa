@@ -24,6 +24,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
   String _confirmPin = '';
   String _selectedRole = 'admin';
   late AnimationController _shakeController;
+  int _failedAttempts = 0;
+  bool _isLocked = false;
 
   static const _primary = AppColors.primaryGreen;
   static const _bg = AppColors.background;
@@ -52,6 +54,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
   }
 
   void _onKeyPress(String key) {
+    if (_isLocked) return;
     setState(() {
       _pinError = false;
       if (key == 'back') {
@@ -85,9 +88,28 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
       _login();
     } else {
       if (await AuthService.instance.verifyPin(_selectedAdmin!, _pin)) {
+        _failedAttempts = 0;
         _login();
       } else {
-        setState(() { _pinError = true; _pin = ''; });
+        _failedAttempts++;
+        if (_failedAttempts >= 5) {
+          setState(() {
+            _isLocked = true;
+            _pinError = true;
+            _pin = '';
+          });
+          Future.delayed(const Duration(seconds: 30), () {
+            if (mounted) {
+              setState(() {
+                _isLocked = false;
+                _failedAttempts = 0;
+                _pinError = false;
+              });
+            }
+          });
+        } else {
+          setState(() { _pinError = true; _pin = ''; });
+        }
         _shakeController.forward(from: 0);
       }
     }
@@ -126,7 +148,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
       if (mounted) {
         setState(() => _loading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur inscription: $e'), backgroundColor: AppColors.primaryRed),
+          const SnackBar(content: Text('Une erreur est survenue. Veuillez réessayer.'), backgroundColor: AppColors.primaryRed),
         );
       }
     }
@@ -157,7 +179,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
       if (mounted) {
         setState(() => _loading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur connexion: $e'), backgroundColor: AppColors.primaryRed),
+          const SnackBar(content: Text('Une erreur est survenue. Veuillez réessayer.'), backgroundColor: AppColors.primaryRed),
         );
       }
     }
@@ -328,10 +350,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
             child: DropdownButton<String>(
               value: _selectedRole,
               isExpanded: true,
-              items: Admin.roles.map((r) => DropdownMenuItem(
-                value: r,
-                child: Text(Admin.roleLabels[r] ?? r),
-              )).toList(),
+              items: const [
+                DropdownMenuItem(value: 'admin', child: Text('Administrateur')),
+                DropdownMenuItem(value: 'viewer', child: Text('Observateur')),
+              ],
               onChanged: (v) => setState(() => _selectedRole = v ?? 'admin'),
             ),
           ),

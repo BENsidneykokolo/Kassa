@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Network Security Config pour Yabisso Admin Dashboard
+  
+  - Cleartext refusé par défaut (pas de serveur local)
+  - HTTPS obligatoire pour toutes les connexions (Firebase, APIs)
+  - Trust anchors : système CA uniquement
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

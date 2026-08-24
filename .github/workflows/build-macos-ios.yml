@@ -1,0 +1,64 @@
+name: Build macOS and iOS
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'yabisso_kassa/**'
+      - '.github/workflows/build-macos-ios.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: yabisso_kassa
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Verify Flutter installation
+        run: flutter --version
+
+      - name: Build macOS
+        run: flutter build macos --release
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: yabisso-kassa-macos
+          path: yabisso_kassa/build/macos/Build/Products/Release/yabisso_kassa.app
+          retention-days: 30
+
+      - name: Build iOS (no codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: Upload iOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: yabisso-kassa-ios
+          path: yabisso_kassa/build/ios/iphoneos/Runner.app
+          retention-days: 30
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            yabisso_kassa/build/
+          retention-days: 7

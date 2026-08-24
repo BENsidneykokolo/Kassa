@@ -4,7 +4,7 @@ class VoucherGeneratorService {
   static const _chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   static const _planChars = {'MICRO': 'M', 'BASIC': 'B', 'PREMIUM': 'P', 'UNLIMITED': 'U'};
 
-  static String _hashId(String id) {
+  static String hashId(String id) {
     int hash = 0;
     for (var i = 0; i < id.length; i++) {
       hash = ((hash << 5) - hash) + id.codeUnitAt(i);
@@ -20,7 +20,7 @@ class VoucherGeneratorService {
     return result;
   }
 
-  static String _randomChars(int length) {
+  static String randomChars(int length) {
     final rng = Random();
     return List.generate(length, (_) => _chars[rng.nextInt(_chars.length)]).join();
   }
@@ -29,24 +29,24 @@ class VoucherGeneratorService {
   /// businessType: 'boutique', 'restaurant', 'hotel'
   /// businessId: the full ID like B-4567-JP, R-1234-MK, H-5678-AB
   static String generateOfflineVoucher(String businessType, String businessId, String plan) {
-    final hash = _hashId(businessId);
+    final hash = hashId(businessId);
     final planChar = _planChars[plan] ?? 'B';
-    final random = _randomChars(3);
+    final random = randomChars(3);
     return 'OFF-$hash-$planChar$random';
   }
 
   /// Generate a points voucher code
   static String generatePointsVoucher(String businessType, String businessId, int points) {
-    final hash = _hashId(businessId);
+    final hash = hashId(businessId);
     final hexPoints = points.toRadixString(16).toUpperCase().padLeft(3, '0');
-    final check = _randomChars(2);
+    final check = randomChars(2);
     return 'PTS-$hash-$hexPoints-$check';
   }
 
   /// Generate an online voucher code (not tied to any boutique)
   static String generateOnlineVoucher() {
-    final part1 = _randomChars(4);
-    final part2 = _randomChars(4);
+    final part1 = randomChars(4);
+    final part2 = randomChars(4);
     return 'YAB-$part1-$part2';
   }
 }

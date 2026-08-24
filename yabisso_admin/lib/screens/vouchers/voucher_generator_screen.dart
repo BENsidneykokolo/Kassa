@@ -73,7 +73,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('subscription_requests')
-          .where('status', isIn: ['accepted', 'rejected'])
+          .where('status', whereIn: ['accepted', 'rejected'])
           .orderBy('processedAt', descending: true)
           .limit(20)
           .get();
@@ -131,9 +131,9 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
         return;
       }
       final points = int.parse(pointsText);
-      final hash = VoucherGeneratorService._hashId(businessId);
+      final hash = VoucherGeneratorService.hashId(businessId);
       final hexPoints = points.toRadixString(16).toUpperCase().padLeft(4, '0');
-      final check = VoucherGeneratorService._randomChars(2);
+      final check = VoucherGeneratorService.randomChars(2);
       code = 'PTS-PRO-$hash-$hexPoints-$check';
       _saveToHistory('PTS-PRO', code);
     } else if (_voucherMode == 'subscription') {
@@ -144,8 +144,8 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
         );
         return;
       }
-      final hash = VoucherGeneratorService._hashId(businessId);
-      final random = VoucherGeneratorService._randomChars(4);
+      final hash = VoucherGeneratorService.hashId(businessId);
+      final random = VoucherGeneratorService.randomChars(4);
       code = 'OFF-PRO-$hash-$random';
       _saveToHistory('OFF-PRO', code);
     } else {
@@ -452,7 +452,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-      child: const Row(
+      child: Row(
         children: [
           _buildModeButton('En ligne', 'online'),
           _buildModeButton('Hors ligne', 'subscription'),

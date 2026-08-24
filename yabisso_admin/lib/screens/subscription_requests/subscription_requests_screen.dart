@@ -179,7 +179,7 @@ class _SubscriptionRequestsScreenState extends State<SubscriptionRequestsScreen>
           controller: _tabController,
           indicatorColor: Colors.white,
           labelColor: Colors.white,
-          unselectedColor: Colors.white70,
+          unselectedLabelColor: Colors.white70,
           tabs: const [
             Tab(text: 'En attente'),
             Tab(text: 'Historique'),

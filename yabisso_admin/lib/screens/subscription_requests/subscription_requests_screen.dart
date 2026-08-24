@@ -449,10 +449,11 @@ class _SubscriptionRequestsScreenState extends State<SubscriptionRequestsScreen>
 
   String _getPlanPrice(String plan) {
     switch (plan) {
-      case 'Micro': return '5 000 FCFA/mois';
-      case 'Basic': return '10 000 FCFA/mois';
-      case 'Premium': return '20 000 FCFA/mois';
-      case 'Illimité': return '50 000 FCFA/mois';
+      case 'Débutant': return '1 000 FCFA/mois';
+      case 'Micro': return '2 000 FCFA/mois';
+      case 'Basic': return '3 000 FCFA/mois';
+      case 'Premium': return '5 000 FCFA/mois';
+      case 'Illimité': return '10 000 FCFA/mois';
       default: return '';
     }
   }

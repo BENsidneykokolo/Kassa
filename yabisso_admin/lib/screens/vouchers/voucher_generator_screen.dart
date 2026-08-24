@@ -27,10 +27,11 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
   List<Map<String, dynamic>> _requestHistory = [];
 
   final _plans = {
-    'MICRO': 5000,
-    'BASIC': 10000,
-    'PREMIUM': 25000,
-    'UNLIMITED': 50000,
+    'DEBUTANT': 1000,
+    'MICRO': 2000,
+    'BASIC': 3000,
+    'PREMIUM': 5000,
+    'UNLIMITED': 10000,
   };
 
   final _quickPoints = [1000, 2000, 3000, 5000];
@@ -114,6 +115,27 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     if (_voucherMode == 'online') {
       code = VoucherGeneratorService.generateOnlineVoucher();
       _saveToHistory('YAB', code);
+    } else if (_voucherMode == 'proprio') {
+      final businessId = _businessIdController.text.trim();
+      if (businessId.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Veuillez entrer l\'ID du commerce'), backgroundColor: AppColors.primaryRed),
+        );
+        return;
+      }
+      final pointsText = _pointsController.text.trim();
+      if (pointsText.isEmpty || int.tryParse(pointsText) == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Veuillez entrer un montant de points valide'), backgroundColor: AppColors.primaryRed),
+        );
+        return;
+      }
+      final points = int.parse(pointsText);
+      final hash = VoucherGeneratorService._hashId(businessId);
+      final hexPoints = points.toRadixString(16).toUpperCase().padLeft(4, '0');
+      final check = VoucherGeneratorService._randomChars(2);
+      code = 'PTS-PRO-$hash-$hexPoints-$check';
+      _saveToHistory('PTS-PRO', code);
     } else if (_voucherMode == 'subscription') {
       final businessId = _businessIdController.text.trim();
       if (businessId.isEmpty) {
@@ -122,8 +144,10 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
         );
         return;
       }
-      code = VoucherGeneratorService.generateOfflineVoucher(_businessType, businessId, _selectedPlan);
-      _saveToHistory('OFF', code);
+      final hash = VoucherGeneratorService._hashId(businessId);
+      final random = VoucherGeneratorService._randomChars(4);
+      code = 'OFF-PRO-$hash-$random';
+      _saveToHistory('OFF-PRO', code);
     } else {
       final businessId = _businessIdController.text.trim();
       if (businessId.isEmpty) {
@@ -218,6 +242,8 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
               _buildDurationSelector(),
             ] else if (_voucherMode == 'subscription') ...[
               _buildPlanSelector(),
+            ] else if (_voucherMode == 'proprio') ...[
+              _buildPointsInput(),
             ] else if (_voucherMode == 'requests') ...[
               _buildSubscriptionRequests(),
             ] else ...[
@@ -426,11 +452,12 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-      child: Row(
+      child: const Row(
         children: [
           _buildModeButton('En ligne', 'online'),
           _buildModeButton('Hors ligne', 'subscription'),
           _buildModeButton('Points', 'points'),
+          _buildModeButton('Proprio', 'proprio'),
           _buildModeButton('Demandes', 'requests'),
         ],
       ),
@@ -948,10 +975,11 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
 
   String _getPlanPrice(String plan) {
     switch (plan.toLowerCase()) {
-      case 'micro': return '5 000 FCFA/mois';
-      case 'basic': return '10 000 FCFA/mois';
-      case 'premium': return '25 000 FCFA/mois';
-      case 'illimité': case 'unlimited': return '50 000 FCFA/mois';
+      case 'débutant': case 'debutant': return '1 000 FCFA/mois';
+      case 'micro': return '2 000 FCFA/mois';
+      case 'basic': case 'basique': return '3 000 FCFA/mois';
+      case 'premium': return '5 000 FCFA/mois';
+      case 'illimité': case 'unlimited': return '10 000 FCFA/mois';
       default: return '';
     }
   }
@@ -1175,9 +1203,10 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
     final type = item['type'] ?? 'OFF';
     final isYab = type == 'YAB';
     final isPts = type == 'PTS';
-    final color = isYab ? AppColors.primaryBlue : (isPts ? AppColors.primaryAmber : _primary);
-    final label = isYab ? 'En ligne' : (isPts ? 'Points' : 'Hors ligne');
-    final detail = isYab ? '${item['plan'] ?? ''} • $_selectedDuration j' : (isPts ? '${item['points'] ?? ''} pts' : (item['plan'] ?? ''));
+    final isPro = type.startsWith('PTS-PRO') || type == 'OFF-PRO';
+    final color = isYab ? AppColors.primaryBlue : (isPts ? AppColors.primaryAmber : (isPro ? AppColors.primaryRed : _primary));
+    final label = isYab ? 'En ligne' : (isPts ? 'Points' : (isPro ? 'Proprio' : 'Hors ligne'));
+    final detail = isYab ? '${item['plan'] ?? ''} • $_selectedDuration j' : (isPts || isPro ? '${item['points'] ?? ''} pts' : (item['plan'] ?? ''));
 
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -1191,7 +1220,7 @@ class _VoucherGeneratorScreenState extends State<VoucherGeneratorScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
-            child: Icon(isYab ? Icons.language : (isPts ? Icons.stars : Icons.card_membership), color: color, size: 18),
+            child: Icon(isYab ? Icons.language : (isPts ? Icons.stars : (isPro ? Icons.business : Icons.card_membership)), color: color, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(

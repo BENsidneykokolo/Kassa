@@ -1,0 +1,3 @@
+[submodule "yabisso_kassa"]
+	path = yabisso_kassa
+	url = https://github.com/BENsidneykokolo/yabisso-kassa.git

@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: macos-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     defaults:
       run:
         working-directory: yabisso_kassa
@@ -37,7 +37,7 @@ jobs:
         run: flutter build macos --release
 
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: yabisso-kassa-macos
           path: build/macos/Build/Products/Release/yabisso_kassa.app
@@ -47,7 +47,7 @@ jobs:
         run: flutter build ios --release --no-codesign
 
       - name: Upload iOS artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: yabisso-kassa-ios
           path: build/ios/iphoneos/Runner.app
@@ -55,7 +55,7 @@ jobs:
 
       - name: Upload build logs
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: build-logs
           path: |

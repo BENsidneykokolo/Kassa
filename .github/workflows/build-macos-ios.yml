@@ -41,29 +41,21 @@ jobs:
       - name: Build macOS
         run: flutter build macos --release
 
-      - name: Debug - List macOS build output
-        if: always()
-        run: find build/macos -maxdepth 5 -print
-
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: yabisso-kassa-macos
-          path: build/macos/Build/Products/Release/kassa.app
+          path: yabisso_kassa/build/macos/Build/Products/Release/kassa.app
           retention-days: 30
 
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
 
-      - name: Debug - List iOS build output
-        if: always()
-        run: find build/ios -maxdepth 5 -print
-
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: yabisso-kassa-ios
-          path: build/ios/iphoneos/Runner.app
+          path: yabisso_kassa/build/ios/iphoneos/Runner.app
           retention-days: 30
 
       - name: Upload build logs
@@ -72,5 +64,5 @@ jobs:
         with:
           name: build-logs
           path: |
-            build/
+            yabisso_kassa/build/
           retention-days: 7

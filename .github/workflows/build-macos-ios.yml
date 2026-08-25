@@ -41,6 +41,10 @@ jobs:
       - name: Build macOS
         run: flutter build macos --release
 
+      - name: Debug - List macOS build output
+        if: always()
+        run: find build/macos -maxdepth 5 -print
+
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
@@ -51,14 +55,9 @@ jobs:
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
 
-      - name: List built artifacts
-        run: |
-          echo "=== macOS ==="
-          find build/macos -name "*.app" -type d 2>/dev/null || true
-          echo "=== iOS ==="
-          find build/ios -name "*.app" -type d 2>/dev/null || true
-          echo "=== All build contents ==="
-          ls -la build/
+      - name: Debug - List iOS build output
+        if: always()
+        run: find build/ios -maxdepth 5 -print
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v4

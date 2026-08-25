@@ -8,21 +8,23 @@ on:
       - '.github/workflows/build-macos-ios.yml'
   workflow_dispatch:
 
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   build:
     runs-on: macos-latest
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     defaults:
       run:
         working-directory: yabisso_kassa
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
-      - name: Install Flutter dependencies
+      - name: Install Flutter
         run: |
+          brew untap aws/tap || true
           brew install --cask flutter
           flutter --version
           dart --version

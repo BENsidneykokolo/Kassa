@@ -45,11 +45,20 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: yabisso-kassa-macos
-          path: build/macos/Build/Products/Release/yabisso_kassa.app
+          path: build/macos/Build/Products/Release/Runner.app
           retention-days: 30
 
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
+
+      - name: List built artifacts
+        run: |
+          echo "=== macOS ==="
+          find build/macos -name "*.app" -type d 2>/dev/null || true
+          echo "=== iOS ==="
+          find build/ios -name "*.app" -type d 2>/dev/null || true
+          echo "=== All build contents ==="
+          ls -la build/
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v4

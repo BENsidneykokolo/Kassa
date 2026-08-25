@@ -19,23 +19,10 @@ jobs:
         working-directory: yabisso_kassa
 
     steps:
-      - name: Clean runner workspace
-        run: |
-          cd /Users/runner/work/Kassa/Kassa 2>/dev/null || true
-          git config --local --remove-section submodule.yabisso_admin_dashboard 2>/dev/null || true
-          rm -rf .git/modules/yabisso_admin_dashboard 2>/dev/null || true
-          git rm --cached yabisso_admin_dashboard 2>/dev/null || true
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           submodules: false
-
-      - name: Clean up residual submodule config
-        run: |
-          git config --local --remove-section submodule.yabisso_admin_dashboard || true
-          rm -rf .git/modules/yabisso_admin_dashboard || true
-          git rm --cached yabisso_admin_dashboard || true
 
       - name: Install Flutter
         run: |

@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: yabisso-kassa-macos
-          path: build/macos/Build/Products/Release/Runner.app
+          path: build/macos/Build/Products/Release/kassa.app
           retention-days: 30
 
       - name: Build iOS (no codesign)
